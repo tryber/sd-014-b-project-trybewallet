@@ -186,6 +186,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
         exchangeRates: mockData,
       },
     ];
+
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense);
 
     userEvent.type(valueInput, '20');
@@ -226,7 +227,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
     expect(totalField).toContainHTML('187.12');
   });
 });
-/*
+
 describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
@@ -335,4 +336,3 @@ describe('10 - Crie um botão para deletar uma despesa da tabela contendo as seg
     expect(totalField).toContainHTML('131.37');
   });
 });
- */

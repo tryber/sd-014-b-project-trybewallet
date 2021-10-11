@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addExpense, addExpense as addExpenseAction } from '../actions';
+import { addExpense as addExpenseAction } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Wallet extends React.Component {
       description: '',
       currency: 'USD',
       payment: 'Dinheiro',
-      tag: 'Dinheiro',
+      tag: 'Alimentação',
       total,
     }
   }
@@ -131,6 +132,7 @@ class Wallet extends React.Component {
             Adicionar Despesa
           </button>
         </form>
+        <Table />
       </div>
 
     );
