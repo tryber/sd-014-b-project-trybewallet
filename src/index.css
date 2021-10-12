@@ -49,3 +49,41 @@ code {
   width: 80%;
   align-self: center;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+header img {
+  width: 7%;
+  margin-left: 15px;
+}
+
+.container-title {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.container-title h4 {
+  align-self: center;
+  margin-left: 15px;
+}
+
+.container-infos {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container-infos span {
+  align-self: center;
+  margin-right: 10px;
+}
+
+.container-infos div {
+  display: flex;
+  justify-content: center;
+}
