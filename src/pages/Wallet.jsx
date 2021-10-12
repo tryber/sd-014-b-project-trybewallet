@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addExpense as addExpenseAction, editExpense, editExpense as editExpenseAction } from '../actions';
+import { addExpense as addExpenseAction, editExpense as editExpenseAction } from '../actions';
 import Table from '../components/Table';
 
 class Wallet extends React.Component {
@@ -48,7 +48,6 @@ class Wallet extends React.Component {
       const { id, description, tag, method, value, currency } = item;
       this.setState({ id, description, tag, method, value, currency });
     } else {
-      console.log('complete');
       const { id, description, tag, method, value, currency } = this.state;
       editExpense({ id, description, tag, method, value, currency });
     }

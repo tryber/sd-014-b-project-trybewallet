@@ -11,13 +11,3 @@ function user(state = initialState, action) {
 }
 
 export default user;
-
-/* {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: []
-  }
-} */
