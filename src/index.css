@@ -87,3 +87,9 @@ header img {
   display: flex;
   justify-content: center;
 }
+
+.form-expense {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
