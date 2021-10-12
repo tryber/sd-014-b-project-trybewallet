@@ -11,3 +11,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  height: 100vh;
+}
+
+.center {
+  height: 100vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.center form {
+  height: 320px;
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+}
+
+.center form img {
+  align-self: center;
+  margin-bottom: 30px;
+  width: 22%;
+}
+
+.center form input {
+  width: 80%;
+  margin: 5px;
+  align-self: center;
+}
+
+.center form button {
+  margin-top: 20px;
+  width: 80%;
+  align-self: center;
+}
