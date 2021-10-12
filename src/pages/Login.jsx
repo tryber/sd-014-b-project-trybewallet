@@ -9,6 +9,7 @@ function Login(props) {
 
   const handleSubmit = () => {
     const { history, dispatchValues } = props;
+    console.log(values);
     dispatchValues(values);
     history.push('/carteira');
   };

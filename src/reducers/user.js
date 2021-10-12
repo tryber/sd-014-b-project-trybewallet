@@ -3,10 +3,6 @@ const INITIAL_STATE = {
   user: {
     email: '',
   },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 function userReducer(state = INITIAL_STATE, action) {
@@ -14,9 +10,8 @@ function userReducer(state = INITIAL_STATE, action) {
   case 'LOGIN':
     return {
       ...state,
-      user: {
-        email: action.payload,
-      },
+      email: action.payload.userEmail,
+      password: action.payload.userPassword,
     };
   default:
     return state;
