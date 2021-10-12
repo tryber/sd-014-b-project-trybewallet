@@ -9,10 +9,10 @@ function Login(props) {
 
   const handleSubmit = () => {
     const { history, dispatchValues } = props;
-    console.log(values);
     dispatchValues(values);
     history.push('/carteira');
   };
+
   return (
     <div className="center">
       <form className="shadow p-3 mb-5 bg-body rounded">
