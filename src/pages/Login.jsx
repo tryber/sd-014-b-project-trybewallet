@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import useForm from '../components/useForm';
+import userLogin from '../actions/index';
 
 function Login(props) {
-  const [{ values }, handleChange] = useForm();
-  const { history } = props;
+  const [{ values }, handleChange, handleDisabled] = useForm();
+
+  const handleSubmit = () => {
+    const { history, dispatchValues } = props;
+    dispatchValues(values);
+    history.push('/carteira');
+  };
   return (
     <div className="center">
       <form className="shadow p-3 mb-5 bg-body rounded">
@@ -26,14 +33,15 @@ function Login(props) {
           type="password"
           name="userPassword"
           data-testid="password-input"
+          placeholder="Digite sua Senha"
           value={ values.userPassword }
           onChange={ handleChange }
-          placeholder="Digite sua Senha"
         />
         <button
           type="button"
           className="btn btn-primary"
-          onClick={ () => history.push('/carteira') }
+          onClick={ () => handleSubmit() }
+          disabled={ handleDisabled() }
         >
           Entrar
         </button>
@@ -42,10 +50,13 @@ function Login(props) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchValues: (state) => dispatch(userLogin(state)) });
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  dispatchValues: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
