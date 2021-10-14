@@ -2,6 +2,10 @@
 import React from 'react';
 // Requisito 2: verificação de campos
 import { Link } from 'react-router-dom';
+// Requisito 3: salvar o estado global do login
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setEmailUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -19,6 +23,12 @@ class Login extends React.Component {
   handleInput({ target: { name, value } }) {
     this.setState({ [name]: value });
     this.inputValidation();
+  }
+
+  handleEmailToStoreButton() {
+    const { email } = this.state;
+    const { setEmailAction } = this.props;
+    setEmailAction(email);
   }
 
   inputValidation() {
@@ -63,7 +73,14 @@ class Login extends React.Component {
             />
           </label>
           <Link to="/carteira">
-            <button type="button" disabled={ buttonDisabled }>Entrar</button>
+            <button
+              type="button"
+              disabled={ buttonDisabled }
+              onClick={ this.handleEmailToStoreButton() }
+            >
+              Entrar
+
+            </button>
           </Link>
         </form>
       </div>
@@ -71,4 +88,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setEmailAction: (payload) => dispatch(setEmailUser(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  setEmailAction: PropTypes.func.isRequired,
+};
