@@ -1,14 +1,19 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
+import { SEND_LOGIN } from '../actions';
+
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
-const userReducer = (state = INITIAL_STATE) => state;
+const userReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case SEND_LOGIN:
+    return {
+      email: action.email,
+    };
+  default:
+    return state;
+  }
+};
 
 export default userReducer;
