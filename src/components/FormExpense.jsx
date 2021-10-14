@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 export default function FormExpense() {
+  const [allCoins, changeCoinsArray] = useState([]);
+
+  const fetchCurrency = async () => {
+    const getApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await getApi.json();
+    const coins = Object.keys(response).filter((currency) => currency !== 'USDT');
+    changeCoinsArray(coins);
+  };
+
+  useEffect(() => {
+    fetchCurrency();
+  }, []);
+
   return (
     <form>
       <label htmlFor="value">
@@ -16,7 +29,10 @@ export default function FormExpense() {
       </label>
       <label htmlFor="currency">
         Moeda:
-        <select id="currency">Moeda</select>
+        <select id="currency">
+          { allCoins.map((coin) => (
+            <option key={ coin } value={ coin }>{coin}</option>)) }
+        </select>
       </label>
       <label htmlFor="paymentMethod">
         Método de pagamento:
