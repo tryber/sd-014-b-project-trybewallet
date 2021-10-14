@@ -18,6 +18,7 @@ class Login extends React.Component {
 
     this.inputValidation = this.inputValidation.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleEmailToStoreButton = this.handleEmailToStoreButton.bind(this);
   }
 
   handleInput({ target: { name, value } }) {
