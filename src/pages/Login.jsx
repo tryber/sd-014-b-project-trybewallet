@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import useForm from '../components/useForm';
-import userLogin from '../actions/index';
+import { userLogin } from '../actions/index';
 
 function Login(props) {
   const [{ values }, handleChange, handleDisabled] = useForm();
@@ -37,6 +37,7 @@ function Login(props) {
           placeholder="Digite sua Senha"
           value={ values.userPassword }
           onChange={ handleChange }
+          autoComplete="on"
         />
         <button
           type="button"
