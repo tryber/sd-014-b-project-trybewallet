@@ -1,4 +1,9 @@
+// Requisito 6
 import React, { Component } from 'react';
+// Requisito 7
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchApi } from '../actions';
 
 class Expenses extends Component {
   constructor() {
@@ -8,6 +13,11 @@ class Expenses extends Component {
     this.renderSelectCurrency = this.renderSelectCurrency.bind(this);
     this.renderSelectPayMethod = this.renderSelectPayMethod.bind(this);
     this.renderTag = this.renderTag.bind(this);
+  }
+
+  componentDidMount() {
+    const { getData } = this.props;
+    getData();
   }
 
   renderValue() {
@@ -29,11 +39,19 @@ class Expenses extends Component {
   }
 
   renderSelectCurrency() {
+    const { getDataCurrencies } = this.props;
     return (
       <label htmlFor="input-select-currency">
         Moeda
         <select id="input-select-currency">
-          <option>teste</option>
+          { Object.keys(getDataCurrencies).map((currencies, index) => (
+            <option
+              key={ index }
+              value={ currencies }
+            >
+              { currencies }
+            </option>
+          )) }
         </select>
       </label>
     );
@@ -80,4 +98,17 @@ class Expenses extends Component {
   }
 }
 
-export default Expenses;
+const mapDispatchToProps = (dispatch) => ({
+  getData: (state) => dispatch(fetchApi(state)),
+});
+
+const mapStateToProps = (state) => ({
+  getDataCurrencies: state.wallet.currencies,
+});
+
+Expenses.propTypes = {
+  getData: PropTypes.func.isRequired,
+  getDataCurrencies: PropTypes.shape().isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
