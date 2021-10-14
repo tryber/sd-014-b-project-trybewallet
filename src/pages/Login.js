@@ -7,8 +7,7 @@ import { sendLogin } from '../actions';
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 const isEmailValid = (email) => {
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  if (regexEmail.test(email)) return true;
-  return false;
+  return regexEmail.test(email) === true;
 };
 
 function Login({ history, dispatchSetValue }) {
