@@ -1,3 +1,4 @@
+// Iniciando o projeto, vamos com tudo
 import React from 'react';
 
 class Wallet extends React.Component {
