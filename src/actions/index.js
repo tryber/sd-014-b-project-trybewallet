@@ -26,8 +26,10 @@ export const requestApiError = (payload) => ({
   payload,
 });
 
+// Requisito 8
+const endpoint = 'https://economia.awesomeapi.com.br/json/all';
+
 export const fetchApi = () => (dispatch) => {
-  const endpoint = 'https://economia.awesomeapi.com.br/json/all';
   dispatch(requestApi());
   fetch(endpoint)
     .then((result) => result.json())
@@ -36,4 +38,34 @@ export const fetchApi = () => (dispatch) => {
       dispatch(requestApiSuccess(data));
     })
     .catch((error) => dispatch(requestApiError(error)));
+};
+
+// Requisito 8
+export const EXPENSES_USER = 'EXPENSES_USER';
+export const EXPENSES_USER_SUCCESS = 'EXPENSES_USER_SUCCESS';
+export const EXPENSES_USER_ERROR = 'EXPENSES_USER_ERROR';
+
+export const expenseUser = () => ({
+  type: EXPENSES_USER,
+});
+
+export const expenseUserSuccess = (expenseStateInfo, id, dataApi) => ({
+  type: EXPENSES_USER_SUCCESS,
+  expenseStateInfo,
+  id,
+  dataApi,
+});
+
+export const expenseUserError = (payload) => ({
+  type: EXPENSES_USER_ERROR,
+  payload,
+});
+
+export const expenseApi = (state, id) => (dispatch) => {
+  dispatch(expenseUser());
+
+  fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => dispatch(expenseUserSuccess(state, id, data)))
+    .catch((error) => dispatch(expenseUserError(error)));
 };

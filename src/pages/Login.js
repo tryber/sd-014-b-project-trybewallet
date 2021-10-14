@@ -22,8 +22,7 @@ class Login extends React.Component {
   }
 
   handleInput({ target: { name, value } }) {
-    this.setState({ [name]: value });
-    this.inputValidation();
+    this.setState({ [name]: value }, () => this.inputValidation());
   }
 
   handleEmailToStoreButton() {
@@ -35,9 +34,9 @@ class Login extends React.Component {
   inputValidation() {
     const { email, password } = this.state;
     const emailValidation = /(.*)@(.*).com/;
-    const passwordMinLength = 5;
+    const passwordMinLength = 6;
 
-    if (emailValidation.test(email) && passwordMinLength <= password.length) {
+    if (emailValidation.test(email) && password.length >= passwordMinLength) {
       this.setState({
         buttonDisabled: false,
       });
