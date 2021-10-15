@@ -9,19 +9,20 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+    this.statusButton = this.statusButton.bind(this);
   }
 
-  statusButtonFunction = (event) => {
+  statusButton(event) {
     const minNumber = 5;
     this.setState({
       [event.target.name]: event.target.value,
-    })
+    });
     const { email, password } = this.state;
     // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
     const regexEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
     const passwordValid = password.length >= minNumber;
     if (regexEmail && passwordValid) {
-      this.setState({ statusButton: false, })
+      this.setState({ statusButton: false });
     }
   }
 
@@ -35,7 +36,7 @@ class Login extends React.Component {
           placeholder="Digite seu e-mail"
           data-testid="email-input"
           value={ email }
-          onChange={ this.statusButtonFunction }
+          onChange={ this.statusButton }
         />
         <input
           type="password"
@@ -43,7 +44,7 @@ class Login extends React.Component {
           placeholder="Digite sua senha"
           data-testid="password-input"
           value={ password }
-          onChange={ this.statusButtonFunction }
+          onChange={ this.statusButton }
         />
         <button
           type="button"
