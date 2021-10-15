@@ -41,11 +41,13 @@ class Login extends React.Component {
           <input
             data-testid="email-input"
             type="email"
+            autoComplete="username"
             onChange={ this.handleChange }
           />
           <input
             data-testid="password-input"
             type="password"
+            autoComplete="current-password"
             onChange={ this.handleChange }
           />
           <Link to="/carteira">
