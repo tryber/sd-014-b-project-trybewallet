@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { saveEmail } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.emailValidation = this.emailValidation.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // função indicada pelo Michael Caxias no slack
@@ -25,6 +28,11 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { email } = this.state;
+    console.log(email);
   }
 
   render() {
@@ -52,6 +60,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !validation }
+          onClick={ this.handleClick }
         >
           {' '}
           Entrar
@@ -63,4 +72,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  email: (email) => dispatch(saveEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
