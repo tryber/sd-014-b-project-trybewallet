@@ -1,7 +1,5 @@
 // Coloque aqui suas actions
 
-const ADD_USER = 'ADD_USER';
+export const ADD_USER_EMAIL = 'ADD_USER_EMAIL';
 
-const addUser = (user) => ({ type: ADD_USER, user });
-
-export default addUser;
+export const addUserEmail = (payload) => ({ type: ADD_USER_EMAIL, payload });
