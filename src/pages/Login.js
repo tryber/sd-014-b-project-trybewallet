@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.css';
-import { Container } from '@material-ui/core';
 
 class Login extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class Login extends React.Component {
     const { email, senha } = this.state;
     const MININUM_NUMBER = 6;
     return (
-      <Container maxWidth="sm">
+      <div>
         <div>
           <h2>Login</h2>
           <form>
@@ -64,7 +63,7 @@ class Login extends React.Component {
             </button>
           </form>
         </div>
-      </Container>
+      </div>
     );
   }
 }
