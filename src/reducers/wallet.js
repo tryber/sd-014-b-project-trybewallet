@@ -23,7 +23,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.currencies,
-    }
+    };
 
   default:
     return state;
