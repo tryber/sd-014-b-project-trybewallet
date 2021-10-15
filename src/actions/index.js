@@ -1,9 +1,15 @@
-const LOGIN = 'LOGIN';
-const GET_CURRENCY = 'GET_CURRENCY';
-const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
+export const LOGIN = 'LOGIN';
+export const GET_CURRENCY = 'GET_CURRENCY';
+export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const userLogin = (payload) => ({
   type: LOGIN,
+  payload,
+});
+
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
   payload,
 });
 

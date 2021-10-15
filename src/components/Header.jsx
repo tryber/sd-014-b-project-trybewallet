@@ -15,15 +15,11 @@ function Header(props) {
       </div>
 
       <div className="container-infos">
-        <span
-          data-testid="email-field"
-        >
+        <span data-testid="email-field">
           { `Email: ${userEmail}` }
         </span>
         <div>
-          <span
-            data-testid="total-field"
-          >
+          <span data-testid="total-field">
             Despesa Total:
             R$ 0,00
           </span>
