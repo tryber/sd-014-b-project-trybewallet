@@ -1,14 +1,10 @@
 import React from 'react';
 import Label from '../helpers/Label';
+import { login } from '../actions';
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    const { name } = props
-    this.state ={
-      [name]: '',
-    };
-};
+export class Login extends React.Component {
 
 handleChange = ({target: { name, value }}) => {
     this.setState({ [name]: value })
@@ -16,6 +12,7 @@ handleChange = ({target: { name, value }}) => {
 
   render() {
     const { handleChange } = this;
+    const { dispatchLogin } = this.props;
     return (
       <form>
         <Label 
@@ -30,15 +27,27 @@ handleChange = ({target: { name, value }}) => {
           name={'Password'} 
           type={'password'} 
           dataTestid={"password-input"} 
-          minlength="6" 
+          minlength="6"
           required={true}
           handleChange={handleChange} 
         />
         <br />
-        <button>Entrar</button>
+        <Link to={'/carteira'}> 
+          <button  
+          type="button" 
+          onClick={() => dispatchLogin(this.state.login)} 
+            >Entrar
+          </button>
+        </Link>
       </form>
       );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchLogin: (email) => {
+    return dispatch(login(email)) 
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Login);

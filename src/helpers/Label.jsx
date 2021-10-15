@@ -6,17 +6,18 @@ export default class Label extends Component {
     
     render() {
         const {name, type, dataTestid, minlength, required, handleChange } = this.props;
+        const tinyName = name.toLowerCase();
+        console.log(tinyName);
         return (
-            <label htmlFor={name}>
+            <label htmlFor={tinyName}>
                 {`${name}:`}
                 <input
-                    onChange={handleChange} 
-                    name={name} 
-                    type={type} 
-                    data-testid={dataTestid} 
-                    minlength={minlength}
-                    required={required} 
-                    onChange={handleChange}
+                  onChange={handleChange} 
+                  name={tinyName} 
+                  type={type}
+                  data-testid={dataTestid} 
+                  minlength={minlength}
+                  required={required}
                 />
             </label>
         )
