@@ -1,4 +1,11 @@
 // Coloque aqui suas actions
 
-export const TEST_ACTION = 'TEST_ACTION';
-export const ACTION_TEST = 'ACTION_TEST';
+export const LOGIN = 'LOGIN';
+
+export function userLogin(email, password) {
+  return {
+    type: LOGIN,
+    email,
+    password,
+  };
+}
