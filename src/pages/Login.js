@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { saveEmail } from '../actions';
 
 const PASSWORD_LIMIT = 6;
 
@@ -29,6 +32,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { emailToGlobalState } = this.props;
     return (
       <form>
         <label htmlFor="email-input">
@@ -54,6 +58,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !this.emailValidation(email) || password.length < PASSWORD_LIMIT }
+          onClick={ () => emailToGlobalState(email) }
         >
           Entrar
         </button>
@@ -62,4 +67,14 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  emailToGlobalState: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    emailToGlobalState: (email) => dispatch(saveEmail(email)),
+  }
+);
+
+export default connect(null, mapDispatchToProps)(Login);
