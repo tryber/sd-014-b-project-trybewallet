@@ -1,0 +1,32 @@
+form {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: .1rem;
+}
+
+input {
+  margin-bottom: .5rem;
+  border-radius: 2px;
+}
+
+.login {
+  margin-bottom: 2rem;
+}
+
+button {
+  background-color: rgb(88, 124, 245);
+  border-radius: 2px;
+  padding: .2rem;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
+  cursor:pointer;
+  transition: .4s;
+}
+
+button:disabled {
+  cursor: default;
+  filter:opacity(0.4)
+}
