@@ -21,11 +21,18 @@ function Input({ id, type, value, onChange, textLabel, dataTestId, className }) 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
   textLabel: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  dataTestId: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  dataTestId: PropTypes.string,
+  className: PropTypes.string,
+};
+
+Input.defaultProps = {
+  dataTestId: '',
+  className: '',
+  onChange: () => {},
+  value: '',
 };
 
 export default Input;
