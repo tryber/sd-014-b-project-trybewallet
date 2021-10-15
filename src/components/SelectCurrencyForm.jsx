@@ -10,11 +10,16 @@ class SelectCurrencyForm extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange, value, name } = this.props;
     return (
       <label htmlFor="currency-form-label">
         Moeda
-        <select id="currency-form-label">
+        <select
+          id="currency-form-label"
+          onChange={ onChange }
+          value={ value }
+          name={ name }
+        >
           {
             Object.keys(currencies)
               .filter((eachCoin) => eachCoin !== 'USDT')
@@ -38,6 +43,9 @@ const mapStateToProps = (state) => ({
 SelectCurrencyForm.propTypes = {
   dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
   currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null)(SelectCurrencyForm);

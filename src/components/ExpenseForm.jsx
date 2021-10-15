@@ -5,7 +5,35 @@ import PaymentMethodForm from './PaymentMethodForm';
 import CategoryOfExpenseForm from './CategoryOfExpenseForm';
 
 class ExpenseForm extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      expenseCategory: 'Alimentação',
+      paymentMethod: 'Dinheiro',
+      currencySelected: 'USD',
+      expense: '',
+      description: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { value, name } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
+    const {
+      expenseCategory,
+      paymentMethod,
+      currencySelected,
+      expense,
+      description } = this.state;
+
     return (
       <form>
         <label htmlFor="expense-form-label">
@@ -14,6 +42,8 @@ class ExpenseForm extends React.Component {
             type="text"
             name="expense"
             id="expense-form-label"
+            onChange={ this.handleChange }
+            value={ expense }
           />
         </label>
         <label htmlFor="description-form-label">
@@ -22,13 +52,27 @@ class ExpenseForm extends React.Component {
             type="text"
             name="description"
             id="description-form-label"
+            onChange={ this.handleChange }
+            value={ description }
           />
         </label>
-        <SelectCurrencyForm />
-        <PaymentMethodForm />
-        <CategoryOfExpenseForm />
+        <SelectCurrencyForm
+          onChange={ this.handleChange }
+          value={ currencySelected }
+          name="currencySelected"
+        />
+        <PaymentMethodForm
+          onChange={ this.handleChange }
+          value={ paymentMethod }
+          name="paymentMethod"
+        />
+        <CategoryOfExpenseForm
+          onChange={ this.handleChange }
+          value={ expenseCategory }
+          name="expenseCategory"
+        />
+        <button type="button">Adicionar despesa</button>
       </form>
-
     );
   }
 }
