@@ -13,6 +13,16 @@ export default function FormExpense() {
     changeCoinsArray(coins);
   };
 
+  const selectMap = (id, label, array) => (
+    <label htmlFor={ id }>
+      {label}
+      <select id={ id }>
+        { array.map((element) => (
+          <option key={ element } value={ element }>{element}</option>)) }
+      </select>
+    </label>
+  );
+
   useEffect(() => {
     fetchCurrency();
   }, []);
@@ -27,27 +37,10 @@ export default function FormExpense() {
         Descrição:
         <input type="text" id="description" />
       </label>
-      <label htmlFor="currency">
-        Moeda:
-        <select id="currency">
-          { allCoins.map((coin) => (
-            <option key={ coin } value={ coin }>{coin}</option>)) }
-        </select>
-      </label>
-      <label htmlFor="paymentMethod">
-        Método de pagamento:
-        <select id="paymentMethod">
-          { paymentOptions.map((method) => (
-            <option key={ method } value={ method }>{method}</option>)) }
-        </select>
-      </label>
-      <label htmlFor="category">
-        Tag:
-        <select id="category">
-          { expenseOptions.map((method) => (
-            <option key={ method } value={ method }>{method}</option>)) }
-        </select>
-      </label>
+      { selectMap('currency', 'Moeda:', allCoins) }
+      { selectMap('paymentMethod', 'Método de pagamento:', paymentOptions) }
+      { selectMap('category', 'Tag:', expenseOptions) }
+      <button type="button">Adicionar despesa</button>
     </form>
 
   );

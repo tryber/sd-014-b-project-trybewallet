@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { sendLogin } from '../actions';
 
-// Função para validar email no JavaScript
+// Função para validar email no JavaScript inspirada a partir de
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 const isEmailValid = (email) => {
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
