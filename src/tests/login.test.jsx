@@ -1,7 +1,7 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
-import App from '../App';
+import App from '../app/App';
 
 import { renderWithRouterAndStore } from './testConfig';
 
