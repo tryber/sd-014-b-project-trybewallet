@@ -27,6 +27,10 @@ class Login extends React.Component {
     });
   }
 
+  // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript?page=1&tab=votes#tab-top
+  // pesquisei Como validar email através do JS e encontrei no link acima
+  // também utilizei um vídeo https://www.youtube.com/watch?v=HzJngc-Se9Q
+  // e o documento https://drive.google.com/drive/folders/1LjPe_VJRbzmM-QOex-mDH9ryz2_V0IyG
   validateEmail() {
     const { inputEmail } = this.state;
     const re = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -60,7 +64,7 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <Link to="/wallet">
+        <Link to="/carteira">
           <button
             type="button"
             disabled={
