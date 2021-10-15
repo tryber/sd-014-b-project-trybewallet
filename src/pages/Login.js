@@ -69,6 +69,7 @@ class Login extends React.Component {
   }
 }
 
+// USANDO HOOKS
 // function Login({ sendEmail }) {
 //   const [email, setEmail] = useState('');
 //   const [password, setPassword] = useState('');

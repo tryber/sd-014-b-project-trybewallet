@@ -22,6 +22,23 @@ class Header extends React.Component {
   }
 }
 
+// USANDO HOOKS
+// function Header({ email }) {
+//   return (
+//     <header className={ styles.header }>
+//       <div className={ styles.emailField } data-testid="email-field">
+//         Email:
+//         {' '}
+//         {email}
+//       </div>
+//       <div className={ styles.totalValueDiv }>
+//         <div data-testid="total-field">0</div>
+//         <div data-testid="header-currency-field">BRL</div>
+//       </div>
+//     </header>
+//   );
+// }
+
 const mapStateToProps = ({ user: { email } }) => ({
   email,
 });
