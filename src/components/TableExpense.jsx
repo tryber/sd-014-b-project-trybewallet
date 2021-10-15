@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import ButtonDelete from './ButtonDelete';
 
 const tableHeader = ['Descrição',
   'Tag',
@@ -34,6 +35,7 @@ function TableExpense({ expenses }) {
               <td>{ask.toFixed(2)}</td>
               <td>{(expense.value * ask).toFixed(2)}</td>
               <td>Real</td>
+              <ButtonDelete id={ expense.id } />
             </tr>
           );
         })}
