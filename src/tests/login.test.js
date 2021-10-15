@@ -35,7 +35,7 @@ describe('1 - Crie uma página inicial de login com os seguintes campos e caract
   });
 });
 
-describe('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
+describe.skip('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
   test('O botão de "Entrar" está desabilitado ao entrar na página', () => {
     renderWithRouterAndStore(<App />, '/');
 
@@ -92,7 +92,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
   });
 });
 
-describe('3 - Utilize o Redux para salvar no estado global as informações da pessoa logada', () => {
+describe.skip('3 - Utilize o Redux para salvar no estado global as informações da pessoa logada', () => {
   test('Salve o email no estado da aplicação, com a chave email, assim que o usuário logar.', () => {
     const { store } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
