@@ -1,8 +1,18 @@
 import React from 'react';
+import EmailInput from '../components/EmailInput';
+import LoginSubmitBtn from '../components/LoginSubmitBtn';
+import PwdInput from '../components/PwdInput';
 
 class Login extends React.Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <form>
+        <EmailInput />
+        <PwdInput />
+        <LoginSubmitBtn />
+      </form>
+
+    );
   }
 }
 
