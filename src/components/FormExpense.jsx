@@ -124,6 +124,4 @@ const mapDispatchToProps = (dispatch) => ({
   setExpenses: (rates) => dispatch(exchangeRating(rates)),
 });
 
-const mapStateToProps = (state) => ({ wallet: state.wallet.expenses });
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormExpense);
+export default connect(null, mapDispatchToProps)(FormExpense);
