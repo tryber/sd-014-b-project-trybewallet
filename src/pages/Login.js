@@ -48,7 +48,7 @@ class Login extends React.Component {
   render() {
     const { disabled, email, password } = this.state;
     return (
-      <div>
+      <div className="container">
         <form>
           <label htmlFor="login-email">
             Email:
@@ -73,6 +73,7 @@ class Login extends React.Component {
             />
           </label>
           <button
+            className="btn btn-primary"
             type="submit"
             value="Entrar"
             onClick={ this.handleClick }
