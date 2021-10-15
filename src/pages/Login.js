@@ -31,7 +31,7 @@ class Login extends React.Component {
     const negativeLength = -1;
     if (value === ''
         || value.indexOf('@') === negativeLength
-        || value.indexOf('.') === negativeLength) {
+        || value.indexOf('.com') === negativeLength) {
       document.getElementById('msgemail')
         .innerHTML = '<font color=\'red\'>digite um e-mail válido </font>';
     } else {
@@ -67,7 +67,7 @@ class Login extends React.Component {
                 type="email"
                 value={ email }
                 placeholder="Email"
-                onBlur={ this.validacaoEmail }
+                onKeyUp={ this.validacaoEmail }
                 onChange={ this.handleChange }
               />
               <span className="span-msg" id="msgemail" />
