@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../components/Button';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +9,7 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,8 +19,16 @@ class Login extends React.Component {
     });
   }
 
+  handleClick() {
+    const { history } = this.props;
+    history.push('/carteira');
+  }
+
   render() {
     const { email, password } = this.state;
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    const sizePassword = 6;
+    const validatLogin = (regexEmail && password.length >= sizePassword);
     return (
       <form>
         <input
@@ -38,13 +47,22 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           placeholder="Senha"
         />
-        <Button
-          label="Entrar"
-          onClick=""
-        />
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          disabled={ !validatLogin }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;

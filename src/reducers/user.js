@@ -6,10 +6,6 @@ const initialState = {
   user: {
     email: '',
   },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 const user = (state = initialState, action) => {
