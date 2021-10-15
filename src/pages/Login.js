@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { saveEmailAction } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: '',
       password: '',
@@ -55,7 +55,7 @@ class Login extends React.Component {
         />
         <button
           type="submit"
-          disabled={ !REGEX_EMAIL.test(email) || password.length < minPassLength }
+          disabled={ !REGEX_EMAIL.test(email) || password.length < minPassLength } // Desabilita o button caso o regex e o tamanho minimo não sejam atendidos.
         >
           Entrar
         </button>
@@ -64,11 +64,11 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Realizo o dispatch da action SaveEmailAction contendo como parametro o email.
   saveEmail: (email) => dispatch(saveEmailAction(email)),
 });
 
-Login.propTypes = {
+Login.propTypes = { // Valida as propTypes do saveEmail e history.
   saveEmail: PropTypes.func.isRequired,
   history: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
