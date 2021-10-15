@@ -2,8 +2,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: auto;
   justify-content: center;
+  margin: auto;
   width: 20vh;
 }
 
