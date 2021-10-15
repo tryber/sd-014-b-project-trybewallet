@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const SEIS = 6;
 
@@ -52,21 +52,18 @@ class Login extends React.Component {
           placeholder="Senha"
           onChange={ this.handlePassword }
         />
-        <button
-          type="submit"
-          disabled={ !this.validateEmail(email) || !this.validatePassword(password) }
-        >
-          Entrar
-
-        </button>
+        <Link to="/carteira">
+          <button
+            type="submit"
+            disabled={ !this.validateEmail(email) || !this.validatePassword(password) }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
 }
-
-Login.propTypes = {
-  email: PropTypes.string.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
