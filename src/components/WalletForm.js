@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export default class WalletForm extends Component {
   render() {
@@ -16,7 +15,8 @@ export default class WalletForm extends Component {
         <label htmlFor="currency-select">
           Moeda
           <select id="currency-select">
-            <option>some option</option>
+            <option>Currency A</option>
+            <option>Currency B</option>
           </select>
         </label>
         <label htmlFor="payment-method-select">
@@ -38,6 +38,6 @@ export default class WalletForm extends Component {
           </select>
         </label>
       </form>
-    )
+    );
   }
 }

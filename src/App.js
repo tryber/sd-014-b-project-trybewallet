@@ -5,12 +5,12 @@ import Wallet from './pages/Wallet';
 
 export default class App extends Component {
   render() {
-    return(
+    return (
       // <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route path="/carteira" component={ Wallet } />
-        </Switch>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/carteira" component={ Wallet } />
+      </Switch>
       // </BrowserRouter>
     ); // Por que não funcionou com o BrowserRouter?!
   }

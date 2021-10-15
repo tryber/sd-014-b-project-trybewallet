@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './WalletHeader.css'
+import './WalletHeader.css';
+
 export default class WalletHeader extends Component {
   render() {
     const { email } = this.props;

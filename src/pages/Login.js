@@ -2,39 +2,41 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { saveEmail } from '../actions/index';
+import { saveEmail as saveEmailAction } from '../actions/index';
 
 class Login extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       disabledState: true,
       emailInput: '',
       passwordInput: '',
-    }
+    };
+    this.verifyLoginConditions = this.verifyLoginConditions.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  verifyLoginConditions = () => {
-    const {emailInput, passwordInput} = this.state;
+  verifyLoginConditions() {
+    const { emailInput, passwordInput } = this.state;
     const minPasswordLength = 6;
     const passwordBool = passwordInput.length >= minPasswordLength;
     const emailBool = emailInput.includes('@') && emailInput.endsWith('.com');
     const passwordVerification = () => (
-      passwordBool ? true : false
+      passwordBool // Se true já retorna true
     );
     const emailVerification = () => (
-      emailBool ? true: false
+      emailBool
     );
-    if (passwordVerification() && emailVerification()){
-      this.setState({disabledState: false})
+    if (passwordVerification() && emailVerification()) {
+      this.setState({ disabledState: false });
     }
-  };
+  }
 
-  handleChange = ({target: {name, value}}) => {
+  handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     }, () => this.verifyLoginConditions());
-  };
+  }
 
   render() {
     const { disabledState, emailInput } = this.state;
@@ -47,7 +49,7 @@ class Login extends Component {
             data-testid="email-input"
             name="emailInput"
             placeholder="Digite seu e-mail"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="password-input" className="password-label">
@@ -57,14 +59,14 @@ class Login extends Component {
             name="passwordInput"
             type="password"
             placeholder="Digite sua senha"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
           />
           <Link to="/carteira">
             <button
               type="button"
-              className='login-button'
+              className="login-button"
               disabled={ disabledState }
-              onClick={() => saveEmail(emailInput)}
+              onClick={ () => saveEmail(emailInput) }
             >
               Entrar
             </button>
@@ -80,7 +82,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  saveEmail: (state) => dispatch(saveEmail(state)),
+  saveEmail: (state) => dispatch(saveEmailAction(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
