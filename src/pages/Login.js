@@ -1,58 +1,74 @@
 import React from 'react';
-
-const validateEmail = (email) => {
-  const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  return regexEmail.test(email) === true;
-};
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { email } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: '',
-      password: '',
+      emailInput: '',
+      passwordInput: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.validateButton = this.validateButton.bind(this);
+    this.handleDispatch = this.handleDispatch.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
-  render() {
-    const { email, password } = this.state;
+  validateButton() {
+    const { emailInput, passwordInput } = this.state;
+    // Solução desenvolvida com auxílio dos alunos Michael Caxias e Luiz Gustavo.
+    // Ref: https://stackoverflow.com/questions/940577/javascript-regular-expression-email-validation
 
-    const minLength = 6;
-    const disabled = password.length >= minLength && validateEmail(email);
+    const LENGTH_PASSWORD = 6;
+    const checkEmailInput = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const checkPass = passwordInput.length < LENGTH_PASSWORD;
+
+    return !checkEmailInput.test(emailInput) || checkPass;
+  }
+
+  handleDispatch() {
+    const { history, dispatchSetValue } = this.props;
+
+    dispatchSetValue(this.state);
+    history.push('/carteira');
+  }
+
+  render() {
+    const { emailInput, passwordInput } = this.state;
 
     return (
       <form>
-        <label htmlFor="email">
+        <label htmlFor="emailInput">
           <input
             type="email"
-            name="email"
-            id="email"
-            value={ email }
+            name="emailInput"
+            id="emailInput"
+            value={ emailInput }
             data-testid="email-input"
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="password">
+        <label htmlFor="passwordInput">
           <input
             type="password"
-            name="password"
-            id="password"
-            value={ password }
+            name="passwordInput"
+            id="passwordInput"
+            value={ passwordInput }
             data-testid="password-input"
             onChange={ this.handleChange }
           />
         </label>
         <button
           type="button"
-          disabled={ !disabled }
-          // onClick={  }
+          disabled={ this.validateButton() }
+          onClick={ () => this.handleDispatch() }
         >
           Entrar
         </button>
@@ -60,4 +76,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (info) => dispatch(email(info)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
