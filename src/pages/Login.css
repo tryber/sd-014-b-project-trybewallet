@@ -11,9 +11,9 @@ main {
 }
 
 section {
-  background-color: rgb(49, 49, 49);
+  background-color: rgb(41, 41, 41);
   border-radius: 5px;
-  padding: 100px;
+  padding: 120px 50px;
   text-align: center;
 }
 
@@ -53,8 +53,12 @@ button:hover {
 
 button:disabled {
   background-color: lightslategray;
+  cursor:default;
 }
 
 img {
-  width: 100px;
+  width: 220px;
+  background-color: white;
+  padding: 0px;
+  border-radius: 5px;
 }

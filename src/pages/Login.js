@@ -1,5 +1,9 @@
 import React from 'react';
 import './Login.css';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Image from '../images/iconLogin.png';
+import { saveUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -36,10 +40,12 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    const
+    const { saveData } = this.props;
+    saveData(this.state);
   }
 
   render() {
+    const { saveData } = this.props;
     const { email, senha } = this.state;
     const minLength = 6;
     let btnDesabilitado = true;
@@ -48,11 +54,10 @@ class Login extends React.Component {
     } else {
       btnDesabilitado = true;
     }
-
     return (
       <main>
         <section>
-          <p>TRYBE WALLET</p>
+          <img src={ Image } alt="icon" />
           <div>
             <div>
               <input
@@ -79,7 +84,7 @@ class Login extends React.Component {
             <button
               id="btnSubmit"
               type="submit"
-              onClick={ this.handleSubmit }
+              onClick={ () => saveData(this.state) }
               disabled={ btnDesabilitado }
             >
               Entrar
@@ -91,4 +96,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  saveData: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveData: (values) => dispatch(saveUser(values)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

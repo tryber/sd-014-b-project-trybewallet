@@ -1,7 +1,10 @@
 // Coloque aqui suas actions
+export const SAVE_USER = 'SAVE_USER';
 export const REQUEST_USER = 'REQUEST_USER';
 export const REQUEST_WALLET = 'REQUEST_WALLET';
 // export const GET_PICTURE_FAIL = 'GET_PICTURE_FAIL';
+
+export const saveUser = (value) => ({ type: SAVE_USER, value });
 
 export const requestUser = () => ({ type: REQUEST_USER });
 
