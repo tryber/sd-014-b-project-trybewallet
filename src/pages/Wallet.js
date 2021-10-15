@@ -1,21 +1,35 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      coins: [],
+    };
+    this.fetchApi = this.fetchApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  async fetchApi() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+    delete data.USDT;
+    this.setState({
+      coins: data,
+    });
+  }
+
   render() {
-    const { email } = this.props;
+    const { coins } = this.state;
     return (
       <section>
-        <header>
-          <p data-testid="email-field">
-            Email:
-            {' '}
-            { email }
-          </p>
-          <p data-testid="total-field">Despesa total: 0</p>
-          <p data-testid="header-currency-field">Câmbio utilizado: BRL</p>
-        </header>
+        <Header />
         <form>
           <label htmlFor="value">
             Valor
@@ -28,7 +42,8 @@ class Wallet extends React.Component {
           <label htmlFor="coin">
             Moeda
             <select type="text" name="coin" id="coin">
-              <option value="coin">Selecione a Moeda</option>
+              { Object.keys(coins)
+                .map((coin) => <option key={ coin }>{ coin }</option>) }
             </select>
           </label>
           <label htmlFor="payment-method">
@@ -55,12 +70,4 @@ class Wallet extends React.Component {
   }
 }
 
-Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
-
-export default connect(mapStateToProps)(Wallet);
+export default Wallet;
