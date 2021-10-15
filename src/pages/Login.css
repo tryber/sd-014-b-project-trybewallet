@@ -1,16 +1,12 @@
-.email-label , .password-label , .login-button {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  width: 20vh;
+button:disabled {
+  background-color: black;
+  color: white;
+  cursor: none;
+  filter: opacity(2s)
 }
 
-.login-form {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 50px;
+button:enabled {
+  background-color: green;
+  transition: 2s;
+  cursor: pointer;
 }

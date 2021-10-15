@@ -8,10 +8,12 @@ export default class WalletForm extends Component {
           Valor
           <input id="value-input" name="value" />
         </label>
+        <br />
         <label htmlFor="desciption-input">
           Descrição
           <input id="desciption-input" name="desciption" />
         </label>
+        <br />
         <label htmlFor="currency-select">
           Moeda
           <select id="currency-select">
@@ -19,6 +21,7 @@ export default class WalletForm extends Component {
             <option>Currency B</option>
           </select>
         </label>
+        <br />
         <label htmlFor="payment-method-select">
           Método de pagamento
           <select id="payment-method-select">
@@ -27,6 +30,7 @@ export default class WalletForm extends Component {
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
+        <br />
         <label htmlFor="tag-select">
           Tag
           <select id="tag-select">

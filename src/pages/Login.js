@@ -2,87 +2,85 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { saveEmail as saveEmailAction } from '../actions/index';
+import { saveEmail } from '../actions/index';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabledState: true,
       emailInput: '',
       passwordInput: '',
     };
-    this.verifyLoginConditions = this.verifyLoginConditions.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  verifyLoginConditions() {
-    const { emailInput, passwordInput } = this.state;
-    const minPasswordLength = 6;
-    const passwordBool = passwordInput.length >= minPasswordLength;
-    const emailBool = emailInput.includes('@') && emailInput.endsWith('.com');
-    const passwordVerification = () => (
-      passwordBool // Se true já retorna true
-    );
-    const emailVerification = () => (
-      emailBool
-    );
-    if (passwordVerification() && emailVerification()) {
-      this.setState({ disabledState: false });
-    }
+    this.activateLoginButton = this.activateLoginButton.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
-    }, () => this.verifyLoginConditions());
+    }, () => this.activateLoginButton());
+  }
+
+  verifyEmail() {
+    const { emailInput } = this.state;
+    const bool = emailInput.includes('@') && emailInput.endsWith('.com');
+    return bool;
+  }
+
+  verifyPassword() {
+    const { passwordInput } = this.state;
+    const minLength = 6;
+    return (passwordInput >= minLength);
+  }
+
+  activateLoginButton() {
+    const email = this.verifyEmail();
+    const password = this.verifyPassword();
+    if (email && password) {
+      return false;
+    }
+    return true;
   }
 
   render() {
-    const { disabledState, emailInput } = this.state;
-    const { saveEmail } = this.props;
+    const { emailInput } = this.state;
+    const { saveUserEmail } = this.props;
+    const { handleChange, activateLoginButton } = this;
     return (
-      <form className="login-form">
-        <label htmlFor="email-input" className="email-label">
-          E-mail:
-          <input
-            data-testid="email-input"
-            name="emailInput"
-            placeholder="Digite seu e-mail"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input" className="password-label">
-          Senha:
-          <input
-            data-testid="password-input"
-            name="passwordInput"
-            type="password"
-            placeholder="Digite sua senha"
-            onChange={ this.handleChange }
-          />
-          <Link to="/carteira">
-            <button
-              type="button"
-              className="login-button"
-              disabled={ disabledState }
-              onClick={ () => saveEmail(emailInput) }
-            >
-              Entrar
-            </button>
-          </Link>
-        </label>
+      <form>
+        <input
+          data-testid="email-input"
+          placeholder="E-mail"
+          name="emailInput"
+          onChange={ handleChange }
+        />
+        <input
+          type="password"
+          data-testid="password-input"
+          placeholder="Senha"
+          name="passwordInput"
+          onChange={ handleChange }
+        />
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ activateLoginButton() }
+            onClick={ () => saveUserEmail(emailInput) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
 Login.propTypes = {
-  saveEmail: PropTypes.func.isRequired,
+  saveUserEmail: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  saveEmail: (state) => dispatch(saveEmailAction(state)),
+  saveUserEmail: (state) => dispatch(saveEmail(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
