@@ -52,7 +52,6 @@ class Login extends React.Component {
           } }
         >
           Entrar
-
         </button>
       </div>);
   }
