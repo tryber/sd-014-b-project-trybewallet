@@ -67,4 +67,7 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (state) => dispatch(emailAction(state)) });
+
+export default connect(null, mapDispatchToProps)(Login);
