@@ -12,6 +12,7 @@ function ButtonDelete({ id, deleteExpense }) {
     <button
       type="button"
       onClick={ handleDelete }
+      data-testid="delete-btn"
     >
       Delete
 
