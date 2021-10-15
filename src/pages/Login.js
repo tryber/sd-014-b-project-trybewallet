@@ -68,7 +68,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.validateButton() }
-          onClick={ () => this.handleDispatch() }
+          onClick={ this.handleDispatch }
         >
           Entrar
         </button>
