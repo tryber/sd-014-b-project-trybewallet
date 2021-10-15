@@ -6,6 +6,7 @@ class Login extends React.Component {
 
     this.state = {
       name: '',
+      email: '',
       password: '',
       buttonDisabled: true,
     };
@@ -13,21 +14,28 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // Source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
   handleChange({ target }) {
     const { name, value } = target;
-    const MIN_NAME_LENTGH = 3;
+    const MIN_PASSWORD_LENTGH = 6;
+    let { email, password } = this.state;
+    if (name === 'email') email = value;
+    if (name === 'password') password = value;
+    const isPasswordsValid = password.length >= MIN_PASSWORD_LENTGH;
+
     this.setState({
       [name]: value,
+      buttonDisabled: !(this.isEmailValid(email) && isPasswordsValid),
     });
-    if (name === 'name') {
-      this.setState({
-        buttonDisabled: value.length < MIN_NAME_LENTGH,
-      });
-    }
   }
 
   render() {
-    const { name, password, buttonDisabled } = this.state;
+    const { name, email, password, buttonDisabled } = this.state;
     return (
       <form>
         <label htmlFor="nome-input">
@@ -38,6 +46,17 @@ class Login extends React.Component {
             id="nome-input"
             data-testid="email-input"
             value={ name }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="email-input">
+          Email:
+          <input
+            type="text"
+            name="email"
+            id="email-input"
+            data-testid="email-input"
+            value={ email }
             onChange={ this.handleChange }
           />
         </label>
