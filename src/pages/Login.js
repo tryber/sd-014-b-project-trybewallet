@@ -1,5 +1,7 @@
 import React from 'react';
 
+const PASSWORD_LIMIT = 6;
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -24,6 +26,7 @@ class Login extends React.Component {
     return (
       <form>
         <label htmlFor="email-input">
+          Email
           <input
             type="email"
             name="email"
@@ -33,6 +36,7 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="password-input">
+          Senha
           <input
             type="password"
             name="password"
@@ -41,6 +45,9 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
+        <button type="button" disabled={ password.length < PASSWORD_LIMIT }>
+          Entrar
+        </button>
       </form>
     );
   }
