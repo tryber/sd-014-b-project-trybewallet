@@ -11,6 +11,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.logarFunction = this.logarFunction.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -26,8 +27,14 @@ class Login extends React.Component {
     // render('/carteira') depois que salvar o email do state tenh que rendirecionar para rota /carteira.
   }
 
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
   render() {
     const { email, password } = this.state;
+    const validaçãoEmail = this.isEmailValid(email);
     return (
       <>
         <h2>Login</h2>
@@ -42,13 +49,18 @@ class Login extends React.Component {
         <input
           data-testid="password-input"
           type="password"
-          minLength="6"
-          name="passsword"
+          name="password"
           required
           onChange={ this.handleChange }
           value={ password }
         />
-        <button type="button" onClick={ this.logarFunction } disabled>Entrar</button>
+        <button
+          type="button"
+          onClick={ this.logarFunction }
+          disabled={ !validaçãoEmail }
+        >
+          Entrar
+        </button>
       </>
     );
   }
