@@ -21,25 +21,17 @@ class Login extends Component {
     }, () => this.activateLoginButton());
   }
 
-  verifyEmail() {
-    const { emailInput } = this.state;
-    const bool = emailInput.includes('@') && emailInput.endsWith('.com');
-    return bool;
-  }
-
-  verifyPassword() {
-    const { passwordInput } = this.state;
-    const minLength = 6;
-    return (passwordInput >= minLength);
-  }
-
   activateLoginButton() {
-    const email = this.verifyEmail();
-    const password = this.verifyPassword();
-    if (email && password) {
-      return false;
+    const { emailInput, passwordInput } = this.state;
+    const emailBool = emailInput.includes('@') && emailInput.endsWith('.com');
+    console.log(emailBool, 'email');
+    const minLength = 6;
+    const passwordBool = passwordInput.length >= minLength;
+    console.log(passwordBool, 'pass');
+    if (emailBool && passwordBool) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   render() {
@@ -64,7 +56,7 @@ class Login extends Component {
         <Link to="/carteira">
           <button
             type="button"
-            disabled={ activateLoginButton() }
+            disabled={ !activateLoginButton() }
             onClick={ () => saveUserEmail(emailInput) }
           >
             Entrar
