@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setEmail } from '../actions';
+
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +13,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -20,6 +24,12 @@ class Login extends React.Component {
   isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email);
+  }
+
+  handleSubmit() {
+    const { history, sendEmail } = this.props;
+    sendEmail(this.state);
+    history.push('/carteira');
   }
 
   render() {
@@ -43,7 +53,14 @@ class Login extends React.Component {
           type="password"
           onChange={ this.handleChange }
         />
-        <button type="button" disabled={ !disabled }>Entrar</button>
+        <button
+          type="button"
+          disabled={ !disabled }
+          onClick={ this.handleSubmit }
+        >
+          Entrar
+
+        </button>
 
       </div>
 
@@ -51,4 +68,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendEmail: (param) => dispatch(setEmail(param)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
