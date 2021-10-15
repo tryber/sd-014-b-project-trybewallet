@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import validator from 'validator';
 import { connect } from 'react-redux';
 import { login as loginEvent } from '../actions';
 
@@ -23,7 +22,7 @@ class Login extends React.Component {
   changeButtonStatus() {
     const { email, password } = this.state;
     const minSize = 5;
-    const emailIsValid = validator.isEmail(email);
+    const emailIsValid = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
     if (password.length >= minSize && emailIsValid) {
       this.setState({ disabled: false });
     } else {
