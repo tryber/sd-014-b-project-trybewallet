@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setUserEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.isEmailValid = this.isEmailValid.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.submitEmail = this.submitEmail.bind(this);
 
     this.state = {
-      user: {
-        email: '',
-      },
+      email: '',
       passwordLength: 0,
     };
   }
@@ -22,40 +24,43 @@ class Login extends React.Component {
     return regexEmail.test(email); // retorna TRUE se regexEmail for válido
   }
 
-  // Função para setar o email e o tamanho da senha do usuário do estado local
-  handleLogin(event) {
-    if (event.target.type === 'email') {
-      this.setState({
-        user: {
-          email: event.target.value,
-        },
-      });
-    }
+  // Funções para setar o email e o tamanho da senha do usuário do estado local
+  handleEmail(event) {
+    this.setState({
+      email: event.target.value,
+    });
+  }
 
-    if (event.target.type === 'password') {
-      this.setState({
-        passwordLength: event.target.value.length,
-      });
-    }
+  handlePassword(event) {
+    this.setState({
+      passwordLength: event.target.value.length,
+    });
+  }
+
+  // Função para mandar o email para o estado global
+  submitEmail() {
+    const { dispatchEmail } = this.props;
+    dispatchEmail(this.state);
   }
 
   render() {
-    const { user: { email }, passwordLength } = this.state;
+    const { email, passwordLength } = this.state;
     const MIN_PASSWORD_LENGTH = 6;
 
     return (
       <div>
-        <input type="email" data-testid="email-input" onChange={ this.handleLogin } />
+        <input type="email" data-testid="email-input" onChange={ this.handleEmail } />
         <input
           type="password"
           data-testid="password-input"
-          onChange={ this.handleLogin }
+          onChange={ this.handlePassword }
         />
         <Link to="/carteira">
           <button
             type="button"
             // Se as duas condições retornarem false, disabled === false;
             disabled={ !this.isEmailValid(email) || passwordLength < MIN_PASSWORD_LENGTH }
+            onClick={ this.submitEmail }
           >
             Entrar
           </button>
@@ -65,4 +70,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (emailFromLocalState) => dispatch(setUserEmail(emailFromLocalState)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
