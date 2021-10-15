@@ -29,7 +29,7 @@ class Login extends React.Component {
     const emailRegex = /\S+@\S+\.\S+/;
     const MIN_PASSWORD_LENGTH = 6;
 
-    return emailRegex.test(email) && password.length > MIN_PASSWORD_LENGTH;
+    return emailRegex.test(email) && password.length >= MIN_PASSWORD_LENGTH;
   }
 
   render() {
