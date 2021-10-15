@@ -1,30 +1,47 @@
 import React from 'react';
-import InputPattern from '../components/InputPattern';
 
 class Login extends React.Component {
   constructor() {
     super();
-    this.setState = {
+    this.state = {
       email: '',
       senha: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name } = target;
+    this.setState({
+      [name]: target.value,
+    });
   }
 
   render() {
+    const { email, senha } = this.state;
     return (
       <section>
-        <InputPattern
-          name="email"
-          description="Email: "
-          type="text"
-          data-testid="email-input"
-        />
-        <InputPattern
-          name="senha"
-          description="Senha: "
-          type="text"
-          data-testid="password-input"
-        />
+        <label htmlFor="email">
+          Email:
+          <input
+            name="email"
+            value={ email }
+            onChange={ this.handleChange }
+            type="text"
+            data-testid="email-input"
+          />
+        </label>
+        <label htmlFor="email">
+          Email:
+          <input
+            name="senha"
+            value={ senha }
+            onChange={ this.handleChange }
+            type="text"
+            data-testid="password-input"
+          />
+        </label>
         <button data-testid="login" type="button">
           Entrar
         </button>
