@@ -25,8 +25,7 @@ class Login extends React.Component {
 
   enableButton() {
     const { password, email } = this.state;
-    /* eslint max-len: ["error", { "ignoreRegExpLiterals": true }] */
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const minLength = 6;
     if (password.length >= minLength && regex.test(email)) {
       return false;
