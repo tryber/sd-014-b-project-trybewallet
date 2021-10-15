@@ -11,6 +11,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.emailValidation = this.emailValidation.bind(this);
   }
 
   handleChange(event) {
@@ -19,6 +20,11 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  emailValidation(emailToValidate) { // https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+    const regex = /\S+@\S+\.\S+/; // qualquer string + @ + qualquer string + . + qualquer string (s@s.s)
+    return regex.test(emailToValidate);
   }
 
   render() {
@@ -45,7 +51,10 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button type="button" disabled={ password.length < PASSWORD_LIMIT }>
+        <button
+          type="button"
+          disabled={ !this.emailValidation(email) || password.length < PASSWORD_LIMIT }
+        >
           Entrar
         </button>
       </form>
