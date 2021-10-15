@@ -1,21 +1,17 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const INITIAL_USER_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const INITIAL_WALLET_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 export function user(state = INITIAL_USER_STATE, action) {
   switch (action.type) {
   case 'userLogin':
-    return { ...state, email: 'a' };
+    return { ...state, email: action.email };
   default:
     return state;
   }

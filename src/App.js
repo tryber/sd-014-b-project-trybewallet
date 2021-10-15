@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import Wallet from './pages/Wallet';
 import Login from './pages/Login';
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
     <div>
       Hello, TrybeWallet!
       <Switch>
-        <Route path="/" render={ () => <Login /> } />
+        <Route path="/carteira" render={ () => <Wallet /> } />
+        <Route path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
     </div>
   );
