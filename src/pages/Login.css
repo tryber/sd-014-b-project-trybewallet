@@ -1,0 +1,60 @@
+main {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+section {
+  background-color: rgb(41, 41, 41);
+  border-radius: 5px;
+  padding: 120px 50px;
+  text-align: center;
+}
+
+.span-msg {
+  font-size: smaller;
+}
+
+input {
+  align-self: center;
+  border-radius: 5px;
+  display: flex;
+  height: 25px;
+  margin: 5px;
+  padding: 5px 10px;
+  width: 200px;
+}
+
+input::placeholder {
+  font-size: larger;
+}
+
+button {
+  background-color: lightblue;
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: 900;
+  height: 35px;
+  width: 220px;
+}
+
+button:hover {
+  background-color: lightcoral;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: lightslategray;
+  cursor: default;
+}
+
+img {
+  background-color: white;
+  border-radius: 5px;
+  width: 220px;
+}
