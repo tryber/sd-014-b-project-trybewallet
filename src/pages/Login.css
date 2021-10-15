@@ -1,11 +1,11 @@
 main {
-  display: flex;
   align-items: center;
+  display: flex;
   background-color: black;
   color: white;
   flex-direction: column;
-  justify-content: center;
   height: 100vh;
+  justify-content: center;
   width: 100vw;
 }
 
@@ -24,8 +24,8 @@ input {
   align-self: center;
   border-radius: 5px;
   display: flex;
-  margin: 5px;
   height: 25px;
+  margin: 5px;
   padding: 5px 10px;
   width: 200px;
 }
