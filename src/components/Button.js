@@ -3,10 +3,10 @@ import React from 'react';
 
 class Button extends React.Component {
   render() {
-    const { id, label } = this.props;
+    const { id, label, disabled } = this.props;
     return (
       <div>
-        <button type="submit" id={ id }>
+        <button type="submit" id={ id } disabled={ disabled }>
           { label }
         </button>
       </div>
@@ -15,6 +15,7 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
+  disabled: PropTypes.isRequired,
   id: PropTypes.isRequired,
   label: PropTypes.isRequired,
 };
