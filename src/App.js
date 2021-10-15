@@ -1,7 +1,10 @@
 import React from 'react';
+import Content from './components/Content';
 
 function App() {
-  return <div>Hello, TrybeWallet!</div>;
+  return (
+    <Content />
+  );
 }
 
 export default App;
