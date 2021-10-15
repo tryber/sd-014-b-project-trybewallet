@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { exchangeRating } from '../actions';
+import { exchangeRating, setCurrencies } from '../actions';
 import Input from './Input';
 import Select from './Select';
 
@@ -13,7 +13,6 @@ class FormExpense extends Component {
   constructor() {
     super();
     this.state = {
-      allCoins: [],
       id: 0,
       value: 0,
       description: '',
@@ -54,21 +53,22 @@ class FormExpense extends Component {
   }
 
   async fetchCurrency() {
+    const { setCurrency } = this.props;
     const getApi = await fetch(URL);
     const response = await getApi.json();
     const coins = Object.keys(response).filter((currency) => currency !== 'USDT');
-    this.setState({ allCoins: coins });
+    setCurrency(coins);
   }
 
   render() {
     const {
-      allCoins,
       value,
       description,
       currency,
       method,
       tag,
     } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <Input
@@ -86,7 +86,7 @@ class FormExpense extends Component {
         <Select
           id="currency"
           label="Moeda:"
-          array={ allCoins }
+          array={ currencies }
           value={ currency }
           onChange={ this.handleChange }
         />
@@ -113,6 +113,7 @@ class FormExpense extends Component {
 
 FormExpense.propTypes = {
   setExpenses: PropTypes.func.isRequired,
+  setCurrencie: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
   }).isRequired,
@@ -120,6 +121,11 @@ FormExpense.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setExpenses: (rates) => dispatch(exchangeRating(rates)),
+  setCurrency: (currencies) => dispatch(setCurrencies(currencies)),
 });
 
-export default connect(null, mapDispatchToProps)(FormExpense);
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormExpense);

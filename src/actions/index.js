@@ -3,6 +3,7 @@
 export const SEND_LOGIN = 'SEND_PERSONAL_FORM';
 export const SEND_RATES = 'SEND_EXCHANGE_RATES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const SEND_CURRENCIES = 'SEND_CURRENCIES';
 
 export const sendLogin = (email) => ({
   type: SEND_LOGIN, email,
@@ -14,4 +15,8 @@ export const exchangeRating = (rates) => ({
 
 export const deleteExpenses = (id) => ({
   type: DELETE_EXPENSE, id,
+});
+
+export const setCurrencies = (currencies) => ({
+  type: SEND_CURRENCIES, currencies,
 });
