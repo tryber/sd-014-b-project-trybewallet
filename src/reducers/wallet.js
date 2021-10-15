@@ -2,10 +2,8 @@
 import { EXPENSE } from '../actions';
 
 const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 function wallet(state = initialState, action) {
@@ -13,11 +11,8 @@ function wallet(state = initialState, action) {
   case EXPENSE:
     return {
       ...state,
-      wallet: {
-        ...state.wallet,
-        currencies: action.currency,
-        expenses: action.payload,
-      },
+      currencies: action.currency,
+      expenses: action.payload,
     };
   default:
     return state;

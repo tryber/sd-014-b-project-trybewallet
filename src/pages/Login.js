@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
     super();
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.enableButton = this.enableButton.bind(this);
     this.state = {
@@ -33,6 +37,12 @@ class Login extends React.Component {
     return true;
   }
 
+  handleSubmit() {
+    const { setUser } = this.props;
+    const { email } = this.state;
+    setUser(email);
+  }
+
   render() {
     return (
       <div>
@@ -54,6 +64,7 @@ class Login extends React.Component {
             <button
               type="button"
               disabled={ this.enableButton() }
+              onClick={ this.handleSubmit }
             >
               Entrar
             </button>
@@ -64,4 +75,16 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (payload) => dispatch(logUser(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
