@@ -3,8 +3,8 @@ export const CURRENCIES = 'CURRENCIES';
 export const EXPENSES = 'EXPENSES';
 export const EMAIL = 'EMAIL';
 
-export const currencies = (state) => ({ type: CURRENCIES, state });
+export const currencies = (payload) => ({ type: CURRENCIES, payload });
 
-export const expenses = (state) => ({ type: EXPENSES, state });
+export const expenses = (payload) => ({ type: EXPENSES, payload });
 
-export const email = (state) => ({ type: EMAIL, state });
+export const getEmail = (payload) => ({ type: EMAIL, payload });
