@@ -19,9 +19,14 @@ class Login extends Component {
     });
   }
 
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
   render() {
     const { email, password } = this.state;
-
+    const MIN_LENGTH = 6;
     return (
       <div>
         <input
@@ -40,6 +45,7 @@ class Login extends Component {
         />
         <button
           type="button"
+          disabled={ !(this.isEmailValid(email) && password.length >= MIN_LENGTH) }
         >
           Entrar
         </button>
@@ -49,3 +55,9 @@ class Login extends Component {
 }
 
 export default Login;
+
+/*
+Referências:
+Regex para validação de email:
+https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+*/
