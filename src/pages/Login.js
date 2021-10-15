@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { doLogin } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
@@ -31,6 +34,7 @@ class Login extends React.Component {
 
   render() {
     const { inputEmail, inputPassword } = this.state;
+    const { dispatchEmail } = this.props;
     const minLength = 6;
     return (
       <form>
@@ -54,14 +58,25 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button
-          type="button"
-          disabled={ !this.isEmailValid(inputEmail) || inputPassword.length < minLength }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={
+              !this.isEmailValid(inputEmail) || inputPassword.length < minLength
+            }
+            onClick={ () => {
+              dispatchEmail(inputEmail);
+            } }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>);
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (value) => dispatch(doLogin(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
