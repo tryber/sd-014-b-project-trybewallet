@@ -1,8 +1,8 @@
 .header {
+  align-items: center;
+  background-color: rgb(168, 223, 124);
   display: flex;
   height: 40px;
-  align-items: center;
   justify-content: space-between;
-  background-color: rgb(168, 223, 124);
   margin-bottom: 20px;
 }
