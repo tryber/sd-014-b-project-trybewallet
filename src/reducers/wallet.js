@@ -1,6 +1,6 @@
 const INITIAL = {
-  currencies: [],
-  expenses: [],
+  currencies: 'BRL',
+  expenses: 0,
 };
 const WALLET = 'WALLET';
 

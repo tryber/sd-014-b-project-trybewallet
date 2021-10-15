@@ -24,7 +24,7 @@ class Login extends React.Component {
     const { state: { email, password, regex }, props: { login } } = this;
     const length = 6;
     return (
-      <section>
+      <form>
         <input
           type="text"
           data-testid="email-input"
@@ -46,7 +46,7 @@ class Login extends React.Component {
             Entrar
           </button>
         </Link>
-      </section>
+      </form>
     );
   }
 }
