@@ -3,14 +3,35 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WalletHeader from './WalletHeader';
 import WalletForm from '../components/WalletForm';
+import { fetchData } from '../actions/index';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { saveCurrencies } = this.props;
+    saveCurrencies();
+  }
+
+  renderCurrencies(arrayOfCurrencies) {
+    const filterCurrencies = arrayOfCurrencies.filter(
+      (currency) => currency !== 'USDT',
+    ); // Deve-se remover a opção USDT
+
+    return filterCurrencies.map((currency, index) => (
+      <option key={ `currency ${index}` }>
+        { currency }
+      </option>
+    ));
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
     return (
       <div>
         <WalletHeader email={ email } />
-        <WalletForm />
+        <WalletForm
+          currencies={ currencies }
+          renderCurrencies={ this.renderCurrencies }
+        />
       </div>
     );
   }
@@ -18,10 +39,17 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  saveCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  saveCurrencies: () => dispatch(fetchData()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

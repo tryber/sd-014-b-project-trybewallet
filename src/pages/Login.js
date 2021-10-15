@@ -24,10 +24,8 @@ class Login extends Component {
   activateLoginButton() {
     const { emailInput, passwordInput } = this.state;
     const emailBool = emailInput.includes('@') && emailInput.endsWith('.com');
-    console.log(emailBool, 'email');
     const minLength = 6;
     const passwordBool = passwordInput.length >= minLength;
-    console.log(passwordBool, 'pass');
     if (emailBool && passwordBool) {
       return true;
     }

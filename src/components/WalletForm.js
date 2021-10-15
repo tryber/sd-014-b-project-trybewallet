@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class WalletForm extends Component {
   render() {
+    const { currencies, renderCurrencies } = this.props;
     return (
       <form>
         <label htmlFor="value-input">
-          Valor
+          Valor:
           <input id="value-input" name="value" />
         </label>
         <br />
         <label htmlFor="desciption-input">
-          Descrição
+          Descrição:
           <input id="desciption-input" name="desciption" />
         </label>
         <br />
         <label htmlFor="currency-select">
-          Moeda
+          Moeda:
           <select id="currency-select">
-            <option>Currency A</option>
-            <option>Currency B</option>
+            { renderCurrencies(currencies) }
           </select>
         </label>
         <br />
         <label htmlFor="payment-method-select">
-          Método de pagamento
+          Método de pagamento:
           <select id="payment-method-select">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -45,3 +46,8 @@ export default class WalletForm extends Component {
     );
   }
 }
+
+WalletForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  renderCurrencies: PropTypes.func.isRequired,
+};
