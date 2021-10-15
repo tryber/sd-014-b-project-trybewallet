@@ -5,6 +5,8 @@ import { addExpenses, fetchAPI } from '../actions';
 import SelectGenerator from './SelectGenerator';
 import InputGenerator from './InputGenerator';
 
+const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class FormExpense extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +15,8 @@ class FormExpense extends Component {
       id: 0,
       value: '',
       currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      method: paymentMethod[0],
+      tag: category[0],
       description: '',
     };
 
@@ -35,27 +37,20 @@ class FormExpense extends Component {
   }
 
   handleSubmit() {
-    const { id, value, currency, method, tag, description } = this.state;
     const { handleExpenses, currentCurrencies, handleAPI } = this.props;
     handleAPI();
-    this.setState((state) => ({ id: state.id + 1 }));
-
-    const newExpenses = {
-      id,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      exchangeRates: currentCurrencies,
-    };
-
-    handleExpenses(newExpenses);
+    handleExpenses({ ...this.state, exchangeRates: currentCurrencies });
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      value: '',
+      currency: 'USD',
+      method: paymentMethod[0],
+      tag: category[0],
+      description: '',
+    }));
   }
 
   renderSelect() {
-    const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { currency, method, tag } = this.state;
     const { currencies } = this.props;
 
@@ -118,8 +113,8 @@ class FormExpense extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currencies: Object.keys(state.wallet.currencies),
-  currentCurrencies: state.wallet.currencies,
+  currencies: state.wallet.currencies,
+  currentCurrencies: state.wallet.currentCurrencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -129,9 +124,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 FormExpense.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
+  currentCurrencies: PropTypes.objectOf(PropTypes.object),
   handleAPI: PropTypes.func.isRequired,
   handleExpenses: PropTypes.func.isRequired,
+};
+
+FormExpense.defaultProps = {
+  currentCurrencies: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpense);

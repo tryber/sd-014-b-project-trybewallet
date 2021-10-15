@@ -7,7 +7,7 @@ function Header(props) {
   const totalField = expenses
     .reduce((acc, currentValue) => {
       const valueToNumber = Number(currentValue.value);
-      const currentAsk = currentValue.exchangeRates[currentValue.currency].ask;
+      const currentAsk = Number(currentValue.exchangeRates[currentValue.currency].ask);
       return acc + (valueToNumber * currentAsk);
     }, 0);
 
