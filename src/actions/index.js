@@ -1,25 +1,22 @@
 // Coloque aqui suas actions
 export const SAVE_USER = 'SAVE_USER';
-export const REQUEST_USER = 'REQUEST_USER';
 export const REQUEST_WALLET = 'REQUEST_WALLET';
-// export const GET_PICTURE_FAIL = 'GET_PICTURE_FAIL';
+export const GET_DATA = 'GET_DATA';
 
 export const saveUser = (value) => ({ type: SAVE_USER, value });
 
-export const requestUser = () => ({ type: REQUEST_USER });
+// export const requestAPI = () => ({ type: REQUEST_WALLET });
 
-export const getPicture = (data) => ({ type: REQUEST_WALLET, data });
+export const getDataFromAPI = (data) => ({ type: GET_DATA, data });
 
 // export const getPicture_error = () => ({ type: REQUEST_WALLET_FAIL });
 
-/* export const fetchAPI = () => {
-  // Desenvolva aqui o código da action assíncrona
-  const urlApiCats = 'https://aws.random.cat/meow';
+export const fetchAPI = () => {
+  const urlAPICurrency = 'https://economia.awesomeapi.com.br/json/all';
   return (dispatch) => {
-    dispatch(requestAPI())
-    fetch(urlApiCats)
+    // dispatch(requestAPI());
+    fetch(urlAPICurrency)
       .then((response) => response.json())
-      .then((r) => dispatch(getPicture(r)))
-      .catch((error) => dispatch(getPicture_error()));
-  }
-} */
+      .then((r) => dispatch(getDataFromAPI(r)));
+  };
+};

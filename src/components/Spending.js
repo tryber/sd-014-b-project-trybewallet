@@ -1,9 +1,13 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Spending extends React.Component {
   render() {
+    const { moedas } = this.props;
+    const indexUSDT = moedas.indexOf('USDT');
+    const arrayIsValid = -1;
+    if (indexUSDT > arrayIsValid) moedas.splice(indexUSDT, 1);
     return (
       <form>
         <label htmlFor="valor">
@@ -17,7 +21,8 @@ class Spending extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency">
-            <option>Selecione</option>
+            { moedas
+              .map((coin, i) => (<option key={ i } value={ coin }>{ coin }</option>))}
           </select>
         </label>
         <label htmlFor="payment-method">
@@ -45,12 +50,12 @@ class Spending extends React.Component {
   }
 }
 
-/* Spending.propTypes = {
-  email: PropTypes.string.isRequired,
-}; */
+Spending.propTypes = {
+  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  moedas: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Spending);
