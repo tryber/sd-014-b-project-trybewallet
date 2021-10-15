@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { saveEmail } from '../actions';
 
 const PASSWORD_LIMIT = 6;
@@ -55,13 +56,14 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button
-          type="button"
-          disabled={ !this.emailValidation(email) || password.length < PASSWORD_LIMIT }
-          onClick={ () => emailToGlobalState(email) }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira" onClick={ () => emailToGlobalState(email) }>
+          <button
+            type="button"
+            disabled={ !this.emailValidation(email) || password.length < PASSWORD_LIMIT }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
