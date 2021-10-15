@@ -1,16 +1,21 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class Inputs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = {
+      valor: '',
+      desc: '',
+      value: '',
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ valor: event.target.value });
   }
 
   handleSubmit(event) {
@@ -18,23 +23,24 @@ class Inputs extends React.Component {
   }
 
   render() {
-    const { value } = this.state;
+    const { valor, desc, value } = this.state;
+    const { moeda } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="valor">
           Valor
-          <input id="valor" type="text" value={ value } onChange={ this.handleChange } />
+          <input id="valor" type="text" value={ valor } onChange={ this.handleChange } />
         </label>
 
         <label htmlFor="desc">
           Descrição
-          <input id="desc" type="text" value={ value } onChange={ this.handleChange } />
+          <input id="desc" type="text" value={ desc } onChange={ this.handleChange } />
         </label>
 
         <label htmlFor="moeda">
           Moeda
           <select id="moeda" value={ value } onChange={ this.handleChange }>
-            <option value="brl">BRL</option>
+            {moeda.map((code) => <option key={ code } value={ code }>{ code }</option>)}
           </select>
         </label>
 
@@ -64,5 +70,11 @@ class Inputs extends React.Component {
     );
   }
 }
+
+Inputs.propTypes = {
+  moeda: PropTypes.arrayOf(PropTypes.shape({
+    map: PropTypes.func.isRequired,
+  })).isRequired,
+};
 
 export default Inputs;
