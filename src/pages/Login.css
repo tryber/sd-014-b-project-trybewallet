@@ -1,16 +1,16 @@
-.email-label, .password-label, .login-button {
-  width: 20vh;
-  display: flex;
-  justify-content: center;
+.email-label , .password-label , .login-button {
   align-items: center;
+  display: flex;
   flex-direction: column;
   margin: auto;
+  justify-content: center;
+  width: 20vh;
 }
 
 .login-form {
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
 }
