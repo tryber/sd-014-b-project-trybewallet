@@ -10,15 +10,17 @@ class FormExpense extends Component {
     super(props);
 
     this.state = {
+      id: 0,
       value: '',
-      currency: 'usd',
-      payment: 'dinheiro',
-      tag: 'alimentação',
-      describe: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
     };
 
     this.renderSelect = this.renderSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -32,17 +34,36 @@ class FormExpense extends Component {
     });
   }
 
+  handleSubmit() {
+    const { id, value, currency, method, tag, description } = this.state;
+    const { handleExpenses, currentCurrencies, handleAPI } = this.props;
+    handleAPI();
+    this.setState((state) => ({ id: state.id + 1 }));
+
+    const newExpenses = {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: currentCurrencies,
+    };
+
+    handleExpenses(newExpenses);
+  }
+
   renderSelect() {
     const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const { currency, payment, tag } = this.state;
-    const { currenncies } = this.props;
+    const { currency, method, tag } = this.state;
+    const { currencies } = this.props;
 
     return (
       <>
         <SelectGenerator
           label="Moeda"
-          option={ currenncies.filter((e) => e !== 'USDT') }
+          option={ currencies.filter((e) => e !== 'USDT') }
           name="currency"
           handleChange={ this.handleChange }
           value={ currency }
@@ -50,9 +71,9 @@ class FormExpense extends Component {
         <SelectGenerator
           label="Método de pagamento"
           option={ paymentMethod }
-          name="payment"
+          name="method"
           handleChange={ this.handleChange }
-          value={ payment }
+          value={ method }
         />
         <SelectGenerator
           label="Tag"
@@ -66,8 +87,7 @@ class FormExpense extends Component {
   }
 
   render() {
-    const { value, describe } = this.state;
-    const { handleExpenses } = this.props;
+    const { value, description } = this.state;
     return (
       <div>
         <form className="form-expense">
@@ -79,15 +99,15 @@ class FormExpense extends Component {
           />
           { this.renderSelect() }
           <InputGenerator
-            name="describe"
-            value={ describe }
+            name="description"
+            value={ description }
             handleChange={ this.handleChange }
             text="Descrição"
           />
           <button
             type="button"
             className="btn btn-warning"
-            onClick={ () => handleExpenses(this.state) }
+            onClick={ () => this.handleSubmit() }
           >
             Adicionar Despesa
           </button>
@@ -98,7 +118,8 @@ class FormExpense extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currenncies: Object.keys(state.wallet.currencies),
+  currencies: Object.keys(state.wallet.currencies),
+  currentCurrencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,7 +128,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormExpense.propTypes = {
-  currenncies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
   handleAPI: PropTypes.func.isRequired,
   handleExpenses: PropTypes.func.isRequired,
 };
