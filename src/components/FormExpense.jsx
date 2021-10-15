@@ -75,6 +75,7 @@ class FormExpense extends Component {
           inputValue={ value }
           onChange={ this.handleChange }
           label="Valor:"
+          type="number"
           id="value"
         />
         <Input
