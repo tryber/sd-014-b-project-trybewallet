@@ -5,9 +5,9 @@ class Login extends React.Component {
     return (
       <>
         <h2>Login</h2>
-        <input data-testid="email-input" type="text" />
-        <input data-testid="password-input" type="password" />
-        <button type="button">Entrar</button>
+        <input data-testid="email-input" type="text" required />
+        <input data-testid="password-input" type="password" minLength="6" required />
+        <button type="button"  >Entrar</button>
       </>
     );
   }
