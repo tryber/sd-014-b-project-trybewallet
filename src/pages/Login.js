@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { statusUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,6 +11,7 @@ class Login extends React.Component {
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
+    this.handleOnClickButton = this.handleOnClickButton.bind(this);
 
     this.state = {
       inputEmail: '',
@@ -40,7 +44,14 @@ class Login extends React.Component {
     return false;
   }
 
+  handleOnClickButton() {
+    const { userProps } = this.props;
+    const { inputEmail } = this.state;
+    userProps(inputEmail);
+  }
+
   render() {
+    console.log(this.props);
     const { inputPassword } = this.state;
     const number = 6;
     const buttonDisabled = inputPassword.length >= number && this.validateEmail();
@@ -70,6 +81,7 @@ class Login extends React.Component {
             disabled={
               !buttonDisabled
             }
+            onClick={ this.handleOnClickButton }
           >
             Entrar
           </button>
@@ -78,4 +90,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  userProps: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  userProps: (email) => dispatch(statusUser(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

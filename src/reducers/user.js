@@ -1,13 +1,16 @@
+import { LOGIN_OK } from '../actions';
+
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
-const userReducer = (state = INITIAL_STATE) => state;
+const userReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case LOGIN_OK:
+    return { ...state, email: action.payload };
+  default:
+    return state;
+  }
+};
 
 export default userReducer;
