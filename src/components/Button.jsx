@@ -6,7 +6,14 @@ export default class Button extends React.Component {
   render() {
     const { text, onClick, dataTestId } = this.props;
     return (
-      <button className="button-active" data-testid={ dataTestId } onClick={ onClick } type="button">{text}</button>
+      <button
+        className="button-active"
+        data-testid={ dataTestId }
+        onClick={ onClick }
+        type="button"
+      >
+        {text}
+      </button>
     );
   }
 }
