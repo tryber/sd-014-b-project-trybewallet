@@ -8,7 +8,10 @@ class Header extends React.Component {
     return (
       <div>
         <h1>Cabeçalho</h1>
-        <p data-testid="email-field">{ email }</p>
+        <span data-testid="email-field">{ email }</span>
+        <span>Despesa total: </span>
+        <span data-testid="total-field">0</span>
+        <span data-testid="header-currency-field">BRL</span>
       </div>
     );
   }
