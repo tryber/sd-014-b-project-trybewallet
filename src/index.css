@@ -93,3 +93,7 @@ header img {
   display: flex;
   justify-content: space-around;
 }
+
+.btn-icon {
+  margin-left: 5px;
+}
