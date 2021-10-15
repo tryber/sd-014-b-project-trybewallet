@@ -1,12 +1,26 @@
-// import user from './user';
-// import wallet from './wallet';
-
-import { combineReducers } from 'redux';
-import userReducer from './user';
-import walletReducer from './wallet';
-
 // Configure os seus reducers.
 // ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
-const rootReducer = combineReducers({ userReducer, walletReducer });
+// Esse reducer será responsável por tratar as informações da pessoa usuária
+const INITIAL_STATE = {
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
+};
+
+const rootReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case 'ADD_MAIL':
+    return { ...state,
+      user: {
+        email: action.mail,
+      } };
+  default:
+    return state;
+  }
+};
 
 export default rootReducer;
