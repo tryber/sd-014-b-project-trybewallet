@@ -25,7 +25,7 @@ class Login extends React.Component {
     const magicNumber = 5;
     if ((password.length >= magicNumber) && (this.isEmailValid(email))) {
       this.setState({
-        disabled: false, 
+        disabled: false,
       });
     }
   }
