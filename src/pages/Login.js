@@ -18,8 +18,21 @@ class Login extends React.Component {
     });
   }
 
+  // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
+
   render() {
+    const emailValid = (email) => {
+      const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      return regexEmail.test(email);
+    };
+
     const { email, senha } = this.state;
+
+    const validEmailState = emailValid(email);
+    const numberMaxCharacters = 6;
+
+    const buttonEnable = validEmailState && senha.length >= numberMaxCharacters;
+
     return (
       <section>
         <label htmlFor="email">
@@ -33,7 +46,7 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="email">
-          Email:
+          Senha:
           <input
             name="senha"
             value={ senha }
@@ -42,7 +55,11 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button data-testid="login" type="button">
+        <button
+          disabled={ !buttonEnable }
+          data-testid="login"
+          type="button"
+        >
           Entrar
         </button>
       </section>
