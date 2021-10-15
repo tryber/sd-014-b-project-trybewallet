@@ -1,5 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import validator from 'validator';
+import { connect } from 'react-redux';
+import { login as loginEvent } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -7,6 +10,7 @@ class Login extends React.Component {
     this.state = { disabled: true, password: '', email: '' };
     this.handleChange = this.handleChange.bind(this);
     this.changeButtonStatus = this.changeButtonStatus.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +29,13 @@ class Login extends React.Component {
     } else {
       this.setState({ disabled: true });
     }
+  }
+
+  handleLogin() {
+    const { login, history } = this.props;
+    const { email } = this.state;
+    login(email);
+    history.push('/carteira');
   }
 
   render() {
@@ -47,10 +58,28 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           name="password"
         />
-        <button type="button" disabled={ disabled }>Entrar</button>
+        <button
+          type="button"
+          disabled={ disabled }
+          onClick={ this.handleLogin }
+        >
+          Entrar
+
+        </button>
       </section>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (event) => dispatch(loginEvent(event)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
