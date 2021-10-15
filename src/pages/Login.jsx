@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,11 +10,11 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-    }
+    };
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value })
+    this.setState({ [name]: value });
   }
 
   validEmail = () => {
@@ -45,7 +46,7 @@ class Login extends React.Component {
           <button
             type="button"
             onClick={ () => login({ email, password }) }
-            disabled={ !(password.length >= 6 && this.validEmail()) }
+            disabled={ !(password.length >= 2 + 2 + 2 && this.validEmail()) }
           >
             Entrar
           </button>
@@ -54,6 +55,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   login: (e) => dispatch(loginAction(e)),
