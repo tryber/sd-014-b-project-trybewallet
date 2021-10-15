@@ -39,16 +39,16 @@ class FormExpense extends Component {
       method,
       tag,
     } = this.state;
-    const { dispatchSetValue } = this.props;
+    const { setExpenses } = this.props;
     const getApi = await fetch(URL);
     const exchangeRates = await getApi.json();
     this.setState((prev) => ({
       id: prev.id + 1,
     }));
-    const addExpense = [{
+    const addExpense = {
       value, description, id, exchangeRates, currency, method, tag,
-    }];
-    dispatchSetValue(addExpense);
+    };
+    setExpenses(addExpense);
   }
 
   handleChange({ target: { id, value } }) {
@@ -114,14 +114,14 @@ class FormExpense extends Component {
 }
 
 FormExpense.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
   }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (rates) => dispatch(exchangeRating(rates)),
+  setExpenses: (rates) => dispatch(exchangeRating(rates)),
 });
 
 const mapStateToProps = (state) => ({ wallet: state.wallet.expenses });
