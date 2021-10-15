@@ -1,4 +1,9 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { changeUser } from '../actions';
+// import user from '../reducers/user';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +14,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   handleChange({ target }) {
@@ -16,6 +22,13 @@ class Login extends React.Component {
     this.setState({
       [name]: target.value,
     });
+  }
+
+  changePage() {
+    const { email } = this.state;
+    const { history, dispatchUser } = this.props;
+    dispatchUser(email);
+    history.push('/carteira');
   }
 
   // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
@@ -26,12 +39,16 @@ class Login extends React.Component {
       return regexEmail.test(email);
     };
 
-    const { email, senha } = this.state;
-
+    const { email, senha, redirect } = this.state;
+    // const { changeUser } = this.props;
     const validEmailState = emailValid(email);
     const numberMaxCharacters = 6;
 
     const buttonEnable = validEmailState && senha.length >= numberMaxCharacters;
+
+    if (redirect === true) {
+      return <Redirect to="/carteira" />;
+    }
 
     return (
       <section>
@@ -59,6 +76,7 @@ class Login extends React.Component {
           disabled={ !buttonEnable }
           data-testid="login"
           type="button"
+          onClick={ this.changePage }
         >
           Entrar
         </button>
@@ -67,4 +85,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUser: (email) => dispatch(changeUser(email)),
+});
+
+Login.propTypes = {
+  dispatchUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

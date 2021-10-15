@@ -1,10 +1,10 @@
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducer from '../reducers';
+import rootReducer from '../reducers/index';
 
 export const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(),
 );
 
