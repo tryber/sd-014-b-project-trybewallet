@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { userEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -20,11 +23,17 @@ class Login extends React.Component {
   // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
   validation(email) {
     // Não consigo entender bem como funciona, mas a expressão abaixo é utilizada para validar
-    // se existem os caracters necessários para validar o email.
+    // se existem os caracters necessários para que o email seja válido.
     const emailValidation = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     // O metodo test() verifica se o email recebido por parametro está de acordo com as regras
     // que foram passadas pela const emailValidation e retorna true ou false
     return emailValidation.test(email);
+  }
+
+  requestLogin() {
+    const { email } = this.state;
+    const { setEmail } = this.props;
+    setEmail(email);
   }
 
   render() {
@@ -65,6 +74,7 @@ class Login extends React.Component {
               type="button"
               className="btn btn-success w-100"
               disabled={ !validation }
+              onClick={ this.requestLogin }
             >
               Entrar
             </button>
@@ -75,4 +85,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setEmail: (state) => dispatch(userEmail(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
