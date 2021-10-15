@@ -30,10 +30,8 @@ class Login extends React.Component {
       && (usuario.search('@') === FALSE)
       && (usuario.search(' ') === FALSE)
     ) {
-      console.log('passou');
       return true;
     }
-    console.log('não passou');
     return false;
   }
 
@@ -49,10 +47,8 @@ class Login extends React.Component {
       && (dominio.search('.') !== FALSE)
       && (dominio.indexOf('.') >= 1)
       && (dominio.lastIndexOf('.') < dominio.length - 1)) {
-      console.log('validou');
       return true;
     }
-    console.log('não validou');
     return false;
   }
 
@@ -60,16 +56,13 @@ class Login extends React.Component {
     const { password } = this.state;
     const LENGTH_PASSWORD = 6;
     if (password.length >= LENGTH_PASSWORD) {
-      console.log('senha');
       return true;
     }
-    console.log('senha inválida');
     return false;
   }
 
   validationLogin() {
     const { validationUserEmail, validationDomainEmail, validationPassword } = this;
-    console.log('chamou');
     if (validationUserEmail() && validationDomainEmail() && validationPassword()) {
       return false;
     }
@@ -84,6 +77,7 @@ class Login extends React.Component {
         <label htmlFor="email-input">
           E-mail:
           <input
+            data-testid="email-input"
             type="email"
             id="email-input"
             placeholder="Digite seu e-mail"
@@ -95,6 +89,7 @@ class Login extends React.Component {
         <label htmlFor="password-input">
           Senha:
           <input
+            data-testid="password-input"
             type="password"
             id="password-input"
             placeholder="Digite sua senha"
