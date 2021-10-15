@@ -3,7 +3,9 @@ import Switcher from './Components/Switcher';
 
 function App() {
   return (
-    <Switcher />
+    <main className="App">
+      <Switcher />
+    </main>
   );
 }
 
