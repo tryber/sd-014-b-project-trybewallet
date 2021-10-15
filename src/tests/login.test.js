@@ -35,7 +35,7 @@ describe('1 - Crie uma página inicial de login com os seguintes campos e caract
   });
 });
 
-describe.skip('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
+describe('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
   test('O botão de "Entrar" está desabilitado ao entrar na página', () => {
     renderWithRouterAndStore(<App />, '/');
 

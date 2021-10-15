@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Input({ textButton, onClick, className }) {
+function Input({ textButton, onClick, className, disabled }) {
   return (
     <section className="container-button">
       <button
         type="button"
         onClick={ onClick }
         className={ className }
+        disabled={ disabled }
       >
         { textButton }
       </button>
@@ -17,8 +18,9 @@ function Input({ textButton, onClick, className }) {
 
 Input.propTypes = {
   textButton: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default Input;
