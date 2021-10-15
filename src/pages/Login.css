@@ -2,11 +2,11 @@ button:disabled {
   background-color: black;
   color: white;
   cursor: none;
-  filter: opacity(2s)
+  filter: opacity(2s);
 }
 
 button:enabled {
   background-color: green;
-  transition: 2s;
   cursor: pointer;
+  transition: 2s;
 }
