@@ -1,9 +1,9 @@
 import React from 'react';
-import './Login.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Image from '../images/iconLogin.png';
 import { saveUser } from '../actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -36,16 +36,17 @@ class Login extends React.Component {
         .innerHTML = '<font color=\'red\'>digite um e-mail válido </font>';
     } else {
       document.getElementById('senha').disabled = false;
+      document.getElementById('msgemail').innerHTML = '';
     }
   }
 
   handleSubmit() {
-    const { saveData } = this.props;
+    const { history, saveData } = this.props;
     saveData(this.state);
+    history.push('./carteira');
   }
 
   render() {
-    const { saveData } = this.props;
     const { email, senha } = this.state;
     const minLength = 6;
     let btnDesabilitado = true;
@@ -84,7 +85,7 @@ class Login extends React.Component {
             <button
               id="btnSubmit"
               type="submit"
-              onClick={ () => saveData(this.state) }
+              onClick={ this.handleSubmit }
               disabled={ btnDesabilitado }
             >
               Entrar
@@ -98,6 +99,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   saveData: PropTypes.func.isRequired,
+  history: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
