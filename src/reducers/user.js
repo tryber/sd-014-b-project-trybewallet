@@ -1,12 +1,6 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const INISTIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
 const user = (state = INISTIAL_STATE, action) => {
@@ -14,7 +8,7 @@ const user = (state = INISTIAL_STATE, action) => {
   case 'EMAIL':
     return {
       ...state,
-      email: action.user.email,
+      email: action.payload,
     };
   default:
     return state;
