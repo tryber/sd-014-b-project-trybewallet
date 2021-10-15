@@ -12,6 +12,7 @@ class Login extends React.Component {
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.validation = this.validation.bind(this);
+    this.requestLogin = this.requestLogin.bind(this);
   }
 
   handleChangeInput({ target }) {
@@ -32,8 +33,9 @@ class Login extends React.Component {
 
   requestLogin() {
     const { email } = this.state;
-    const { setEmail } = this.props;
+    const { setEmail, history } = this.props;
     setEmail(email);
+    history.push('/carteira');
   }
 
   render() {
@@ -86,6 +88,9 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   setEmail: PropTypes.func.isRequired,
 };
 
