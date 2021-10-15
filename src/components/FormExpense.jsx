@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 export default function FormExpense() {
   const [allCoins, changeCoinsArray] = useState([]);
 
   const fetchCurrency = async () => {
-    const getApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const getApi = await fetch(URL);
     const response = await getApi.json();
     const coins = Object.keys(response).filter((currency) => currency !== 'USDT');
     changeCoinsArray(coins);
@@ -22,6 +23,10 @@ export default function FormExpense() {
       </select>
     </label>
   );
+
+  const onClick = async () => {
+    // Ainda vou ter que desenvolver essa lógica
+  };
 
   useEffect(() => {
     fetchCurrency();
@@ -40,7 +45,7 @@ export default function FormExpense() {
       { selectMap('currency', 'Moeda:', allCoins) }
       { selectMap('paymentMethod', 'Método de pagamento:', paymentOptions) }
       { selectMap('category', 'Tag:', expenseOptions) }
-      <button type="button">Adicionar despesa</button>
+      <button type="button" onClick={ onClick }>Adicionar despesa</button>
     </form>
 
   );
