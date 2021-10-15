@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import Login from '../pages/Login';
 
 class Switcher extends Component {
   render() {
     return (
-      <Switch />
+      <Switch>
+        <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+      </Switch>
     );
   }
 }
