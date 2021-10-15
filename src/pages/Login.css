@@ -1,10 +1,10 @@
 main {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: black;
   color: white;
+  flex-direction: column;
+  justify-content: center;
   height: 100vh;
   width: 100vw;
 }
@@ -22,13 +22,12 @@ section {
 
 input {
   align-self: center;
-  border: 0px;
-  display: flex;
   border-radius: 5px;
+  display: flex;
   margin: 5px;
   height: 25px;
-  width: 200px;
   padding: 5px 10px;
+  width: 200px;
 }
 
 input::placeholder {
@@ -36,7 +35,6 @@ input::placeholder {
 }
 
 button {
-  border: 0px;
   background-color: lightblue;
   border-radius: 5px;
   font-size: medium;
@@ -58,6 +56,5 @@ button:disabled {
 img {
   background-color: white;
   border-radius: 5px;
-  padding: 0px;
   width: 220px;
 }
