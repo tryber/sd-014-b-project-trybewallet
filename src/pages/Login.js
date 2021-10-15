@@ -10,11 +10,18 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.emailValidation = this.emailValidation.bind(this);
+  }
+
+  // função indicada pelo Michael Caxias no slack
+  emailValidation(email) {
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (regex.test(email)) return true;
+    return false;
   }
 
   handleChange({ target }) {
     const { name, value } = target;
-    console.log('Função ok');
     this.setState({
       [name]: value,
     });
@@ -23,6 +30,7 @@ class Login extends React.Component {
   render() {
     const { email, senha } = this.state;
     const minChar = 6;
+    const validation = senha.length >= minChar && this.emailValidation(email);
     return (
       <form>
         <input
@@ -41,7 +49,15 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           value={ senha }
         />
-        <button type="button" disabled={ senha.length < minChar }> Entrar </button>
+        <button
+          type="button"
+          disabled={ !validation }
+        >
+          {' '}
+          Entrar
+          {' '}
+
+        </button>
       </form>
     );
   }
