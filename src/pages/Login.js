@@ -5,6 +5,7 @@ class Login extends React.Component {
     super();
 
     this.handleChange = this.handleChange.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
 
     this.state = {
       inputEmail: '',
@@ -18,8 +19,19 @@ class Login extends React.Component {
     });
   }
 
+  /*
+    Créditos ao Michael Caxias que colocou essa função no slack e ao Gustavo Sant'Anna que aprofundou mais na explicação
+    ela verifica se há uma letra, numero ou traço antes do @, então verifica se há após o arroba
+    qualquer coisa que não seja um espaço vazio, depois um ponto, depois 2 a 4 caracteres depois desse ponto.
+  */
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
   render() {
     const { inputEmail, inputPassword } = this.state;
+    const minLength = 6;
     return (
       <form>
         <label htmlFor="inputEmail">
@@ -42,7 +54,12 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+          disabled={ !this.isEmailValid(inputEmail) || inputPassword.length < minLength }
+        >
+          Entrar
+        </button>
       </form>);
   }
 }
