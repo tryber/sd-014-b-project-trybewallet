@@ -42,9 +42,7 @@ class FormExpense extends Component {
     const { setExpenses } = this.props;
     const getApi = await fetch(URL);
     const exchangeRates = await getApi.json();
-    this.setState((prev) => ({
-      id: prev.id + 1,
-    }));
+    this.setState((prev) => ({ id: prev.id + 1 }));
     const addExpense = {
       value, description, id, exchangeRates, currency, method, tag,
     };
