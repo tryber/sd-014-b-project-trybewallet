@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -67,6 +68,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 // Função consultada na https://github.com/tryber/sd-014-b-live-lectures/blob/lecture/15.5-16.5/clients-register/src/pages/Login.js
 const mapDispatchToProps = (dispatch) => ({
   login: (e) => dispatch(emailLogin(e)),
