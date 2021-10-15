@@ -1,2 +1,2 @@
 src/tests
-src/utils/serviceWorker.js
+src/serviceWorker.js
