@@ -11,13 +11,25 @@ class Wallet extends Component {
 
     this.state = {
       totalExpenses: 0,
+      currencys: [],
     };
   }
 
+  async componentDidMount() {
+    await this.fetchingValuesCurrencys();
+  }
+
+  async fetchingValuesCurrencys() {
+    const fetching = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const fetchingJson = await fetching.json();
+    this.setState({ currencys: Object.keys(fetchingJson) });
+  }
+
   render() {
-    const { props: { email }, state: { totalExpenses } } = this;
+    const { props: { email }, state: { totalExpenses, currencys } } = this;
     const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    currencys.splice(1, 1);
 
     return (
       <main className="wallet-page">
@@ -38,7 +50,12 @@ class Wallet extends Component {
               id="description"
             />
 
-            <Select textLabel="Moeda: " id="currency" />
+            <Select
+              textLabel="Moeda: "
+              id="currency"
+              options={ currencys }
+            />
+
             <Select
               textLabel="Método de pagamento: "
               id="payment"
