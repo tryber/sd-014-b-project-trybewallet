@@ -1,7 +1,7 @@
 main {
   align-items: center;
-  display: flex;
   background-color: black;
+  display: flex;
   color: white;
   flex-direction: column;
   height: 100vh;
