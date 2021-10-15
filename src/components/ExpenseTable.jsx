@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { removeExpenses } from '../actions';
+import { editExpenses, removeExpenses } from '../actions';
 
 const title = [
   'Descrição',
@@ -31,13 +31,13 @@ class ExpenseTable extends Component {
   }
 
   editExpense(id) {
-    const { removeExpense } = this.props;
+    const { editExpense } = this.props;
     return (
       <button
         className="btn-icon btn btn-outline-warning"
         type="button"
-        data-testid="delete-btn"
-        onClick={ () => { removeExpense(id); } }
+        data-testid="edit-btn"
+        onClick={ () => { editExpense(id); } }
       >
         <FaEdit />
       </button>
@@ -88,11 +88,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (state) => dispatch(removeExpenses(state)),
+  editExpense: (state) => dispatch(editExpenses(state)),
 });
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

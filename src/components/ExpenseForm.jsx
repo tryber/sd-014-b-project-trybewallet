@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpenses, fetchAPI } from '../actions';
+import { addEditExpenses, addExpenses, fetchAPI } from '../actions';
 import SelectGenerator from './SelectGenerator';
 import InputGenerator from './InputGenerator';
 
@@ -26,8 +26,8 @@ class FormExpense extends Component {
   }
 
   componentDidMount() {
-    const { handleAPI } = this.props;
-    handleAPI();
+    const { dispatchRequestAPI } = this.props;
+    dispatchRequestAPI();
   }
 
   handleChange({ target: { name, value } }) {
@@ -36,10 +36,7 @@ class FormExpense extends Component {
     });
   }
 
-  handleSubmit() {
-    const { handleExpenses, currentCurrencies, handleAPI } = this.props;
-    handleAPI();
-    handleExpenses({ ...this.state, exchangeRates: currentCurrencies });
+  setInitialState() {
     this.setState((prevState) => ({
       id: prevState.id + 1,
       value: '',
@@ -48,6 +45,19 @@ class FormExpense extends Component {
       tag: category[0],
       description: '',
     }));
+  }
+
+  handleSubmit() {
+    const { dispatchAddExpenses, currentCurrencies, dispatchRequestAPI } = this.props;
+    dispatchRequestAPI();
+    dispatchAddExpenses({ ...this.state, exchangeRates: currentCurrencies });
+    this.setInitialState();
+  }
+
+  handleEditExpenses() {
+    const { dispatchModifiedExpense } = this.props;
+    dispatchModifiedExpense(this.state);
+    this.setInitialState();
   }
 
   renderSelect() {
@@ -83,6 +93,7 @@ class FormExpense extends Component {
 
   render() {
     const { value, description } = this.state;
+    const { isEdit } = this.props;
     return (
       <div>
         <form className="form-expense">
@@ -99,13 +110,24 @@ class FormExpense extends Component {
             handleChange={ this.handleChange }
             text="Descrição"
           />
-          <button
-            type="button"
-            className="btn btn-warning"
-            onClick={ () => this.handleSubmit() }
-          >
-            Adicionar Despesa
-          </button>
+          { isEdit ? (
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={ () => this.handleEditExpenses() }
+            >
+              Editar Despesa
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={ () => this.handleSubmit() }
+            >
+              Adicionar Despesa
+            </button>
+          ) }
+
         </form>
       </div>
     );
@@ -115,22 +137,30 @@ class FormExpense extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   currentCurrencies: state.wallet.currentCurrencies,
+  isEdit: state.wallet.isEdit,
+  editExpense: state.wallet.editExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleAPI: () => dispatch(fetchAPI()),
-  handleExpenses: (state) => dispatch(addExpenses(state)),
+  dispatchRequestAPI: () => dispatch(fetchAPI()),
+  dispatchAddExpenses: (state) => dispatch(addExpenses(state)),
+  dispatchModifiedExpense: (state) => dispatch(addEditExpenses(state)),
 });
 
 FormExpense.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentCurrencies: PropTypes.objectOf(PropTypes.object),
-  handleAPI: PropTypes.func.isRequired,
-  handleExpenses: PropTypes.func.isRequired,
+  dispatchRequestAPI: PropTypes.func.isRequired,
+  dispatchAddExpenses: PropTypes.func.isRequired,
+  dispatchModifiedExpense: PropTypes.func.isRequired,
+  isEdit: PropTypes.bool,
+  editExpense: PropTypes.shape({}),
 };
 
 FormExpense.defaultProps = {
   currentCurrencies: {},
+  isEdit: false,
+  editExpense: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpense);

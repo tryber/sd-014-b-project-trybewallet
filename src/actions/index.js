@@ -3,6 +3,8 @@ export const GET_CURRENCY = 'GET_CURRENCY';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
+export const EDIT_EXPENSES = 'EDIT_EXPENSES';
+export const ADD_EDIT_EXPENSES = 'ADD_EDIT_EXPENSES';
 
 export const userLogin = (payload) => ({
   type: LOGIN,
@@ -16,6 +18,16 @@ export const addExpenses = (payload) => ({
 
 export const removeExpenses = (payload) => ({
   type: REMOVE_EXPENSES,
+  payload,
+});
+
+export const editExpenses = (payload) => ({
+  type: EDIT_EXPENSES,
+  payload,
+});
+
+export const addEditExpenses = (payload) => ({
+  type: ADD_EDIT_EXPENSES,
   payload,
 });
 
