@@ -1,6 +1,17 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getEmail, getPassword } from '../slices/loginSlice';
 
-export default function Login() {
+function handleSubmit(props) {
+  const { history } = props;
+  history.push('/carteira');
+}
+
+export default function Login(props) {
+  const { email, password, isEmailValid, isPasswordValid } = useSelector(
+    (state) => state.login,
+  );
+  const dispatch = useDispatch();
   return (
     <form>
       <fieldset>
@@ -9,6 +20,8 @@ export default function Login() {
           name="email"
           data-testid="email-input"
           placeholder="email@email.com"
+          value={ email }
+          onChange={ (e) => dispatch(getEmail(e.target.value)) }
         />
         <input
           type="password"
@@ -16,8 +29,16 @@ export default function Login() {
           data-testid="password-input"
           placeholder="senha"
           minLength="6"
+          value={ password }
+          onChange={ (e) => dispatch(getPassword(e.target.value)) }
         />
-        <button type="button">Entrar</button>
+        <button
+          disabled={ !(isEmailValid && isPasswordValid) }
+          type="button"
+          onClick={ () => handleSubmit(props) }
+        >
+          Entrar
+        </button>
       </fieldset>
     </form>
   );
