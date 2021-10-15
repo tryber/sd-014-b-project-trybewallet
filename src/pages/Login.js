@@ -70,6 +70,10 @@ class Login extends React.Component {
   }
 }
 
+Login.propTypes = {
+  dispatchEmail: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchEmail: (emailFromLocalState) => dispatch(setUserEmail(emailFromLocalState)),
 });
