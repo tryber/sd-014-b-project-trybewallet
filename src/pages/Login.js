@@ -1,31 +1,57 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
-function Login() {
-  const [emailInput, setEmailValue] = useState('');
-  const [password, setPasswordValue] = useState('');
+class Login extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState(
+      { [name]: value },
+    );
+  }
 
   // Ajuda do Michael Caxias para fazer o regex
-  const isEmailValid = (email) => {
+  isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email) === true;
-  };
+  }
 
-  const num = 6;
-  const disabled = password.length >= num && isEmailValid(emailInput);
-
-  return (
-    <form>
-      <input
-        data-testid="email-input"
-        onChange={ ({ target: { value } }) => setEmailValue(value) }
-      />
-      <input
-        data-testid="password-input"
-        onChange={ ({ target: { value } }) => setPasswordValue(value) }
-      />
-      <button type="button" disabled={ !disabled }>Entrar</button>
-    </form>
-  );
+  render() {
+    const { email, password } = this.state;
+    const num = 6;
+    const disabled = password.length >= num && this.isEmailValid(email);
+    return (
+      <form>
+        <input
+          data-testid="email-input"
+          onChange={ this.handleChange }
+          value={ email }
+          name="email"
+        />
+        <input
+          data-testid="password-input"
+          onChange={ this.handleChange }
+          value={ password }
+          name="password"
+        />
+        <button
+          type="button"
+          disabled={ !disabled }
+        >
+          Entrar
+        </button>
+      </form>
+    );
+  }
 }
 
 export default Login;
