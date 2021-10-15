@@ -30,13 +30,14 @@ class Login extends React.Component {
     const disabled = password.length >= minLength && this.isEmailValid(email);
     return (
       <div>
-        Login
+        Login:
         <input
           name="email"
           value={ email }
           onChange={ this.handleChange }
           data-testid="email-input"
         />
+        Senha:
         <input
           name="password"
           onChange={ this.handleChange }
