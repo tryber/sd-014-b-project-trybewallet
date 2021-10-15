@@ -113,7 +113,8 @@ class FormExpense extends Component {
 
 FormExpense.propTypes = {
   setExpenses: PropTypes.func.isRequired,
-  setCurrencie: PropTypes.func.isRequired,
+  setCurrency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
   }).isRequired,

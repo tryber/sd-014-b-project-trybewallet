@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { BsFillTrashFill } from 'react-icons/bs';
 import { deleteExpenses } from '../actions';
 
 function ButtonDelete({ id, deleteExpense }) {
@@ -14,7 +15,7 @@ function ButtonDelete({ id, deleteExpense }) {
       onClick={ handleDelete }
       data-testid="delete-btn"
     >
-      Delete
+      <BsFillTrashFill />
 
     </button>
   );
