@@ -20,7 +20,7 @@
 
   button {
     margin-top: 2rem;
-    background: #72c585;
+    background: #1f8737;
     color: #FFFFFF;
 
     padding: 0.5rem 2rem;
@@ -29,5 +29,14 @@
       
     border: 0;
     border-radius: 2px;
+
+    cursor: pointer;
+
+    transition: filter 0.2s;
+
+    &:disabled {
+      filter: opacity(0.7);
+      cursor: default;
+    }
   }
 }

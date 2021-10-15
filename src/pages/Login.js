@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { addEmailAddress } from '../actions';
 import styles from '../styles/login.module.scss';
 
 class Login extends React.Component {
@@ -11,6 +15,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.validateEmailAndLogin = this.validateEmailAndLogin.bind(this);
   }
 
   handleChange({ target: { value, name } }) {
@@ -19,9 +24,18 @@ class Login extends React.Component {
     });
   }
 
-  render() {
-    const { handleChange } = this;
+  validateEmailAndLogin() {
     const { email, password } = this.state;
+    const emailRegex = /\S+@\S+\.\S+/;
+    const MIN_PASSWORD_LENGTH = 6;
+
+    return emailRegex.test(email) && password.length > MIN_PASSWORD_LENGTH;
+  }
+
+  render() {
+    const { handleChange, validateEmailAndLogin } = this;
+    const { email, password } = this.state;
+    const { sendEmail } = this.props;
 
     return (
       <form className={ styles.loginForm }>
@@ -41,14 +55,26 @@ class Login extends React.Component {
           value={ password }
           onChange={ (event) => handleChange(event) }
         />
-        <button
-          type="submit"
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !validateEmailAndLogin() }
+            onClick={ () => sendEmail(email) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendEmail: (emailAddress) => dispatch(addEmailAddress(emailAddress)),
+});
+
+Login.propTypes = {
+  sendEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
