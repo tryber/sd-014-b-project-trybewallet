@@ -65,7 +65,14 @@ class Login extends React.Component {
           type="password"
           data-testid="password-input"
         />
-        <button disabled={ btnDisabled } type="submit">Entrar</button>
+        <button
+          onClick={ this.handleClick }
+          disabled={ btnDisabled }
+          type="button"
+        >
+          Entrar
+
+        </button>
       </form>
     );
   }
