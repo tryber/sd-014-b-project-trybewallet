@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import Form from '../Components/Form';
-import { addCurrencies, addExpenses } from '../actions';
+import { addCurrencies, addExpenses, updateTotalExpenses } from '../actions';
 
 class Wallet extends Component {
   constructor() {
@@ -13,7 +13,6 @@ class Wallet extends Component {
     this.handleAddExpenses = this.handleAddExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      totalExpenses: 0,
       value: '',
       description: '',
       currency: 'USD',
@@ -56,16 +55,15 @@ class Wallet extends Component {
   }
 
   updateTotalValue(currencys) {
-    const { value, currency, totalExpenses } = this.state;
+    const { value, currency } = this.state;
+    const { updateTotalExpensesDispatch, totalExpenses } = this.props;
     const valueCoinSelected = currencys[currency].ask;
-    console.log(valueCoinSelected);
     const valueMultiplyCoinSelected = ((value * valueCoinSelected) * 100) / 100;
-    this.setState({ totalExpenses: totalExpenses + valueMultiplyCoinSelected });
+    updateTotalExpensesDispatch(totalExpenses + valueMultiplyCoinSelected);
   }
 
   render() {
-    const { props: { email, currencies }, state: {
-      totalExpenses,
+    const { props: { email, currencies, totalExpenses }, state: {
       value,
       description,
       currency,
@@ -97,8 +95,10 @@ Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  totalExpenses: PropTypes.number.isRequired,
   addExpensesDispatch: PropTypes.func.isRequired,
   addCurrenciesDispatch: PropTypes.func.isRequired,
+  updateTotalExpensesDispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -106,6 +106,7 @@ function mapStateToProps(state) {
     email: state.user.email,
     expenses: state.wallet.expenses,
     currencies: state.wallet.currencies,
+    totalExpenses: state.wallet.totalExpenses,
   };
 }
 
@@ -113,6 +114,9 @@ function mapDispatchToProps(dispatch) {
   return {
     addExpensesDispatch: (state) => dispatch(addExpenses(state)),
     addCurrenciesDispatch: (currencies) => dispatch(addCurrencies(currencies)),
+    updateTotalExpensesDispatch: (totalExpenses) => dispatch(
+      updateTotalExpenses(totalExpenses),
+    ),
   };
 }
 
