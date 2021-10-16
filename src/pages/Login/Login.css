@@ -34,7 +34,7 @@ section {
   font-size: larger;
 }
 
-#btnSubmit {
+div #btnSubmit {
   background-color: rgb(26, 61, 219);
   border-color: rgb(26, 61, 219);
   border-radius: 5px;
@@ -44,13 +44,13 @@ section {
   width: 224px;
 }
 
-#btnSubmit:hover {
+div #btnSubmit:hover {
   background-color: lightcoral;
   border-color: lightcoral;
   cursor: pointer;
 }
 
-#btnSubmit:disabled {
+div #btnSubmit:disabled {
   background-color: lightslategray;
   border-color: lightslategray;
   cursor: default;
