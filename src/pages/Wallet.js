@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import Spending from '../components/Spending';
+import Expenses from '../components/Expenses';
 import { fetchAPI } from '../actions';
 import './Wallet.css';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -16,7 +17,10 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        <Spending />
+        <hr />
+        <Expenses />
+        <hr />
+        <Table />
       </>
     );
   }

@@ -2,3 +2,7 @@ body {
   background-color: black;
   color: white;
 }
+
+hr {
+  margin-top: 0px;
+}

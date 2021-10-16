@@ -1,0 +1,43 @@
+form {
+  align-items: center;
+  display: flex;
+  flex-wrap: row wrap;
+  justify-content: space-evenly;
+}
+
+label {
+  align-items: center;
+  display: flex;
+  flex-wrap: row wrap;
+  margin-bottom: 8px;
+}
+
+input {
+  border-radius: 5px;
+  height: 25px;
+  width: 150px;
+}
+
+select {
+  border-radius: 5px;
+  height: 39px;
+  width: 120px;
+}
+
+button {
+  background-color: rgb(26, 61, 219);
+  border-color: rgb(26, 61, 219);
+  border-radius: 5px;
+  color: white;
+  font-size: medium;
+  font-weight: 900;
+  margin-bottom: 8px; 
+  height: 35px;
+  width: 160px;
+}
+
+button:hover {
+  background-color: lightcoral;
+  border-color: lightcoral;
+  cursor: pointer;
+}

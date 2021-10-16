@@ -1,13 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import SelectCurrency from './SelectCurrency';
+import './Expenses.css';
 
-class Spending extends React.Component {
+class Expenses extends React.Component {
   render() {
-    const { moedas } = this.props;
-    const indexUSDT = moedas.indexOf('USDT');
-    const arrayIsValid = -1;
-    if (indexUSDT > arrayIsValid) moedas.splice(indexUSDT, 1);
     return (
       <form>
         <label htmlFor="valor">
@@ -18,13 +15,7 @@ class Spending extends React.Component {
           Descrição:
           <input id="description" type="text" name="description" />
         </label>
-        <label htmlFor="currency">
-          Moeda:
-          <select id="currency" name="currency">
-            { moedas
-              .map((coin, i) => (<option key={ i } value={ coin }>{ coin }</option>))}
-          </select>
-        </label>
+        <SelectCurrency id="select-currency-expenses" />
         <label htmlFor="payment-method">
           Método de Pagamento:
           <select id="payment-method" name="payment-method">
@@ -45,17 +36,18 @@ class Spending extends React.Component {
             <option value="health">Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar despesa</button>
       </form>
     );
   }
 }
 
-Spending.propTypes = {
+/* Expenses.propTypes = {
   moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   moedas: state.wallet.currencies,
-});
+}); */
 
-export default connect(mapStateToProps)(Spending);
+export default connect(null)(Expenses);
