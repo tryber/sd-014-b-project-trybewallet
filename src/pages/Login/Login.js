@@ -16,6 +16,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.validacaoEmail = this.validacaoEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderBtn = this.renderBtn.bind(this);
   }
 
   handleChange({ target }) {
@@ -46,15 +47,18 @@ class Login extends React.Component {
     history.push('./carteira');
   }
 
-  render() {
-    const { email, senha } = this.state;
+  renderBtn() {
+    const { senha } = this.state;
     const minLength = 6;
-    let btnDesabilitado = true;
     if (senha.length >= minLength) {
-      btnDesabilitado = false;
-    } else {
-      btnDesabilitado = true;
+      return false;
     }
+    return true;
+  }
+
+  render() {
+    const btnDesabilitado = this.renderBtn();
+    const { email, senha } = this.state;
     return (
       <main>
         <section>
@@ -62,6 +66,7 @@ class Login extends React.Component {
           <div>
             <div>
               <input
+                className="input-login"
                 data-testid="email-input"
                 name="email"
                 type="email"
@@ -73,6 +78,7 @@ class Login extends React.Component {
               <span className="span-msg" id="msgemail" />
             </div>
             <input
+              className="input-login"
               data-testid="password-input"
               id="senha"
               name="senha"

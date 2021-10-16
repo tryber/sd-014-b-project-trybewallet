@@ -20,7 +20,7 @@ section {
   font-size: smaller;
 }
 
-input {
+.input-login {
   align-self: center;
   border-radius: 5px;
   display: flex;
@@ -30,26 +30,29 @@ input {
   width: 200px;
 }
 
-input::placeholder {
+.input-login::placeholder {
   font-size: larger;
 }
 
-button {
-  background-color: lightblue;
+#btnSubmit {
+  background-color: rgb(26, 61, 219);
+  border-color: rgb(26, 61, 219);
   border-radius: 5px;
   font-size: medium;
   font-weight: 900;
-  height: 35px;
-  width: 220px;
+  height: 39px;
+  width: 224px;
 }
 
-button:hover {
+#btnSubmit:hover {
   background-color: lightcoral;
+  border-color: lightcoral;
   cursor: pointer;
 }
 
-button:disabled {
+#btnSubmit:disabled {
   background-color: lightslategray;
+  border-color: lightslategray;
   cursor: default;
 }
 

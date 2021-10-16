@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SelectCurrency from '../SelectCurrency/SelectCurrency';
+// import SelectCurrency from '../SelectCurrency/SelectCurrency';
 import './Header.css';
 
 class Header extends React.Component {
@@ -16,7 +16,7 @@ class Header extends React.Component {
           <span data-testid="total-field">0</span>
           <span data-testid="header-currency-field">BRL</span>
         </div>
-        <SelectCurrency id="select-currency-header" />
+        {/* <SelectCurrency id="select-currency-header" /> */}
       </div>
     );
   }
