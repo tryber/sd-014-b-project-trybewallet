@@ -1,8 +1,8 @@
-import React from 'react';
+import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions';
+
 
 const isEmailValid = (email) => {
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -27,29 +27,29 @@ function Login({ history, dispatchLogin }) {
     <form>
       <label htmlFor="email">
         <input
-        type="email"
-        id="email"
-        value={ email }
-        required
-        onChange={ ({ target: { value } }) => newEmail(value) }
-        data-testid="email-input"
-      />
-
-        </label>
-        <input
-          type="password"
-          value={ password }
+          type="email"
+          id="email"
+          value={ email }
           required
-          onChange={ ({ target: { value } }) => newPassword(value) }
-          data-testid="password-input"
+          onChange={ ({ target: { value } }) => newEmail(value) }
+          data-testid="email-input"
         />
-        <button
-          type="button"
-          onClick={ handleClick }
-          enable={ !disabled }
-        >
-          Entrar
-        </button>
+
+      </label>
+      <input
+        type="password"
+        value={ password }
+        required
+        onChange={ ({ target: { value } }) => newPassword(value) }
+        data-testid="password-input"
+      />
+      <button
+        type="button"
+        onClick={ handleClick }
+        enable={ !disabled }
+      >
+        Entrar
+      </button>
     </form>
   );
 }
