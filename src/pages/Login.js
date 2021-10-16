@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { user } from '../actions/index';
 
@@ -78,6 +79,12 @@ class Login extends React.Component {
     );
   }
 }
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: propTypes.func,
+  }).isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (payload) => dispatch(user(payload)),
