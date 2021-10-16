@@ -5,5 +5,5 @@ export const emailAction = (payload) => ({
   payload,
 });
 
-export const currenciesAction = (state) => ({ type: 'CURRENCIES', state });
-export const expensesAction = (state) => ({ type: 'EXPENSES', state });
+export const currenciesAction = (payload) => ({ type: 'CURRENCIES', payload });
+export const expensesAction = (payload) => ({ type: 'EXPENSES', payload });
