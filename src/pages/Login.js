@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { user } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +13,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleEmailValidation = this.handleEmailValidation.bind(this);
     this.handlePasswordValidation = this.handlePasswordValidation.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -27,18 +31,18 @@ class Login extends React.Component {
     return (password.length >= NUMBER_SIX);
   }
 
-  /*
   handleClick() {
-    const { email, password } = this.state;
-    const { setUserEmailLogin, setUserPasswordLogin, history } = this.props;
-    setUserEmailLogin(email);
-    setUserPasswordLogin(password);
+    const { email } = this.state;
+    const { setUser, history } = this.props;
+    setUser(email);
+    // setUserPasswordLogin(password);
     history.push('/carteira');
   }
-  */
 
   render() {
     const { email, password } = this.state;
+    const isEmailValid = this.handleEmailValidation(email);
+    const isPasswordValid = this.handlePasswordValidation(password);
     return (
       <div>
         <form>
@@ -66,6 +70,7 @@ class Login extends React.Component {
         <button
           disabled={ !((isEmailValid && isPasswordValid)) }
           type="button"
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -74,4 +79,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (payload) => dispatch(user(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
