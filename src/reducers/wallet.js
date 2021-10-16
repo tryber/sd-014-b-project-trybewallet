@@ -1,9 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { SEND_RATES, DELETE_EXPENSE, SEND_CURRENCIES } from '../actions';
+import { SEND_RATES, DELETE_EXPENSE, SEND_CURRENCIES, EDIT_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  expenseToEdit: {},
 };
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -23,6 +24,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.currencies,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      expenseToEdit: state.expenses.find((expense) => expense.id === action.id),
     };
 
   default:

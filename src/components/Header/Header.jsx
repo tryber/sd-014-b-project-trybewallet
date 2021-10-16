@@ -13,7 +13,7 @@ function Header({ user, expenses }) {
 
   return (
     <header className="header">
-      <img src={ walletLogo } alt="logo" />
+      <img src={ walletLogo } draggable={ false } alt="logo" />
       <section className="email-total-field">
         <span data-testid="email-field">{`Email: ${user}`}</span>
         <section>

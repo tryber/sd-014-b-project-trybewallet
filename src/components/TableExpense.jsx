@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import ButtonDelete from './ButtonDelete';
+import ButtonEdit from './ButtonEdit';
+import './TableExpense.css';
 
 const tableHeader = ['Descrição',
   'Tag',
@@ -15,7 +17,7 @@ const tableHeader = ['Descrição',
 
 function TableExpense({ expenses }) {
   return (
-    <table border="1" className="table table-dark table-hover">
+    <table border="1" className="table-expense">
       <thead>
         <tr>
           {tableHeader.map((item) => <th key={ item }>{item}</th>)}
@@ -35,6 +37,7 @@ function TableExpense({ expenses }) {
               <td>{ask.toFixed(2)}</td>
               <td>{(expense.value * ask).toFixed(2)}</td>
               <td>Real</td>
+              <ButtonEdit id={ expense.id } />
               <ButtonDelete id={ expense.id } />
             </tr>
           );
