@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import store from '../store/index';
+import { useDispatch } from 'react-redux';
 import { inputEmail } from '../actions/index';
 
 // Uso de expressão regular para validação de email,
 // fornecida pelos colegas Michael Caixas e Gustava Sant'Anna no Slack
-const isDisabled = (email, password) => {
+function isLoginValid(email, password) {
   const MIN_LENGTH = 6;
+  const isPasswordValid = password.length >= MIN_LENGTH;
   const parseEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const isEmailValid = parseEmail.test(email);
-  const isPasswordValid = password.length >= MIN_LENGTH;
-  return !(isEmailValid && isPasswordValid);
-};
+  return isEmailValid && isPasswordValid;
+}
 
-const handleSubmit = (props) => {
+function hanldeSubmit(props) {
   const { history } = props;
   history.push('/carteira');
-};
+}
 
 export default function Login(props) {
-  const { dispatch } = store;
-  const [password, inputPassword] = useState('');
-  const { email } = useSelector((state) => state.user);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
   return (
     <form>
       <fieldset>
@@ -31,7 +31,7 @@ export default function Login(props) {
           data-testid="email-input"
           placeholder="email@email.com"
           value={ email }
-          onChange={ (e) => dispatch(inputEmail(e.target.value)) }
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <input
           type="password"
@@ -39,12 +39,15 @@ export default function Login(props) {
           data-testid="password-input"
           placeholder="senha"
           value={ password }
-          onChange={ (e) => inputPassword(e.target.value) }
+          onChange={ (e) => setPassword(e.target.value) }
         />
         <button
-          disabled={ isDisabled(email, password) }
+          disabled={ !isLoginValid(email, password) }
           type="button"
-          onClick={ () => handleSubmit(props) }
+          onClick={ () => {
+            dispatch(inputEmail(email));
+            hanldeSubmit(props);
+          } }
         >
           Entrar
         </button>
