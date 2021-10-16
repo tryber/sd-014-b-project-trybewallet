@@ -7,6 +7,7 @@ class Login extends React.Component {
     return (
       <div>
         <img
+          className="App-logo"
           src="https://www.acate.com.br/wp-content/uploads/2020/01/trybe.png"
           alt="Logo da Trybe"
           height="150px"
