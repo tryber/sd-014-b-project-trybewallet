@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SelectCurrency from './SelectCurrency';
+import SelectCurrency from '../SelectCurrency/SelectCurrency';
 import './Header.css';
 
 class Header extends React.Component {

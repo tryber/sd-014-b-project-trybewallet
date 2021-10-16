@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Image from '../images/iconLogin.png';
-import { saveUser } from '../actions';
+import Image from '../../images/iconLogin.png';
+import { saveUser } from '../../actions';
 import './Login.css';
 
 class Login extends React.Component {
