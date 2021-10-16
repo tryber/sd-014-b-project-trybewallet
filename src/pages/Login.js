@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import addUser from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -12,6 +15,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   // Source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
@@ -34,6 +38,13 @@ class Login extends React.Component {
     });
   }
 
+  handleSubmit() {
+    const { name, email, password } = this.state;
+    const { handleLogin, saveUserInfo } = this.props;
+    handleLogin();
+    saveUserInfo({ name, email, password });
+  }
+
   render() {
     const { name, email, password, buttonDisabled } = this.state;
     return (
@@ -44,7 +55,7 @@ class Login extends React.Component {
             type="text"
             name="name"
             id="nome-input"
-            data-testid="email-input"
+            data-testid="nome-input"
             value={ name }
             onChange={ this.handleChange }
           />
@@ -71,10 +82,25 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button type="submit" disabled={ buttonDisabled }>Entrar</button>
+        <button
+          type="submit"
+          disabled={ buttonDisabled }
+          onClick={ this.handleSubmit }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  saveUserInfo: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveUserInfo: (userInfo) => dispatch(addUser(userInfo)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
