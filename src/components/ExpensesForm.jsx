@@ -1,7 +1,36 @@
 import React from 'react';
 
 class ExpensesForm extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currencySymbols: [],
+    };
+
+    this.fetchCurrency = this.fetchCurrency.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrency();
+  }
+
+  async fetchCurrency() {
+    const currencyRequest = await fetch('https://economia.awesomeapi.com.br/json/all');
+
+    if (currencyRequest.ok) {
+      const currencyJson = await currencyRequest.json();
+
+      const filteredCurrency = Object.keys(currencyJson)
+        .filter((currency) => currency !== 'USDT');
+
+      this.setState({ currencySymbols: filteredCurrency });
+    }
+  }
+
   render() {
+    const { currencySymbols } = this.state;
+
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -20,7 +49,9 @@ class ExpensesForm extends React.Component {
         <label htmlFor="currencySelect">
           Moeda:
           <select name="currencySelect" id="currencySelect">
-            Moeda
+            { currencySymbols.map((symbol) => (
+              <option key={ symbol } value={ symbol }>{symbol}</option>
+            )) }
           </select>
         </label>
 
@@ -36,7 +67,9 @@ class ExpensesForm extends React.Component {
         <label htmlFor="tagSelect">
           Tag:
           <select name="tagSelect" id="tagSelect">
-            { tags.map((tag) => <option key={ tag } value={ tag }>{tag}</option>) }
+            { tags.map((tag) => (
+              <option key={ tag } value={ tag }>{tag}</option>
+            )) }
           </select>
         </label>
       </form>
