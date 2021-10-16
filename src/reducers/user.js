@@ -1,4 +1,4 @@
-import { CHECK_EMAIL } from "../actions";
+import { CHECK_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
