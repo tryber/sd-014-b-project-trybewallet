@@ -51,7 +51,7 @@ class Login extends React.Component {
   render() {
     const { disabledButton } = this.state;
     return (
-      <form id="form">
+      <form className="form">
         <img id="image-login" src={ Image } alt="Imagem de uma carteira" />
         <h4 id="title-login-page">TrybeWallet</h4>
         <input
