@@ -69,7 +69,6 @@ class Inputs extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" value={ currency } onChange={ this.handleChange }>
-            <option key="" value=""> </option>
             {moeda.map((code) => <option key={ code } value={ code }>{ code }</option>)}
           </select>
         </label>
