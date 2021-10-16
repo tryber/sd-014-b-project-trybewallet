@@ -14,46 +14,39 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.submitEmail = this.submitEmail.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
-    // this.isPasswordValid = this.isPasswordValid.bind(this);
-    this.validado = this.validado.bind(this);
+    this.handleChangeButtonDisable = this.handleChangeButtonDisable.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
-    });
+    }, () => this.handleChangeButtonDisable());
   }
-
-  // submitEmail(e) {
-  //   e.preventDefault();
-  //   this.setState((state) => ({
-  //     email: state.email,
-  //   }));
-  //   // render('/carteira') depois que salvar o email do state tenh que rendirecionar para rota /carteira.
-  // }
 
   isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email);
   }
 
-  validado() {
-    const { email, password } = this.state;
-    const PASS_LENGTH = 5;
-    if ((password.length >= PASS_LENGTH) && (this.isEmailValid(email))) {
+  handleChangeButtonDisable() {
+    const { password, email } = this.state;
+    const MIN_CHARACT = 6;
+
+    if ((password.length >= MIN_CHARACT) && this.isEmailValid(email)) {
       this.setState({
         butttonDisable: false,
+      });
+    } else {
+      this.setState({
+        butttonDisable: true,
       });
     }
   }
 
   render() {
     const { email, password, butttonDisable } = this.state;
-    // const validaçãoEmail = this.isEmailValid(email);
     const { logarFunction } = this.props;
-
     return (
       <>
         <h2>Login</h2>
@@ -76,7 +69,7 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          onClick={ () => logarFunction(email) }
+          onClick={ logarFunction }
           disabled={ butttonDisable }
         >
           Entrar
@@ -88,6 +81,9 @@ class Login extends React.Component {
 
 Login.propTypes = {
   logarFunction: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
