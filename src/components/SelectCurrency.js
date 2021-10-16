@@ -4,15 +4,13 @@ import { connect } from 'react-redux';
 
 class SelectCurrency extends React.Component {
   render() {
-    const { moedas, id } = this.props;
-    const indexUSDT = moedas.indexOf('USDT');
-    const arrayIsValid = -1;
-    if (indexUSDT > arrayIsValid) moedas.splice(indexUSDT, 1);
+    const { moedas, id, handleChange } = this.props;
     return (
       <label htmlFor={ id }>
         Moeda:
-        <select id={ id } name="currency">
+        <select id={ id } name="currency" onChange={ handleChange }>
           { moedas
+            .filter((currency) => currency !== 'USDT')
             .map((coin, i) => (<option key={ i } value={ coin }>{ coin }</option>))}
         </select>
       </label>
@@ -23,6 +21,7 @@ class SelectCurrency extends React.Component {
 SelectCurrency.propTypes = {
   moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
   id: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

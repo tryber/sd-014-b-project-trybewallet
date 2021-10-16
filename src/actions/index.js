@@ -2,6 +2,7 @@
 export const SAVE_USER = 'SAVE_USER';
 export const REQUEST_WALLET = 'REQUEST_WALLET';
 export const GET_DATA = 'GET_DATA';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
 export const saveUser = (value) => ({ type: SAVE_USER, value });
 
@@ -9,7 +10,7 @@ export const saveUser = (value) => ({ type: SAVE_USER, value });
 
 export const getDataFromAPI = (data) => ({ type: GET_DATA, data });
 
-// export const getPicture_error = () => ({ type: REQUEST_WALLET_FAIL });
+export const saveExpenses = (data) => ({ type: SAVE_EXPENSES, data });
 
 export const fetchAPI = () => {
   const urlAPICurrency = 'https://economia.awesomeapi.com.br/json/all';
