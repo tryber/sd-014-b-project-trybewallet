@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SelectCurrency from '../SelectCurrency/SelectCurrency';
+import SelectCurrency from './SelectCurrency';
 import './Expenses.css';
 
 class Expenses extends React.Component {
