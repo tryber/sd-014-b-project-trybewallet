@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LOGIN_ACT from '../actions';
+import { LOGIN_ACT } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -53,6 +53,11 @@ class Login extends React.Component {
 
 Login.propTypes = { login: PropTypes.func.isRequired };
 
-const mapDispatch = (dispatch) => ({ login: (value) => dispatch(LOGIN_ACT(value)) });
+const mapDispatch = (dispatch) => ({
+  login: (value) => {
+    localStorage.setItem('loginEmail', JSON.stringify(value));
+    dispatch(LOGIN_ACT(value));
+  },
+});
 
 export default connect(null, mapDispatch)(Login);
