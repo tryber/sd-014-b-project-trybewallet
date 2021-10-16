@@ -52,8 +52,8 @@ class Login extends React.Component {
     const { disabledButton } = this.state;
     return (
       <form className="form">
-        <img id="image-login" src={ Image } alt="Imagem de uma carteira" />
-        <h4 id="title-login-page">TrybeWallet</h4>
+        <img className="image-login" src={ Image } alt="Imagem de uma carteira" />
+        <h4 className="title-login-page">TrybeWallet</h4>
         <input
           id="input-email"
           data-testid="email-input"
@@ -71,7 +71,7 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
         <button
-          id="enter-button"
+          className="enter-button"
           type="button"
           disabled={ disabledButton }
           onClick={ this.clickButton }

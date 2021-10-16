@@ -8,7 +8,7 @@
   width: 50%;
 }
 
-#enter-button {
+.enter-button {
   background-color: rgb(14, 212, 14);
   border: 1px solid rgb(14, 212, 14);
   border-radius: 5px;
@@ -19,7 +19,7 @@
   padding: 10px;
 }
 
-#image-login {
+.image-login {
   width: 200px;
 }
 
@@ -31,7 +31,7 @@ input {
   width: 200px;
 }
 
-#title-login-page {
+.title-login-page {
   color: rgb(3, 117, 3);
   font-size: 30px;
   font-weight: 250;
