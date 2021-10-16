@@ -27,6 +27,16 @@ class Login extends React.Component {
     return (password.length >= NUMBER_SIX);
   }
 
+  /*
+  handleClick() {
+    const { email, password } = this.state;
+    const { setUserEmailLogin, setUserPasswordLogin, history } = this.props;
+    setUserEmailLogin(email);
+    setUserPasswordLogin(password);
+    history.push('/carteira');
+  }
+  */
+
   render() {
     const { email, password } = this.state;
     return (
@@ -53,7 +63,12 @@ class Login extends React.Component {
             />
           </label>
         </form>
-        <button disabled={ !((isEmailValid && isPasswordValid)) } type="button">Entrar</button>
+        <button
+          disabled={ !((isEmailValid && isPasswordValid)) }
+          type="button"
+        >
+          Entrar
+        </button>
       </div>
     );
   }
