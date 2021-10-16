@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ExpenseForm from '../components/ExpenseForm';
 
 class Wallet extends React.Component {
   constructor() {
@@ -9,12 +10,36 @@ class Wallet extends React.Component {
     this.state = {
       totalExpenses: 0,
       currentCurrency: 'BRL',
+      valueInput: '',
+      descriptionInput: '',
+      currencyInput: '',
+      paymentMethodInput: 'money',
+      categoryInput: 'food',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const { target: { name, value } } = event;
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
     const { email } = this.props;
-    const { totalExpenses, currentCurrency } = this.state;
+    const { totalExpenses, currentCurrency,
+      valueInput, descriptionInput, currencyInput, paymentMethodInput, categoryInput,
+    } = this.state;
+    const inputsState = {
+      valueInput,
+      descriptionInput,
+      currencyInput,
+      paymentMethodInput,
+      categoryInput,
+    };
+
     return (
       <>
         <header>
@@ -27,6 +52,7 @@ class Wallet extends React.Component {
             Câmbio atual:
             <span data-testid="header-currency-field">{ currentCurrency }</span>
           </div>
+          <ExpenseForm handleChange={ this.handleChange } inputsValues={ inputsState } />
         </header>
         <main>Despesas</main>
       </>
