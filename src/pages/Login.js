@@ -1,5 +1,23 @@
 import React from 'react';
 
+/*
+const INITIAL_STATE = {
+  user = {
+    email: '',
+  },
+  wallet = {
+    valor: 0,
+    moeda: '',
+    metodoDePagamento: '',
+    tag: '',
+    descricao: '',
+  },
+}
+
+guardar email e coloca-lo no header
+
+*/
+
 class Login extends React.Component {
   render() {
     return (
