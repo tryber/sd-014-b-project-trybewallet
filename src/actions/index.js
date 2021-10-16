@@ -28,6 +28,6 @@ export function fetchAPI() {
     dispatch(requestAPI());
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((data) => getCurrency(data));
+      .then((data) => dispatch(getCurrency(data)));
   };
 }
