@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { checkLogin } from '../actions';
 
-
 const isEmailValid = (email) => {
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
   if (regexEmail.test(email)) return true;
@@ -21,7 +20,7 @@ function Login({ history, dispatchLogin }) {
   };
 
   const minLength = 6;
-  const enable = password.length >= minLength && isEmailValid(email);
+  const disabled = password.length >= minLength && isEmailValid(email);
 
   return (
     <form>
@@ -46,10 +45,10 @@ function Login({ history, dispatchLogin }) {
       <button
         type="button"
         onClick={ handleClick }
-        enable={ !disabled }
+        disabled={ !disabled }
       >
         Entrar
-      </button>
+        </button>
     </form>
   );
 }
