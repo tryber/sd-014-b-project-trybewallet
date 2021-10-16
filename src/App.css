@@ -1,4 +1,16 @@
-.App {
+.form {
+  align-content: center;
+}
+
+.input-login {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  border-radius: 1px red;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -38,4 +50,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

@@ -12,7 +12,7 @@ class WalletForm extends Component {
       method: 'Cartão de Crédito',
       tag: 'Alimentação',
       description: '',
-      // exchangeRates: {},
+      exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -116,7 +116,7 @@ class WalletForm extends Component {
         <label htmlFor="select-payment">
           Método de pagamento:
           <select
-            name="method-payment"
+            name="method"
             id="select-payment"
             value={ method }
             onChange={ handleChange }
