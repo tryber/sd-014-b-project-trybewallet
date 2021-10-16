@@ -31,7 +31,7 @@ class Login extends React.Component {
     const emailSplit = email.split('');
     if (emailSplit
       .includes('@') && emailSplit
-      .includes('.') && password.length >= minLengthPassword) {
+      .includes('.com') && (password.length + 1) >= minLengthPassword) {
       this.setState({
         disabledButton: false,
       });
@@ -50,7 +50,7 @@ class Login extends React.Component {
   render() {
     const { disabledButton } = this.state;
     return (
-      <form id="login-form">
+      <form id="form">
         <img id="image-login" src={ Image } alt="Imagem de uma carteira" />
         <h4 id="title-login-page">TrybeWallet</h4>
         <input
