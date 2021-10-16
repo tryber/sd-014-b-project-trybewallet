@@ -1,5 +1,8 @@
 .header {
   display: flex;
+  justify-content: flex-end;
+
+  padding: 2rem;
 
   .emailField {
     margin-right: 2rem;
