@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Input from '../Components/Input';
 import Header from '../Components/Header';
-import Select from '../Components/Select';
+import Form from '../Components/Form';
+import { addCurrencies, addExpenses } from '../actions';
 
 class Wallet extends Component {
   constructor() {
     super();
 
+    this.updateTotalValue = this.updateTotalValue.bind(this);
+    this.handleAddExpenses = this.handleAddExpenses.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       totalExpenses: 0,
-      currencys: [],
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: 'Alimentação',
     };
   }
 
@@ -20,54 +27,66 @@ class Wallet extends Component {
   }
 
   async fetchingValuesCurrencys() {
+    const { addCurrenciesDispatch } = this.props;
     const fetching = await fetch('https://economia.awesomeapi.com.br/json/all');
     const fetchingJson = await fetching.json();
-    this.setState({ currencys: Object.keys(fetchingJson) });
+    const currencies = Object.keys(fetchingJson).filter(
+      (currency) => (currency !== 'USDT'),
+    );
+    addCurrenciesDispatch(currencies);
+    return fetchingJson;
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
+  async handleAddExpenses() {
+    const {
+      state,
+      props: { addExpensesDispatch, expenses },
+      state: { currencyCoin },
+    } = this;
+    const currencys = await this.fetchingValuesCurrencys();
+
+    addExpensesDispatch(
+      { id: expenses.length, ...state, exchangeRates: { ...currencys } },
+    );
+    this.updateTotalValue(currencys, currencyCoin);
+  }
+
+  updateTotalValue(currencys) {
+    const { value, currency, totalExpenses } = this.state;
+    const valueCoinSelected = currencys[currency].ask;
+    console.log(valueCoinSelected);
+    const valueMultiplyCoinSelected = ((value * valueCoinSelected) * 100) / 100;
+    this.setState({ totalExpenses: totalExpenses + valueMultiplyCoinSelected });
   }
 
   render() {
-    const { props: { email }, state: { totalExpenses, currencys } } = this;
-    const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    currencys.splice(1, 1);
+    const { props: { email, currencies }, state: {
+      totalExpenses,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    } } = this;
 
     return (
       <main className="wallet-page">
         <Header email={ email } totalExpenses={ totalExpenses } />
         <article className="container-form">
-          <form className="form">
-            <Input
-              textLabel="Valor: "
-              type="text"
-              nameText="value"
-              id="value"
-            />
-
-            <Input
-              textLabel="Descrição: "
-              type="text"
-              nameText="description"
-              id="description"
-            />
-
-            <Select
-              textLabel="Moeda: "
-              id="currency"
-              options={ currencys }
-            />
-
-            <Select
-              textLabel="Método de pagamento: "
-              id="payment"
-              options={ payments }
-            />
-
-            <Select
-              textLabel="Tag: "
-              id="categories"
-              options={ categories }
-            />
-          </form>
+          <Form
+            currencies={ currencies }
+            onChange={ this.handleChange }
+            value={ value }
+            description={ description }
+            currency={ currency }
+            method={ method }
+            tag={ tag }
+            onClick={ this.handleAddExpenses }
+          />
         </article>
       </main>
     );
@@ -76,12 +95,25 @@ class Wallet extends Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addExpensesDispatch: PropTypes.func.isRequired,
+  addCurrenciesDispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     email: state.user.email,
+    expenses: state.wallet.expenses,
+    currencies: state.wallet.currencies,
   };
 }
 
-export default connect(mapStateToProps, null)(Wallet);
+function mapDispatchToProps(dispatch) {
+  return {
+    addExpensesDispatch: (state) => dispatch(addExpenses(state)),
+    addCurrenciesDispatch: (currencies) => dispatch(addCurrencies(currencies)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
