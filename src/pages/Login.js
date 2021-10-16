@@ -30,8 +30,9 @@ class Login extends React.Component {
     const minLengthPassword = 6;
     const emailSplit = email.split('');
     if (emailSplit
-      .includes('@') && emailSplit
-      .includes('.com') && (password.length + 1) >= minLengthPassword) {
+      .includes('@') && emailSplit[emailSplit.length - 1] !== '@' && emailSplit
+      .includes('.') && emailSplit[emailSplit.length - 1] !== '.'
+      && password.length + 1 >= minLengthPassword) {
       this.setState({
         disabledButton: false,
       });

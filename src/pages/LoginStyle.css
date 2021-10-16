@@ -1,4 +1,4 @@
-/* #form {
+#form {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,4 @@ input {
   color: rgb(3, 117, 3);
   font-size: 30px;
   font-weight: 250;
-} */
+}
