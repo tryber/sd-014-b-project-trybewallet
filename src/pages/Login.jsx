@@ -1,11 +1,19 @@
-import React from 'react';
-// import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import store from '../store/index';
-import { inputEmail, inputPassword } from '../actions/index';
+import { inputEmail } from '../actions/index';
+
+const isDisabled = (email, password) => {
+  const MIN_LENGTH = 6;
+  const isEmailValid = email === 'alguem@email.com';
+  const isPasswordValid = password.length >= MIN_LENGTH;
+  return !(isEmailValid && isPasswordValid);
+};
 
 export default function Login() {
-  // const { email, password } = useSelector((state) => state.user);
   const { dispatch } = store;
+  const [password, inputPassword] = useState('');
+  const { email } = useSelector((state) => state.user);
   return (
     <form>
       <fieldset>
@@ -14,7 +22,6 @@ export default function Login() {
           name="email"
           data-testid="email-input"
           placeholder="email@email.com"
-          // value={ email }
           onChange={ (e) => dispatch(inputEmail(e.target.value)) }
         />
         <input
@@ -22,10 +29,11 @@ export default function Login() {
           name="password"
           data-testid="password-input"
           placeholder="senha"
-          // value={ password }
-          onChange={ (e) => dispatch(inputPassword(e.target.value)) }
+          onChange={ (e) => inputPassword(e.target.value) }
         />
-        <button type="button">Entrar</button>
+        <button disabled={ isDisabled(email, password) } type="button">
+          Entrar
+        </button>
       </fieldset>
     </form>
   );
