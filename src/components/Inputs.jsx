@@ -10,11 +10,13 @@ class Inputs extends React.Component {
     super(props);
     this.state = {
       expenses: [],
-      value: '',
+      expensesSoma: [],
+      exchange: [],
+      value: 0,
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,11 +24,14 @@ class Inputs extends React.Component {
   }
 
   componentDidMount() {
+    this.getCurrencyApi();
   }
 
   async getCurrencyApi() {
     const response = await fetch(URL_BASE);
     const moedaResponse = await response.json();
+    const arrayMoedas = Object.values(moedaResponse);
+    this.setState({ exchange: arrayMoedas });
     return moedaResponse;
   }
 
@@ -36,21 +41,34 @@ class Inputs extends React.Component {
 
   async handleSubmit() {
     const { despesa, valorConvertido } = this.props;
-    const { value, description, currency, method, tag, expenses } = this.state;
+    const { value,
+      description, currency, method, tag, expenses, expensesSoma } = this.state;
     const newId = expenses.length;
     const exchange = await this.getCurrencyApi();
-    const getValueConvert = Object.values(exchange)
-      .find(({ code }) => code === currency).ask * value;
-    valorConvertido(getValueConvert);
+    const valueCurrency = exchange[currency].ask;
+    const getValueConvert = valueCurrency * value;
+    const nameCurrency = exchange[currency].name.replace('/Real Brasileiro', '');
     const newCurrencies = [...expenses,
       { id: newId, value, description, currency, method, tag, exchangeRates: exchange }];
+    const newExpenses = [...expensesSoma, {
+      id: expensesSoma.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      getValueConvert,
+      nameCurrency,
+      valueCurrency }];
     despesa(newCurrencies);
-    this.setState({ expenses: newCurrencies });
+    valorConvertido(newExpenses);
+
+    this.setState({ expenses: newCurrencies,
+      expensesSoma: newExpenses });
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
-    const { moeda } = this.props;
+    const { value, description, currency, method, tag, exchange } = this.state;
     return (
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="value">
@@ -69,7 +87,8 @@ class Inputs extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" value={ currency } onChange={ this.handleChange }>
-            {moeda.map((code) => <option key={ code } value={ code }>{ code }</option>)}
+            {exchange.filter(({ codein }) => codein !== 'BRLT')
+              .map(({ code }) => <option key={ code } value={ code }>{ code }</option>)}
           </select>
         </label>
         <label htmlFor="method">
@@ -83,14 +102,13 @@ class Inputs extends React.Component {
         <label htmlFor="tag">
           Tag
           <select id="tag" value={ tag } onChange={ this.handleChange }>
-            <option value="alimentacao">Alimentação</option>
+            <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
             <option value="Transporte">Transporte</option>
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-
         <button type="button" onClick={ this.handleSubmit }>
           Adicionar despesa
         </button>
@@ -100,9 +118,6 @@ class Inputs extends React.Component {
 }
 
 Inputs.propTypes = {
-  moeda: PropTypes.arrayOf(PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  })).isRequired,
   despesa: PropTypes.func.isRequired,
   valorConvertido: PropTypes.func.isRequired,
 };

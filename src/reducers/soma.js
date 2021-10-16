@@ -1,14 +1,13 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  valorConvertido: 0,
+  expenses: '',
 };
 
 const soma = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'VALOR_CONVERTIDO':
-    console.log(state.valorConvertido + action.value);
-    return { ...state,
-      valorConvertido: action.value + state.valorConvertido };
+    console.log(action);
+    return { ...state, expenses: action.value };
   default:
     return state;
   }

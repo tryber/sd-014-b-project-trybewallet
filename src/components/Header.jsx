@@ -10,7 +10,8 @@ class Header extends React.Component {
       <header>
         <h1 data-testid="email-field">{ email }</h1>
         <h3 data-testid="total-field">
-          { soma }
+          { !soma ? 'R$ 0,00' : soma.map((value) => value.getValueConvert)
+            .reduce((acc, cur) => acc + cur) }
         </h3>
         <h3 data-testid="header-currency-field">BRL</h3>
       </header>
@@ -25,7 +26,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  soma: state.soma.valorConvertido,
+  soma: state.soma.expenses,
 });
 
 export default connect(mapStateToProps)(Header);
