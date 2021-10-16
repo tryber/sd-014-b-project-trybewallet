@@ -3,3 +3,21 @@ table, th, tr, td {
   border-collapse: collapse;
   width: 100vw;
 }
+
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  width: 100vw;
+}
+
+th {
+  border: 1px solid white;
+  border-collapse: collapse;
+  width: 100vw;
+}
+
+tr {
+  border: 1px solid white;
+  border-collapse: collapse;
+  width: 100vw;
+}
