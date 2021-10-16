@@ -13,6 +13,7 @@ function ButtonDelete({ id, deleteExpense }) {
     <button
       type="button"
       onClick={ handleDelete }
+      className="btn btn-danger"
       data-testid="delete-btn"
     >
       <BsFillTrashFill />

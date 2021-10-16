@@ -6,6 +6,7 @@ export default function Input({ inputValue, onChange, label, id, type = 'text' }
     <label htmlFor={ id }>
       {label}
       <input
+        className="form-control"
         type={ type }
         id={ id }
         value={ inputValue }

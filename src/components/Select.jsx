@@ -7,7 +7,12 @@ export default class Select extends Component {
     return (
       <label htmlFor={ id }>
         {label}
-        <select id={ id } value={ value } onChange={ onChange }>
+        <select
+          id={ id }
+          value={ value }
+          onChange={ onChange }
+          className="form-select"
+        >
           { array.map((element) => (
             <option key={ element } value={ element }>{element}</option>)) }
         </select>

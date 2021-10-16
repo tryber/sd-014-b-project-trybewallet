@@ -1,0 +1,18 @@
+.header {
+  align-items: center;
+  background-color: #212529;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.header img {
+  width: 4rem;
+}
+
+.email-total-field {
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
+}

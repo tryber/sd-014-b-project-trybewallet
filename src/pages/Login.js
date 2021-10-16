@@ -46,6 +46,7 @@ function Login({ history, dispatchSetValue }) {
       <button
         type="button"
         onClick={ handleClick }
+        className="btn btn-primary"
         disabled={ !disabled }
       >
         Entrar

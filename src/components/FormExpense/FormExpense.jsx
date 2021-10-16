@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { exchangeRating, setCurrencies } from '../actions';
-import Input from './Input';
-import Select from './Select';
+import { exchangeRating, setCurrencies } from '../../actions';
+import Input from '../Input';
+import Select from '../Select';
+import './FormExpense.css';
+import Button from '../Button';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -70,7 +72,7 @@ class FormExpense extends Component {
     } = this.state;
     const { currencies } = this.props;
     return (
-      <form>
+      <form className="form-expense">
         <Input
           inputValue={ value }
           onChange={ this.handleChange }
@@ -105,7 +107,7 @@ class FormExpense extends Component {
           value={ tag }
           onChange={ this.handleChange }
         />
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <Button onClick={ this.handleClick } />
       </form>
 
     );

@@ -15,7 +15,7 @@ const tableHeader = ['Descrição',
 
 function TableExpense({ expenses }) {
   return (
-    <table border="1">
+    <table border="1" className="table table-dark table-hover">
       <thead>
         <tr>
           {tableHeader.map((item) => <th key={ item }>{item}</th>)}
