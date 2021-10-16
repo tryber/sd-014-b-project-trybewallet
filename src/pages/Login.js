@@ -10,12 +10,10 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      butttonDisable: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
-    // this.handleChangeButtonDisable = this.handleChangeButtonDisable.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -29,23 +27,8 @@ class Login extends React.Component {
     return regexEmail.test(email);
   }
 
-  // handleChangeButtonDisable() {
-  //   const { password, email } = this.state;
-  //   const MIN_CHARACT = 6;
-
-  //   if ((password.length >= MIN_CHARACT) && this.isEmailValid(email)) {
-  //     this.setState({
-  //       butttonDisable: false,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       butttonDisable: true,
-  //     });
-  //   }
-  // }
-
   render() {
-    const { email, password, butttonDisable } = this.state;
+    const { email, password } = this.state;
     const { logarFunction } = this.props;
     const MIN_CHARACT = 6;
 
