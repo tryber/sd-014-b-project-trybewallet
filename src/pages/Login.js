@@ -14,6 +14,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
+    this.clickButton = this.clickButton.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -27,9 +28,15 @@ class Login extends React.Component {
     return regexEmail.test(email);
   }
 
+  clickButton() {
+    const { logarFunction, history } = this.props;
+    const { email } = this.state;
+    logarFunction(email);
+    history.push('/carteira');
+  }
+
   render() {
     const { email, password } = this.state;
-    const { logarFunction } = this.props;
     const MIN_CHARACT = 6;
 
     return (
@@ -54,7 +61,7 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          onClick={ logarFunction }
+          onClick={ this.clickButton }
           disabled={ !((password.length >= MIN_CHARACT) && this.isEmailValid(email)) }
         >
           Entrar
