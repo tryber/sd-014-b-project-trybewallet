@@ -1,3 +1,4 @@
+// todo: rever se precisa espalhar o estado
 const initialState = { currencies: [], expenses: [] };
 
 export default function userReducer(state = initialState, action) {

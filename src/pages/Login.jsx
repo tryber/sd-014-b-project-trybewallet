@@ -12,15 +12,20 @@ function isLoginValid(email, password) {
   return isEmailValid && isPasswordValid;
 }
 
-function hanldeSubmit(props) {
+function handleSubmit(props) {
   const { history } = props;
   history.push('/carteira');
 }
 
 export default function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [state, setState] = useState({ email: '', password: '' });
+  const { email, password } = state;
   const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setState({ ...state, [name]: value });
+  };
 
   return (
     <form>
@@ -31,7 +36,7 @@ export default function Login(props) {
           data-testid="email-input"
           placeholder="email@email.com"
           value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
+          onChange={ handleChange }
         />
         <input
           type="password"
@@ -39,14 +44,14 @@ export default function Login(props) {
           data-testid="password-input"
           placeholder="senha"
           value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
+          onChange={ handleChange }
         />
         <button
           disabled={ !isLoginValid(email, password) }
           type="button"
           onClick={ () => {
             dispatch(inputEmail(email));
-            hanldeSubmit(props);
+            handleSubmit(props);
           } }
         >
           Entrar

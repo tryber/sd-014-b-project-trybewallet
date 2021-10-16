@@ -1,3 +1,4 @@
+// todo: rever se precisa de exact
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
