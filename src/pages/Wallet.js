@@ -27,7 +27,6 @@ class Wallet extends React.Component {
 
   render() {
     const { moeda } = this.state;
-    console.log(moeda);
     return (
       <div>
         <Header />

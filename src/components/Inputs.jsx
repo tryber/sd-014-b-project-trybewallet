@@ -1,71 +1,100 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { inputDespesa, valorConvertidoDespesa } from '../actions/index';
+
+const URL_BASE = 'https://economia.awesomeapi.com.br/json/all';
 
 class Inputs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: '',
-      desc: '',
+      expenses: [],
       value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ valor: event.target.value });
+  componentDidMount() {
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  async getCurrencyApi() {
+    const response = await fetch(URL_BASE);
+    const moedaResponse = await response.json();
+    return moedaResponse;
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+
+  async handleSubmit() {
+    const { despesa, valorConvertido } = this.props;
+    const { value, description, currency, method, tag, expenses } = this.state;
+    const newId = expenses.length;
+    const exchange = await this.getCurrencyApi();
+    const getValueConvert = Object.values(exchange)
+      .find(({ code }) => code === currency).ask * value;
+    valorConvertido(getValueConvert);
+    const newCurrencies = [...expenses,
+      { id: newId, value, description, currency, method, tag, exchangeRates: exchange }];
+    despesa(newCurrencies);
+    this.setState({ expenses: newCurrencies });
   }
 
   render() {
-    const { valor, desc, value } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { moeda } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
-          <input id="valor" type="text" value={ valor } onChange={ this.handleChange } />
+          <input id="value" type="text" value={ value } onChange={ this.handleChange } />
         </label>
-
-        <label htmlFor="desc">
+        <label htmlFor="description">
           Descrição
-          <input id="desc" type="text" value={ desc } onChange={ this.handleChange } />
+          <input
+            id="description"
+            type="text"
+            value={ description }
+            onChange={ this.handleChange }
+          />
         </label>
-
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda
-          <select id="moeda" value={ value } onChange={ this.handleChange }>
+          <select id="currency" value={ currency } onChange={ this.handleChange }>
+            <option key="" value=""> </option>
             {moeda.map((code) => <option key={ code } value={ code }>{ code }</option>)}
           </select>
         </label>
-
-        <label htmlFor="pay">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="pay" value={ value } onChange={ this.handleChange }>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de débito</option>
+          <select id="method" value={ method } onChange={ this.handleChange }>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-
         <label htmlFor="tag">
           Tag
-          <select id="tag" value={ value } onChange={ this.handleChange }>
+          <select id="tag" value={ tag } onChange={ this.handleChange }>
             <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
-
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
 
-        <input type="submit" value="Enviar" />
+        <button type="button" onClick={ this.handleSubmit }>
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -75,6 +104,13 @@ Inputs.propTypes = {
   moeda: PropTypes.arrayOf(PropTypes.shape({
     map: PropTypes.func.isRequired,
   })).isRequired,
+  despesa: PropTypes.func.isRequired,
+  valorConvertido: PropTypes.func.isRequired,
 };
 
-export default Inputs;
+const mapDispatchToProps = (dispatch) => ({
+  despesa: (e) => dispatch(inputDespesa(e)),
+  valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
+});
+
+export default connect(null, mapDispatchToProps)(Inputs);
