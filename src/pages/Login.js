@@ -48,7 +48,7 @@ function Login({ history, dispatchLogin }) {
         disabled={ !disabled }
       >
         Entrar
-        </button>
+      </button>
     </form>
   );
 }
