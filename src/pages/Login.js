@@ -8,11 +8,23 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleEmailValidation = this.handleEmailValidation.bind(this);
+    this.handlePasswordValidation = this.handlePasswordValidation.bind(this);
   }
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
+  }
+
+  handleEmailValidation(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
+  handlePasswordValidation(password) {
+    const NUMBER_SIX = 6;
+    return (password.length >= NUMBER_SIX);
   }
 
   render() {
@@ -21,6 +33,7 @@ class Login extends React.Component {
       <div>
         <form>
           <label htmlFor="email">
+            Email:
             <input
               type="email"
               data-testid="email-input"
@@ -30,6 +43,7 @@ class Login extends React.Component {
             />
           </label>
           <label htmlFor="password">
+            Password:
             <input
               type="password"
               data-testid="password-input"
@@ -39,7 +53,7 @@ class Login extends React.Component {
             />
           </label>
         </form>
-        <button type="button">Entrar</button>
+        <button disabled={ !((isEmailValid && isPasswordValid)) } type="button">Entrar</button>
       </div>
     );
   }
