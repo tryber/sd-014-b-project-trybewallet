@@ -15,13 +15,13 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
-    this.handleChangeButtonDisable = this.handleChangeButtonDisable.bind(this);
+    // this.handleChangeButtonDisable = this.handleChangeButtonDisable.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
-    }, () => this.handleChangeButtonDisable());
+    });
   }
 
   isEmailValid(email) {
@@ -29,24 +29,26 @@ class Login extends React.Component {
     return regexEmail.test(email);
   }
 
-  handleChangeButtonDisable() {
-    const { password, email } = this.state;
-    const MIN_CHARACT = 6;
+  // handleChangeButtonDisable() {
+  //   const { password, email } = this.state;
+  //   const MIN_CHARACT = 6;
 
-    if ((password.length >= MIN_CHARACT) && this.isEmailValid(email)) {
-      this.setState({
-        butttonDisable: false,
-      });
-    } else {
-      this.setState({
-        butttonDisable: true,
-      });
-    }
-  }
+  //   if ((password.length >= MIN_CHARACT) && this.isEmailValid(email)) {
+  //     this.setState({
+  //       butttonDisable: false,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       butttonDisable: true,
+  //     });
+  //   }
+  // }
 
   render() {
     const { email, password, butttonDisable } = this.state;
     const { logarFunction } = this.props;
+    const MIN_CHARACT = 6;
+
     return (
       <>
         <h2>Login</h2>
@@ -70,7 +72,7 @@ class Login extends React.Component {
         <button
           type="button"
           onClick={ logarFunction }
-          disabled={ butttonDisable }
+          disabled={ !((password.length >= MIN_CHARACT) && this.isEmailValid(email)) }
         >
           Entrar
         </button>
