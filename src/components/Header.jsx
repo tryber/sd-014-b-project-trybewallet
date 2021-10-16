@@ -3,12 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  getConversion = () => {
+    const { expenses } = this.props;
+    return expenses.reduce((acc, { value, currency, exchangeRates }) => {
+      const currencyItem = Object.entries(exchangeRates)
+        .find((item) => item[1].code === currency);
+      acc.push(+(currencyItem[1].ask) * +(value));
+      return acc;
+    }, []);
+  }
+
   getInfos = (getTotal) => {
     const { email, expenses } = this.props;
     if (getTotal) {
       return expenses.length < 1 ? 0
-        : expenses.reduce(({ value }, acc) => {
-          acc += +(value);
+        : this.getConversion().reduce((acc, cur) => {
+          acc += +(cur);
           return acc;
         }, 0);
     }
@@ -17,6 +27,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.getConversion());
     const { localCurrency } = this.props;
     return (
       <header>

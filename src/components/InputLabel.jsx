@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 export default class InputLabel extends Component {
   render() {
-    const { name, callbackFunc } = this.props;
+    const { name, value, callbackFunc } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label htmlFor={ value }>
         { `${name}: ` }
         <input
-          id={ name }
+          id={ value }
           type="text"
-          name={ name }
+          name={ value }
           onChange={ callbackFunc }
         />
       </label>
@@ -21,4 +21,5 @@ export default class InputLabel extends Component {
 InputLabel.propTypes = PropTypes.shape({
   callbackFunc: PropTypes.func,
   name: PropTypes.string,
+  value: PropTypes.string,
 }).isRequired;

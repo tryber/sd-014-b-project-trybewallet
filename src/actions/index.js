@@ -19,3 +19,27 @@ export function LOAD_CURRENCIES() {
     return dispatch(CURRENCY_LOADED());
   };
 }
+
+//
+
+function sortExpenses(state) {
+  return state.map((item, ind) => {
+    item.id = ind;
+    return item;
+  });
+}
+
+const EXPENSE_CREATE = () => ({ type: 'EXPENSE_CREATE' });
+
+const EXPENSE_ENTRY = (value) => ({ type: 'EXPENSE_ENTRY', value });
+
+export function EXPENSE_DISPATCH(previousExpenses, newExpense) {
+  return async (dispatch) => {
+    const expensesResult = previousExpenses;
+    dispatch(EXPENSE_CREATE());
+    const exchangeRates = await fetchApi(API_URL);
+    const expense = { ...newExpense, exchangeRates };
+    expensesResult.push(expense);
+    return dispatch(EXPENSE_ENTRY(sortExpenses(expensesResult)));
+  };
+}
