@@ -14,7 +14,7 @@ class CurrencyInput extends Component {
           onChange={ (event) => handleChange(event) }
         >
           {currencies.map((currency, index) => (
-            <option key={ index } value={ currency[0] }>{currency[0]}</option>
+            <option key={ index } value={ currency }>{currency}</option>
           ))}
         </select>
       </label>
@@ -26,7 +26,7 @@ CurrencyInput.propTypes = {
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(
-    PropTypes.array,
+    PropTypes.string,
   ).isRequired,
 };
 
