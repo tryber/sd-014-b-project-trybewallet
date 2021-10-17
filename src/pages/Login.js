@@ -110,8 +110,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchSetValue: (value) => dispatch(setUserEmail(value)),
 });
 
-const mapStateToProps = (state) => ({
-  user: state.userReducer.email,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
