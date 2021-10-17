@@ -1,4 +1,6 @@
 import React, { useReducer } from 'react';
+import { useSelector } from 'react-redux';
+// import Select from './Form Components/select';
 
 const INITIAL_STATE = {
   valor: '',
@@ -11,14 +13,15 @@ const INITIAL_STATE = {
 const reducer = (state, { field, value }) => ({ ...state, [field]: value });
 
 export default function AddExpense() {
-  const [state, setState] = useReducer(reducer, INITIAL_STATE);
+  const [localState, setState] = useReducer(reducer, INITIAL_STATE);
 
   const handleChange = ({ target: { id, value } }) => {
     setState({ field: id, value });
   };
 
-  const { valor, descricao, moeda, ptMthd, tag } = state;
+  const coins = useSelector((state) => state.wallet.currencies);
 
+  const { valor, descricao, moeda, ptMthd, tag } = localState;
   return (
     <form>
       <label htmlFor="valor">
@@ -32,7 +35,7 @@ export default function AddExpense() {
       <label htmlFor="moeda">
         Moeda
         <select id="moeda" value={ moeda } onChange={ handleChange }>
-          <option value="BRL">BRL</option>
+          {coins.map((coin) => (<option key={ coin } value={ coin }>{ coin }</option>))}
         </select>
       </label>
       <label htmlFor="ptMthd">
