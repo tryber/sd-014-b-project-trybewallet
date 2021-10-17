@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { EXPENSE_DISPATCH, LOAD_CURRENCIES } from '../actions';
+import ExpensesTable from '../components/ExpensesTable';
 import Header from '../components/Header';
 import InputLabel from '../components/InputLabel';
 import SelectLabel from '../components/SelectLabel';
@@ -64,6 +65,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <ExpensesTable />
       </div>);
   }
 }

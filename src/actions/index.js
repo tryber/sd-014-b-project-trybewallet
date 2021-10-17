@@ -3,6 +3,15 @@ async function fetchApi(URL) {
   return response.json();
 }
 
+export function getConversion(expenses) {
+  return expenses.reduce((acc, { value, currency, exchangeRates }) => {
+    const currencyItem = Object.entries(exchangeRates)
+      .find((item) => item[1].code === currency);
+    acc.push(+(currencyItem[1].ask) * +(value));
+    return acc;
+  }, []);
+}
+
 export const LOGIN_ACT = (value) => ({ type: 'LOGIN', value });
 
 const GET_CURRENCIES = (value) => ({ type: 'GET_CURRENCIES', value });
