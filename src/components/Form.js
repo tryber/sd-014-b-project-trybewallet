@@ -14,7 +14,7 @@ class Form extends Component {
       moeda: '',
       metdPagamento: '',
       tag: '',
-      arrayApi: [],
+      objetoApi: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,12 +34,14 @@ class Form extends Component {
     const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const jsonApi = await fetchApi.json();
     this.setState(() => ({
-      arrayApi: jsonApi,
+      objetoApi: jsonApi,
     }));
+    const { objetoApi } = this.state;
+    console.log(objetoApi);
   }
 
   render() {
-    const { valor, descricao, moeda, metdPagamento, tag, arrayApi } = this.state;
+    const { valor, descricao, moeda, metdPagamento, tag } = this.state;
     return (
       <form>
         <Input
