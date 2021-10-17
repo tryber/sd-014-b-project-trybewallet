@@ -13,3 +13,5 @@ export default function Wallet() {
     </div>
   );
 }
+
+// teste de erro no avaliador automático do github
