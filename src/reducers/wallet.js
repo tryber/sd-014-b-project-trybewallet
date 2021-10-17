@@ -1,10 +1,10 @@
 const initialState = {};
 
-const walletReducer = (state = initialState, action) => {
+const wallet = (state = initialState, action) => {
   switch (action.type) {
   default:
     return state;
   }
 };
 
-export default walletReducer;
+export default wallet;
