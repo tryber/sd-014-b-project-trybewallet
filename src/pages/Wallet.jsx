@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import Form from '../Components/Form';
+import Table from '../Components/Table';
 import { addCurrencies, addExpenses, updateTotalExpenses } from '../actions';
+import './wallet.css';
 
 class Wallet extends Component {
   constructor() {
@@ -16,7 +18,7 @@ class Wallet extends Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: '',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
   }
@@ -58,8 +60,13 @@ class Wallet extends Component {
     const { value, currency } = this.state;
     const { updateTotalExpensesDispatch, totalExpenses } = this.props;
     const valueCoinSelected = currencys[currency].ask;
-    const valueMultiplyCoinSelected = ((value * valueCoinSelected) * 100) / 100;
+    const valueMultiplyCoinSelected = Number((value * valueCoinSelected).toFixed([2]));
     updateTotalExpensesDispatch(totalExpenses + valueMultiplyCoinSelected);
+  }
+
+  mapExpenses() {
+    const { expenses } = this.props;
+    return expenses.map((expense) => <Table key={ expense.id } expense={ expense } />);
   }
 
   render() {
@@ -74,7 +81,7 @@ class Wallet extends Component {
     return (
       <main className="wallet-page">
         <Header email={ email } totalExpenses={ totalExpenses } />
-        <article className="container-form">
+        <section className="container-form">
           <Form
             currencies={ currencies }
             onChange={ this.handleChange }
@@ -85,7 +92,10 @@ class Wallet extends Component {
             tag={ tag }
             onClick={ this.handleAddExpenses }
           />
-        </article>
+        </section>
+        <section className="tables-container">
+          { this.mapExpenses() }
+        </section>
       </main>
     );
   }
