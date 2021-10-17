@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import Form from './Form';
 
-export default function Header(props) {
-  const { email, children } = props;
+export default function Header() {
+  const { email } = useSelector((state) => state.user);
   return (
     <header>
       <div>
@@ -15,12 +16,7 @@ export default function Header(props) {
           <span data-testid="header-currency-field">BRL</span>
         </span>
       </div>
-      <div>{children}</div>
+      <Form />
     </header>
   );
 }
-
-Header.propTypes = {
-  children: PropTypes.func,
-  email: PropTypes.string,
-}.isRequired;
