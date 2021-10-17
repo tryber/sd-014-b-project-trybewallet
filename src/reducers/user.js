@@ -1,21 +1,13 @@
-import {
-  SET_USER_EMAIL_VALUE,
-  SET_USER_PASSWORD_VALUE,
-} from '../actions';
+import { SET_USER_EMAIL } from '../actions';
 
 const initialState = {
-  user: {
-    email: '',
-    password: '',
-  },
+  email: '',
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-  case SET_USER_EMAIL_VALUE:
-    return { ...state, user: { email: action.payload } };
-  case SET_USER_PASSWORD_VALUE:
-    return { ...state, user: { password: action.payload } };
+  case SET_USER_EMAIL:
+    return { ...state, email: action.payload };
   default:
     return state;
   }

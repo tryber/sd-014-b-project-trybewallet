@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setUserEmailValue, setUserPasswordValue } from '../actions';
+import { setUserEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -19,14 +19,12 @@ class Login extends React.Component {
 
   // redirecionando para pagina carteira
   onButtonEntrar() {
-    const { email, password } = this.state;
+    const { email } = this.state;
     const {
       history,
-      dispatchSetUserEmailValue,
-      dispatchSetUserPasswordValue,
+      dispatchSetValue,
     } = this.props;
-    dispatchSetUserEmailValue(email);
-    dispatchSetUserPasswordValue(password);
+    dispatchSetValue(email);
     history.push('/carteira');
   }
 
@@ -105,17 +103,15 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  dispatchSetUserEmailValue: PropTypes.func.isRequired,
-  dispatchSetUserPasswordValue: PropTypes.func.isRequired,
+  dispatchSetValue: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetUserEmailValue: (value) => dispatch(setUserEmailValue(value)),
-  dispatchSetUserPasswordValue: (value) => dispatch(setUserPasswordValue(value)),
+  dispatchSetValue: (value) => dispatch(setUserEmail(value)),
 });
 
 const mapStateToProps = (state) => ({
-  user: state.userReducer.user,
+  user: state.userReducer.email,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,13 +1,7 @@
-export const SET_USER_EMAIL_VALUE = 'SET_USER_EMAIL_VALUE';
-export const SET_USER_PASSWORD_VALUE = 'SET_USER_PASSWORD_VALUE';
+export const SET_USER_EMAIL = 'SET_USER_EMAIL';
 
 // actions creators
-export const setUserEmailValue = (payload) => ({
-  type: SET_USER_EMAIL_VALUE,
-  payload,
-});
-
-export const setUserPasswordValue = (payload) => ({
-  type: SET_USER_PASSWORD_VALUE,
+export const setUserEmail = (payload) => ({
+  type: SET_USER_EMAIL,
   payload,
 });
