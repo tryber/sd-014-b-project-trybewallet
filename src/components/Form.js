@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Button from './Button';
 import Input from './Input';
 import Select from './Select';
 
@@ -68,6 +69,10 @@ class Form extends React.Component {
           onChange={ this.handleChange }
           options={ tagOptions }
           value={ tag }
+        />
+        <Button
+          label="Adicionar Despesa"
+          onClick={ this.handleSubmit }
         />
       </form>
     );

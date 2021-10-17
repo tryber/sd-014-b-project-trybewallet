@@ -57,7 +57,7 @@ class Login extends React.Component {
           required
         />
         <Button
-          label="Enviar"
+          label="Entrar"
           onClick={ this.handleSubmit }
         />
       </form>

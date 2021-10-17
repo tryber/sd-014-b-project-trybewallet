@@ -28,7 +28,7 @@ Input.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };
@@ -36,4 +36,5 @@ Input.propTypes = {
 Input.defaultProps = {
   id: '',
   label: '',
+  placeholder: '',
 };

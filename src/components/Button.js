@@ -32,9 +32,9 @@ export default connect()(Button);
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
-
+  onClick: () => null,
 };
