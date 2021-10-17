@@ -2,12 +2,19 @@
 const INITIAL_WALLET_STATE = {
   currencies: [],
   expenses: [],
+  isFetching: false,
 };
 
 export default function wallet(state = INITIAL_WALLET_STATE, action) {
   switch (action.type) {
+  case 'fetch':
+    return { ...state, isFetching: true };
   case 'wallet':
-    return { ...state };
+    return {
+      ...state,
+      currencies: Object.keys(action.json).filter((moeda) => moeda !== 'USDT'),
+      isFetching: false,
+    };
   default:
     return state;
   }
