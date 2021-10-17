@@ -31,8 +31,9 @@ export const updateTotal = () => ({
   type: UPDATE_TOTAL,
 });
 
-export const deleteExpense = () => ({
+export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
+  payload: id,
 });
 
 // A função fetchCurrencies é responsavel por disparar a action isFetching como true;
