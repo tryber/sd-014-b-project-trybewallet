@@ -12,6 +12,13 @@
   top: 0;
 }
 
+.wallet-form {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 25px auto;
+}
+
 table {
   border: solid thin black;
   border-collapse: collapse;

@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import { EXPENSE_DISPATCH, LOAD_CURRENCIES } from '../actions';
 import ExpensesTable from '../components/ExpensesTable';
 import Header from '../components/Header';
-import InputLabel from '../components/InputLabel';
-import SelectLabel from '../components/SelectLabel';
-import DATA from '../data';
+import WalletForm from '../components/WalletForm';
+
+const INITIAL_STATE = {
+  value: '',
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+};
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    };
+    this.state = INITIAL_STATE;
   }
 
   componentDidMount() {
@@ -27,44 +27,22 @@ class Wallet extends React.Component {
 
   handleEntries = ({ target: { name, value } }) => this.setState({ [name]: value });
 
+  handleSubmit = () => {
+    const { expenses, submitExpense } = this.props;
+    submitExpense(expenses, this.state);
+    this.setState(INITIAL_STATE);
+  };
+
   render() {
-    const { hasCurrencies, currencies, expenses, submitExpense } = this.props;
     return (
       <div>
         <Header />
-        <form>
-          <InputLabel value="value" name="Valor" callbackFunc={ this.handleEntries } />
-          <SelectLabel
-            value="currency"
-            name="Moeda"
-            callbackFunc={ this.handleEntries }
-            isLoaded={ hasCurrencies }
-            ITEMS={ currencies }
-          />
-          <SelectLabel
-            value="method"
-            name="Método de pagamento"
-            callbackFunc={ this.handleEntries }
-            ITEMS={ DATA.payment }
-          />
-          <SelectLabel
-            value="tag"
-            name="Tag"
-            callbackFunc={ this.handleEntries }
-            ITEMS={ DATA.tag }
-          />
-          <InputLabel
-            value="description"
-            name="Descrição"
-            callbackFunc={ this.handleEntries }
-          />
-          <button
-            type="button"
-            onClick={ () => submitExpense(expenses, this.state) }
-          >
-            Adicionar despesa
-          </button>
-        </form>
+        <WalletForm
+          props={ this.props }
+          state={ this.state }
+          onEntries={ this.handleEntries }
+          onSubmit={ this.handleSubmit }
+        />
         <ExpensesTable />
       </div>);
   }

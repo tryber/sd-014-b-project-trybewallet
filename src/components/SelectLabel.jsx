@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 
 export default class SelectLabel extends Component {
   render() {
-    const { name, value, callbackFunc, isLoaded, ITEMS } = this.props;
+    const { name, id, value, callbackFunc, isLoaded, ITEMS } = this.props;
     return (
-      <label htmlFor={ value }>
+      <label htmlFor={ id }>
         { `${name}: ` }
         <select
-          id={ value }
+          id={ id }
           type="text"
-          name={ value }
+          value={ value }
+          name={ id }
           onChange={ callbackFunc }
         >
           { isLoaded && ITEMS.map((item) => (
@@ -25,6 +26,7 @@ export default class SelectLabel extends Component {
 
 SelectLabel.propTypes = {
   name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   callbackFunc: PropTypes.func.isRequired,
   isLoaded: PropTypes.bool,
