@@ -1,0 +1,135 @@
+npx create-react-app nome-app
+npm i redux react-redux
+npm install redux-thunk
+
+# Checklist do react-redux
+
+*Antes de começar*
+- [x] pensar como será o *formato* do seu estado global [[initialState do reducer de algum componente]]
+	// construido estado inicial do Login
+	import {
+  	  SET_USER_EMAIL_VALUE,
+  	  SET_USER_PASSWORD_VALUE,
+	} from '../actions';
+	
+	const initialState = {
+  	  user: {
+    	    email: '',
+    	    password: '',
+          },
+        };
+
+- [x] pensar quais actions serão necessárias na sua aplicação
+	// construido as action do Login (email, password)
+	export const SET_USER_EMAIL_VALUE = 'SET_USER_EMAIL_VALUE';
+	
+	export const setUserEmailValue = (payload) => ({
+  	  type: SET_USER_EMAIL_VALUE,
+          payload,
+        });
+        
+        export const setUserPasswordValue = (payload) => ({
+  	  type: SET_USER_PASSWORD,
+          payload,
+        });
+
+
+*Instalação*
+- [x] npx create-react-app my-app-redux;
+- [x] npm install --save redux react-redux;
+- [x] npm install.
+
+*Criar dentro do diretório src:*
+- [x] diretório redux
+
+**Criar dentro do diretório redux**
+- [x] diretório actions;
+- [x] diretório reducers;
+- [x] diretório store.
+
+*Criar dentro do diretório actions:*
+- [x] arquivo index.js.
+
+*Criar dentro do diretório reducers:*
+- [x] arquivo index.js.
+- [x] criar a estrutura do reducer, como ainda não sabemos as actions necessárias, você pode apenas retornar o default do switch.
+	// reducer do user (Login) como já tem o initial state e as actions já coloca no case
+	const userReducer = (state = initialState, action) => {
+  	  switch (action.type) {
+  	  case SET_USER_EMAIL_VALUE:
+    	    return { ...state, user: { email: action.payload } };
+  	  case SET_USER_PASSWORD_VALUE:
+    	    return { ...state, user: { password: action.payload } };
+  	  default:
+    	    return state;
+  	  }  
+	};
+	export default userReducer;
+
+- [x] configurar os exports do arquivo index.js usando o combineReducers
+	import { combineReducers } from 'redux';
+	import userReducer from './user';
+
+	const rootReducer = combineReducers({ userReducer });
+
+	export default rootReducer;
+
+*No arquivo store/index.js:*
+- [x] importar o arquivo com o combineReducer e criar a store
+- [x] configurar o [Redux DevTools](https://github.com/reduxjs/redux-devtools)
+	// no redux/store
+	import { createStore } from 'redux';
+	import { composeWithDevTools } from 'redux-devtools-extension';
+	import rootReducer from '../reducers';
+
+	const store = createStore(rootReducer, composeWithDevTools());
+
+	export default store;
+
+*No arquivo App.js:*
+- [x] importar a store
+- [x] definir o Provider, `<Provider store={ store }>`, para fornecer os estados a todos os componentes encapsulados em `<App />`.
+	// no projeto trybewallets o <App /> esta em src/index.js
+	import { Provider } from 'react-redux';
+	
+	<Provider store={ store }>
+          <App />
+    	</Provider>
+
+*Na pasta actions:*
+- [x] criar os actionTypes, por exemplo: `const ADD_TO_CART = 'ADD_TO_CART';`
+- [x] criar os actions creators necessários
+	// já foi criado no passo 2 do check list
+	// -[x] pensar quais actions serão necessárias na sua aplicação
+
+*Nos componentes:*
+- [x] criar a função mapStateToProps    // acessando state
+- [x] criar a função mapDispatchToProps // modificando state
+- [x] importar e usar o connect
+
+	// Login
+	// importado o connect e as actions
+	import { connect } from 'react-redux';
+	import { setUserEmailValue, setUserPasswordValue } from '../redux/actions';
+	
+	// no botão "onButtonEntrar()" que dispara a action foi colocado os dispatchs
+	const {
+      	  dispatchSetUserEmailValue,
+      	  dispatchSetUserPasswordValue,
+    	  } = this.props;
+    	  dispatchSetUserEmailValue(email);
+    	  dispatchSetUserPasswordValue(password);
+    	  
+    	// criado mapDispatchToProps + mapStateToProps e conectado no export default
+    	const mapDispatchToProps = (dispatch) => ({
+  	dispatchSetUserEmailValue: (value) => dispatch(setUserEmailValue(value)),
+	  dispatchSetUserPasswordValue: (value) => dispatch(setUserPasswordValue(value)),
+	});
+	
+	const mapStateToProps = (state) => ({
+	  user: state.userReducer.user,
+	});
+
+	export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+

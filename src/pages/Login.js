@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setUserEmailValue, setUserPasswordValue } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -12,7 +14,20 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
     this.checkEmail = this.checkEmail.bind(this);
-    this.clickButtonEntrar = this.clickButtonEntrar.bind(this);
+    this.onButtonEntrar = this.onButtonEntrar.bind(this);
+  }
+
+  // redirecionando para pagina carteira
+  onButtonEntrar() {
+    const { email, password } = this.state;
+    const {
+      history,
+      dispatchSetUserEmailValue,
+      dispatchSetUserPasswordValue,
+    } = this.props;
+    dispatchSetUserEmailValue(email);
+    dispatchSetUserPasswordValue(password);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -34,12 +49,6 @@ class Login extends React.Component {
   checkPassword(password) {
     const seis = 6;
     return (password.length >= seis);
-  }
-
-  // redirecionando para pagina carteira
-  clickButtonEntrar() {
-    const { history } = this.props;
-    history.push('/carteira');
   }
 
   render() {
@@ -82,7 +91,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !(isPasswordValid && isEmailValid) }
-            onClick={ this.clickButtonEntrar }
+            onClick={ this.onButtonEntrar }
           >
             Entrar
           </button>
@@ -96,6 +105,17 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  dispatchSetUserEmailValue: PropTypes.func.isRequired,
+  dispatchSetUserPasswordValue: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetUserEmailValue: (value) => dispatch(setUserEmailValue(value)),
+  dispatchSetUserPasswordValue: (value) => dispatch(setUserPasswordValue(value)),
+});
+
+const mapStateToProps = (state) => ({
+  user: state.userReducer.user,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
