@@ -19,8 +19,8 @@ class Form extends Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda" name="moeda">
-            {getCurrencies.map(({ code, ask }, index) => (
-              <option key={ index } value={ ask }>{code}</option>
+            {getCurrencies.map(({ code }, index) => (
+              <option key={ index } value={ code }>{code}</option>
             ))}
           </select>
         </label>
