@@ -1,8 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-export default function Header() {
-  const { email } = useSelector((state) => state.user);
+export default function Header(props) {
+  const { email } = props;
   return (
     <header>
       <span data-testid="email-field">{`Email: ${email}`}</span>
