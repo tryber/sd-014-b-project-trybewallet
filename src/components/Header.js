@@ -35,14 +35,13 @@ class Header extends Component {
           {' '}
           { cambio }
         </p>
-
       </div>
     );
   }
 }
 
 Header.propTypes = {
-  email: PropTypes.arrayOf(PropTypes.string).isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
