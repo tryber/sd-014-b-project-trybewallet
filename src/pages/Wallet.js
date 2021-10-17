@@ -1,50 +1,41 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
+import Form from '../components/Form';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currencies: [],
+    };
+
+    this.fetchCurrencies = this.fetchCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  async fetchCurrencies() {
+    const URL = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const result = await URL.json();
+    const coins = Object.keys(result).filter((coin) => (
+      coin !== 'USDT'));
+    this.setState({
+      currencies: coins,
+    });
+  }
+
   render() {
     const { userEmail } = this.props;
+    const { currencies } = this.state;
     return (
       <>
-        <header>
-          <h2 data-testid="email-field">{ userEmail }</h2>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
-        <form>
-          <label>
-            Valor:
-            <input />
-          </label>
-          <label>
-            Descrição:
-            <input />
-          </label>
-          <label>
-            Moeda:
-            <select>
-            </select>
-          </label>
-          <label>
-            Método de pagamento:
-            <select>
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label>
-            Tag
-            <select>
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
-        </form>
+        <Header userEmail={ userEmail } />
+        <Form currencies={ currencies } />
       </>
     );
   }
