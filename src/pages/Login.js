@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setUserValue } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -11,12 +14,15 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validateButton = this.validateButton.bind(this);
+    this.toLogin = this.toLogin.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    });
+  toLogin() {
+    const { email } = this.state;
+    const { history, dispatchSetValue } = this.props;
+
+    dispatchSetValue(email);
+    history.push('/carteira');
   }
 
   validateButton() {
@@ -28,13 +34,20 @@ class Login extends React.Component {
     return !checkEmailInput.test(email) || checkPass;
   }
 
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const { email, password } = this.state;
     return (
       <fieldset>
-        <label htmlFor="email">
+        <label htmlFor="xablau">
           E-mail:
           <input
+            id="xablau"
             name="email"
             type="email"
             data-testid="email-input"
@@ -55,6 +68,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.validateButton() }
+          onClick={ this.toLogin }
         >
           Entrar
         </button>
@@ -63,4 +77,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (userEmail) => dispatch(setUserValue(userEmail)),
+});
+
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
