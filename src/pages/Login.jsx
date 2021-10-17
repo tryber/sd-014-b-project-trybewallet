@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 import { addUserEmail } from '../actions';
+import './login.css';
 
 class Login extends Component {
   constructor() {
@@ -44,34 +45,40 @@ class Login extends Component {
     const minLengthPassword = 6;
     const disabled = emailMasked && password.length >= minLengthPassword;
     return (
-      <main>
-        <section className="container-input">
-          <Input
-            type="email"
-            value={ email }
-            id="email"
-            textLabel="Email: "
-            className="input-login"
-            onChange={ this.handleChange }
-            dataTestId="email-input"
-          />
-
-          <Input
-            type="password"
-            value={ password }
-            id="password"
-            className="input-login"
-            textLabel="Senha: "
-            onChange={ this.handleChange }
-            dataTestId="password-input"
-          />
-
-          <Button
-            textButton="Entrar"
-            onClick={ this.submitUser }
-            disabled={ !disabled }
-            className="btn-submit"
-          />
+      <main className="login-page">
+        <header className="header-login">
+          <h1 className="logo-yourwallet">
+            YourWallet
+          </h1>
+        </header>
+        <section className="container-form-login">
+          <form className="form-login">
+            <h2 className="login-to-your-account"> Entre Em Sua Conta </h2>
+            <Input
+              type="email"
+              value={ email }
+              id="email"
+              textLabel="Email: "
+              className="input-login"
+              onChange={ this.handleChange }
+              dataTestId="email-input"
+            />
+            <Input
+              type="password"
+              value={ password }
+              id="password"
+              className="input-login"
+              textLabel="Senha: "
+              onChange={ this.handleChange }
+              dataTestId="password-input"
+            />
+            <Button
+              textButton="Entrar"
+              onClick={ this.submitUser }
+              disabled={ !disabled }
+              className="btn-submit"
+            />
+          </form>
         </section>
         { redirect && <Redirect to="/carteira" /> }
       </main>

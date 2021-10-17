@@ -1,5 +1,6 @@
 import React from 'react';
 import Switcher from './Components/Switcher';
+import './App.css';
 
 function App() {
   return (
