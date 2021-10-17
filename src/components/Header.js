@@ -23,16 +23,19 @@ class Header extends Component {
           {' '}
           { email }
         </p>
+
         <p data-testid="total-field">
           Despesa Total:
           {' '}
           { despesaTotal }
         </p>
+
         <p data-testid="header-currency-field">
           Cambio corrente:
           {' '}
           { cambio }
         </p>
+
       </div>
     );
   }
