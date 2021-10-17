@@ -1,6 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Header from '../components/header/Header';
+import Form from '../components/form/Form';
 
 export default function Wallet() {
-  return <Header />;
+  const { email } = useSelector((state) => state.user);
+  return (
+    <Header email={ email }>
+      <Form />
+    </Header>
+  );
 }

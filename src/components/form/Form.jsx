@@ -1,3 +1,5 @@
+// Controlar o valor dos inputs por estado
+// ? Faz sentido eles estarem na store ?
 import React from 'react';
 
 export default function Form() {
