@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 2rem;
+
+  .emailField {
+    margin-right: 2rem;
+  }
+
+  .totalValueDiv {
+    display: flex;
+    flex-direction: row;
+
+    div:first-child{
+      margin-right: 0.5rem;
+    }
+  }
+}
