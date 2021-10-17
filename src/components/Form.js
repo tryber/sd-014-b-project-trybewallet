@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Select from './Select';
 import Input from './Input';
+import MetdPagamento from './MetdPagamento';
 
 class Form extends Component {
   constructor() {
@@ -13,15 +14,15 @@ class Form extends Component {
       moeda: '',
       metdPagamento: '',
       tag: '',
+      arrayApi: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-
+    this.fetchApi();
   }
-
 
   handleChange({ target: { name, value } }) {
     this.setState({
@@ -29,13 +30,16 @@ class Form extends Component {
     });
   }
 
-
   async fetchApi() {
-    const fetchApi = fetch('');
+    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const jsonApi = await fetchApi.json();
+    this.setState(() => ({
+      arrayApi: jsonApi,
+    }));
   }
 
   render() {
-    const { valor, descricao, moeda, metdPagamento, tag } = this.state;
+    const { valor, descricao, moeda, metdPagamento, tag, arrayApi } = this.state;
     return (
       <form>
         <Input
@@ -65,12 +69,7 @@ class Form extends Component {
           value={ moeda }
           onChange={ this.handleChange }
         />
-        <Select
-          labelText="Método de pagamento"
-          id="metdPagamento"
-          htmlFor="metdPagamento"
-          arrayOption={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
-          name="metdPagamento"
+        <MetdPagamento
           value={ metdPagamento }
           onChange={ this.handleChange }
         />
