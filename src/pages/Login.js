@@ -20,6 +20,7 @@ class Login extends React.Component {
   }
 
   // Função de validação de email
+  // Créditos ao Michael da turma 14-b que mostrou essa função incrível do regex!!
   isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email); // retorna TRUE se regexEmail for válido
