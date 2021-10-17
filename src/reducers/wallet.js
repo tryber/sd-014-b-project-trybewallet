@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   expenseToEdit: {},
+  isEditing: false,
 };
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -29,6 +30,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenseToEdit: state.expenses.find((expense) => expense.id === action.id),
+      isEditing: true,
     };
 
   default:

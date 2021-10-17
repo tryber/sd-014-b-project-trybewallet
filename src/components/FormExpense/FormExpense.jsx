@@ -25,6 +25,8 @@ class FormExpense extends Component {
     this.fetchCurrency = this.fetchCurrency.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.renderSelect = this.renderSelect.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +52,10 @@ class FormExpense extends Component {
     setExpenses(addExpense);
   }
 
+  handleEdit() {
+    // implementar logica
+  }
+
   handleChange({ target: { id, value } }) {
     this.setState({ [id]: value });
   }
@@ -62,30 +68,15 @@ class FormExpense extends Component {
     setCurrency(coins);
   }
 
-  render() {
+  renderSelect() {
     const {
-      value,
-      description,
       currency,
       method,
       tag,
     } = this.state;
     const { currencies } = this.props;
     return (
-      <form className="form-expense">
-        <Input
-          inputValue={ value }
-          onChange={ this.handleChange }
-          label="Valor:"
-          type="number"
-          id="value"
-        />
-        <Input
-          inputValue={ description }
-          onChange={ this.handleChange }
-          label="Descrição:"
-          id="description"
-        />
+      <>
         <Select
           id="currency"
           label="Moeda:"
@@ -107,7 +98,35 @@ class FormExpense extends Component {
           value={ tag }
           onChange={ this.handleChange }
         />
-        <Button onClick={ this.handleClick } />
+      </>
+    );
+  }
+
+  render() {
+    const {
+      value,
+      description,
+    } = this.state;
+    const { isEditing } = this.props;
+    return (
+      <form className="form-expense">
+        <Input
+          inputValue={ value }
+          onChange={ this.handleChange }
+          label="Valor:"
+          type="number"
+          id="value"
+        />
+        <Input
+          inputValue={ description }
+          onChange={ this.handleChange }
+          label="Descrição:"
+          id="description"
+        />
+        { this.renderSelect() }
+        {!isEditing
+          ? <Button onClick={ this.handleClick }>Adicionar despesa</Button>
+          : <Button onClick={ this.handleEdit }>Editar despesa</Button>}
       </form>
 
     );
@@ -117,6 +136,7 @@ class FormExpense extends Component {
 FormExpense.propTypes = {
   setExpenses: PropTypes.func.isRequired,
   setCurrency: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
@@ -130,6 +150,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  isEditing: state.wallet.isEditing,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpense);

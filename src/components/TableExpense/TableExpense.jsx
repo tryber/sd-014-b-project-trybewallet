@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import ButtonDelete from './ButtonDelete';
-import ButtonEdit from './ButtonEdit';
+import ButtonDelete from '../ButtonDelete';
+import ButtonEdit from '../ButtonEdit';
 import './TableExpense.css';
 
 const tableHeader = ['Descrição',
