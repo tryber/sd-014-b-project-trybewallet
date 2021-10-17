@@ -18,10 +18,20 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
+
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
+  }
+
+
+  async fetchApi() {
+    const fetchApi = fetch('');
   }
 
   render() {
@@ -47,15 +57,17 @@ class Form extends Component {
           onChange={ this.handleChange }
         />
         <Select
+          id="moeda"
           htmlFor="moeda"
-          arrayOption={ ['vai', 'chegar', 'daApi'] }
+          arrayOption={ [] }
           name="moeda"
-          labelText="Moeda: "
+          labelText="Moeda"
           value={ moeda }
           onChange={ this.handleChange }
         />
         <Select
           labelText="Método de pagamento"
+          id="metdPagamento"
           htmlFor="metdPagamento"
           arrayOption={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           name="metdPagamento"
@@ -64,6 +76,7 @@ class Form extends Component {
         />
         <Select
           labelText="Tag"
+          id="tag"
           htmlFor="tag"
           arrayOption={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
           name="tag"
