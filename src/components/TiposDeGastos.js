@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class MetdPagamento extends Component {
+class TiposDeGastos extends Component {
   render() {
-    const arrayOption = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const arrayOption = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { value } = this.props;
     return (
-      <label htmlFor="metdPagamento">
-        Método de pagamento
+      <label htmlFor="Tag">
+        Tag
         <select
-          name="metdPagamento"
-          id="metdPagamento"
+          name="Tag"
+          id="Tag"
         >
           { arrayOption.map((item, index) => (
             <option
@@ -27,9 +27,9 @@ class MetdPagamento extends Component {
   }
 }
 
-MetdPagamento.propTypes = {
+TiposDeGastos.propTypes = {
   // onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 
-export default MetdPagamento;
+export default TiposDeGastos;

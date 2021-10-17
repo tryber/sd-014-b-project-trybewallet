@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Select from './Select';
 import Input from './Input';
 import MetdPagamento from './MetdPagamento';
+import TiposDeGastos from './TiposDeGastos';
+import SelectCoin from './SelectCoin';
 
 class Form extends Component {
   constructor() {
@@ -36,12 +37,10 @@ class Form extends Component {
     this.setState(() => ({
       objetoApi: jsonApi,
     }));
-    const { objetoApi } = this.state;
-    console.log(objetoApi);
   }
 
   render() {
-    const { valor, descricao, moeda, metdPagamento, tag } = this.state;
+    const { valor, descricao, moeda, metdPagamento, tag, objetoApi } = this.state;
     return (
       <form>
         <Input
@@ -62,12 +61,8 @@ class Form extends Component {
           value={ descricao }
           onChange={ this.handleChange }
         />
-        <Select
-          id="moeda"
-          htmlFor="moeda"
-          arrayOption={ [] }
-          name="moeda"
-          labelText="Moeda"
+        <SelectCoin
+          objFetch={ objetoApi }
           value={ moeda }
           onChange={ this.handleChange }
         />
@@ -75,12 +70,7 @@ class Form extends Component {
           value={ metdPagamento }
           onChange={ this.handleChange }
         />
-        <Select
-          labelText="Tag"
-          id="tag"
-          htmlFor="tag"
-          arrayOption={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
-          name="tag"
+        <TiposDeGastos
           value={ tag }
           onChange={ this.handleChange }
         />
