@@ -30,7 +30,7 @@ const receiveCoins = (coins) => ({
   coins,
 });
 
-export const fetchCoins = () => {
+export function fetchCoins() {
   return (dispatch) => {
     dispatch(requestCoins());
     return fetch(ENDPOINT)
@@ -42,4 +42,4 @@ export const fetchCoins = () => {
         return dispatch(receiveCoins(allGod));
       });
   };
-};
+}
