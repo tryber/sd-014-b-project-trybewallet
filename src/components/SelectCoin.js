@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class SelectCoin extends Component {
   render() {
-    const { value, objFetch } = this.props;
+    const { objFetch } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda
@@ -14,7 +14,7 @@ class SelectCoin extends Component {
           { Object.keys(objFetch).filter((chave) => chave !== 'USDT').map((item) => (
             <option
               key={ item }
-              value={ value }
+              value={ item }
             >
               { item }
             </option>

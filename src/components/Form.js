@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import MetdPagamento from './MetdPagamento';
 import TiposDeGastos from './TiposDeGastos';
 import SelectCoin from './SelectCoin';
+import { emailAction, fetchApi } from '../actions';
 
 class Form extends Component {
   constructor() {
@@ -32,8 +33,8 @@ class Form extends Component {
   }
 
   async fetchApi() {
-    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const jsonApi = await fetchApi.json();
+    const fetchingApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const jsonApi = await fetchingApi.json();
     this.setState(() => ({
       objetoApi: jsonApi,
     }));
@@ -81,15 +82,17 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-
+  dispatch: PropTypes.func.isRequired,
+  requisicaoApi: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  objetoApi: state.fetchReducer,
 });
 
-const mapDispatchToProps = {
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  logarFunction: (state) => dispatch(emailAction(state)),
+  requisicaoApi: (state) => dispatch(fetchApi(state)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
