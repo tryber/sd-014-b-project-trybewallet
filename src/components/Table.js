@@ -28,7 +28,10 @@ export class Table extends Component {
             <td>6.50</td>
             <td>650.00</td>
             <td>Real</td>
-            <td><button type="button">EDIT</button></td>
+            <td>
+              <button data-testid="edit-btn" type="button">EDIT</button>
+              <button data-testid="delete-btn" type="button">delete</button>
+            </td>
           </tr>
         </tbody>
 
