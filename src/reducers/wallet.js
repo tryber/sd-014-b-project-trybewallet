@@ -1,5 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { SEND_RATES, DELETE_EXPENSE, SEND_CURRENCIES, EDIT_EXPENSE } from '../actions';
+import {
+  SEND_RATES,
+  DELETE_EXPENSE, SEND_CURRENCIES,
+  EDIT_EXPENSE,
+  ADD_EDIT_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -31,6 +36,22 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       expenseToEdit: state.expenses.find((expense) => expense.id === action.id),
       isEditing: true,
+    };
+    // Luiz Gustavo me ajudou nessa parte!
+  case ADD_EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === state.expenseToEdit.id) {
+          return {
+            ...action.expense,
+            exchangeRates: expense.exchangeRates,
+            id: expense.id,
+          };
+        }
+        return expense;
+      }),
+      isEditing: false,
     };
 
   default:

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { exchangeRating, setCurrencies } from '../../actions';
+import { exchangeRating, setCurrencies, addEditedExpense } from '../../actions';
 import Input from '../Input';
 import Select from '../Select';
 import './FormExpense.css';
@@ -53,7 +53,8 @@ class FormExpense extends Component {
   }
 
   handleEdit() {
-    // implementar logica
+    const { addEditExpense } = this.props;
+    addEditExpense(this.state);
   }
 
   handleChange({ target: { id, value } }) {
@@ -124,9 +125,9 @@ class FormExpense extends Component {
           id="description"
         />
         { this.renderSelect() }
-        {!isEditing
-          ? <Button onClick={ this.handleClick }>Adicionar despesa</Button>
-          : <Button onClick={ this.handleEdit }>Editar despesa</Button>}
+        {isEditing
+          ? <Button onClick={ this.handleEdit }>Editar despesa</Button>
+          : <Button onClick={ this.handleClick }>Adicionar despesa</Button>}
       </form>
 
     );
@@ -134,6 +135,7 @@ class FormExpense extends Component {
 }
 
 FormExpense.propTypes = {
+  addEditExpense: PropTypes.func.isRequired,
   setExpenses: PropTypes.func.isRequired,
   setCurrency: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
@@ -145,6 +147,7 @@ FormExpense.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setExpenses: (rates) => dispatch(exchangeRating(rates)),
+  addEditExpense: (expenseID) => dispatch(addEditedExpense(expenseID)),
   setCurrency: (currencies) => dispatch(setCurrencies(currencies)),
 });
 
