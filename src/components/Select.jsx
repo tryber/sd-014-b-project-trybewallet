@@ -24,7 +24,7 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-  array: PropTypes.arrayOf(PropTypes.string).isRequired,
+  array: PropTypes.arrayOf(PropTypes.any).isRequired,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
