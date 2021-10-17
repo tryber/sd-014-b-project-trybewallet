@@ -9,16 +9,16 @@ class CategorySelect extends Component {
       <label htmlFor="CategorySelect">
         Tag:
         <select
-          name="category"
+          name="tag"
           id="CategorySelect"
           value={ value }
           onChange={ (event) => handleChange(event) }
         >
-          <option value="food">Alimentação</option>
-          <option value="recreation">Lazer</option>
-          <option value="job">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );

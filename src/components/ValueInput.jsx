@@ -10,7 +10,7 @@ class ValueInput extends Component {
         Valor:
         <input
           type="number"
-          name="transactionValue"
+          name="value"
           id="transactionValue"
           value={ value }
           onChange={ (event) => handleChange(event) }
@@ -21,7 +21,7 @@ class ValueInput extends Component {
 }
 
 ValueInput.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
