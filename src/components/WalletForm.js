@@ -100,12 +100,10 @@ class WalletForm extends Component {
         <label htmlFor="input-value">
           Valor:
           { this.renderInput('number', 'value', 'input-value', value) }
-          <input type="text" name="value" />
         </label>
         <label htmlFor="input-description">
           Descrição:
           { this.renderInput('text', 'description', 'input-description', description) }
-          <input type="text" name="description" />
         </label>
         <label htmlFor="select-currency">
           Moeda:
@@ -141,14 +139,14 @@ class WalletForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+const mapStateToProps = (state) => ({ // Função que mapeia o estado para props
+  currencies: state.wallet.currencies, // Pega do estado as moedas para passa-las como props.
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
-  addExpenseProp: (expense) => dispatch(addExpense(expense)),
-  updateTotalProp: () => dispatch(updateTotal()),
+const mapDispatchToProps = (dispatch) => ({ // Função responsavel por fazer os dispatch
+  getCurrencies: () => dispatch(fetchCurrencies()), // Faz o dispatch da getCurrencies que está dentro do arquivo index, e executa a função fetchCurrencies para pegar as moedas e seus cambios.
+  addExpenseProp: (expense) => dispatch(addExpense(expense)), // Dispatch que adiciona uma despesa
+  updateTotalProp: () => dispatch(updateTotal()), // Dispatch que atualiza o total de despesas
 });
 
 WalletForm.propTypes = {

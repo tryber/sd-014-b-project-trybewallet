@@ -31,6 +31,14 @@ export const updateTotal = () => ({
   type: UPDATE_TOTAL,
 });
 
+export const deleteExpense = () => ({
+  type: DELETE_EXPENSE,
+});
+
+// A função fetchCurrencies é responsavel por disparar a action isFetching como true;
+// Em seguida faz o fetch das moedas e seus cambios deletando a USDT;
+// Por fim faz o dispatch da getCurrencies e isFetching como false.
+
 export const fetchCurrencies = () => (
   async (dispatch) => {
     dispatch(isFetching(true));
