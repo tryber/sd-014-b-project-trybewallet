@@ -17,7 +17,6 @@ class Form extends Component {
       metdPagamento: '',
       tag: '',
       objetoApi: {},
-      expenses: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
