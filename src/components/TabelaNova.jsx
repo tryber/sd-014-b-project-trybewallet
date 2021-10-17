@@ -1,8 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { inputDespesa, valorConvertidoDespesa, removeValor } from '../actions/index';
 
 class TabelaNova extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(id, valor) {
+    const { despesa, despesas, removeValorLista } = this.props;
+    const newDespesas = despesas.filter((elemento) => elemento !== id);
+    removeValorLista(valor);
+    despesa(newDespesas);
+  }
+
   renderTabela(array) {
     return (
       <table>
@@ -24,22 +37,28 @@ class TabelaNova extends React.Component {
           {array.map((despesa, idx) => {
             const { exchangeRates, currency } = despesa;
             return (
-              <tr key={ idx }>
+              <tr key={ despesa.id }>
                 <td>{despesa.description}</td>
                 <td>{despesa.tag}</td>
                 <td>{despesa.method}</td>
-                <td>
-                  {despesa.value}
-                </td>
+                <td>{despesa.value}</td>
                 <td>{exchangeRates[currency].name.replace('/Real Brasileiro', '')}</td>
-                <td>
-                  {Number(exchangeRates[currency].ask).toFixed(2)}
-                </td>
-                <td>
-                  {Number(exchangeRates[currency].ask * despesa.value).toFixed(2)}
-                </td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>{Number(exchangeRates[currency].ask * despesa.value).toFixed(2)}</td>
                 <td>Real</td>
-                <td><button type="button">Editar/Excluir</button></td>
+                <td>
+                  <button
+                    value={ idx }
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this
+                      .handleClick(despesa, Number(exchangeRates[currency]
+                        .ask * despesa.value).toFixed(2)) }
+                  >
+                    Excluir
+                  </button>
+
+                </td>
               </tr>
             );
           })}
@@ -60,10 +79,19 @@ class TabelaNova extends React.Component {
 
 TabelaNova.propTypes = {
   despesas: PropTypes.string.isRequired,
+  despesa: PropTypes.func.isRequired,
+  removeValorLista: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
+  soma: state.soma.expenses,
 });
 
-export default connect(mapStateToProps)(TabelaNova);
+const mapDispatchToProps = (dispatch) => ({
+  despesa: (e) => dispatch(inputDespesa(e)),
+  valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
+  removeValorLista: (e) => dispatch(removeValor(e)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabelaNova);

@@ -10,7 +10,6 @@ class Inputs extends React.Component {
     super(props);
     this.state = {
       expenses: [],
-      expensesSoma: [],
       exchange: [],
       value: 0,
       description: '',
@@ -39,32 +38,28 @@ class Inputs extends React.Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  async handleSubmit() {
-    const { despesa, valorConvertido } = this.props;
-    const { value,
-      description, currency, method, tag, expenses, expensesSoma } = this.state;
-    const newId = expenses.length;
-    const exchange = await this.getCurrencyApi();
-    const valueCurrency = exchange[currency].ask;
-    const getValueConvert = valueCurrency * value;
-    const nameCurrency = exchange[currency].name.replace('/Real Brasileiro', '');
-    const newCurrencies = [...expenses,
-      { id: newId, value, description, currency, method, tag, exchangeRates: exchange }];
-    const newExpenses = [...expensesSoma, {
-      id: expensesSoma.length,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      getValueConvert,
-      nameCurrency,
-      valueCurrency }];
-    despesa(newCurrencies);
-    valorConvertido(newExpenses);
-
-    this.setState({ expenses: newCurrencies,
-      expensesSoma: newExpenses });
+  handleSubmit() {
+    const { despesas } = this.props;
+    this.setState({ expenses: despesas }, async () => {
+      const { despesa, valorConvertido } = this.props;
+      const { value,
+        description, currency, method, tag, expenses } = this.state;
+      const newId = expenses.length;
+      const exchange = await this.getCurrencyApi();
+      const valueCurrency = exchange[currency].ask;
+      const getValueConvert = valueCurrency * value;
+      const newCurrencies = [...expenses,
+        { id: newId,
+          value,
+          description,
+          currency,
+          method,
+          tag,
+          exchangeRates: exchange }];
+      despesa(newCurrencies);
+      valorConvertido(getValueConvert);
+      this.setState({ expenses: newCurrencies });
+    });
   }
 
   render() {
@@ -120,11 +115,16 @@ class Inputs extends React.Component {
 Inputs.propTypes = {
   despesa: PropTypes.func.isRequired,
   valorConvertido: PropTypes.func.isRequired,
+  despesas: PropTypes.objectOf.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  despesas: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   despesa: (e) => dispatch(inputDespesa(e)),
   valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
 });
 
-export default connect(null, mapDispatchToProps)(Inputs);
+export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
