@@ -8,9 +8,9 @@ const INICIAL_STATE = {
 const reducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SET_WALLET_VALUE:
-    return { ...state, currencies: currencies.payload };
+    return { ...state, currencies: action.payload };
   case 'SET_WALLET_EXPENSES':
-    return { ...state, expenses: [expenses.payload] };
+    return { ...state, expenses: [action.payload] };
   default:
     return state;
   }

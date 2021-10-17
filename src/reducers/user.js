@@ -7,7 +7,7 @@ const INICIAL_STATE = {
 const reducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SET_USER_VALUE:
-    return { ...state, email: email.payload };
+    return { ...state, email: action.payload };
   default:
     return state;
   }
