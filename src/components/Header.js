@@ -16,7 +16,6 @@ class Header extends Component {
     const { despesaTotal, cambio } = this.state;
     return (
       <div>
-        <h1>HEADER</h1>
         <p data-testid="email-field">
           Bem Vindo:
           {' '}
