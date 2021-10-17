@@ -20,16 +20,12 @@ table {
   width: 90%;
 }
 
-table thead tr, table tbody tr {
+table thead tr , table tbody tr {
   display: grid;
-  grid-template-columns: 17% 10% 15% 8% 10% 10% 10% 10% 10%;
+  grid-template-columns: 17% 10% 15% 8% repeat(5, 10%);
 }
 
-tr {
-  display: flex;
-}
-
-th, td {
+th , td {
   align-items: center;
   border: solid thin black;
   display: flex;

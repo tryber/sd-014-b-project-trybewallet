@@ -24,7 +24,9 @@ class Header extends Component {
         <h2>TrybeWallet</h2>
         <span data-testid="email-field">{ this.getInfos() }</span>
         <div>
-          <span data-testid="total-field">{ ` $ ${(+(this.getInfos(true))).toFixed(2)} ` }</span>
+          <span data-testid="total-field">
+            { ` $ ${(+(this.getInfos(true))).toFixed(2)} ` }
+          </span>
           <span data-testid="header-currency-field">{ localCurrency }</span>
         </div>
       </header>
