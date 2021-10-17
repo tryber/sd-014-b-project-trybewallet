@@ -1,16 +1,16 @@
 const INITIAL_STATE = {
-    email: '',
+  email: '',
 };
 
 function user(state = INITIAL_STATE, { type, email }) {
-  switch(type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        email,
-      };
-    default: 
-      return state
+  switch (type) {
+  case 'LOGIN':
+    return {
+      ...state,
+      email,
+    };
+  default:
+    return state;
   }
 }
 
