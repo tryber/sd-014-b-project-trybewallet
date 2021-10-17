@@ -82,8 +82,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  requisicaoApi: PropTypes.func.isRequired,
+
 };
 
 const mapStateToProps = (state) => ({

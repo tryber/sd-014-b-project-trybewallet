@@ -28,7 +28,6 @@ class SelectCoin extends Component {
 
 SelectCoin.propTypes = {
   objFetch: PropTypes.objectOf(PropTypes.object).isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default SelectCoin;
