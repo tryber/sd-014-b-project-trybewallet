@@ -7,18 +7,32 @@ class Header extends Component {
     super();
     this.state = {
       despesaTotal: 0,
+      cambio: 'BRL',
     };
   }
 
   render() {
     const { email } = this.props;
-    const { despesaTotal } = this.state;
+    const { despesaTotal, cambio } = this.state;
     console.log(email);
     return (
       <div>
         <h1>HEADER</h1>
-        <p data-testid="email-field">{ email }</p>
-        <p data-testid="total-field">{ despesaTotal }</p>
+        <p data-testid="email-field">
+          Bem Vindo:
+          {' '}
+          { email }
+        </p>
+        <p data-testid="total-field">
+          Despesa Total:
+          {' '}
+          { despesaTotal }
+        </p>
+        <p data-testid="header-currency-field">
+          Cambio corrente:
+          {' '}
+          { cambio }
+        </p>
       </div>
     );
   }
