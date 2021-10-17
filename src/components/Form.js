@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from './Select';
+import Input from './Input';
 
 class Form extends Component {
   constructor() {
     super();
     this.state = {
-      valor: 0,
+      valor: '0',
       descricao: '',
+      moeda: '',
+      metdPagamento: '',
+      tag: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,33 +25,52 @@ class Form extends Component {
   }
 
   render() {
-    const { valor, descricao } = this.state;
+    const { valor, descricao, moeda, metdPagamento, tag } = this.state;
     return (
       <form>
-        <label htmlFor="valor">
-          Valor:
-          <input
-            type="number"
-            id="valor"
-            name="valor"
-            value={ valor }
-            onChange={ this.handleChange }
-          />
-        </label>
-
-        <label htmlFor="descricao">
-          Descrição:
-          <input
-            type="text"
-            id="descricao"
-            name="descricao"
-            value={ descricao }
-            onChange={ this.handleChange }
-          />
-        </label>
-
+        <Input
+          htmlFor="valor"
+          labelText="Valor"
+          type="number"
+          id="valor"
+          name="valor"
+          value={ valor }
+          onChange={ this.handleChange }
+        />
+        <Input
+          htmlFor="descricao"
+          labelText="Descrição"
+          type="text"
+          id="descricao"
+          name="descricao"
+          value={ descricao }
+          onChange={ this.handleChange }
+        />
+        <Select
+          htmlFor="moeda"
+          arrayOption={ ['vai', 'chegar', 'daApi'] }
+          name="moeda"
+          labelText="Moeda: "
+          value={ moeda }
+          onChange={ this.handleChange }
+        />
+        <Select
+          labelText="Método de pagamento"
+          htmlFor="metdPagamento"
+          arrayOption={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          name="metdPagamento"
+          value={ metdPagamento }
+          onChange={ this.handleChange }
+        />
+        <Select
+          labelText="Tag"
+          htmlFor="tag"
+          arrayOption={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          name="tag"
+          value={ tag }
+          onChange={ this.handleChange }
+        />
         <button type="button">Enviar</button>
-
       </form>
     );
   }
@@ -56,7 +80,7 @@ Form.propTypes = {
 
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 
 });
 
@@ -64,4 +88,4 @@ const mapDispatchToProps = {
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
