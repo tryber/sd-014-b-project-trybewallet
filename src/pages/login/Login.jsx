@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { inputEmail } from '../actions/index';
+import { inputEmail } from '../../actions/index';
 
 // Uso de expressão regular para validação de email,
 // fornecida pelos colegas Michael Caixas e Gustava Sant'Anna no Slack
