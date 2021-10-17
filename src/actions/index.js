@@ -52,3 +52,5 @@ export function EXPENSE_DISPATCH(previousExpenses, newExpense) {
     return dispatch(EXPENSE_ENTRY(sortExpenses(expensesResult)));
   };
 }
+
+export const DELETE_EXPENSE = (value) => ({ type: 'DELETE_EXPENSE', value });
