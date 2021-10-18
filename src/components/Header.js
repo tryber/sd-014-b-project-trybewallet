@@ -8,15 +8,14 @@ function Header({ user }) {
       <span data-testid="email-field">{user}</span>
       <span data-testid="total-field">0</span>
       <span data-testid="header-currency-field">BRL</span>
-    </header> 
-  );  
-}  
+    </header>
+  );
+}
 
 Header.propTypes = {
-    user: PropTypes.string.isRequired,
-  };
-  
-  const mapStateToProps = (state) => ({ user: state.user.email });
-  
-  export default connect(mapStateToProps, null)(Header);
-  
+  user: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({ user: state.user.email });
+
+export default connect(mapStateToProps, null)(Header);
