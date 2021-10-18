@@ -1,7 +1,43 @@
 import React from 'react';
+import returnApi from '../services/apiRequest';
 
 class Forms extends React.Component {
+  constructor() {
+    super();
+
+    this.getApiFromServices = this.getApiFromServices.bind(this);
+    this.getCurrencies = this.getCurrencies.bind(this);
+
+    this.state = {
+      resultsApi: [],
+      arrayCoins: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getApiFromServices();
+  }
+
+  async getApiFromServices() {
+    const results = await returnApi();
+    this.setState({
+      resultsApi: [results],
+    });
+    this.getCurrencies();
+  }
+
+  getCurrencies() {
+    const { resultsApi } = this.state;
+    resultsApi.map((element) => (
+      this.setState({
+        arrayCoins: (Object.keys(element)),
+      })
+    ));
+  }
+
   render() {
+    const { arrayCoins } = this.state;
+    console.log(arrayCoins);
     return (
       <form>
         <label htmlFor="valor">
@@ -14,7 +50,18 @@ class Forms extends React.Component {
         </label>
         <label htmlFor="Moeda">
           Moeda:
-          <select id="Moeda">Moeda</select>
+          <select id="Moeda">
+            { arrayCoins.map((currencie) => {
+              if (currencie !== 'USDT') {
+                return (
+                  <option key={ currencie } value={ currencie }>
+                    { currencie }
+                  </option>
+                );
+              }
+              return '';
+            }) }
+          </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento:
