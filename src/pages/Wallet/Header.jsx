@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  expenses: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
   mail: PropTypes.string.isRequired,
 };
 

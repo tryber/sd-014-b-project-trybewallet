@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import mailToGlobalState from '../actions';
+import mailToGlobalState from '../../actions';
+import CustomInput from '../../components/CustomInput';
 
 class Login extends React.Component {
   constructor(props) {
@@ -42,22 +43,20 @@ class Login extends React.Component {
     const { mail, password } = this.state;
     return (
       <fieldset>
-        <label htmlFor="mail">
-          <input
-            onChange={ this.handleChange }
-            data-testid="email-input"
-            name="mail"
-            ype="text"
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            onChange={ this.handleChange }
-            data-testid="password-input"
-            name="password"
-            type="password"
-          />
-        </label>
+        <CustomInput
+          id="mail"
+          onChange={ this.handleChange }
+          type="text"
+          describe="Email:"
+          dataTestId="email-input"
+        />
+        <CustomInput
+          id="password"
+          onChange={ this.handleChange }
+          dataTestId="password-input"
+          type="password"
+          describe="Senha:"
+        />
         <Link to="/carteira">
           <button
             disabled={ this.disabledButton(mail, password) }
@@ -67,7 +66,6 @@ class Login extends React.Component {
             Entrar
           </button>
         </Link>
-
       </fieldset>
     );
   }

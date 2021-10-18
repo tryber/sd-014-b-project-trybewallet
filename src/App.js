@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
+import Login from './pages/Login/Login';
+import NotFound from './pages/NotFound/NotFound';
 import Wallet from './pages/Wallet';
 
 function App() {
