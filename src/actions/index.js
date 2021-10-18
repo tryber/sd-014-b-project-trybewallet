@@ -3,6 +3,7 @@ import fetchCurrencyAPI from '../services/currencyAPI';
 export const EMAIL_INPUT = 'EMAIL_INPUT';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const emailInput = (payload) => ({
   type: EMAIL_INPUT,
@@ -15,6 +16,11 @@ export const requestCurrencies = () => ({
 
 export const getCurrencies = (payload) => ({
   type: GET_CURRENCIES,
+  payload,
+});
+
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
   payload,
 });
 
