@@ -5,7 +5,7 @@ const INICIAL_STATE = {
   expenses: [],
 };
 
-const reducer = (state = INICIAL_STATE, action) => {
+const reducerWallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SET_WALLET_VALUE:
     return { ...state, currencies: action.payload };
@@ -16,4 +16,4 @@ const reducer = (state = INICIAL_STATE, action) => {
   }
 };
 
-export default reducer;
+export default reducerWallet;
