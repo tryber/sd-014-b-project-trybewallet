@@ -1,4 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userAction } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -30,6 +34,7 @@ class Login extends React.Component {
      */
     const validarEmail = /\S+@\S+\.\S+/;
     const { email, password } = this.state;
+    const { handleEmail } = this.props;
     const sisePassword = 6; // no magic numbers =(
     // console.log(disabled);
     return (
@@ -56,20 +61,31 @@ class Login extends React.Component {
           />
           Senha
         </label>
-        <button
-          type="submit"
-          onClick={ this.handleSubmit }
-          disabled={
-            !(validarEmail.test(email) && password.length >= sisePassword)
-          }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="submit"
+            onClick={ () => handleEmail(email) }
+            disabled={
+              !(validarEmail.test(email) && password.length >= sisePassword)
+            }
+          >
+            Entrar
+          </button>
+        </Link>
       </fieldset>
     );
   }
 }
+// botão de enviar desabilitado: caso o email e não sejam como o regex e > que 6 ele não habilita. O .test é um método do regex...
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  handleEmail: (payload) => dispatch(userAction(payload)),
+});
 
-// botão de enviar desabilitado: caso o email e não sejam como o regex e > que 6 ele não habilita. O .test é um método do regex.
+// quando o reducer identificar o clique do botão ele vai pegar o valor do email que é o payload e vai jogar no estado geral
+
+Login.propTypes = {
+  handleEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
