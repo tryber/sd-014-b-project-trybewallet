@@ -17,7 +17,7 @@ class Wallet extends React.Component {
     ); // Deve-se remover a opção USDT
 
     return filterCurrencies.map((currency, index) => (
-      <option key={ `currency ${index}` }>
+      <option key={ `currency ${index}` } value={ currency }>
         { currency }
       </option>
     ));
