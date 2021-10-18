@@ -15,12 +15,8 @@ class Form extends React.Component {
   }
 
   filterCoins(coins) {
-    const siglasCoins = [];
-    for (const key in coins) {
-      if (key !== 'USDT') {
-        siglasCoins.push(coins[key]);
-      }
-    };
+    let siglasCoins = Object.keys(coins);
+    siglasCoins = siglasCoins.filter((sig) => sig !== 'USDT');
     this.setState({ coins: siglasCoins });
   }
 
@@ -40,8 +36,8 @@ class Form extends React.Component {
           Moeda
           <select id="coin">
             { coins.map((coin, i) => (
-              <option key={i} value={coin.code}>
-                {coin.code}
+              <option key={ i } value={ coin }>
+                { coin }
               </option>
             )) }
           </select>
