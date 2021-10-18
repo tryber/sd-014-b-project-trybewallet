@@ -2,7 +2,41 @@ import React from 'react';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      moedaInfo: [],
+      // moedasObjects: [],
+    };
+    this.fetchApi = this.fetchApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  async fetchApi() {
+    // const USDT = 'Dólar Americano/Real Brasileiro Turismo';
+    try {
+      const urlPatch = 'https://economia.awesomeapi.com.br/json/all';
+      const fetchApi = await fetch(urlPatch);
+      const returnApi = await fetchApi.json();
+      this.setState({
+        moedaInfo: Object.keys(returnApi).filter((code) => code !== 'USDT'),
+        // moedasObjects: Object.values(returnApi).filter(({ code }) => code !== USDT),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
+    const { moedaInfo } = this.state;
+    if (moedaInfo.length === 0) {
+      return (
+        <p>Loading...</p>
+      );
+    }
     return (
       <>
         <Header />
@@ -18,25 +52,27 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda:
             <select id="moeda">
-              <option>Vazio</option>
+              {moedaInfo.map(
+                (code) => <option value={ code } key={ code }>{code}</option>,
+              )}
             </select>
           </label>
           <label htmlFor="pagamento">
             Método de pagamento:
             <select id="pagamento">
-              <option id="pagamento">Dinheiro</option>
-              <option id="pagamento">Cartão de crédito</option>
-              <option id="pagamento">Cartão de débito</option>
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
             Tag:
             <select id="tag">
-              <option id="tag">Alimentação</option>
-              <option id="tag">Lazer</option>
-              <option id="tag">Trabalho</option>
-              <option id="tag">Transporte</option>
-              <option id="tag">Saúde</option>
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
             </select>
           </label>
         </form>
