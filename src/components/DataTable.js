@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions';
+import ButtonTable from './ButtonTable';
 
 class DataTable extends Component {
   constructor() {
     super();
     this.getQuote = this.getQuote.bind(this);
     this.getCurrencyName = this.getCurrencyName.bind(this);
+    // this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   getQuote(arrayQuotes, currency) {
@@ -25,8 +28,13 @@ class DataTable extends Component {
     return name;
   }
 
+  // handleClickDelete(id) {
+  //   const { expenseDelete } = this.props;
+  //   expenseDelete(id);
+  // }
+
   render() {
-    const { getExpenses } = this.props;
+    const { getExpenses, expenseDelete } = this.props;
     return (
       <table className="table table-striped table-hover mt-4">
         <thead>
@@ -44,8 +52,8 @@ class DataTable extends Component {
         </thead>
         <tbody>
           {getExpenses
-            .map(({ description, value, currency, method, tag, exchangeRates }, ind) => (
-              <tr key={ ind }>
+            .map(({ id, description, value, currency, method, tag, exchangeRates }) => (
+              <tr key={ id }>
                 <td>{ description }</td>
                 <td>{ tag }</td>
                 <td>{ method }</td>
@@ -60,12 +68,7 @@ class DataTable extends Component {
                 <td>Real</td>
                 <td>
                   <section>
-                    <button className="btn btn-warning m-1" type="button">
-                      <i className="bi bi-pencil-square"> </i>
-                    </button>
-                    <button className="btn btn-danger m-1" type="button">
-                      <i className="bi bi-trash"> </i>
-                    </button>
+                    <ButtonTable click={ () => expenseDelete(id) } />
                   </section>
                 </td>
               </tr>
@@ -78,10 +81,15 @@ class DataTable extends Component {
 
 DataTable.propTypes = {
   getExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenseDelete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   getExpenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(DataTable);
+const mapDispatchToProps = (dispatch) => ({
+  expenseDelete: (id) => dispatch(deleteExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

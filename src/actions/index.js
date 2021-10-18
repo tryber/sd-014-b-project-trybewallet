@@ -5,6 +5,7 @@ export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const REQUEST_CURRENCIES_API = 'REQUEST_CURRENCIES_API';
 export const GET_DATA_CURRENCIES = 'GET_DATA_CURRENCIES';
 export const SET_EXPENSES = 'SET_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const userEmail = (email) => ({
   type: REQUEST_LOGIN,
@@ -31,4 +32,9 @@ export const fetchCurrencyData = () => (dispatch) => {
 export const setDataExpenses = (expenses) => ({
   type: SET_EXPENSES,
   expenses,
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
 });
