@@ -1,18 +1,19 @@
+import { SET_LOGIN_VALUE } from '../actions';
+
 const initialState = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
-const userReducer = (state = initialState, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
+  case SET_LOGIN_VALUE:
+    return {
+      ...state,
+      email: action.email,
+    };
   default:
     return state;
   }
 };
 
-export default userReducer;
+export default user;
