@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const REQUEST_API = 'REQUEST_API';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const actionLogin = (payload) => ({
   type: LOGIN,
@@ -11,9 +12,9 @@ export const requestApi = () => ({
   type: REQUEST_API,
 });
 
-export const getCurrencies = (currencies) => ({
+export const getCurrencies = (payload) => ({
   type: GET_CURRENCIES,
-  payload: currencies,
+  payload,
 });
 
 export const fecthCurrencies = () => async (dispatch) => {
@@ -22,3 +23,8 @@ export const fecthCurrencies = () => async (dispatch) => {
   delete result.USDT;
   dispatch(getCurrencies(result));
 };
+
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});
