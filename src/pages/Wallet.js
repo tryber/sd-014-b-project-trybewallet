@@ -20,10 +20,10 @@ class Wallet extends React.Component {
             <select id="moeda">$</select>
           </label>
           <label htmlFor="pagamento">
-            Modo de pagamento:
+            Método de pagamento:
             <select id="pagamento">
               <option>Dinheiro</option>
-              <option>Cartão de crédto</option>
+              <option>cartão de crédito</option>
               <option>Cartão de débito</option>
             </select>
           </label>
