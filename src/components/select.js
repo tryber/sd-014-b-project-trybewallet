@@ -3,7 +3,7 @@ import React from 'react';
 
 export default class Select extends React.Component {
   render() {
-    const { currencies, handleChange, exchange, payment, tag } = this.props;
+    const { currencies, handleChange, exchange, method, tag } = this.props;
     return (
       <div>
         <form className="form-2">
@@ -11,7 +11,7 @@ export default class Select extends React.Component {
             Moeda:
             <select
               id="exchange"
-              name="exchange"
+              name="currency"
               value={ exchange }
               onChange={ handleChange }
             >
@@ -22,13 +22,13 @@ export default class Select extends React.Component {
               ))}
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de pagamento:
             <select
-              id="payment"
-              name="payment"
+              id="method"
+              name="method"
               onChange={ handleChange }
-              value={ payment }
+              value={ method }
             >
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
@@ -55,6 +55,6 @@ Select.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   exchange: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  payment: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
 };

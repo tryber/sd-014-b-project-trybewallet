@@ -12,8 +12,8 @@ class Wallet extends React.Component {
       id: 0,
       value: '',
       description: '',
-      exchange: 'USD',
-      payment: 'Dinheiro',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
 
@@ -35,17 +35,19 @@ class Wallet extends React.Component {
 
   async handleClick(event) {
     event.preventDefault();
-    const { id, exchange, payment, tag, description, value } = this.state;
+    const { id, currency, method, tag, description, value } = this.state;
     const { onSubmit } = this.props;
-    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const result = fetchApi.json();
+
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const exchangeRates = await api.json();
+
     this.setState((prevState) => ({ id: prevState.id + 1 }));
-    onSubmit({ value, description, result, id, exchange, payment, tag });
+    onSubmit({ value, description, exchangeRates, id, currency, method, tag });
     this.setState({
       value: '',
       description: '',
-      exchange: 'USD',
-      payment: 'Dinheiro',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     });
   }
@@ -81,15 +83,15 @@ class Wallet extends React.Component {
 
   render() {
     const { email, currencies } = this.props;
-    const { exchange, payment, tag } = this.state;
+    const { currency, method, tag } = this.state;
     return (
       <div>
         <Header email={ email } />
         { this.renderForm() }
         <Select
           currencies={ currencies }
-          exchange={ exchange }
-          payment={ payment }
+          exchange={ currency }
+          method={ method }
           tag={ tag }
           handleChange={ this.handleChange }
         />
