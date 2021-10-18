@@ -9,7 +9,7 @@ const wallet = (state = INISTIAL_STATE, action) => {
   case 'CURRENCIES':
     return {
       ...state,
-      currencies: action.wallet.currencies,
+      currencies: action.payload,
     };
   case 'EXPENSES':
     return {

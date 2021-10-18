@@ -11,13 +11,13 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
+      // id: 0,
       valor: '0',
       descricao: '',
       moeda: 'USD',
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: {},
+      // exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +25,9 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    this.fetchApi();
+    // this.fetchApi();
+    const { requisicaoApi } = this.props;
+    requisicaoApi();
   }
 
   handleChange({ target: { name, value } }) {
@@ -34,25 +36,14 @@ class Form extends Component {
     });
   }
 
-  async fetchApi() {
-    const fetchingApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const jsonApi = await fetchingApi.json();
-    this.setState(() => ({
-      exchangeRates: jsonApi,
-    }));
-  }
-
   addExpenses() {
-    const { requisicaoApi, logarFunction } = this.props;
-    this.setState((state) => ({
-      id: state.id + 1,
-    }));
-    requisicaoApi(this.state);
-    logarFunction(this.state);
+
   }
 
   render() {
-    const { valor, descricao, moeda, metdPagamento, tag, exchangeRates } = this.state;
+    const { valor, descricao, moeda,
+      metdPagamento, tag } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <Input
@@ -74,7 +65,7 @@ class Form extends Component {
           onChange={ this.handleChange }
         />
         <SelectCoin
-          objFetch={ exchangeRates }
+          objFetch={ currencies }
           value={ moeda }
           onChange={ this.handleChange }
         />
@@ -86,24 +77,25 @@ class Form extends Component {
           value={ tag }
           onChange={ this.handleChange }
         />
-        <button type="button" onClick={ this.addExpenses }>Enviar</button>
+        <button type="button" onClick={ this.addExpenses }>Adicionar Despesa</button>
       </form>
     );
   }
 }
 
 Form.propTypes = {
-  logarFunction: PropTypes.func.isRequired,
+  // actionExpenses: PropTypes.func.isRequired,
   requisicaoApi: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.object).isRequired,
 
 };
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logarFunction: (state) => dispatch(expensesAction(state)),
+  actionExpenses: (state) => dispatch(expensesAction(state)),
   requisicaoApi: (state) => dispatch(fetchApiThunk(state)),
 });
 
