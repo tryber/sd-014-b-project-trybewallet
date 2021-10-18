@@ -11,13 +11,13 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       valor: '0',
       descricao: '',
       moeda: 'USD',
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
       objetoApi: {},
-      expenses: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,26 +43,10 @@ class Form extends Component {
   }
 
   addExpenses() {
-    const { metdPagamento, moeda, descricao, valor, tag, expenses } = this.state;
-    this.setState({
-      expenses: [{
-        id: 0,
-        value: { valor },
-        description: { descricao },
-        currency: { moeda },
-        method: { metdPagamento },
-        tag: { tag },
-        exchangeRates: {
-          USD: {
-            code: 'USD',
-            name: 'Dólar Comercial',
-            ask: '5.6208',
-          },
-        },
-      },
-      ],
-    });
-    console.log(expenses);
+    this.setState((state) => ({
+      id: state.id + 1,
+    }),
+    console.log(this.state));
   }
 
   render() {
