@@ -39,20 +39,16 @@ class Wallet extends Component {
   }
 
   async saveExpense() {
-    const { id, currency, description, tag, method, value } = this.state;
+    const { id } = this.state;
     const { addNewExpense } = this.props;
+    addNewExpense(this.state);
     this.setState({
       id: id + 1,
     });
-    const rateInfo = await fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json());
-    console.log(Object.values(rateInfo));
-    const newItem = [id, value, description, currency, method, tag];
-    addNewExpense(newItem);
   }
 
   render() {
-    const { user: { email }, wallet: { expenses, currencies } } = this.props;
+    const { user: { email }, wallet: { currencies } } = this.props;
     const initials = Object.keys(currencies).filter((e) => e !== 'USDT');
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const genre = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -61,7 +57,7 @@ class Wallet extends Component {
         <header>
           <h1>TrybeWallet</h1>
           <h5 data-testid="email-field">{ email }</h5>
-          <h5 data-testid="total-field">{ !expenses.length ? 0 : expenses }</h5>
+          <h5 data-testid="total-field">0</h5>
           <h5 data-testid="header-currency-field">BRL</h5>
         </header>
         <form>
