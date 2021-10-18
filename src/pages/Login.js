@@ -30,9 +30,8 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history, sendEmail } = this.props;
+    const { sendEmail } = this.props;
     sendEmail(this.state);
-    history.push('/carteira');
   }
 
   render() {
@@ -61,7 +60,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !disabled }
-            onClick={ this.handleClick }
+            onClick={ this.handleClick() }
           >
             Entrar
           </button>
@@ -72,9 +71,6 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
   sendEmail: PropTypes.func.isRequired,
 };
 

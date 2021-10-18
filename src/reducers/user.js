@@ -2,16 +2,10 @@
 import { SEND_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SEND_EMAIL:
     return {
@@ -21,6 +15,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
   default:
     return state;
   }
-};
+}
 
 export default userReducer;
