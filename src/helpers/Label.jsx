@@ -4,9 +4,11 @@ import React, { Component } from 'react';
 export default class Label extends Component {
   render() {
     const { name, type, dataTestid, minlength, required, handleChange } = this.props;
+    const nameFirstLetterUpperCase = name.slice(0, 1).toUpperCase();
+    const nameUpper = nameFirstLetterUpperCase + name.slice(1, name.lenght);
     return (
       <label htmlFor={ name }>
-        {`${name}:`}
+        {`${nameUpper}:`}
         <input
           onChange={ handleChange }
           name={ name }

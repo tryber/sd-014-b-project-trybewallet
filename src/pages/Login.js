@@ -1,20 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Label from '../helpers/Label';
-import login from '../actions';
+import loginAction from '../actions';
 
 export class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       disabled: true,
-      Login: '',
+      login: '',
       Password: '',
+      update: false,
     };
   }
 
-  passwordIsvalid = (password) => (password.length >= 6);
+  passwordIsvalid = (password, minLength) => (password.length >= minLength);
 
   loginIsvalid = (email) => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -22,12 +24,13 @@ export class Login extends React.Component {
   }
 
   handleButton = () => {
-    this.setState({ ...this.state }, () => {
-      const { Login, Password } = this.state;
-      if (Login && Password) {
-        if (this.loginIsvalid(Login) && this.passwordIsvalid(Password)) {
-          this.setState({ ...this.state, disabled: false });
-        } else { this.setState({ ...this.state, disabled: true }); }
+    this.setState((state) => {
+      const { login, Password } = state;
+      const minLength = 5;
+      if (login && Password) {
+        if (this.loginIsvalid(login) && this.passwordIsvalid(Password, minLength)) {
+          return ({ ...state, disabled: false });
+        } return ({ ...state, disabled: true });
       }
     });
   };
@@ -39,11 +42,11 @@ handleChange = ({ target: { name, value } }) => {
 render() {
   const { handleChange } = this;
   const { dispatchLogin } = this.props;
-  const { disabled, Login } = this.state;
+  const { disabled, login } = this.state;
   return (
     <form>
       <Label
-        name="Login"
+        name="login"
         type="email"
         dataTestid="email-input"
         required
@@ -62,7 +65,7 @@ render() {
       <Link to="/carteira">
         <button
           type="button"
-          onClick={ () => dispatchLogin(Login) }
+          onClick={ () => dispatchLogin(login) }
           disabled={ disabled }
         >
           Entrar
@@ -73,8 +76,12 @@ render() {
 }
 }
 
+Login.propTypes = {
+  dispatchLogin: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  dispatchLogin: (email) => dispatch(login(email)),
+  dispatchLogin: (email) => dispatch(loginAction(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
