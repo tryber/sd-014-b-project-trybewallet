@@ -7,22 +7,23 @@ const INITIAL_STATE = {
   expenses: [],
 };
 
-function wallet(state = INITIAL_STATE, action) {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_WALLET:
-    return state;
+    return { ...state };
   case GET_DATA:
     return {
+      ...state,
       currencies: Object.keys(action.data),
     };
   case SAVE_EXPENSES:
     return {
       ...state,
-      expenses: action.data,
+      expenses: [...state.expenses, action.data],
     };
   default:
     return state;
   }
-}
+};
 
 export default wallet;

@@ -9,12 +9,13 @@ class Expenses extends React.Component {
   constructor() {
     super();
     this.state = ({
-      id: 1,
+      id: 0,
       value: 0,
       description: '',
       currency: 'USD',
-      method: '',
-      tag: '',
+      method: 'money',
+      tag: 'food',
+      exchangeRates: '',
     });
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,9 +31,18 @@ class Expenses extends React.Component {
   }
 
   async handleSubmit() {
+    const { id } = this.state;
+    const urlAPI = 'https://economia.awesomeapi.com.br/json/all';
+    const getData = await fetch(urlAPI)
+      .then((response) => response.json())
+      .catch((error) => new Error(error));
+    // const data = Object.values(getData);
+    // const selectedCurrency = data.find((coin) => coin.code === currency).bid;
+    this.setState({
+      exchangeRates: getData,
+    });
     const { saveExpenseData } = this.props;
     saveExpenseData(this.state);
-    const { id } = this.state;
     this.setState({ id: id + 1 });
   }
 
@@ -65,21 +75,19 @@ class Expenses extends React.Component {
         <label htmlFor="payment-method">
           Método de Pagamento:
           <select id="payment-method" name="method" onChange={ this.handleChange }>
-            <option>Selecione</option>
-            <option value="money">Dinheiro</option>
-            <option value="credit-card">Cartão de Crédito</option>
-            <option value="debit-card">Cartão de Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de Crédito</option>
+            <option value="Cartão de débito">Cartão de Débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag:
           <select id="tag" name="tag" onChange={ this.handleChange }>
-            <option>Selecione</option>
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="commute">Transporte</option>
-            <option value="health">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <button type="button" onClick={ this.handleSubmit }>Adicionar despesa</button>
