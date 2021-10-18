@@ -1,7 +1,7 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { loginSaveEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -28,6 +28,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     const reg = /\S+@\S+\.\S+/;
+    const MIN_CARACTERES = 6;
     return (
       <div>
         <h1>Trybe Wallet</h1>
@@ -48,7 +49,7 @@ class Login extends React.Component {
           />
           <button
             type="submit"
-            disabled={ !(reg.test(email)) || !(password.length >= 6) }
+            disabled={ !(reg.test(email)) || password.length < MIN_CARACTERES }
             onClick={ (e) => this.saveEmailInLogin(e, email) }
           >
             Entrar
@@ -61,13 +62,13 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func
+    push: PropTypes.func,
   }).isRequired,
   login: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (email) => dispatch(login(email)),
+  login: (email) => dispatch(loginSaveEmail(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
