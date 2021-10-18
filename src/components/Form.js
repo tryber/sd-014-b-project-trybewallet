@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import MetdPagamento from './MetdPagamento';
 import TiposDeGastos from './TiposDeGastos';
 import SelectCoin from './SelectCoin';
-import { emailAction, fetchApi } from '../actions';
+import { expensesAction, fetchApiThunk } from '../actions';
 
 class Form extends Component {
   constructor() {
@@ -43,10 +43,12 @@ class Form extends Component {
   }
 
   addExpenses() {
+    const { requisicaoApi, logarFunction } = this.props;
     this.setState((state) => ({
       id: state.id + 1,
-    }),
-    console.log(this.state));
+    }));
+    requisicaoApi(this.state);
+    logarFunction(this.state);
   }
 
   render() {
@@ -91,16 +93,18 @@ class Form extends Component {
 }
 
 Form.propTypes = {
+  logarFunction: PropTypes.func.isRequired,
+  requisicaoApi: PropTypes.func.isRequired,
 
 };
 
-const mapStateToProps = (state) => ({
-  exchangeRates: state.fetchReducer,
+const mapStateToProps = () => ({
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logarFunction: (state) => dispatch(emailAction(state)),
-  requisicaoApi: (state) => dispatch(fetchApi(state)),
+  logarFunction: (state) => dispatch(expensesAction(state)),
+  requisicaoApi: (state) => dispatch(fetchApiThunk(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

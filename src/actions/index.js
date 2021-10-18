@@ -6,7 +6,7 @@ export const requestApi = () => ({ type: 'REQUEST_API' });
 
 export const receiveApi = (coins) => ({ type: 'RECEIVE_API', coins });
 
-export function fetchApi() {
+export function fetchApiThunk() {
   return async (dispatch) => {
     dispatch(requestApi());
     return fetch('https://economia.awesomeapi.com.br/json/all')
