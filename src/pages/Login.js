@@ -26,7 +26,7 @@ export class Login extends React.Component {
   handleButton = () => {
     this.setState((state) => {
       const { login, Password } = state;
-      const minLength = 5;
+      const minLength = 6;
       if (login && Password) {
         if (this.loginIsvalid(login) && this.passwordIsvalid(Password, minLength)) {
           return ({ ...state, disabled: false });
@@ -36,7 +36,7 @@ export class Login extends React.Component {
   };
 
 handleChange = ({ target: { name, value } }) => {
-  this.setState({ [name]: value }, this.handleButton());
+  this.setState({ [name]: value }, this.handleButton);
 }
 
 render() {
