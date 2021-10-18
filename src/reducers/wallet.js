@@ -1,12 +1,14 @@
-// // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-// const initialState = {};
+const initialState = {};
 
-// const wallet = (state = initialState, action) => {
-//   switch (action.type) {
-//     case ADD_DISPESA:
-//       return { ...state, wallet: [action.entrar] }
-//   }
-// }
+const wallet = (state = initialState, action) => {
+  switch (action.type) {
+  case ADD_DISPESA:
+    return { ...state, wallet: [action.entrar] };
+  default:
+    return state;
+  }
+};
 
-// export default wallet;
+export default wallet;
