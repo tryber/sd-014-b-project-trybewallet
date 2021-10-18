@@ -39,13 +39,10 @@ class Login extends React.Component {
     const { email, senha } = this.state;
     const quatro = 4;
     const re = /\S+@\S+\.\S+/; /* usei o site: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/ */
-    if (re.test(email)) {
-      console.log(email);
-      if (senha.length > quatro) {
-        this.setState({
-          loginHabilitado: true,
-        });
-      }
+    if (re.test(email) && senha.length > quatro) {
+      this.setState({
+        loginHabilitado: true,
+      });
     }
   }
 
