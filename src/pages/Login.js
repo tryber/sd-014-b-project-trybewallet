@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { USER_ACTION, walletAction } from '../actions';
+import PropTypes from 'prop-types';
+import { walletAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -82,5 +83,9 @@ function mapDispatch(dispatch) {
     onLogin: (payload) => dispatch(walletAction(payload)),
   };
 }
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatch)(Login);
