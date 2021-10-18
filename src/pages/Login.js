@@ -24,13 +24,15 @@ class Login extends React.Component {
     const { state: { email, password, regex }, props: { login } } = this;
     const length = 6;
     return (
-      <form>
+      <form className="login-form">
+        Email:
         <input
           type="text"
           data-testid="email-input"
           name="email"
           onChange={ this.handleChange }
         />
+        Senha:
         <input
           type="text"
           data-testid="password-input"

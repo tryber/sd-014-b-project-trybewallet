@@ -29,7 +29,8 @@ class Wallet extends React.Component {
   handleEntries = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleSubmit = () => {
-    const { expenses, submitExpense } = this.props;
+    const { state: { value }, props: { expenses, submitExpense } } = this;
+    if (value === '') return;
     submitExpense(expenses, this.state);
     this.setState(INITIAL_STATE);
   };
@@ -37,7 +38,7 @@ class Wallet extends React.Component {
   render() {
     const { editor } = this.props;
     return (
-      <div>
+      <>
         <Header />
         { editor ? <ExpenseEditorForm /> : (
           <WalletForm
@@ -48,7 +49,7 @@ class Wallet extends React.Component {
           />
         ) }
         <ExpensesTable />
-      </div>);
+      </>);
   }
 }
 

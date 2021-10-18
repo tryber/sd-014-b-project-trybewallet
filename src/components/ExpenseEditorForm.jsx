@@ -17,7 +17,8 @@ class ExpenseEditorForm extends Component {
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleClick = () => {
-    const { state: { id }, props: { expenses, submitEdition } } = this;
+    const { state: { id, value }, props: { expenses, submitEdition } } = this;
+    if (value === '') return;
     const newExpense = expenses;
     newExpense.splice(id, 1, this.state);
     submitEdition(sortExpenses(newExpense));

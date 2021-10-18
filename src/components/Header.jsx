@@ -22,7 +22,7 @@ class Header extends Component {
     return (
       <header className="header">
         <h2>TrybeWallet</h2>
-        <span data-testid="email-field">{ this.getInfos() }</span>
+        <span data-testid="email-field">{ `Email: ${this.getInfos()}` }</span>
         <div>
           <span data-testid="total-field">
             { ` $ ${(+(this.getInfos(true))).toFixed(2)} ` }

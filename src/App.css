@@ -1,42 +1,133 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form {
+  align-items: center;
+  background-color: lightgrey;
+  border-radius: 5px;
+  box-shadow: 0 0 1px 0.3px black;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  min-height: calc(100px + 10vmin);
+  justify-content: space-around;
+  margin: 5% auto;
+  padding: 15px;
+  width: fit-content;
+}
+
+.login-form input {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 1.5px 0.5px black;
+  margin-bottom: 15px;
+  outline: none;
+  padding: 5px 10px;
+}
+
+.login-form button {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 1.3px 0.1px black;
+  font-weight: 600;
+  padding: 5px 15px;
 }
 
 .header {
   align-items: center;
-  background-color: lightgrey;
+  background-color: rgba(211, 211, 211, 0.5);
   box-shadow: 0 0 2px 0.5px black;
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 15px;
+  font-weight: 600;
+  justify-content: space-between;
+  padding: 15px 30px;
   top: 0;
+  width: 100%;
 }
 
 .wallet-form {
   align-items: center;
+  background-color: darkslategrey;
+  box-shadow: 0 0 2px 0.3px black;
+  color: whitesmoke;
   display: flex;
+  flex-flow: wrap;
+  font-size: calc(1em + 0.15vmin);
+  font-weight: 600;
   justify-content: space-around;
-  margin: 25px auto;
+  padding: 18px 5px;
+  text-shadow: 0 0 2.5px black;
+  width: 100%;
+}
+
+.wallet-form label {
+  padding: 5px 0;
+}
+
+.wallet-form input, .wallet-form select {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-left: 1.5px;
+  outline: none;
+  padding: 5px 8px;
+}
+
+.wallet-form button {
+  color: whitesmoke;
+  background-color: teal;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 10px 8px;
 }
 
 table {
-  border: solid thin black;
+  background-color: rgba(211, 211, 211, 0.5);;
   border-collapse: collapse;
-  margin: 15px auto;
+  box-shadow: 0 0 2px 0.3px black;
   text-align: center;
-  width: 90%;
+  width: 100%;
 }
 
-table thead tr , table tbody tr {
+table tr {
   display: grid;
   grid-template-columns: 17% 10% 15% 8% repeat(5, 10%);
 }
 
 th , td {
   align-items: center;
-  border: solid thin black;
+  box-shadow: 0 0 2px 0.3px black;
   display: flex;
   justify-content: center;
-  margin: 0;
   padding: 5px 15px;
+}
+
+tr td button {
+  background-color: darkred;
+  border-radius: 5px;
+  color: whitesmoke;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0 5px;
+  padding: 5px;
+}
+
+tr td button:first-child {
+  background-color: yellow;
+  color: black;
+  font-size: 1.5em;
+  padding: 3px;
 }
