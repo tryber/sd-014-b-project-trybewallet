@@ -49,7 +49,7 @@ class DataTable extends Component {
                 <td>{ description }</td>
                 <td>{ tag }</td>
                 <td>{ method }</td>
-                <td>{ parseFloat(value).toFixed(2) }</td>
+                <td>{ value }</td>
                 <td>{ currency }</td>
                 <td>{ this.getQuote(exchangeRates, currency) }</td>
                 <td>
