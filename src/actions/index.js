@@ -1,10 +1,10 @@
 // Coloque aqui suas actions
-export const USER = 'USER';
+export const LOGIN = 'LOGIN';
 export const WALLET = 'WALLET';
 
-export const sendUser = (user) => ({
-  type: USER,
-  user,
+export const sendLogin = (userinfo) => ({
+  type: LOGIN,
+  userinfo,
 });
 
 export const sendWallet = (wallet) => ({
