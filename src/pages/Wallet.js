@@ -1,9 +1,32 @@
 import React from 'react';
 import Header from '../components/Header';
 import InputBase from '../components/InputBase';
+import getAPI from '../services/currencyAPI';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currency: [],
+    };
+  }
+
+  async componentDidMount() {
+    this.atualizaEstado();
+  }
+
+  atualizaEstado = async () => {
+    const api = await getAPI();
+    const resultAPI = Object.keys(api);
+    const USDT = resultAPI.indexOf('USDT');
+    resultAPI.splice(USDT, 1);
+    this.setState({
+      currency: resultAPI,
+    });
+  }
+
   render() {
+    const { currency } = this.state;
     return (
       <div>
         <Header />
@@ -14,7 +37,7 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>BRL</option>
+              { currency.map((cambio) => <option key={ cambio } value={ cambio }>{ cambio }</option>) }
             </select>
           </label>
           <label htmlFor="payment">
