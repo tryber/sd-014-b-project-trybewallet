@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SelectOptions extends React.Component {
+class TagSelectOptions extends React.Component {
   render() {
     return (
       <>
@@ -14,4 +14,4 @@ class SelectOptions extends React.Component {
   }
 }
 
-export default SelectOptions;
+export default TagSelectOptions;

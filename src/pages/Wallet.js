@@ -12,7 +12,7 @@ class Wallet extends React.Component {
       currentCurrency: 'BRL',
       valueInput: '',
       descriptionInput: '',
-      currencyInput: '',
+      currencyInput: 'USD',
       paymentMethodInput: 'money',
       categoryInput: 'food',
     };

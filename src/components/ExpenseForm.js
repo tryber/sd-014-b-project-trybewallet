@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Inputs from './Inputs';
-import SelectOptions from './SelectOptions';
+import TagSelectOptions from './TagSelectOptions';
+import CurrencySelectOptions from './CurrencySelectOptions';
 
 class ExpenseForm extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class ExpenseForm extends React.Component {
             value={ currencyInput }
             id="currency-input"
           >
-            <option>Teste</option>
+            <CurrencySelectOptions />
           </select>
         </label>
         <label htmlFor="payment-method-input">
@@ -47,7 +48,7 @@ class ExpenseForm extends React.Component {
             value={ categoryInput }
             id="category-input"
           >
-            <SelectOptions />
+            <TagSelectOptions />
           </select>
         </label>
       </form>
