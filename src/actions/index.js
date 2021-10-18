@@ -1,17 +1,23 @@
 import getCurrencies from '../services/economiaAPI';
 
-export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
+export const ADD_NEW_EXPENSE = 'ADD_NEW_EXPENSE';
 export const DELIVER_CURRENCIES = 'DELIVER_CURRENCIES';
+export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 
-export const loginSuccessful = (value) => ({
-  type: LOGIN_SUCCESSFUL,
-  value,
+export const addNewExpense = (object) => ({
+  type: ADD_NEW_EXPENSE,
+  expenses: object,
 });
 
 export const deliverCurrencies = (object) => ({
   type: DELIVER_CURRENCIES,
   currencies: object,
+});
+
+export const loginSuccessful = (value) => ({
+  type: LOGIN_SUCCESSFUL,
+  value,
 });
 
 export const requestCurrencies = () => ({

@@ -1,4 +1,4 @@
-import { DELIVER_CURRENCIES, REQUEST_CURRENCIES } from '../actions';
+import { ADD_NEW_EXPENSE, DELIVER_CURRENCIES, REQUEST_CURRENCIES } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -7,6 +7,14 @@ const initialState = {
 
 const wallet = (state = initialState, action) => {
   switch (action.type) {
+  case ADD_NEW_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        action.expenses,
+      ],
+    };
   case DELIVER_CURRENCIES:
     return {
       ...state,

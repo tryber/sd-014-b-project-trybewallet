@@ -6,6 +6,8 @@ import Button from './Button';
 import Input from './Input';
 import Select from './Select';
 
+import { addNewExpense, fetchEconomiaAPI } from '../actions';
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -13,12 +15,13 @@ class Form extends React.Component {
     this.state = {
       currency: 'USD',
       description: '',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       value: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.treatCurrencyList = this.treatCurrencyList.bind(this);
   }
 
@@ -29,6 +32,13 @@ class Form extends React.Component {
     });
   }
 
+  handleSubmit() {
+    const { addExpense, fetchCurrencies } = this.props;
+    const exchangeRates = fetchCurrencies();
+    const currentState = this.state;
+    addExpense(currentState);
+  }
+
   treatCurrencyList() {
     const { currencies } = this.props;
     const currencyOptions = [];
@@ -37,9 +47,9 @@ class Form extends React.Component {
   }
 
   render() {
-    const { currency, description, payment, tag, value } = this.state;
+    const { currency, description, method, tag, value } = this.state;
     const currencyOptions = this.treatCurrencyList();
-    const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
@@ -67,10 +77,10 @@ class Form extends React.Component {
         />
         <Select
           label="Método de pagamento"
-          name="payment"
+          name="method"
           onChange={ this.handleChange }
-          options={ paymentOptions }
-          value={ payment }
+          options={ methodOptions }
+          value={ method }
         />
         <Select
           label="Tag"
@@ -92,9 +102,16 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Form);
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (state) => dispatch(addNewExpense(state)),
+  fetchCurrencies: () => dispatch(fetchEconomiaAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
+  addExpense: PropTypes.func.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.any.isRequired,
