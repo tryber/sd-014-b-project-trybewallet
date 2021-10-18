@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Label from '../helpers/Label';
 import loginAction from '../actions';
 
-export class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
