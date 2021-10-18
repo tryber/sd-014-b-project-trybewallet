@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SelectCurrencyForm from './SelectCurrencyForm';
 import PaymentMethodForm from './PaymentMethodForm';
 import CategoryOfExpenseForm from './CategoryOfExpenseForm';
+import { getExpensesInfo } from '../actions';
+import DescriptionLabel from './DescriptionLabel';
 
 class ExpenseForm extends React.Component {
   constructor() {
@@ -33,6 +36,7 @@ class ExpenseForm extends React.Component {
       currencySelected,
       expense,
       description } = this.state;
+    const { expenses } = this.props;
 
     return (
       <form>
@@ -46,16 +50,7 @@ class ExpenseForm extends React.Component {
             value={ expense }
           />
         </label>
-        <label htmlFor="description-form-label">
-          Descrição
-          <input
-            type="text"
-            name="description"
-            id="description-form-label"
-            onChange={ this.handleChange }
-            value={ description }
-          />
-        </label>
+        <DescriptionLabel onChange={ this.handleChange } value={ description } />
         <SelectCurrencyForm
           onChange={ this.handleChange }
           value={ currencySelected }
@@ -71,7 +66,13 @@ class ExpenseForm extends React.Component {
           value={ expenseCategory }
           name="expenseCategory"
         />
-        <button type="button">Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={ () => expenses(this.state) }
+        >
+          Adicionar despesa
+
+        </button>
       </form>
     );
   }
@@ -81,4 +82,12 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
-export default connect(mapStateToProps, null)(ExpenseForm);
+const mapDispatchToProps = (dispatch) => ({
+  expenses: (state) => dispatch(getExpensesInfo(state)),
+});
+
+ExpenseForm.propTypes = {
+  expenses: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
