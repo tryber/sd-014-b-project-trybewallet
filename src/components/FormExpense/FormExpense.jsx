@@ -34,22 +34,11 @@ class FormExpense extends Component {
   }
 
   async handleClick() {
-    const {
-      value,
-      description,
-      currency,
-      id,
-      method,
-      tag,
-    } = this.state;
     const { setExpenses } = this.props;
     const getApi = await fetch(URL);
     const exchangeRates = await getApi.json();
     this.setState((prev) => ({ id: prev.id + 1 }));
-    const addExpense = {
-      value, description, id, exchangeRates, currency, method, tag,
-    };
-    setExpenses(addExpense);
+    setExpenses({ ...this.state, exchangeRates });
   }
 
   handleEdit() {
