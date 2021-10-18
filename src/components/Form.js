@@ -13,9 +13,9 @@ class Form extends Component {
     this.state = {
       valor: '0',
       descricao: '',
-      moeda: '',
-      metdPagamento: '',
-      tag: '',
+      moeda: 'USD',
+      metdPagamento: 'Dinheiro',
+      tag: 'Alimentação',
       objetoApi: {},
     };
 
