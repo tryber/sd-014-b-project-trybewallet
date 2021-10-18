@@ -3,7 +3,7 @@ import React from 'react';
 
 class Input extends React.Component {
   render() {
-    const { type, placeholder, testid, name } = this.props;
+    const { type, placeholder, testid, name, value, onChange } = this.props;
 
     return (
       <input
@@ -11,6 +11,8 @@ class Input extends React.Component {
         type={ type }
         placeholder={ placeholder }
         name={ name }
+        value={ value }
+        onChange={ onChange }
       />
     );
   }
@@ -21,6 +23,8 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;
