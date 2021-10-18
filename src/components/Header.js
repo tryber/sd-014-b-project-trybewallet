@@ -8,14 +8,17 @@ class Header extends Component {
     return (
       <header>
         <p data-testid="email-field">
-          { emailFromGlobalState }
+          { `Email: ${emailFromGlobalState}` }
         </p>
-        <p data-testid="total-field">
-          0
-        </p>
-        <p data-testid="header-currency-field">
-          BRL
-        </p>
+        <section>
+          Despesa total:
+          <span data-testid="total-field">
+            0
+          </span>
+          <span data-testid="header-currency-field">
+            BRL
+          </span>
+        </section>
       </header>
     );
   }
