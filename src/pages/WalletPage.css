@@ -1,0 +1,23 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.header-wallet-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-wallet {
+  color: rgb(3, 117, 3);
+  font-size: 30px;
+  font-weight: 200;
+  margin: 10px;
+  text-align: center;
+}
+
+.email-header, .cost-total, .currency {
+  font-size: 20px;
+  font-weight: 200;
+  margin: 10px;
+}
