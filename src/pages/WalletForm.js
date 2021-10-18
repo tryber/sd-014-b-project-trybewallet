@@ -3,11 +3,20 @@ import React from 'react';
 class WalletForm extends React.Component {
   constructor() {
     super();
+    this.handleChange = this.handleChange.bind(this);
+
     this.formAddValor = this.formAddValor.bind(this);
     this.formAddDescricao = this.formAddDescricao.bind(this);
     this.formAddMoeda = this.formAddMoeda.bind(this);
     this.formAddMetodoPagamento = this.formAddMetodoPagamento.bind(this);
     this.formAddTag = this.formAddTag.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   formAddValor() {
@@ -18,7 +27,7 @@ class WalletForm extends React.Component {
           id="valor"
           type="number"
           name="valor"
-          value=" "
+          value={ this.valor }
           onChange={ this.handleChange }
         />
       </label>
@@ -33,7 +42,7 @@ class WalletForm extends React.Component {
           id="descricao"
           type="text"
           name="descricao"
-          value=" "
+          value={ this.descricao }
           onChange={ this.handleChange }
         />
       </label>
@@ -56,10 +65,10 @@ class WalletForm extends React.Component {
     return (
       <label htmlFor="payWay">
         Método de pagamento:
-        <select id="payWay">
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+        <select id="payWay" onChange={ this.handleChange }>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -67,14 +76,14 @@ class WalletForm extends React.Component {
 
   formAddTag() {
     return (
-      <label htmlFor="tag">
+      <label htmlFor="tag" onChange={ this.handleChange }>
         Tag:
         <select id="tag">
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
