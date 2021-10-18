@@ -11,21 +11,24 @@ import { saveEmail } from '../actions';
         email: '',
         password: '',
       }
+
+      this.handleChange = this.handleChange.bind(this);
+      this.handleClick = this.handleClick.bind(this);
     }
 
-  isEmailValid = (email) => {
+  isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email) === true;
   }
 
-  handleChange = ( {target} ) => {
+  handleChange( {target} ) {
     const { name, value } = target;
     this.setState({
       [name]: value
     })
   }
 
-  handleClick = () => {
+  handleClick () {
     const { history, saveEmail } = this.props;
     const { email } = this.state;
     saveEmail(email);

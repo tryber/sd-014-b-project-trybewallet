@@ -1,12 +1,10 @@
-const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  }
-}
+// const INITIAL_STATE = {
+//   currencies: [],
+//   expenses: [],
+// }
 
-const walletReducer = (state = INITIAL_STATE, action) => {
-  return state;
-}
+// const wallet = (state = INITIAL_STATE, action) => {
+//   return state;
+// }
 
-export default walletReducer;
+// export default wallet;
