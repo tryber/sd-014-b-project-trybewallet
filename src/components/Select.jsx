@@ -1,24 +1,22 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Select extends Component {
-  render() {
-    const { id, label, array, value, onChange } = this.props;
-    return (
-      <label htmlFor={ id }>
-        {label}
-        <select
-          id={ id }
-          value={ value }
-          onChange={ onChange }
-          className="form-select"
-        >
-          { array.map((element) => (
-            <option key={ element } value={ element }>{element}</option>)) }
-        </select>
-      </label>
-    );
-  }
+export default function Select(props) {
+  const { id, label, array, value, onChange } = props;
+  return (
+    <label htmlFor={ id }>
+      {label}
+      <select
+        id={ id }
+        value={ value }
+        onChange={ onChange }
+        className="form-select"
+      >
+        { array.map((element) => (
+          <option key={ element } value={ element }>{element}</option>)) }
+      </select>
+    </label>
+  );
 }
 
 Select.propTypes = {
