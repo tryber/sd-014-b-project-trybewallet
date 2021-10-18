@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { REQUEST_CURRENCIES_API, GET_DATA_CURRENCIES } from '../actions';
+import { REQUEST_CURRENCIES_API, GET_DATA_CURRENCIES, SET_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -17,9 +17,13 @@ const wallet = (state = INITIAL_STATE, action) => {
   case GET_DATA_CURRENCIES:
     return {
       ...state,
-      currencies: Object.values(action.currencies).filter(({ codein }) => (
-        codein !== 'BRLT'
-      )),
+      currencies: action.currencies,
+      isLoading: false,
+    };
+  case SET_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
       isLoading: false,
     };
   default:

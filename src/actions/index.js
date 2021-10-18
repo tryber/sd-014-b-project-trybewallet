@@ -4,6 +4,7 @@ import getDataCurrencies from '../services/currenciesAPI';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const REQUEST_CURRENCIES_API = 'REQUEST_CURRENCIES_API';
 export const GET_DATA_CURRENCIES = 'GET_DATA_CURRENCIES';
+export const SET_EXPENSES = 'SET_EXPENSES';
 
 export const userEmail = (email) => ({
   type: REQUEST_LOGIN,
@@ -26,3 +27,8 @@ export const fetchCurrencyData = () => (dispatch) => {
       dispatch(getCurrencyData(currencies));
     });
 };
+
+export const setDataExpenses = (expenses) => ({
+  type: SET_EXPENSES,
+  expenses,
+});
