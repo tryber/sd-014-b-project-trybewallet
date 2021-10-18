@@ -38,7 +38,7 @@ class ExpenseTable extends React.Component {
                   .exchangeRates[eachExpense.currency]
                   .ask * eachExpense.value).toFixed(2) }
               </td>
-              <td key={ eachExpense.id }>Real Brasileiro</td>
+              <td key={ eachExpense.id }>Real</td>
               <td key={ eachExpense.id }>
                 <button type="button">Editar</button>
                 <button type="button">Excluir</button>
