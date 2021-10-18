@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import InputBase from '../components/InputBase';
 import getAPI from '../services/currencyAPI';
+import SelectBase from '../components/SelectBase';
 
 class Wallet extends React.Component {
   constructor() {
@@ -25,6 +26,10 @@ class Wallet extends React.Component {
     });
   }
 
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
     const { currency } = this.state;
     return (
@@ -32,14 +37,18 @@ class Wallet extends React.Component {
         <Header />
         TrybeWallet
         <form>
-          <InputBase name="Valor" type="number" />
+          <InputBase
+            onChange={ this.handleChange }
+            name="Valor"
+            type="number"
+          />
           <InputBase name="Descrição" type="text" />
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda">
-              { currency.map((cambio) => <option key={ cambio } value={ cambio }>{ cambio }</option>) }
-            </select>
-          </label>
+          <SelectBase
+            newId="moeda"
+            label="Moeda"
+            name="moeda"
+            dataAPI={ currency }
+          />
           <label htmlFor="payment">
             Método de pagamento
             <select id="payment">
