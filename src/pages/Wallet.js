@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import { fecthCurrencies, addExpense } from '../actions/index';
 import Select from '../components/select';
-import TableHeader from '../components/tableHeader';
+import TableWallet from '../components/tableWallet';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -102,9 +102,8 @@ class Wallet extends React.Component {
           value="Adicionar Despesas"
         >
           Adicionar Despesas
-
         </button>
-        <TableHeader expenses={ expenses } />
+        <TableWallet />
       </div>);
   }
 }
