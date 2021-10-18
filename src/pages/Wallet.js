@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Categories from '../Components/Categories';
 import PaymentMethod from '../Components/PaymentMethod';
 
 class Wallet extends React.Component {
@@ -48,16 +49,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           <PaymentMethod />
-          <label htmlFor="cat">
-            Tag
-            <select id="cat">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <Categories />
           <label htmlFor="description">
             Descrição
             <input
