@@ -92,8 +92,8 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  userEmail: state.userReducer.user.email,
-  userPassword: state.userReducer.user.password,
+  userEmail: state.user.email,
+  userPassword: state.user.password,
 });
 
 const mapDispatchToProps = (dispatch) => ({

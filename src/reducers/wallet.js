@@ -1,15 +1,17 @@
+import { RECEIVE_CURRENCIES_INFO } from '../actions';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case RECEIVE_CURRENCIES_INFO:
+    return { ...state, currencies: action.payload };
   default:
     return state;
   }
 };
 
-export default walletReducer;
+export default wallet;
