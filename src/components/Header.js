@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { email } = this.props;
+    const { user } = this.props;
     return (
       <header>
-        <div data-testid="email-field">{ email }</div>
+        <div data-testid="email-field">{ user.email }</div>
         <div data-testid="total-field">0</div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
@@ -16,11 +16,15 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, null)(Header);
