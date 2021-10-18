@@ -12,7 +12,7 @@ class WalletHeader extends Component {
         + expense.value
         * expense.exchangeRates[expense.currency].ask, // esse ask é o valor
         0);
-      return sum;
+      return sum.toFixed(2); // arredondando pra 2 dps da vírgula
       // a exchange rate é na verdade o ask dentro do objeto
       // isso tá no read me
     }
