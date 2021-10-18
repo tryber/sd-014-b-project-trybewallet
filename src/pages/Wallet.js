@@ -1,13 +1,18 @@
 import React from 'react';
 import Header from '../components/Header';
 import InputBase from '../components/InputBase';
+import Select from '../components/Select';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.getCoinsForApi = this.getCoinsForApi.bind(this);
-    this.addCoinsToStateArray = this.addCoinsToStateArray.bind(this);
-    this.state = { coins: [] };
+    this.state = { coins: [],
+      Valor: 0,
+      Descrição: '',
+      Moeda: 'USD',
+      Metodo: 'Dinheiro',
+      Tag: 'Alimentação',
+    };
   }
 
   async componentDidMount() {
@@ -19,56 +24,77 @@ class Wallet extends React.Component {
     }
   }
 
-  async getCoinsForApi() {
-    const json = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await json.json();
-    return data;
-  }
+   getCoinsForApi = async () => {
+     const json = await fetch('https://economia.awesomeapi.com.br/json/all');
+     const data = await json.json();
+     return data;
+   }
 
-  addCoinsToStateArray(element) {
-    if (element !== 'USDT') {
-      this.setState((prevState) => ({
-        coins: [...prevState.coins, element],
-      }));
-    }
-  }
+   addCoinsToStateArray = (element) => {
+     if (element !== 'USDT') {
+       this.setState((prevState) => ({
+         coins: [...prevState.coins, element],
+       }));
+     }
+   }
 
-  render() {
-    const { coins } = this.state;
-    return (
-      <main>
-        <Header />
-        TrybeWallet
-        <form>
-          <InputBase name="Valor" type="number" />
-          <InputBase name="Descrição" type="text" />
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda">
-              {coins.map((coin) => (<option key={ coin } value={ coin }>{coin}</option>))}
-            </select>
-          </label>
-          <label htmlFor="metodo-de-pagamento">
-            Método de pagamento
-            <select id="metodo-de-pagamento">
-              <option value="dinheiro">Dinheiro</option>
-              <option value="credito">Cartão de crédito</option>
-              <option value="debito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transportes">Transporte</option>
-              <option value="saude">Saúde</option>
-            </select>
-          </label>
-        </form>
-      </main>);
-  }
+   handleChange = (event) => {
+     this.setState({ [event.target.name]: event.target.value });
+   }
+
+   handleClick = () => {
+     console.log('clicou');
+   }
+
+   metodoDePagamentoArray = () => ['Dinheiro', 'Cartão de crédito', 'Cartão de débito']
+
+   tagArray = () => ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
+
+   render() {
+     const { coins, Valor, Descrição, Moeda, Metodo, Tag } = this.state;
+     return (
+       <main>
+         <Header />
+         <form>
+           <InputBase
+             name="Valor"
+             type="number"
+             changeValue={ this.handleChange }
+             value={ Valor }
+           />
+           <InputBase
+             name="Descrição"
+             type="text"
+             value={ Descrição }
+             changeValue={ this.handleChange }
+           />
+           <Select
+             NewId="moeda"
+             name="Moeda"
+             handleValue={ this.handleChange }
+             value={ Moeda }
+             optArray={ coins }
+             label="Moeda"
+           />
+           <Select
+             NewId="metodo-de-pagamento"
+             name="Metodo"
+             handleValue={ this.handleChange }
+             value={ Metodo }
+             optArray={ this.metodoDePagamentoArray() }
+             label="Método de pagamento"
+           />
+           <Select
+             NewId="tag"
+             name="Tag"
+             value={ Tag }
+             handleValue={ this.handleChange }
+             optArray={ this.tagArray() }
+             label="Tag"
+           />
+         </form>
+       </main>);
+   }
 }
 
 export default Wallet;
