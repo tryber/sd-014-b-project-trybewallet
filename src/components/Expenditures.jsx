@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Label from '../helpers/LabelWithInput';
 
 export default class Expenditures extends Component {
   render() {
+    const { data } = this.props;
     return (
       <form>
         <Label name="valor" />
@@ -10,7 +12,7 @@ export default class Expenditures extends Component {
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda">
-            <option>BRL</option>
+            {data.map((moeda, index) => <option key={ index }>{moeda}</option>)}
           </select>
         </label>
         <label htmlFor="metodo de pagamento">
@@ -35,3 +37,11 @@ export default class Expenditures extends Component {
     );
   }
 }
+
+Expenditures.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+};
+
+Expenditures.defaultProps = {
+  data: ['BRL'],
+};

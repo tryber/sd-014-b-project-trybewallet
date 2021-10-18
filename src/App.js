@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
+import requestCurrency from './Api/api';
 
 class App extends React.Component {
   render() {
