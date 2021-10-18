@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { changeExpenses } from '../actions';
 
+const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
 class Form extends Component {
   constructor() {
     super();
@@ -28,7 +30,7 @@ class Form extends Component {
 
   async handleClick() {
     const { id, value, description, currency, method, tag } = this.state;
-    const { addExpense } = this.props;
+    const { addExpense, updateValue } = this.props;
     const fetchQuotation = await fetch('https://economia.awesomeapi.com.br/json/all');
     const exchangeRates = await fetchQuotation.json();
     this.setState((prevState) => ({
@@ -38,6 +40,7 @@ class Form extends Component {
       currency, description, exchangeRates, id, method, tag, value };
 
     addExpense(newExpense);
+    updateValue();
   }
 
   render() {
@@ -77,11 +80,8 @@ class Form extends Component {
         <label htmlFor="tag">
           Tag
           <select id="tag" onChange={ this.handleChange } value={ tag }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
+            { tagOptions.map((element) => (
+              <option key={ element } value={ element }>{ element }</option>))}
           </select>
         </label>
         <button
@@ -98,6 +98,7 @@ class Form extends Component {
 Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  updateValue: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
