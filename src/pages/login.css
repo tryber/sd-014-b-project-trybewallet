@@ -53,8 +53,8 @@
 }
 
 .btn-submit {
-  border-radius: 0.2em;
   background: #b5fdcd;
+  border-radius: 0.2em;
   border: none;
   cursor: pointer;
   font-weight: 500;
