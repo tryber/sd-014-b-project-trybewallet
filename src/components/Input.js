@@ -3,17 +3,20 @@ import React from 'react';
 
 class Input extends React.Component {
   render() {
-    const { type, name, placeholder, id, value, onChange } = this.props;
+    const { type, name, placeholder, id, value, onChange, label } = this.props;
     return (
       <div>
-        <input
-          type={ type }
-          name={ name }
-          data-testid={ id }
-          value={ value }
-          onChange={ onChange }
-          placeholder={ placeholder }
-        />
+        <label htmlFor={ name }>
+          { label }
+          <input
+            type={ type }
+            id={ name }
+            data-testid={ id }
+            value={ value }
+            onChange={ onChange }
+            placeholder={ placeholder }
+          />
+        </label>
       </div>
     );
   }
@@ -21,6 +24,7 @@ class Input extends React.Component {
 
 Input.propTypes = {
   id: PropTypes.isRequired,
+  label: PropTypes.isRequired,
   name: PropTypes.isRequired,
   onChange: PropTypes.isRequired,
   placeholder: PropTypes.isRequired,
