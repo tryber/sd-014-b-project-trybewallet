@@ -16,6 +16,7 @@ class Login extends React.Component {
   }
 
   // Sugestão compartilhada pelo Michael no slack!
+  // https://trybecourse.slack.com/archives/C023YHXAEGM/p1634319096263400?thread_ts=1634319081.263300&cid=C023YHXAEGM
   isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email) === true;
