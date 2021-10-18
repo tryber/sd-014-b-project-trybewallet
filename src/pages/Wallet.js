@@ -3,7 +3,38 @@ import Header from '../components/Header';
 import InputBase from '../components/InputBase';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.getCoinsForApi = this.getCoinsForApi.bind(this);
+    this.addCoinsToStateArray = this.addCoinsToStateArray.bind(this);
+    this.state = { coins: [] };
+  }
+
+  async componentDidMount() {
+    const coins = await this.getCoinsForApi();
+    const size = Object.keys(coins).length;
+    for (let index = 0; index < size; index += 1) {
+      const element = Object.keys(coins)[index];
+      this.addCoinsToStateArray(element);
+    }
+  }
+
+  async getCoinsForApi() {
+    const json = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await json.json();
+    return data;
+  }
+
+  addCoinsToStateArray(element) {
+    if (element !== 'USDT') {
+      this.setState((prevState) => ({
+        coins: [...prevState.coins, element],
+      }));
+    }
+  }
+
   render() {
+    const { coins } = this.state;
     return (
       <main>
         <Header />
@@ -14,7 +45,7 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>BRL</option>
+              {coins.map((coin) => (<option key={ coin } value={ coin }>{coin}</option>))}
             </select>
           </label>
           <label htmlFor="metodo-de-pagamento">
