@@ -3,6 +3,12 @@ import { useSelector } from 'react-redux';
 import Header from '../components/header/Header';
 import Form from '../components/form/Form';
 
+function filterAPI(response) {
+  return Object.keys(response).filter(
+    (currency) => currency !== 'USDT' && currency !== 'DOGE',
+  );
+}
+
 export default function Wallet() {
   const [formState, setFormState] = useState({
     amountExpenses: 0,
@@ -20,10 +26,7 @@ export default function Wallet() {
       const response = await fetch(
         'https://economia.awesomeapi.com.br/json/all',
       );
-      const api = await response.json();
-      const currencies = Object.keys(api).filter(
-        (currency) => currency !== 'USDT' && currency !== 'DOGE',
-      );
+      const currencies = filterAPI(await response.json());
       setFormState((state) => ({ ...state, currencies }));
     };
     fetchData();
