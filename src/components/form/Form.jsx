@@ -5,7 +5,7 @@ import Select from './Select';
 
 export default function Form(props) {
   const {
-    formState: { amountExpenses, description, currency, paymentMethod, tag },
+    formState: { amountExpenses, description, currency, paymentMethod, tag, currencies },
     handleChange,
   } = props;
   return (
@@ -17,17 +17,22 @@ export default function Form(props) {
         value={ amountExpenses }
         handleChange={ handleChange }
       />
-      <Input label="Descrição" id="description" value={ description } />
+      <Input
+        label="Descrição"
+        id="description"
+        value={ description }
+        handleChange={ handleChange }
+      />
       <Select
         label="Moeda"
         id="currency"
-        options={ ['vazio'] }
+        options={ currencies }
         value={ currency }
         handleChange={ handleChange }
       />
       <Select
         label="Método de pagamento"
-        id="payment-method"
+        id="paymentMethod"
         options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
         value={ paymentMethod }
         handleChange={ handleChange }
@@ -44,5 +49,5 @@ export default function Form(props) {
 }
 
 Form.propTypes = {
-  formState: PropTypes.objectOf(PropTypes.String),
+  formState: PropTypes.objectOf(PropTypes.any),
 }.isRequired;

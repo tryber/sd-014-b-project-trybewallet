@@ -1,3 +1,4 @@
+// Como deixa a primeira option do select já selecionada?
 import React from 'react';
 import PropTypes from 'prop-types';
 
