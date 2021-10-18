@@ -12,14 +12,31 @@ class ExpenseForm extends React.Component {
     super();
 
     this.state = {
-      expenseCategory: 'Alimentação',
-      paymentMethod: 'Dinheiro',
-      currencySelected: 'USD',
-      expense: '',
+      id: 0,
+      value: '',
       description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.onClickExpenses = this.onClickExpenses.bind(this);
+  }
+
+  async onClickExpenses() {
+    const { id } = this.state;
+    const { expenses } = this.props;
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencies = await response.json();
+    this.setState({
+      exchangeRates: currencies,
+    });
+    expenses(this.state);
+    this.setState({
+      id: id + 1,
+    });
   }
 
   handleChange({ target }) {
@@ -31,44 +48,43 @@ class ExpenseForm extends React.Component {
 
   render() {
     const {
-      expenseCategory,
-      paymentMethod,
-      currencySelected,
-      expense,
+      tag,
+      method,
+      currency,
+      value,
       description } = this.state;
-    const { expenses } = this.props;
 
     return (
       <form>
-        <label htmlFor="expense-form-label">
+        <label htmlFor="value-form-label">
           Valor
           <input
             type="text"
-            name="expense"
-            id="expense-form-label"
+            name="value"
+            id="value-form-label"
             onChange={ this.handleChange }
-            value={ expense }
+            value={ value }
           />
         </label>
         <DescriptionLabel onChange={ this.handleChange } value={ description } />
         <SelectCurrencyForm
           onChange={ this.handleChange }
-          value={ currencySelected }
-          name="currencySelected"
+          value={ currency }
+          name="currency"
         />
         <PaymentMethodForm
           onChange={ this.handleChange }
-          value={ paymentMethod }
-          name="paymentMethod"
+          value={ method }
+          name="method"
         />
         <CategoryOfExpenseForm
           onChange={ this.handleChange }
-          value={ expenseCategory }
-          name="expenseCategory"
+          value={ tag }
+          name="tag"
         />
         <button
           type="button"
-          onClick={ () => expenses(this.state) }
+          onClick={ () => this.onClickExpenses() }
         >
           Adicionar despesa
 
