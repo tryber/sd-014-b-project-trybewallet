@@ -9,6 +9,10 @@ class WalletForm extends Component {
     this.state = {
       valueInput: '',
       descriptionInput: '',
+      payments: paymentOptions,
+      expenses: expenseOptions,
+      paymentValue: paymentOptions[0],
+      expenseValue: expenseOptions[0],
     };
     this.handleChange = this.handleChange.bind(this);
     this.labelOptions = this.handleChange.bind(this);
@@ -22,11 +26,13 @@ class WalletForm extends Component {
     });
   }
 
-  LabelOptions(options, id) {
+  LabelOptions(options, id, name, value) {
     return (
       <select
-        name={ id }
+        name={ name }
         id={ id }
+        value={ value }
+        onChange={ this.handleChange }
       >
         {options.map((option, index) => (
           <option key={ index }>
@@ -38,7 +44,10 @@ class WalletForm extends Component {
   }
 
   render() {
-    const { valueInput, descriptionInput } = this.state;
+    const {
+      valueInput,
+      descriptionInput,
+      payments, expenses, paymentValue, expenseValue } = this.state;
     return (
       <section>
         <form>
@@ -74,11 +83,11 @@ class WalletForm extends Component {
           </label>
           <label htmlFor="payment-options">
             Método de pagamento
-            {this.LabelOptions(paymentOptions, 'payment-options')}
+            {this.LabelOptions(payments, 'payment-options', 'paymentValue', paymentValue)}
           </label>
           <label htmlFor="tag-options">
             Tag
-            {this.LabelOptions(expenseOptions, 'tag-options')}
+            {this.LabelOptions(expenses, 'tag-options', 'expenseValue', expenseValue)}
           </label>
         </form>
       </section>
