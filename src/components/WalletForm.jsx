@@ -15,6 +15,7 @@ class WalletForm extends React.Component {
         <label htmlFor="currency-select">
           Moeda:
           <select id="currency-select" name="coin">
+            <option value="empty">Vazio</option>
           </select>
         </label>
         <label htmlFor="payment-select">
