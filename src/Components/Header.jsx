@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  render () {
+  render() {
     const { email } = this.props;
     return (
       <header>
@@ -11,9 +11,9 @@ class Header extends React.Component {
         <div data-testid="total-field">0</div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
-    )
+    );
   }
-};
+}
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
