@@ -30,7 +30,6 @@ class TiposDeGastos extends Component {
 
 TiposDeGastos.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default TiposDeGastos;

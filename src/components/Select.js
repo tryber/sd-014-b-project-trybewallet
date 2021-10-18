@@ -31,7 +31,6 @@ Select.propTypes = {
   arrayOption: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   htmlFor: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
