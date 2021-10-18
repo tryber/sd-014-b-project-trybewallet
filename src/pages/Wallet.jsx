@@ -23,8 +23,9 @@ class Wallet extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.fetchingValuesCurrencys();
+  componentDidMount() {
+    console.log('Montou');
+    this.fetchingValuesCurrencys();
   }
 
   async fetchingValuesCurrencys() {

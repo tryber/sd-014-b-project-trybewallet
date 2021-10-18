@@ -23,8 +23,8 @@
 }
 
 .form-login {
-  margin: 9em 0 0 0;
   display: flex;
+  margin: 9em 0 0 0;
   flex-flow: column nowrap;
   width: 25%;
 }

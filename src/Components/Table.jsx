@@ -17,17 +17,10 @@ class Table extends Component {
     this.convertingCurrency();
   }
 
-  async fetchingCoins() {
-    const fetching = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const fetchingJson = await fetching.json();
-    return fetchingJson;
-  }
-
-  async convertingCurrency() {
-    const { expense: { currency } } = this.props;
-    const coins = await this.fetchingCoins();
-    const coinSelected = coins[currency];
-    const coinName = coins[currency].name.split('/')[0];
+  convertingCurrency() {
+    const { expense: { currency, exchangeRates } } = this.props;
+    const coinSelected = exchangeRates[currency];
+    const coinName = coinSelected.name.split('/')[0];
     const coinAsk = Number(coinSelected.ask).toFixed(2);
     this.setState({ currencyConverted: coinAsk, exchange: coinName });
   }
@@ -38,35 +31,39 @@ class Table extends Component {
     return (
       <div className="table-container">
         <table className="table">
-          <tr>
-            <HeadersTable />
-          </tr>
-          <tr>
-            <td>
-              {value}
-            </td>
-            <td>
-              {description}
-            </td>
-            <td>
-              {currency}
-            </td>
-            <td>
-              {method}
-            </td>
-            <td>
-              {tag}
-            </td>
-            <td>
-              { exchange }
-            </td>
-            <td>
-              { currencyConverted }
-            </td>
-            <td>
-              BRL
-            </td>
-          </tr>
+          <thead>
+            <tr>
+              <HeadersTable />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {value}
+              </td>
+              <td>
+                {description}
+              </td>
+              <td>
+                {currency}
+              </td>
+              <td>
+                {method}
+              </td>
+              <td>
+                {tag}
+              </td>
+              <td>
+                { exchange }
+              </td>
+              <td>
+                { currencyConverted }
+              </td>
+              <td>
+                BRL
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -79,7 +76,8 @@ Table.propTypes = {
     description: PropTypes.string,
     method: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    exchangeRates: PropTypes.shape({}).isRequired,
   }).isRequired,
 };
 
