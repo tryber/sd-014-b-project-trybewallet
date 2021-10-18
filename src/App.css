@@ -23,9 +23,9 @@ body {
   display: flex;
   flex-direction: column;
   font-weight: 600;
-  min-height: calc(100px + 10vmin);
   justify-content: space-around;
   margin: 5% auto;
+  min-height: calc(100px + 10vmin);
   padding: 15px;
   width: fit-content;
 }
@@ -74,11 +74,15 @@ body {
   width: 100%;
 }
 
+.editor {
+  background-image: linear-gradient(mediumseagreen, darkslategrey);
+}
+
 .wallet-form label {
   padding: 5px 0;
 }
 
-.wallet-form input, .wallet-form select {
+.wallet-form input , .wallet-form select {
   background-color: whitesmoke;
   border-radius: 5px;
   margin-left: 1.5px;
@@ -87,15 +91,15 @@ body {
 }
 
 .wallet-form button {
-  color: whitesmoke;
   background-color: teal;
+  color: whitesmoke;
   border-radius: 8px;
   font-weight: 600;
   padding: 10px 8px;
 }
 
 table {
-  background-color: rgba(211, 211, 211, 0.5);;
+  background-color: rgba(211, 211, 211, 0.5);
   border-collapse: collapse;
   box-shadow: 0 0 2px 0.3px black;
   text-align: center;
@@ -115,7 +119,7 @@ th , td {
   padding: 5px 15px;
 }
 
-tr td button {
+.edit-delete button {
   background-color: darkred;
   border-radius: 5px;
   color: whitesmoke;
@@ -125,7 +129,7 @@ tr td button {
   padding: 5px;
 }
 
-tr td button:first-child {
+.edit-delete button:first-child {
   background-color: yellow;
   color: black;
   font-size: 1.5em;

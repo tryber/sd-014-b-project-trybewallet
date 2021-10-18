@@ -28,7 +28,7 @@ class ExpenseEditorForm extends Component {
     const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <form className="wallet-form">
+      <form className="wallet-form editor">
         <InputLabel
           id="value"
           value={ value }

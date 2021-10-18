@@ -53,7 +53,7 @@ class ExpensesTable extends Component {
                 <td>{ rate.toFixed(2) }</td>
                 <td>{ getConversion(expenses)[ind].toFixed(2) }</td>
                 <td>Real</td>
-                <td>
+                <td className="edit-delete">
                   <button
                     type="button"
                     onClick={ () => this.editExpense(item) }
