@@ -20,8 +20,8 @@ class Header extends React.Component {
         <span data-testid="email-field">{ email }</span>
         <div>
           <span>Despesa total: </span>
-          <span data-testid="total-field">{ totalPurchases }</span>
-          <span data-testid="header-currency-field">BRL</span>
+          <span data-testid="total-field">{ totalPurchases.toFixed(2) }</span>
+          <span data-testid="header-currency-field"> BRL</span>
         </div>
         {/* <SelectCurrency id="select-currency-header" /> */}
       </div>
