@@ -1,6 +1,8 @@
 import { LOGIN_SUCCESSFUL } from '../actions';
 
-const initialState = {};
+const initialState = {
+  email: '',
+};
 
 const user = (state = initialState, action) => {
   switch (action.type) {

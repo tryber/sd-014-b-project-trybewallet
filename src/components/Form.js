@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Button from './Button';
 import Input from './Input';
@@ -10,7 +11,7 @@ class Form extends React.Component {
     super(props);
 
     this.state = {
-      currency: '',
+      currency: 'USD',
       description: '',
       payment: 'Dinheiro',
       tag: 'Alimentação',
@@ -18,6 +19,7 @@ class Form extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.treatCurrencyList = this.treatCurrencyList.bind(this);
   }
 
   handleChange({ target }) {
@@ -27,9 +29,16 @@ class Form extends React.Component {
     });
   }
 
+  treatCurrencyList() {
+    const { currencies } = this.props;
+    const currencyOptions = [];
+    currencies.map((currency) => currencyOptions.push(currency[0]));
+    return currencyOptions;
+  }
+
   render() {
     const { currency, description, payment, tag, value } = this.state;
-    const currencyOptions = [''];
+    const currencyOptions = this.treatCurrencyList();
     const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
@@ -79,10 +88,18 @@ class Form extends React.Component {
   }
 }
 
-export default connect()(Form);
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(Form);
 
 Form.propTypes = {
-
+  currencies: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.any.isRequired,
+    ).isRequired,
+  ).isRequired,
 };
 
 Form.defaultProps = {
