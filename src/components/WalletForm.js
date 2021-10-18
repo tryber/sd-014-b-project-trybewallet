@@ -22,7 +22,9 @@ class WalletForm extends Component {
     const endpoint = 'https://economia.awesomeapi.com.br/json/all';
     const fetchUrl = await fetch(endpoint);
     const jsonParsing = await fetchUrl.json();
-    console.log(jsonParsing);
+    const teste = 3;
+    const coins = Object.keys(jsonParsing).filter((currency) => currency.length === teste);
+    console.log(coins);
   }
 
   handleChange(event) {
