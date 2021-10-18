@@ -5,9 +5,15 @@ class SelectDefault extends Component {
   render() {
     const { desc, name, value, dataArray, handleChange } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label className="form-label m-1" htmlFor={ name }>
         { desc }
-        <select id={ name } name={ name } value={ value } onChange={ handleChange }>
+        <select
+          id={ name }
+          name={ name }
+          value={ value }
+          onChange={ handleChange }
+          className="form-control"
+        >
           { dataArray.map((data, index) => (
             <option key={ index } value={ data }>{data}</option>
           )) }

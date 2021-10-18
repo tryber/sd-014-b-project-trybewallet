@@ -5,6 +5,7 @@ import { pagamento, tags } from '../data';
 import { fetchCurrencyData, setDataExpenses } from '../actions';
 import InputDefault from './InputDefault';
 import SelectDefault from './SelectDefault';
+import ButtonDefault from './ButtonDefault';
 
 class Form extends Component {
   constructor() {
@@ -62,13 +63,14 @@ class Form extends Component {
           value={ description }
           handleChange={ this.handleChangeInputs }
         />
-        <label htmlFor="currency">
+        <label className="form-label m-1" htmlFor="currency">
           Moeda
           <select
             id="currency"
             name="currency"
             value={ currency }
             onChange={ this.handleChangeInputs }
+            className="form-control"
           >
             {Object.values(getCurrencies).filter(({ codein }) => codein !== 'BRLT')
               .map(({ code }, index) => (
@@ -90,7 +92,7 @@ class Form extends Component {
           handleChange={ this.handleChangeInputs }
           dataArray={ tags }
         />
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <ButtonDefault click={ this.handleClick } />
       </form>
     );
   }

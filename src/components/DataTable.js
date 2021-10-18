@@ -61,10 +61,10 @@ class DataTable extends Component {
                 <td>
                   <section>
                     <button className="btn btn-warning m-1" type="button">
-                      <i className="bi bi-pencil-square">Editar</i>
+                      <i className="bi bi-pencil-square"> </i>
                     </button>
                     <button className="btn btn-danger m-1" type="button">
-                      <i className="bi bi-trash">Excluir</i>
+                      <i className="bi bi-trash"> </i>
                     </button>
                   </section>
                 </td>

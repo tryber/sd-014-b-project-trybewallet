@@ -29,15 +29,13 @@ class Header extends Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <section>
-          <p data-testid="email-field">{`E-mail: ${email}`}</p>
-        </section>
-        <section>
-          <p data-testid="total-field">
+      <header className="d-flex flex-column">
+        <section className="d-flex justify-content-end m-2">
+          <p className="p-2" data-testid="email-field">{`E-mail: ${email}`}</p>
+          <p className="p-2" data-testid="total-field">
             {`Despesa Total: R$ ${this.showTotalValue()}` }
           </p>
-          <p data-testid="header-currency-field">BRL</p>
+          <p className="p-2" data-testid="header-currency-field">BRL</p>
         </section>
         <Form />
       </header>

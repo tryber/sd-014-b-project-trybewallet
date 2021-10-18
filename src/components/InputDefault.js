@@ -5,13 +5,14 @@ class InputDefault extends Component {
   render() {
     const { desc, name, value, handleChange } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label className="form-label m-1" htmlFor={ name }>
         { desc }
         <input
           id={ name }
           name={ name }
           value={ value }
           onChange={ handleChange }
+          className="form-control"
         />
       </label>
     );
