@@ -33,8 +33,7 @@ class Form extends React.Component {
   }
 
   handleSubmit() {
-    const { addExpense, fetchCurrencies } = this.props;
-    const exchangeRates = fetchCurrencies();
+    const { addExpense } = this.props;
     const currentState = this.state;
     addExpense(currentState);
   }
@@ -111,7 +110,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
-  fetchCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.any.isRequired,

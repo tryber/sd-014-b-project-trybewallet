@@ -22,7 +22,7 @@ class Table extends React.Component {
         </thead>
         <tbody>
           { expenses.map((expense) => (
-            <TableRows key={  } expense={ expense } />
+            <TableRows key={ id } expense={ expense } />
           )) }
         </tbody>
       </table>
