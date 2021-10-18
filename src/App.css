@@ -92,8 +92,8 @@ body {
 
 .wallet-form button {
   background-color: teal;
-  color: whitesmoke;
   border-radius: 8px;
+  color: whitesmoke;
   font-weight: 600;
   padding: 10px 8px;
 }
