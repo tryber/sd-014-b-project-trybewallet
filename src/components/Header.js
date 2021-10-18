@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Form from './Form';
 
 class Header extends Component {
   constructor() {
@@ -26,8 +27,7 @@ class Header extends Component {
   }
 
   render() {
-    const { email, expenses } = this.props;
-    console.log(expenses);
+    const { email } = this.props;
     return (
       <header>
         <section>
@@ -39,6 +39,7 @@ class Header extends Component {
           </p>
           <p data-testid="header-currency-field">BRL</p>
         </section>
+        <Form />
       </header>
     );
   }
