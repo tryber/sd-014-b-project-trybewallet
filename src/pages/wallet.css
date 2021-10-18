@@ -2,7 +2,10 @@
   background: #0d0d17;
 }
 
-.table, tr, td, th {
+.table,
+tr,
+td,
+th {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 0.5em;
