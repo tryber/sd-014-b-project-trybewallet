@@ -9,3 +9,8 @@ estado global:
     expenses: []
   }
 }
+
+
+validação de email:
+https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
+https://ui.dev/validate-email-address-javascript/
