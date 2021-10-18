@@ -24,14 +24,18 @@ export default class Label extends Component {
 }
 
 Label.propTypes = {
-  dataTestid: PropTypes.string.isRequired,
+  dataTestid: PropTypes.string,
   minlength: PropTypes.string,
   name: PropTypes.string.isRequired,
-  required: PropTypes.bool.isRequired,
-  type: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  required: PropTypes.bool,
+  type: PropTypes.string,
+  handleChange: PropTypes.func,
 };
 
 Label.defaultProps = {
   minlength: null,
+  dataTestid: '',
+  required: false,
+  type: 'text',
+  handleChange: null,
 };
