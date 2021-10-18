@@ -25,7 +25,13 @@ class Login extends React.Component {
   }
 
   render() {
+    /** fonte da variavel 'validarEmail':
+     * https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
+     */
+    const validarEmail = /\S+@\S+\.\S+/;
     const { email, password } = this.state;
+    const sisePassword = 6; // no magic numbers =(
+    // console.log(disabled);
     return (
       <fieldset>
         <label htmlFor="email">
@@ -43,7 +49,7 @@ class Login extends React.Component {
           <input
             placeholder="Insira sua senha"
             id="password"
-            type="text"
+            type="password"
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChange }
@@ -53,6 +59,9 @@ class Login extends React.Component {
         <button
           type="submit"
           onClick={ this.handleSubmit }
+          disabled={
+            !(validarEmail.test(email) && password.length >= sisePassword)
+          }
         >
           Entrar
         </button>
@@ -62,3 +71,5 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+// botão de enviar desabilitado: caso o email e não sejam como o regex e > que 6 ele não habilita. O .test é um método do regex.
