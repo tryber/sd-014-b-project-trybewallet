@@ -10,12 +10,12 @@ class Wallet extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.saveExpense = this.saveExpense.bind(this);
     this.state = {
-      id: '',
-      currency: 'USD',
-      description: '',
-      tag: 'Alimentação',
-      method: 'Dinheiro',
       value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: '',
     };
   }
 
@@ -24,11 +24,8 @@ class Wallet extends Component {
   }
 
   async setInitialState() {
-    const { fetchInfo, wallet: { expenses } } = this.props;
+    const { fetchInfo } = this.props;
     await fetchInfo();
-    this.setState({
-      id: !expenses.length ? 0 : expenses.length,
-    });
   }
 
   handleChange({ target }) {
@@ -38,13 +35,14 @@ class Wallet extends Component {
     });
   }
 
-  saveExpense() {
-    const { id } = this.state;
+  async saveExpense() {
     const { addNewExpense } = this.props;
-    addNewExpense(this.state);
+    const currencyInfo = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json());
     this.setState({
-      id: id + 1,
+      exchangeRates: currencyInfo,
     });
+    addNewExpense(this.state);
   }
 
   render() {
@@ -81,9 +79,9 @@ class Wallet extends Component {
               { payment.map((e, index) => <option key={ index }>{ e }</option>) }
             </select>
           </label>
-          <label htmlFor="genre">
+          <label htmlFor="tag">
             Tag:
-            <select id="genre" onChange={ this.handleChange }>
+            <select id="tag" onChange={ this.handleChange }>
               { genre.map((e, index) => <option key={ index }>{ e }</option>) }
             </select>
           </label>
