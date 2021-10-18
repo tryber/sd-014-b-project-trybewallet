@@ -13,14 +13,14 @@ function filterAPI(response) {
 export default function Wallet() {
   const [formState, setFormState] = useState({
     id: 0,
-    amountExpenses: 0,
+    value: 0,
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
   });
   const { email } = useSelector((state) => state.user);
-  const { currencies } = useSelector((state) => state.wallet);
+  const { currencies, expenses } = useSelector((state) => state.wallet);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,20 +32,22 @@ export default function Wallet() {
       dispatch(setCurrencies(result));
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   function handleChange(event) {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   }
 
-  function handleSubmit() {
-    dispatch(addExpenses(formState));
+  async function handleSubmit() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const exchangeRates = await response.json();
+    dispatch(addExpenses({ ...formState, exchangeRates }));
     setFormState((state) => ({ ...state, id: state.id + 1 }));
   }
 
   return (
-    <Header email={ email }>
+    <Header email={ email } expenses={ expenses }>
       <Form
         formState={ { ...formState, currencies } }
         handleChange={ handleChange }

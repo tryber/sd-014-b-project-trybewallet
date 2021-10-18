@@ -5,7 +5,7 @@ import Select from './Select';
 
 export default function Form(props) {
   const {
-    formState: { amountExpenses, description, currency, method, tag, currencies },
+    formState: { value, description, currency, method, tag, currencies },
     handleChange,
     children: button,
   } = props;
@@ -14,8 +14,8 @@ export default function Form(props) {
       <Input
         label="Valor"
         type="number"
-        id="amountExpenses"
-        value={ amountExpenses }
+        id="value"
+        value={ value }
         handleChange={ handleChange }
       />
       <Input
