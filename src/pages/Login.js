@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './LoginStyle.css';
+import { connect } from 'react-redux';
 import Image from './image-LoginPage.jpg';
+import { handleEmailUser } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -44,12 +46,15 @@ class Login extends React.Component {
   }
 
   clickButton() {
-    const { history } = this.props;
+    const { history, userInfo } = this.props;
+    const { email } = this.state;
+    userInfo(email);
     history.push('/carteira');
   }
 
   render() {
     const { disabledButton } = this.state;
+
     return (
       <form className="form">
         <img className="image-login" src={ Image } alt="Imagem de uma carteira" />
@@ -74,7 +79,7 @@ class Login extends React.Component {
           className="enter-button"
           type="button"
           disabled={ disabledButton }
-          onClick={ this.clickButton }
+          onClick={ () => this.clickButton() }
         >
           Entrar
         </button>
@@ -83,10 +88,15 @@ class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  userInfo: (userEmail) => dispatch(handleEmailUser(userEmail)),
+});
+
 Login.propTypes = {
+  userInfo: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
