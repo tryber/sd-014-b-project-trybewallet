@@ -1,10 +1,8 @@
 import { REQUEST_WALLET } from '../actions';
 
 const INNITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const user = (state = INNITIAL_STATE, action) => {

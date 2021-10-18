@@ -14,6 +14,7 @@ class Login extends React.Component {
     };
     this.handleDisabled = this.handleDisabled.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleEmailLoginToGlobalStore = this.handleEmailLoginToGlobalStore.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
