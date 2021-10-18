@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { emailInput } from '../actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -76,43 +77,49 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const { saveEmail } = this.props;
     return (
-      <>
-        <h1>Login</h1>
-        <label htmlFor="email-input">
-          E-mail:
-          <input
-            data-testid="email-input"
-            type="email"
-            id="email-input"
-            placeholder="Digite seu e-mail"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha:
-          <input
-            data-testid="password-input"
-            type="password"
-            id="password-input"
-            placeholder="Digite sua senha"
-            name="password"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            disabled={ this.validationLogin() }
-            onClick={ () => saveEmail(email) }
-          >
-            Entrar
-
-          </button>
-        </Link>
-      </>
+      <section className="center">
+        <i className="bi bi-wallet2" />
+        <form>
+          <label htmlFor="email-input" className="col-form-label">
+            E-mail:
+            <input
+              data-testid="email-input"
+              type="email"
+              id="email-input"
+              placeholder="Digite seu e-mail"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              className="form-control"
+            />
+          </label>
+          <label htmlFor="password-input" className="col-form-label">
+            Senha:
+            <input
+              data-testid="password-input"
+              type="password"
+              id="password-input"
+              placeholder="Digite sua senha"
+              name="password"
+              value={ password }
+              onChange={ this.handleChange }
+              className="form-control"
+            />
+          </label>
+          <Link to="/carteira">
+            <div className="d-grid ">
+              <button
+                type="button"
+                disabled={ this.validationLogin() }
+                onClick={ () => saveEmail(email) }
+                className="btn btn-outline-info"
+              >
+                Entrar
+              </button>
+            </div>
+          </Link>
+        </form>
+      </section>
     );
   }
 }
