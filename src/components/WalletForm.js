@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchRates } from '../actions';
 
 export default class WalletForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { // estados exigidos nos requisitos
+      id: -1,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const { currencies, renderCurrencies } = this.props;
+    const { value } = this.state;
     return (
       <form>
         <label htmlFor="value-input">
           Valor:
-          <input id="value-input" name="value" />
+          <input
+            id="value-input"
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
         </label>
         <br />
         <label htmlFor="desciption-input">
@@ -46,8 +73,3 @@ export default class WalletForm extends Component {
     );
   }
 }
-
-WalletForm.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  renderCurrencies: PropTypes.func.isRequired,
-};

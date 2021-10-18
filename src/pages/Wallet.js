@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WalletHeader from './WalletHeader';
 import WalletForm from '../components/WalletForm';
-import { fetchData } from '../actions/index';
+import { fetchCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveCurrencies: () => dispatch(fetchData()),
+  saveCurrencies: () => dispatch(fetchCurrencies()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
