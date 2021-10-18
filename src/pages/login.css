@@ -14,37 +14,37 @@
 }
 
 .container-form-login {
+  align-items: flex-start;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
-  align-items: flex-start;
   height: 90vh;
+  justify-content: center;
   width: 100%;
 }
 
 .form-login {
   display: flex;
-  margin: 9em 0 0 0;
   flex-flow: column nowrap;
+  margin-top: 9em;
   width: 25%;
 }
 
 .login-to-your-account {
-  font-weight: 500;
   font-size: 2em;
+  font-weight: 500;
 }
 
 .input-login {
   background: #2c3838;
   border: 3px solid #2c3838;
   border-radius: 0.15em;
-  transition: 0.2s ease-out all;
-  outline: none;
-  margin: 0.2em 0 1em 0;
-  padding: 0.3em;
   color: #f2f2f2;
   font-size: 1em;
   height: 2.6em;
+  margin: 0.2em 0 1em 0;
+  outline: none;
+  padding: 0.3em;
+  transition: 0.2s ease-out all;
   width: 100%;
 }
 
@@ -55,13 +55,13 @@
 .btn-submit {
   border-radius: 0.2em;
   background: #b5fdcd;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
   font-weight: 500;
+  height: 2.7em;
+  margin-top: 0.5em;
   text-transform: uppercase;
   transition: 0.1s ease-out all;
-  margin: 0.5em 0 0 0;
-  height: 2.7em;
   width: 100%;
 }
 
@@ -74,6 +74,6 @@
 }
 
 .btn-submit:disabled:hover {
-  cursor: auto;
   background: #e6feee;
+  cursor: auto;
 }
