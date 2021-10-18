@@ -3,6 +3,7 @@ const INITIAL_WALLET_STATE = {
   currencies: [],
   expenses: [],
   isFetching: false,
+  exchageRates: {},
 };
 
 export default function wallet(state = INITIAL_WALLET_STATE, action) {
@@ -10,10 +11,17 @@ export default function wallet(state = INITIAL_WALLET_STATE, action) {
   case 'fetch':
     return { ...state, isFetching: true };
   case 'wallet':
+    delete action.json.USDT;
     return {
       ...state,
+      exchageRates: { ...action.json },
       currencies: Object.keys(action.json).filter((moeda) => moeda !== 'USDT'),
       isFetching: false,
+    };
+  case 'button':
+    return {
+      ...state,
+      expenses: [...state.expenses, ...action.expenses],
     };
   default:
     return state;

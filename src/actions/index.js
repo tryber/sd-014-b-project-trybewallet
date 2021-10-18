@@ -10,6 +10,11 @@ export const walletAction = (json) => ({
   json,
 });
 
+export const actionButton = (state) => ({
+  type: 'button',
+  expenses: state.expensesLocal,
+});
+
 export const actionFetch = () => ({
   type: 'fetch',
 });

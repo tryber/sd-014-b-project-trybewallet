@@ -14,18 +14,22 @@ class Wallet extends React.Component {
     this.startFetch();
   }
 
-  startFetch() {
+  async startFetch() {
     const { getMoeda } = this.props;
-    getMoeda();
+    await getMoeda();
   }
 
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
+    const finalValue = expenses.reduce((acc, cur) => {
+      acc += cur.value * cur.exchangeRates[cur.currency].ask;
+      return acc;
+    }, 0);
     return (
       <div>
         TrybeWallet
         <header data-testid="email-field">{ email }</header>
-        <p data-testid="total-field">0</p>
+        <p data-testid="total-field">{finalValue}</p>
         <p data-testid="header-currency-field">BRL</p>
         <FormWallet />
       </div>
@@ -36,11 +40,14 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   getMoeda: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
