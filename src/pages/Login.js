@@ -11,6 +11,7 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.toWallet = this.toWallet.bind(this);
@@ -36,11 +37,13 @@ class Login extends React.Component {
   }
 
   isEmailValid(email) {
-    const regexEmail = /[\w]+@[\w]+.com/;
+    const regexEmail = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
     return regexEmail.test(email);
   }
 
   render() {
+    // consultei o repositório da Luana Moneró para procurar algum erro de lógica, Source: https://github.com/tryber/sd-014-b-project-trybewallet/pull/9
+    // Porém meu erro foi de sintaxe
     const { email, password } = this.state;
     const MIN_CHARACTERS = 6;
     const validEmail = this.isEmailValid(email);

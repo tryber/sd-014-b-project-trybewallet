@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
+    const { email } = this.props;
     return (
       <header>
-        <span data-testid="email-field">Email:{}</span>
+        <span data-testid="email-field">{`Email: ${email}`}</span>
         <span
           data-testid="total-field"
         >
@@ -15,4 +17,8 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = ({ user }) => ({
+  email: user.email,
+});
+
+export default connect(mapStateToProps)(Header);
