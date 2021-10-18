@@ -16,9 +16,10 @@ class Wallet extends React.Component {
           </div>
           <div>
             Despesa total: R$
-            <span data-testid="total-field" />
+            <span data-testid="total-field">0</span>
           </div>
           <div data-testid="header-currency">BRL</div>
+          <div data-testid="header-currency-field">BRL</div>
         </section>
       </div>
     );
