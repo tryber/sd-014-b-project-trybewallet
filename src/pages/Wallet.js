@@ -1,5 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Wallet() {
-  return <div>TrybeWallet</div>;
+  return (
+    <section>
+      <Header />
+      TrybeWallet
+    </section>
+  );
 }
