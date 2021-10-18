@@ -7,7 +7,10 @@
 }
 
 body {
+  background: #0d0d17;
   font-family: 'Nunito', sans-serif;
   font-size: 16px;
   color: #f2f2f2;
+  height: 100vh;
+  width: 100vw;
 }
