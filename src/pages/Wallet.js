@@ -32,11 +32,6 @@ class Wallet extends React.Component {
 
   render() {
     const { moedaInfo } = this.state;
-    if (moedaInfo.length === 0) {
-      return (
-        <p>Loading...</p>
-      );
-    }
     return (
       <>
         <Header />
