@@ -11,6 +11,7 @@ class Input extends React.Component {
           <input
             type={ type }
             id={ name }
+            name={ name }
             data-testid={ id }
             value={ value }
             onChange={ onChange }
