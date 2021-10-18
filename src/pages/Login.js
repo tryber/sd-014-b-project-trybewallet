@@ -10,7 +10,7 @@ function validateEmail(email) {
 }
 
 // Lógica abaixo vista no repositório do Michael Caxias
-// tópicos principais vistos: onchange e manuseio do dispatch para o redux
+// tópicos principais vistos: onchange, manuseio do dispatch para o redux e useState
 // a constante enabled eu tinha feito de outra forma, mas a forma que ele fez
 // achei mais elegante e inteligente.
 function Login({ history, dispatchEmail }) {
