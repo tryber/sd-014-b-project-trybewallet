@@ -1,10 +1,13 @@
-export function valueHelper(valor) {
+function valueHelper(valor) {
   if (typeof (valor) === 'undefined') {
     return 0;
   }
   return valor;
 }
 
-export function convertNumber(curr) {
-  return (Number(curr.value) * Number(curr.exangeRates[curr.currency].ask));
+function convertNumber(prev, curr) {
+  return valueHelper(prev) + (Number(curr
+    .value) * Number(curr.exchangeRates[curr.currency].ask));
 }
+
+export default convertNumber;

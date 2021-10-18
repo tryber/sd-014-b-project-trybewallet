@@ -1,22 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { valueHelper } from './helpers/ValueHelper';
+import convertNumber from './helpers/ValueHelper';
 
 class Header extends React.Component {
   render() {
     const { email, totalValue } = this.props;
     return (
       <header className="header">
-        <span data-testid="email-field">{email}</span>
-        <span data-testid="total-field">
-          { totalValue
-            .reduce((prev, curr) => (
-              valueHelper(prev) + (Number(curr
-                .value) * Number(curr.exchangeRates[curr.currency].ask))
-            ), 0) }
-        </span>
-        <span data-testid="header-currency-field">BRL</span>
+        <span data-testid="email-field">{`Email: ${email}`}</span>
+        <div>
+          <span data-testid="total-field">
+            Despesa total: R$
+            { ' ' }
+            { totalValue
+              .reduce((prev, curr) => convertNumber(prev, curr), 0) }
+            { ' ' }
+          </span>
+          <span data-testid="header-currency-field">BRL</span>
+        </div>
       </header>
     );
   }
