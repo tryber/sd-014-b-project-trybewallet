@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-import Input from '../components/Input';
 
 class Wallet extends React.Component {
   render() {
@@ -8,28 +7,31 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <form>
-          <Input label="Valor" type="number" name="addValue" />
+          <label htmlFor="addValue">
+            Valor:
+            <input type="text" id="addValue" />
+          </label>
           <label htmlFor="description">
             Descrição
-            <textarea name="description" id="description" cols="30" rows="10" />
+            <textarea id="description" cols="30" rows="10" />
           </label>
           <label htmlFor="expense-currency">
             Moeda
-            <select name="expense-currency">
+            <select id="expense-currency">
               <option value="">BRL</option>
             </select>
           </label>
           <label htmlFor="payment">
             Método de pagamento
-            <select name="payment">
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
+            <select id="payment">
+              <option value="dinheiro" id="dinheiro">Dinheiro</option>
+              <option value="credito" id="credito">Cartão de crédito</option>
+              <option value="debito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="tag">
             Tag
-            <select name="payment">
+            <select id="tag">
               <option>Alimentação</option>
               <option>Lazer</option>
               <option>Trabalho</option>
@@ -38,7 +40,8 @@ class Wallet extends React.Component {
             </select>
           </label>
         </form>
-      </div>);
+      </div>
+    );
   }
 }
 
