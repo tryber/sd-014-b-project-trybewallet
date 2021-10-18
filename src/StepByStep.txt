@@ -1,0 +1,11 @@
+estado global:
+
+{
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: []
+  }
+}
