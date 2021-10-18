@@ -38,7 +38,7 @@ class Wallet extends Component {
     });
   }
 
-  async saveExpense() {
+  saveExpense() {
     const { id } = this.state;
     const { addNewExpense } = this.props;
     addNewExpense(this.state);
