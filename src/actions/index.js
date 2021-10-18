@@ -1,4 +1,3 @@
-// Coloque aqui suas actions
 export const LOGIN = 'LOGIN';
 export const EXPENSE = 'EXPENSE';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
