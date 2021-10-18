@@ -1,7 +1,7 @@
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 
-export const requestLogin = (login) => ({
-  type: REQUEST_LOGIN, login,
+export const requestLogin = (payload) => ({
+  type: REQUEST_LOGIN, payload,
 });
 
 export const REQUEST_WALLET = 'REQUEST_WALLET';

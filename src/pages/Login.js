@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestLogin } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -15,6 +18,12 @@ class Login extends React.Component {
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value }, () => this.handleDisabled());
+  }
+
+  handleEmailLoginToGlobalStore() {
+    const { email } = this.state;
+    const { emailLoginAction } = this.props;
+    emailLoginAction(email);
   }
 
   // Referência a thread no slack do tryber Michael Caxias
@@ -67,6 +76,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ disabled }
+            onClick={ this.handleEmailLoginToGlobalStore() }
           >
             Entrar
           </button>
@@ -76,4 +86,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailLoginAction: (payload) => dispatch(requestLogin(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  emailLoginAction: PropTypes.func.isRequired,
+};
