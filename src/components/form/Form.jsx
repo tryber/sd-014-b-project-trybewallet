@@ -5,8 +5,9 @@ import Select from './Select';
 
 export default function Form(props) {
   const {
-    formState: { amountExpenses, description, currency, paymentMethod, tag, currencies },
+    formState: { amountExpenses, description, currency, method, tag, currencies },
     handleChange,
+    children: button,
   } = props;
   return (
     <form>
@@ -32,9 +33,9 @@ export default function Form(props) {
       />
       <Select
         label="Método de pagamento"
-        id="paymentMethod"
+        id="method"
         options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
-        value={ paymentMethod }
+        value={ method }
         handleChange={ handleChange }
       />
       <Select
@@ -44,6 +45,7 @@ export default function Form(props) {
         value={ tag }
         handleChange={ handleChange }
       />
+      { button }
     </form>
   );
 }
