@@ -41,7 +41,7 @@ class Wallet extends React.Component {
     this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
-  renderWallet() {
+  renderSelects() {
     const { currency, method, tag } = this.state;
     const { moedas } = this.props;
 
@@ -72,6 +72,47 @@ class Wallet extends React.Component {
     );
   }
 
+  renderTable() {
+    const { gastos } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {gastos.length === 0 ? (<tr><td>Adicione uma despesa</td></tr>) : gastos
+            .map(({ id, value, description, currency, method, tag, exchangeRates }) => (
+              <tr key={ id }>
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{ method }</td>
+                <td>{ value}</td>
+                <td>
+                  {exchangeRates[currency].name.split('/')[0]}
+                </td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>
+                  {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
+                </td>
+                <td>Real</td>
+                <td>Editar/Excluir</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const { value, description } = this.state;
     return (
@@ -98,13 +139,14 @@ class Wallet extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          {this.renderWallet()}
+          {this.renderSelects()}
           <button
             type="button"
             onClick={ this.handleClick }
           >
             Adicionar despesa
           </button>
+          {this.renderTable()}
         </form>
       </>
     );
@@ -113,12 +155,14 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  gastos: PropTypes.arrayOf(PropTypes.any).isRequired,
   moedas: PropTypes.arrayOf(PropTypes.any).isRequired,
   receiveCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   moedas: state.wallet.currencies,
+  gastos: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
