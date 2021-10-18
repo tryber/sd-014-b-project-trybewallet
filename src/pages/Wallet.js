@@ -13,7 +13,7 @@ class Wallet extends React.Component {
     this.state = {
       value: 0,
       describe: '',
-      currency: '',
+      currency: 'USD',
       categorie: 'Alimentação',
       method: 'Dinheiro',
     };
@@ -24,7 +24,13 @@ class Wallet extends React.Component {
   }
 
   currency() {
-    return ['USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP'];
+    return ['USD', 'CAD',
+      'EUR', 'GBP',
+      'ARS', 'BTC',
+      'LTC', 'JPY',
+      'CHF', 'AUD',
+      'CNY', 'ILS',
+      'ETH', 'XRP'];
   }
 
   categorie() {

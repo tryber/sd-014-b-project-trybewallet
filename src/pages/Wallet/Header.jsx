@@ -24,7 +24,7 @@ class Header extends Component {
           {`Email: ${mail}`}
         </div>
         <div data-testid="total-field">
-          {`Dispesas Totais R&${this.totalExpenses()} BRL`}
+          {`Dispesas Totais R$${this.totalExpenses()} BRL`}
         </div>
       </header>
     );
@@ -41,4 +41,4 @@ Header.propTypes = {
   mail: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
