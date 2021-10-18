@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencyAPI } from '../actions/index';
 
 class WalletForms extends React.Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
     this.renderValue = this.renderValue.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
@@ -11,8 +13,9 @@ class WalletForms extends React.Component {
     this.renderTag = this.renderTag.bind(this);
   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+  componentDidMount() {
+    const { getWalletData } = this.props;
+    getWalletData();
   }
 
   renderValue() {
@@ -45,11 +48,19 @@ class WalletForms extends React.Component {
   }
 
   renderCurrency() {
+    const { getDataCurrencies } = this.props;
     return (
       <label htmlFor="currency">
         Moeda
         <select name="currency" id="currency">
-          <option>BRL</option>
+          { getDataCurrencies.map((currencies, index) => (
+            <option
+              key={ index }
+              value={ currencies }
+            >
+              { currencies }
+            </option>
+          )) }
         </select>
       </label>
     );
@@ -106,4 +117,17 @@ class WalletForms extends React.Component {
   }
 }
 
-export default WalletForms;
+const mapDispatchToProps = (dispatch) => ({
+  getWalletData: (state) => dispatch(fetchCurrencyAPI(state)),
+});
+
+const mapStateToProps = (state) => ({
+  getDataCurrencies: state.wallet.currencies,
+});
+
+WalletForms.propTypes = {
+  getWalletData: PropTypes.func.isRequired,
+  getDataCurrencies: PropTypes.shape().isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForms);
