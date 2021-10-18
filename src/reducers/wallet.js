@@ -1,21 +1,20 @@
-import { CURRENCIES, EXPENSES, REQUEST_COINS, RECEIVE_COINS } from '../actions/index';
+import { REQUEST_COINS, RECEIVE_COINS, RECEIVE_RATES, REQUEST_RATES } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   isFetching: false,
+  rates: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST_COINS:
+  case REQUEST_COINS || REQUEST_RATES:
     return { ...state, isFetching: true };
   case RECEIVE_COINS:
     return { ...state, isFetching: false, currencies: action.coins };
-  case CURRENCIES:
-    return { ...state, currencies: action.payload };
-  case EXPENSES:
-    return { ...state, expenses: action.payload };
+  case RECEIVE_RATES:
+    return { ...state, isFetching: false, expenses: [...state.expenses, action.rates] };
   default:
     return state;
   }

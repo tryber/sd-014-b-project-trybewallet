@@ -1,12 +1,13 @@
-import React, { useReducer } from 'react';
-import { useSelector } from 'react-redux';
-// import Select from './Form Components/select';
+import React, { useReducer, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchRates } from '../actions/index';
+import Form from './formComponent/Form';
 
 const INITIAL_STATE = {
   valor: '',
-  descricao: '',
-  moeda: 'BRL',
-  ptMthd: 'Dinheiro',
+  description: '',
+  currency: 'BRL',
+  method: 'Dinheiro',
   tag: 'Alimentação',
 };
 
@@ -14,48 +15,38 @@ const reducer = (state, { field, value }) => ({ ...state, [field]: value });
 
 export default function AddExpense() {
   const [localState, setState] = useReducer(reducer, INITIAL_STATE);
+  const [counter, addCounter] = useState(0);
+  const { valor, description, currency, method, tag } = localState;
+  const coins = useSelector((state) => state.wallet.currencies);
+  // const exchangeRates = useSelector((state) => state.wallet.rates);
+  const dispatch = useDispatch();
 
   const handleChange = ({ target: { id, value } }) => {
     setState({ field: id, value });
   };
+  const addExpense = () => {
+    const expense = {
+      id: counter,
+      value: valor,
+      description,
+      currency,
+      method,
+      tag,
+    };
+    dispatch(fetchRates(expense));
+    addCounter(counter + 1);
+  };
 
-  const coins = useSelector((state) => state.wallet.currencies);
-
-  const { valor, descricao, moeda, ptMthd, tag } = localState;
   return (
-    <form>
-      <label htmlFor="valor">
-        Valor
-        <input type="number" id="valor" value={ valor } onChange={ handleChange } />
-      </label>
-      <label htmlFor="descricao">
-        Descrição
-        <textarea value={ descricao } onChange={ handleChange } id="descricao" />
-      </label>
-      <label htmlFor="moeda">
-        Moeda
-        <select id="moeda" value={ moeda } onChange={ handleChange }>
-          {coins.map((coin) => (<option key={ coin } value={ coin }>{ coin }</option>))}
-        </select>
-      </label>
-      <label htmlFor="ptMthd">
-        Método de pagamento
-        <select id="ptMthd" defaultValue={ ptMthd } onChange={ handleChange }>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-        </select>
-      </label>
-      <label htmlFor="tag">
-        Tag
-        <select id="tag" value={ tag } onChange={ handleChange }>
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
-      </label>
-    </form>
+    <Form
+      va={ valor }
+      desc={ description }
+      curr={ currency }
+      met={ method }
+      tag={ tag }
+      onC={ handleChange }
+      coins={ coins }
+      addE={ addExpense }
+    />
   );
 }
