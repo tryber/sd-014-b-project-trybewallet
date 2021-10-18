@@ -15,6 +15,7 @@ class Select extends React.Component {
       <label htmlFor={ name }>
         { label }
         <select
+          id={ name }
           name={ name }
           onChange={ onChange }
           value={ value }
