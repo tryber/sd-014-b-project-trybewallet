@@ -16,25 +16,24 @@ import { saveEmail } from '../actions';
   isEmailValid = (email) => {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regexEmail.test(email) === true;
-  };
+  }
 
   handleChange = ( {target} ) => {
     const { name, value } = target;
     this.setState({
       [name]: value
     })
-  };
+  }
 
   handleClick = () => {
     const { history, saveEmail } = this.props;
     const { email } = this.state;
     saveEmail(email);
     history.push('/carteira')
-  };
+  }
 
   render() {
     const { email, password } = this.state;
-    const { saveEmail } = this.props;
     const minLenght = 6;
     const isValidEmail = this.isEmailValid( email );
     return (

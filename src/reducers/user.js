@@ -1,21 +1,19 @@
 import { SAVE_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  }
+  email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SAVE_EMAIL:
       return {
         ...state,
-        user: { email: action.value },
+        email: action.value,
       };
       default:
         return state;
   }
 }
 
-export default userReducer ;
+export default user ;
