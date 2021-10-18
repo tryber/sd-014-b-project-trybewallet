@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Label from '../helpers/Label';
+import Label from '../helpers/LabelWithInput';
 import loginAction from '../actions';
 
 class Login extends React.Component {

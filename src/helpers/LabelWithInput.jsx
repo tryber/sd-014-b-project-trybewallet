@@ -12,6 +12,7 @@ export default class Label extends Component {
         <input
           onChange={ handleChange }
           name={ name }
+          id={ name }
           type={ type }
           data-testid={ dataTestid }
           minLength={ minlength }
