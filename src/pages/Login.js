@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sendLogin } from '../actions';
 
+// lógica abaixo vista em https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 function validateEmail(email) {
   const re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
 
+// Lógica abaixo vista no repositório do Michael Caxias
+// tópicos principais vistos: onchange e manuseio do dispatch para o redux
+// a constante enabled eu tinha feito de outra forma, mas a forma que ele fez
+// achei mais elegante e inteligente.
 function Login({ history, dispatchEmail }) {
   const [email, changeEmail] = useState('');
   const [password, changePassword] = useState('');
@@ -61,7 +66,7 @@ export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   history: PropTypes.shape({
-    push: propTypes.func,
+    push: PropTypes.func,
   }).isRequired,
   dispatchEmail: PropTypes.func.isRequired,
 };
