@@ -1,6 +1,6 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .header-wallet-page {
@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-.email-header, .cost-total, .currency {
+.email-header , .cost-total , .currency {
   font-size: 20px;
   font-weight: 200;
   margin: 10px;
