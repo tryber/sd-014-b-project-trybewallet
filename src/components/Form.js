@@ -17,7 +17,7 @@ class Form extends Component {
       moeda: 'USD',
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
-      objetoApi: {},
+      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,7 +38,7 @@ class Form extends Component {
     const fetchingApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const jsonApi = await fetchingApi.json();
     this.setState(() => ({
-      objetoApi: jsonApi,
+      exchangeRates: jsonApi,
     }));
   }
 
@@ -50,7 +50,7 @@ class Form extends Component {
   }
 
   render() {
-    const { valor, descricao, moeda, metdPagamento, tag, objetoApi } = this.state;
+    const { valor, descricao, moeda, metdPagamento, tag, exchangeRates } = this.state;
     return (
       <form>
         <Input
@@ -72,7 +72,7 @@ class Form extends Component {
           onChange={ this.handleChange }
         />
         <SelectCoin
-          objFetch={ objetoApi }
+          objFetch={ exchangeRates }
           value={ moeda }
           onChange={ this.handleChange }
         />
@@ -95,7 +95,7 @@ Form.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  objetoApi: state.fetchReducer,
+  exchangeRates: state.fetchReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
