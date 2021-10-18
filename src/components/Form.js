@@ -17,9 +17,11 @@ class Form extends Component {
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
       objetoApi: {},
+      expenses: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.addExpenses = this.addExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +40,29 @@ class Form extends Component {
     this.setState(() => ({
       objetoApi: jsonApi,
     }));
+  }
+
+  addExpenses() {
+    const { metdPagamento, moeda, descricao, valor, tag, expenses } = this.state;
+    this.setState({
+      expenses: [{
+        id: 0,
+        value: { valor },
+        description: { descricao },
+        currency: { moeda },
+        method: { metdPagamento },
+        tag: { tag },
+        exchangeRates: {
+          USD: {
+            code: 'USD',
+            name: 'Dólar Comercial',
+            ask: '5.6208',
+          },
+        },
+      },
+      ],
+    });
+    console.log(expenses);
   }
 
   render() {
@@ -75,7 +100,7 @@ class Form extends Component {
           value={ tag }
           onChange={ this.handleChange }
         />
-        <button type="button">Enviar</button>
+        <button type="button" onClick={ this.addExpenses }>Enviar</button>
       </form>
     );
   }
