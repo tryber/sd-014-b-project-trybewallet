@@ -45,7 +45,6 @@ export function fetchRates(expense) {
     return fetch(ENDPOINT)
       .then((response) => response.json())
       .then((exchangeRates) => {
-        delete exchangeRates.USDT;
         delete exchangeRates.DOGE;
         return { ...expense, exchangeRates };
       })

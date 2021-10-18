@@ -1,10 +1,14 @@
-import { REQUEST_COINS, RECEIVE_COINS, RECEIVE_RATES, REQUEST_RATES } from '../actions/index';
+import {
+  REQUEST_COINS,
+  RECEIVE_COINS,
+  RECEIVE_RATES,
+  REQUEST_RATES,
+} from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   isFetching: false,
-  rates: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

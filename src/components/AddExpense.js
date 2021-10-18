@@ -6,7 +6,7 @@ import Form from './formComponent/Form';
 const INITIAL_STATE = {
   valor: '',
   description: '',
-  currency: 'BRL',
+  currency: 'USD',
   method: 'Dinheiro',
   tag: 'Alimentação',
 };
