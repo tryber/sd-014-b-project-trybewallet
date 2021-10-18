@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import convertNumber from './helpers/ValueHelper';
+import mapTotalValue from './helpers/ValueHelper';
 
 class Header extends React.Component {
   render() {
@@ -13,8 +13,7 @@ class Header extends React.Component {
           <span data-testid="total-field">
             Despesa total: R$
             { ' ' }
-            { totalValue
-              .reduce((prev, curr) => convertNumber(prev, curr), 0) }
+            { mapTotalValue(totalValue) }
             { ' ' }
           </span>
           <span data-testid="header-currency-field">BRL</span>

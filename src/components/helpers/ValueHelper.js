@@ -10,4 +10,9 @@ function convertNumber(prev, curr) {
     .value) * Number(curr.exchangeRates[curr.currency].ask));
 }
 
-export default convertNumber;
+function mapTotalValue(array) {
+  return array
+    .reduce((prev, curr) => convertNumber(prev, curr), 0);
+}
+
+export default mapTotalValue;
