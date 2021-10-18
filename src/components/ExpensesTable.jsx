@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { DELETE_EXPENSE, getConversion } from '../actions';
+import {
+  DELETE_EXPENSE, INIT_EDIT_EXPENSE, getConversion,
+} from '../actions';
 import DATA from '../data';
 
 class ExpensesTable extends Component {
+  // componentDidMount() { console.log('montou'); }
+
+  // componentDidUpdate() { console.log('atualizou'); }
+
   getCambio = (obj, value) => Object.entries(obj).find((item) => item[0] === value)[1];
 
   deleteValue = (id) => {
@@ -12,6 +18,13 @@ class ExpensesTable extends Component {
     const newExpenses = expenses.filter((item) => item.id !== id);
     erase(newExpenses);
   };
+
+  editExpense = (expense) => {
+    const { edit } = this.props;
+    const { id, value, description, currency,
+      method, tag, exchangeRates } = expense;
+    edit({ id, value, description, currency, method, tag, exchangeRates });
+  }
 
   render() {
     const { expenses } = this.props;
@@ -43,6 +56,13 @@ class ExpensesTable extends Component {
                 <td>
                   <button
                     type="button"
+                    onClick={ () => this.editExpense(item) }
+                    data-testid="edit-btn"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    type="button"
                     onClick={ () => this.deleteValue(id) }
                     data-testid="delete-btn"
                   >
@@ -61,12 +81,14 @@ class ExpensesTable extends Component {
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   erase: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 const mapState = ({ wallet: { expenses } }) => ({ expenses });
 
 const mapDispatch = (dispatch) => ({
   erase: (value) => dispatch(DELETE_EXPENSE(value)),
+  edit: (value) => dispatch(INIT_EDIT_EXPENSE(value)),
 });
 
 export default connect(mapState, mapDispatch)(ExpensesTable);

@@ -31,21 +31,18 @@ export function LOAD_CURRENCIES() {
 
 //
 
-function sortExpenses(state) {
+export function sortExpenses(state) {
   return state.map((item, ind) => {
     item.id = ind;
     return item;
   });
 }
 
-const EXPENSE_CREATE = () => ({ type: 'EXPENSE_CREATE' });
-
 const EXPENSE_ENTRY = (value) => ({ type: 'EXPENSE_ENTRY', value });
 
 export function EXPENSE_DISPATCH(previousExpenses, newExpense) {
   return async (dispatch) => {
     const expensesResult = previousExpenses;
-    dispatch(EXPENSE_CREATE());
     const exchangeRates = await fetchApi(API_URL);
     const expense = { ...newExpense, exchangeRates };
     expensesResult.push(expense);
@@ -54,3 +51,9 @@ export function EXPENSE_DISPATCH(previousExpenses, newExpense) {
 }
 
 export const DELETE_EXPENSE = (value) => ({ type: 'DELETE_EXPENSE', value });
+
+export const INIT_EDIT_EXPENSE = (value) => ({ type: 'INIT_EDIT_EXPENSE', value });
+
+export const END_EDIT_EXPENSE = (value) => ({ type: 'END_EDIT_EXPENSE', value });
+
+export const FORCE_UPDATE = () => ({ type: 'FORCE_UPDATE' });

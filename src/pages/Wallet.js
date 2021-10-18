@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { EXPENSE_DISPATCH, LOAD_CURRENCIES } from '../actions';
+import ExpenseEditorForm from '../components/ExpenseEditorForm';
 import ExpensesTable from '../components/ExpensesTable';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
@@ -34,28 +35,32 @@ class Wallet extends React.Component {
   };
 
   render() {
+    const { editor } = this.props;
     return (
       <div>
         <Header />
-        <WalletForm
-          props={ this.props }
-          state={ this.state }
-          onEntries={ this.handleEntries }
-          onSubmit={ this.handleSubmit }
-        />
+        { editor ? <ExpenseEditorForm /> : (
+          <WalletForm
+            props={ this.props }
+            state={ this.state }
+            onEntries={ this.handleEntries }
+            onSubmit={ this.handleSubmit }
+          />
+        ) }
         <ExpensesTable />
       </div>);
   }
 }
 
 Wallet.propTypes = {
-  expenses: PropTypes.arrayOf(String).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   getCurrencies: PropTypes.func.isRequired,
   submitExpense: PropTypes.func.isRequired,
+  editor: PropTypes.bool.isRequired,
 };
 
-function mapState({ wallet: { hasCurrencies, currencies, expenses } }) {
-  return { hasCurrencies, currencies, expenses };
+function mapState({ wallet: { hasCurrencies, currencies, expenses, editor } }) {
+  return { hasCurrencies, currencies, expenses, editor };
 }
 
 function mapDispatch(dispatch) {
