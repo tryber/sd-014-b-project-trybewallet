@@ -14,64 +14,63 @@ export class Login extends React.Component {
     };
   }
 
-  passwordIsvalid = (password) => (password.length >= 6 );
-  
+  passwordIsvalid = (password) => (password.length >= 6);
+
   loginIsvalid = (email) => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return emailRegex.test(email);
   }
 
   handleButton = () => {
-    this.setState({...this.state}, () => {
+    this.setState({ ...this.state }, () => {
       const { Login, Password } = this.state;
-      if(Login && Password) {
-        if(this.loginIsvalid(Login) && this.passwordIsvalid(Password)) {
-          this.setState({...this.state, disabled: false})
-        } 
-        else {this.setState({...this.state, disabled: true})}
+      if (Login && Password) {
+        if (this.loginIsvalid(Login) && this.passwordIsvalid(Password)) {
+          this.setState({ ...this.state, disabled: false });
+        } else { this.setState({ ...this.state, disabled: true }); }
       }
-      });
+    });
   };
 
-handleChange = ({target: { name, value }}) => {
-    this.setState({ [name]: value },  this.handleButton())
+handleChange = ({ target: { name, value } }) => {
+  this.setState({ [name]: value }, this.handleButton());
 }
 
-  render() {
-    const { handleChange } = this;
-    const { dispatchLogin } = this.props;
-    const { disabled, Login } = this.state;
-    return (
-      <form>
-        <Label
-          name="Login"
-          type="email"
-          dataTestid="email-input"
-          required
-          handleChange={ handleChange }
-        />
-        <br />
-        <Label
-          name="Password"
-          type="password"
-          dataTestid="password-input"
-          minlength="6"
-          required
-          handleChange={ handleChange }
-        />
-        <br />
-        <Link to="/carteira">
-          <button
-            type="button"
-            onClick={ () => dispatchLogin(Login) }
-            disabled={ disabled }
-          >
-            Entrar
-          </button>
-        </Link>
-      </form>
-    );
-  }
+render() {
+  const { handleChange } = this;
+  const { dispatchLogin } = this.props;
+  const { disabled, Login } = this.state;
+  return (
+    <form>
+      <Label
+        name="Login"
+        type="email"
+        dataTestid="email-input"
+        required
+        handleChange={ handleChange }
+      />
+      <br />
+      <Label
+        name="Password"
+        type="password"
+        dataTestid="password-input"
+        minlength="6"
+        required
+        handleChange={ handleChange }
+      />
+      <br />
+      <Link to="/carteira">
+        <button
+          type="button"
+          onClick={ () => dispatchLogin(Login) }
+          disabled={ disabled }
+        >
+          Entrar
+        </button>
+      </Link>
+    </form>
+  );
+}
 }
 
 const mapDispatchToProps = (dispatch) => ({
