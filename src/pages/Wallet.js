@@ -3,17 +3,34 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Categories from '../Components/Categories';
 import PaymentMethod from '../Components/PaymentMethod';
+import { currencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.fetchCurrencies = this.fetchCurrencies.bind(this);
 
     this.state = {
       value: '',
       description: '',
+      curr: [],
     };
+  }
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  async fetchCurrencies() {
+    const requestCurr = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resolveCurr = await requestCurr.json();
+    const { dispatchCurrencies } = this.props;
+    this.setState({ curr: [...Object.values(resolveCurr).slice(0, 1),
+      ...Object.values(resolveCurr).slice(2)] });
+    const { curr } = this.state;
+    dispatchCurrencies(curr);
   }
 
   handleChange(e) {
@@ -24,7 +41,7 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { value, description } = this.state;
+    const { value, description, curr } = this.state;
     return (
       <>
         <header>
@@ -45,7 +62,13 @@ class Wallet extends React.Component {
           <label htmlFor="expenseType">
             Moeda
             <select id="expenseType">
-              <option>BRL</option>
+              {
+                curr.map((currency, index) => (
+                  <option key={ index }>
+                    { currency.code }
+                  </option>
+                ))
+              }
             </select>
           </label>
           <PaymentMethod />
@@ -69,6 +92,10 @@ Wallet.propTypes = {
   email: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({ email: state.user.email });
+const mapStateToProps = (state) => ({ email: state.user.email,
+  curr: state.wallet.currencies });
+const mapDispatchToProps = (dispatch) => ({
+  dispatchCurrencies: (state) => dispatch(currencies(state)),
+});
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
