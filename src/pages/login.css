@@ -1,0 +1,79 @@
+.login-page {
+  background: #0d0d17;
+  height: 100vh;
+  width: 100%;
+}
+
+.header-login {
+  padding: 1em;
+}
+
+.logo-yourwallet {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.container-form-login {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 90vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-login {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 9em;
+  width: 25%;
+}
+
+.login-to-your-account {
+  font-size: 2em;
+  font-weight: 500;
+}
+
+.input-login {
+  background: #2c3838;
+  border: 3px solid #2c3838;
+  border-radius: 0.15em;
+  color: #f2f2f2;
+  font-size: 1em;
+  height: 2.6em;
+  margin: 0.2em 0 1em;
+  outline: none;
+  padding: 0.3em;
+  transition: 0.2s ease-out all;
+  width: 100%;
+}
+
+.input-login:focus {
+  border: 3px solid #e6feee;
+}
+
+.btn-submit {
+  background: #b5fdcd;
+  border: none;
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-weight: 500;
+  height: 2.7em;
+  margin-top: 0.5em;
+  text-transform: uppercase;
+  transition: 0.1s ease-out all;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  background: #83fbab;
+}
+
+.btn-submit:disabled {
+  background: #e6feee;
+}
+
+.btn-submit:disabled:hover {
+  background: #e6feee;
+  cursor: auto;
+}
