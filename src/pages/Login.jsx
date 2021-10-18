@@ -22,10 +22,10 @@ export default function Login(props) {
   const { email, password } = state;
   const dispatch = useDispatch();
 
-  const handleChange = (event) => {
+  function handleChange(event) {
     const { name, value } = event.target;
     setState({ ...state, [name]: value });
-  };
+  }
 
   return (
     <form>

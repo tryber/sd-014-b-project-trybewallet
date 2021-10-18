@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Header(props) {
-  const { children, email } = props;
+  const { form, email } = props;
   return (
     <>
       <header>
@@ -15,12 +15,12 @@ export default function Header(props) {
           <span data-testid="header-currency-field">BRL</span>
         </span>
       </header>
-      {children}
+      {form}
     </>
   );
 }
 
 Header.propTypes = {
-  children: PropTypes.func,
+  form: PropTypes.func,
   email: PropTypes.string,
 }.isRequired;

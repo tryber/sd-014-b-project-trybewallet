@@ -1,50 +1,48 @@
-// Controlar o valor dos inputs por estado
-// ? Faz sentido eles estarem na store ?
 import React from 'react';
+import PropTypes from 'prop-types';
+import Input from './Input';
+import Select from './Select';
 
-export default function Form() {
+export default function Form(props) {
+  const {
+    formState: { amountExpenses, description, currency, paymentMethod, tag },
+    handleChange,
+  } = props;
   return (
     <form>
-      <label htmlFor="value">
-        Valor:
-        <input type="number" name="value" id="value" placeholder="Valor" />
-      </label>
-      <label htmlFor="description">
-        Descrição:
-        <input
-          type="text"
-          name="description"
-          id="description"
-          placeholder="Descrição"
-        />
-      </label>
-      <label htmlFor="currency">
-        Moeda:
-        <select name="currency" id="currency">
-          <option value="">Vazio</option>
-        </select>
-      </label>
-      <label htmlFor="payment-method">
-        Método de pagamento:
-        <select
-          name="payment-method"
-          id="payment-method"
-        >
-          <option value="cash">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
-          <option value="debit-card">Cartão de débito</option>
-        </select>
-      </label>
-      <label htmlFor="tag">
-        Tag:
-        <select name="tag" id="tag">
-          <option value="food">Alimentação</option>
-          <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
-        </select>
-      </label>
+      <Input
+        label="Valor"
+        type="number"
+        id="amountExpenses"
+        value={ amountExpenses }
+        handleChange={ handleChange }
+      />
+      <Input label="Descrição" id="description" value={ description } />
+      <Select
+        label="Moeda"
+        id="currency"
+        options={ ['vazio'] }
+        value={ currency }
+        handleChange={ handleChange }
+      />
+      <Select
+        label="Método de pagamento"
+        id="payment-method"
+        options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+        value={ paymentMethod }
+        handleChange={ handleChange }
+      />
+      <Select
+        label="Tag"
+        id="tag"
+        options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+        value={ tag }
+        handleChange={ handleChange }
+      />
     </form>
   );
 }
+
+Form.propTypes = {
+  formState: PropTypes.objectOf(PropTypes.String),
+}.isRequired;
