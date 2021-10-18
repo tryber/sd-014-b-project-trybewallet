@@ -50,14 +50,14 @@ class DataTable extends Component {
                 <td>{ tag }</td>
                 <td>{ method }</td>
                 <td>{ value }</td>
-                <td>{ currency }</td>
-                <td>{ this.getQuote(exchangeRates, currency) }</td>
+                <td>{this.getCurrencyName(exchangeRates, currency)}</td>
+                <td>{ parseFloat(this.getQuote(exchangeRates, currency)).toFixed(2) }</td>
                 <td>
                   { parseFloat(
                     Math.fround(value * this.getQuote(exchangeRates, currency)),
                   ).toFixed(2)}
                 </td>
-                <td>{this.getCurrencyName(exchangeRates, currency)}</td>
+                <td>Real</td>
                 <td>
                   <section>
                     <button className="btn btn-warning m-1" type="button">
