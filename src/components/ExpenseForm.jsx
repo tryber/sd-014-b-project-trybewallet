@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SelectCurrencyForm from './SelectCurrencyForm';
-import PaymentMethodForm from './PaymentMethodForm';
-import CategoryOfExpenseForm from './CategoryOfExpenseForm';
+
+import SelectCurrencyForm from './componentholders/SelectCurrencyForm';
+import PaymentMethodForm from './componentholders/PaymentMethodForm';
+import CategoryOfExpenseForm from './componentholders/CategoryOfExpenseForm';
+import DescriptionLabel from './componentholders/DescriptionLabel';
+import ValueInputToForms from './componentholders/ValueInputToForms';
+
 import { getExpensesInfo } from '../actions';
-import DescriptionLabel from './DescriptionLabel';
 
 class ExpenseForm extends React.Component {
   constructor() {
@@ -56,16 +59,7 @@ class ExpenseForm extends React.Component {
 
     return (
       <form>
-        <label htmlFor="value-form-label">
-          Valor
-          <input
-            type="text"
-            name="value"
-            id="value-form-label"
-            onChange={ this.handleChange }
-            value={ value }
-          />
-        </label>
+        <ValueInputToForms value={ value } onChange={ this.handleChange } />
         <DescriptionLabel onChange={ this.handleChange } value={ description } />
         <SelectCurrencyForm
           onChange={ this.handleChange }
@@ -87,7 +81,6 @@ class ExpenseForm extends React.Component {
           onClick={ () => this.onClickExpenses() }
         >
           Adicionar despesa
-
         </button>
       </form>
     );

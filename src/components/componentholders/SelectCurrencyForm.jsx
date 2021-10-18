@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies } from '../../actions';
 
 class SelectCurrencyForm extends React.Component {
   componentDidMount() {
