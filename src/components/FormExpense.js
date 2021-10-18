@@ -18,14 +18,15 @@ class FormExpense extends React.Component {
   async requestCoins() {
     // const { coins } = this.state;
     const currentCoins = await getCoins().then((response) => response);
+    const coinsArrayCurrency = Object.values(currentCoins);
+    coinsArrayCurrency.splice(1, 1);
     this.setState({
-      coins: currentCoins,
+      coins: coinsArrayCurrency,
     });
   }
 
   render() {
     const { coins } = this.state;
-    const coinsArrayCurrency = Object.values(coins);
     const methodPayment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const expense = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
@@ -42,7 +43,7 @@ class FormExpense extends React.Component {
           <label htmlFor="input-currency">
             Moeda:
             <select id="input-currency">
-              {coinsArrayCurrency.map((coinsCurrency) => (
+              {coins.map((coinsCurrency) => (
                 <option
                   key={ coinsCurrency.ask }
                   value={ coinsCurrency.code }
