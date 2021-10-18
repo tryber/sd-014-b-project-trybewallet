@@ -1,9 +1,8 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-
   render () {
     const { email } = this.props;
     return (
@@ -14,7 +13,7 @@ class Header extends React.Component {
       </header>
     )
   }
-}
+};
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
