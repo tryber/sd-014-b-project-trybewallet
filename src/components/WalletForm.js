@@ -82,7 +82,7 @@ class WalletForm extends Component {
           <label htmlFor="currency-input">
             Moeda
             <select name="currency-input" id="currency-input">
-              { isFetching ? 'loading...' : currenciesFromGlobalState.map(
+              { isFetching ? <option>loading...</option> : currenciesFromGlobalState.map(
                 (currency, index) => <option key={ index }>{ currency }</option>,
               ) }
             </select>
