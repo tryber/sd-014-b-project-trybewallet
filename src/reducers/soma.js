@@ -6,12 +6,11 @@ const INITIAL_STATE = {
 const soma = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'VALOR_CONVERTIDO':
+    console.log(action.value);
     return { ...state,
-      valorConvertido: action.value + state.valorConvertido };
-  case 'REMOVE_VALOR_CONVERTIDO':
-    return { ...state,
-      valorConvertido: state.valorConvertido - action.value };
-
+      valorConvertido: action.value
+        .map(({ exchangeRates, currency, value }) => exchangeRates[currency]
+          .ask * value) };
   default:
     return state;
   }

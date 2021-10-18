@@ -41,23 +41,20 @@ class Inputs extends React.Component {
   handleSubmit() {
     const { despesas } = this.props;
     this.setState({ expenses: despesas }, async () => {
-      const { despesa, valorConvertido } = this.props;
+      const { despesaDispatch, valorConvertido } = this.props;
       const { value,
         description, currency, method, tag, expenses } = this.state;
-      const newId = expenses.length;
       const exchange = await this.getCurrencyApi();
-      const valueCurrency = exchange[currency].ask;
-      const getValueConvert = valueCurrency * value;
       const newCurrencies = [...expenses,
-        { id: newId,
+        { id: expenses.length,
           value,
           description,
           currency,
           method,
           tag,
           exchangeRates: exchange }];
-      despesa(newCurrencies);
-      valorConvertido(getValueConvert);
+      despesaDispatch(newCurrencies);
+      valorConvertido(newCurrencies);
       this.setState({ expenses: newCurrencies });
     });
   }
@@ -113,7 +110,7 @@ class Inputs extends React.Component {
 }
 
 Inputs.propTypes = {
-  despesa: PropTypes.func.isRequired,
+  despesaDispatch: PropTypes.func.isRequired,
   valorConvertido: PropTypes.func.isRequired,
   despesas: PropTypes.objectOf.isRequired,
 };
@@ -123,7 +120,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  despesa: (e) => dispatch(inputDespesa(e)),
+  despesaDispatch: (e) => dispatch(inputDespesa(e)),
   valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
 });
 

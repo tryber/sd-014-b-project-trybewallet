@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { inputDespesa, valorConvertidoDespesa, removeValor } from '../actions/index';
+import { inputDespesa, valorConvertidoDespesa } from '../actions/index';
 
 class TabelaNova extends React.Component {
   constructor(props) {
@@ -9,13 +9,14 @@ class TabelaNova extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(id, valor) {
-    const { despesa, despesas, removeValorLista } = this.props;
-    const newDespesas = despesas.filter((elemento) => elemento !== id);
-    removeValorLista(valor);
-    despesa(newDespesas);
+  handleClick(obj) {
+    const { despesaDispatch, despesas, valorConvertido } = this.props;
+    const newDespesas = despesas.filter((elemento) => elemento !== obj);
+    valorConvertido(newDespesas);
+    despesaDispatch(newDespesas);
   }
 
+  // Tabela retirada do site https://edrodrigues.com.br/blog/criando-tabelas-com-filtros-%E2%80%8B%E2%80%8Busando-react/
   renderTabela(array) {
     return (
       <table>
@@ -52,8 +53,7 @@ class TabelaNova extends React.Component {
                     type="button"
                     data-testid="delete-btn"
                     onClick={ () => this
-                      .handleClick(despesa, Number(exchangeRates[currency]
-                        .ask * despesa.value).toFixed(2)) }
+                      .handleClick(despesa) }
                   >
                     Excluir
                   </button>
@@ -79,8 +79,8 @@ class TabelaNova extends React.Component {
 
 TabelaNova.propTypes = {
   despesas: PropTypes.string.isRequired,
-  despesa: PropTypes.func.isRequired,
-  removeValorLista: PropTypes.func.isRequired,
+  despesaDispatch: PropTypes.func.isRequired,
+  valorConvertido: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -89,9 +89,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  despesa: (e) => dispatch(inputDespesa(e)),
+  despesaDispatch: (e) => dispatch(inputDespesa(e)),
   valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
-  removeValorLista: (e) => dispatch(removeValor(e)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabelaNova);

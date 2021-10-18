@@ -10,7 +10,8 @@ class Header extends React.Component {
       <header>
         <h1 data-testid="email-field">{ email }</h1>
         <h3 data-testid="total-field">
-          { !soma ? 'R$ 0.00' : +soma.toFixed(2) }
+          { !soma ? 'R$ 0.00'
+            : Number(soma.reduce((acc, cur) => acc + cur, 0)).toFixed(2) }
         </h3>
         <h3 data-testid="header-currency-field">BRL</h3>
       </header>
