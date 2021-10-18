@@ -18,6 +18,13 @@ class WalletForm extends Component {
     this.labelOptions = this.handleChange.bind(this);
   }
 
+  async componentDidMount() {
+    const endpoint = 'https://economia.awesomeapi.com.br/json/all';
+    const fetchUrl = await fetch(endpoint);
+    const jsonParsing = await fetchUrl.json();
+    console.log(jsonParsing);
+  }
+
   handleChange(event) {
     const { value, name } = event.target;
 
