@@ -5,7 +5,7 @@ const INICIAL_STATE = {
   },
 };
 
-function walletReducer(state = INICIAL_STATE, action) {
+const wallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case 'SET_WALLET':
     return {
@@ -16,6 +16,6 @@ function walletReducer(state = INICIAL_STATE, action) {
   default:
     return state;
   }
-}
+};
 
-export default walletReducer;
+export default wallet;
