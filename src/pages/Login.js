@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from '../components/input';
+import { setEmailValue } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -22,7 +24,8 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    const { history } = this.props;
+    const { history, dispatchSetValues } = this.props;
+    dispatchSetValues(this.state);
     history.push('/carteira');
   }
 
@@ -38,37 +41,52 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <form className="Login-form">
-        <Input
-          className="Input-login"
-          type="email"
-          name="email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ this.handleChange }
-          placeholder="Email"
-        />
-        <Input
-          className="Input-password"
-          type="password"
-          name="password"
-          data-testid="password-input"
-          placeholder="Senha"
-          value={ password }
-          onChange={ this.handleChange }
-          autoComplete="on"
-        />
-        <button
-          type="button"
-          className="Enter-button"
-          onClick={ () => this.handleSubmit() }
-          disabled={ this.handleDisabled() }
-        >
-          Entrar
-        </button>
-      </form>
+      <fieldset>
+        <form className="Login-form">
+          <Input
+            className="Input-login"
+            type="email"
+            name="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+            placeholder="Email"
+          />
+          <Input
+            className="Input-password"
+            type="password"
+            name="password"
+            data-testid="password-input"
+            placeholder="Senha"
+            value={ password }
+            onChange={ this.handleChange }
+            autoComplete="on"
+          />
+          <button
+            type="button"
+            className="Enter-button"
+            onClick={ this.handleSubmit }
+            disabled={ this.handleDisabled() }
+          >
+            Entrar
+          </button>
+        </form>
+      </fieldset>
     );
   }
 }
 
-export default Login;
+// const mapDispatchToProps = (dispatch) => ({
+//   dispatchValue: (state) => dispatch(setEmailValue(state)) });
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValues: (emailValue) => dispatch(setEmailValue(emailValue)) });
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  dispatchSetValues: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
