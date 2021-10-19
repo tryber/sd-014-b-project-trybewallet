@@ -1,4 +1,4 @@
-import { SET_COINS } from '../actions';
+import { SET_COINS, SET_OBJECT_COINS } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,6 +11,17 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.coins,
+    };
+  case SET_OBJECT_COINS:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          ...action.expense,
+          exchangeRates: action.objectCoins,
+        },
+      ],
     };
   default:
     return state;
