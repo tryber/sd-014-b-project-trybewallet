@@ -1,4 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
+import { SET_EMAIL } from '../actions';
 
 const INICIAL_STATE = {
   user: {
@@ -12,9 +13,10 @@ const INICIAL_STATE = {
 
 const userReducer = (state = INICIAL_STATE, action) => {
   switch (action.type) {
-  case 'genericAction':
+  case SET_EMAIL:
     return {
       ...state,
+      user: { email: action.payload },
     };
   default:
     return state;
