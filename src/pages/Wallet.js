@@ -1,8 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { resultApi } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { armazeApiEstadoGlobal } = this.props;
+    armazeApiEstadoGlobal();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
       <div>
         <Header />
@@ -18,7 +27,11 @@ class Wallet extends React.Component {
           <label htmlFor="expense-currency">
             Moeda
             <select id="expense-currency">
-              <option value="">BRL</option>
+              {
+                currencies.map((currency) => (
+                  currency !== 'USDT'
+                    ? <option key={ currency }>{currency}</option> : ''))
+              }
             </select>
           </label>
           <label htmlFor="payment">
@@ -45,4 +58,21 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  currencies: PropTypes.func.isRequired,
+  armazeApiEstadoGlobal: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    currencies: state.wallet.currencies,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    armazeApiEstadoGlobal: () => dispatch(resultApi()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

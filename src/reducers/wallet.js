@@ -5,8 +5,15 @@ const INITIAL_STATE = {
 };
 
 function wallet(state = INITIAL_STATE, action) {
-  console.log(action);
-  return state;
+  switch (action.type) {
+  case 'RESULTADO_API':
+    return {
+      ...state,
+      currencies: Object.keys(action.payload),
+    };
+  default:
+    return state;
+  }
 }
 
 export default wallet;
