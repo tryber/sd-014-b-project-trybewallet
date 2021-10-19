@@ -7,6 +7,6 @@ export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 // actions assincronas
 export const FETCH_CURRENCY = 'FETCH_CURRENCY';
 
-const setEmailGlobal = (email) => ({ type: SET_EMAIL, email });
+export const setEmailGlobal = (email) => ({ type: SET_EMAIL, email });
 
 export default setEmailGlobal;

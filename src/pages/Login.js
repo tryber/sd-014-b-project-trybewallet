@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import userActionCreator from '../actions/index';
+import * as ActionsCreators from '../actions/index';
 
 // func retirada do slack, colaboracao do amigo michael turma 14b
 function isEmailValid(email) {
@@ -28,6 +28,7 @@ function Login({ setEmailGlobal }) {
     <>
       <input
         type="email"
+        data-testid="email-input"
         placeholder="E-mail"
         onChange={ (event) => {
           setEmail(event.target.value);
@@ -35,7 +36,7 @@ function Login({ setEmailGlobal }) {
       />
       <input
         type="password"
-        id="passwordInput"
+        data-testid="password-input"
         placeholder="password"
         onChange={ (event) => {
           setPassword(event.target.value);
@@ -56,10 +57,7 @@ function Login({ setEmailGlobal }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  const userActionCreatorObject = { userActionCreator };
-  return bindActionCreators(userActionCreatorObject, dispatch);
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators(ActionsCreators, dispatch);
 
 Login.propTypes = {
   setEmailGlobal: PropTypes.func.isRequired,
