@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as loginActions from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.formValidation = this.formValidation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,9 +21,16 @@ class Login extends React.Component {
     });
   }
 
+  handleSubmit() {
+    const { history, loginUser } = this.props;
+    const { email } = this.state;
+    loginUser(email);
+    history.push('/carteira');
+  }
+
   formValidation() {
     const { email, password } = this.state;
-    const emailValidation = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailValidation = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/; // crédito: Thomas Ferreira;
     const emailTest = emailValidation.test(email);
     const MIN_LENGTH = 6;
     const passwordTest = password.length >= MIN_LENGTH;
@@ -29,7 +39,6 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { history } = this.props;
     return (
       <form>
         <label htmlFor="email">
@@ -55,7 +64,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !this.formValidation() }
-          onClick={ () => (history.push('/carteira')) } // fazer handleSubmit
+          onClick={ this.handleSubmit }
         >
           Entrar
         </button>
@@ -66,8 +75,15 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
-/* mapDispatchToProps () */
+/* mapStateToProps() {} */
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    loginUser: (email) => dispatch(loginActions.login(email)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);

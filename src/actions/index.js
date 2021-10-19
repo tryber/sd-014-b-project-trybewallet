@@ -2,8 +2,23 @@ const LOGIN = 'LOGIN';
 const ADD_EXPENSE = 'ADD_EXPENSE';
 const ADD_CURRENCY = 'ADD_CURRENCY';
 
-export const login = (email) => ({ type: LOGIN, email });
+export function login(email) {
+  return {
+    type: LOGIN,
+    email,
+  };
+}
 
-export const addExpense = (expense) => ({ type: ADD_EXPENSE, expense });
+export function addExpense(expense) {
+  return {
+    type: ADD_EXPENSE,
+    expense,
+  };
+}
 
-export const addCurency = (currency) => ({ type: ADD_CURRENCY, currency });
+export function addCurency(currency) {
+  return {
+    type: ADD_CURRENCY,
+    currency,
+  };
+}
