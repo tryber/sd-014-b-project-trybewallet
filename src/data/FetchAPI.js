@@ -1,9 +1,9 @@
-const endPoint = 'https://economia.awesomeapi.com.br/json/all';
+const URL_API = 'https://economia.awesomeapi.com.br/json/all';
 
-const lala = async () => {
-  const response = await fetch(endPoint);
+const getDataCurrencies = async () => {
+  const response = await fetch(URL_API);
   const currencies = await response.json();
   return currencies;
 };
 
-export default lala;
+export default getDataCurrencies;

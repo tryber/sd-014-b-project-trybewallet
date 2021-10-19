@@ -3,7 +3,7 @@
 // No momento em que tem mais de 1, esse arquivo
 // passa a ser um objeto e precisa desconstrui-lo pra importar o que tu precisa.
 // so existe um export default por aquivo
-import getCurrenciesData from '../../data/FetchAPI';
+import getDataCurrencies from '../../data/FetchAPI';
 
 export const SET_EMAIL_VALUE = 'SET_EMAIL_VALUE';
 
@@ -13,30 +13,21 @@ export const setEmailValue = (payload) => (
   }
 );
 
-// Wallet actions
-export const GET_CURRENCIES_DATA_SUCCESS = 'GET_CURRENCIES_DATA_SUCCESS';
-
-export const getCurrenciesSuccess = (currencies) => ({
-  type: GET_CURRENCIES_DATA_SUCCESS,
+export const GET_CURRENCIES_DATA = 'GET_CURRENCIES_DATA';
+export const getCurrencyData = (currencies) => ({
+  type: GET_CURRENCIES_DATA,
   currencies,
 });
 
-// currencies é o 'payload', ou seja, o objeto de retorno da action
-// é o estado que vamos trabalhar com as moedas
-
-export const GET_CURRENCIES_DATA_ERROR = 'GET_CURRENCIES_DATA_ERROR';
-
-export const getCurrenciesDataError = (payload) => ({
-  type: GET_CURRENCIES_DATA_ERROR,
-  payload,
-});
-
-export const getCurrenciesDataThunk = () => async (dispatch) => {
-  try {
-    const response = await getCurrenciesData(); // funçao de request API
-    const payload = response.currencies;
-    dispatch(getCurrenciesSuccess(payload));
-  } catch (error) {
-    dispatch(getCurrenciesDataError(error));
-  }
+export const getCurrenciesDataThunk = () => (dispatch) => {
+  getDataCurrencies()
+    .then((currencies) => {
+      dispatch(getCurrencyData(currencies));
+    });
 };
+
+export const SET_EXPENSES = 'SET_EXPENSES';
+export const setDataExpenses = (expenses) => ({
+  type: SET_EXPENSES,
+  expenses,
+});

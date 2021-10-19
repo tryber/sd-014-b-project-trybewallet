@@ -1,11 +1,13 @@
-import React from 'react';
-import { getCurrenciesDataThunk } from '../redux/actions';
-import Input from '../interactionComponents/input';
-import TextArea from '../interactionComponents/textArea';
-import SelectLabel from '../interactionComponents/select';
-import { paymentMethodData, tagData } from '../data/ExpensesFormData';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { pagamento, tags } from '../data/ExpensesFormData';
+import { getCurrenciesDataThunk, setDataExpenses } from '../redux/actions';
+import Select from '../interactionComponents/Select';
+import AddExpenseButton from '../interactionComponents/AddExpenseButton';
+import Input from '../interactionComponents/Input';
 
-class ExpensesForm extends React.Component {
+class Form extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,24 +19,24 @@ class ExpensesForm extends React.Component {
       tag: '',
       exchangeRates: [],
     };
-    this.handleChangeInputs = this.handleChangeInputs.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChangeInputs({ target }) {
+  handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
   async handleClick() {
-    const { id } = this.state; // O id da despesa
-    const { currenciesData, getCurrencies } = this.props; // define as props que serao puxadas
-    // em mapDispatachToProps
-    await currenciesData();
+    const { id } = this.state;
+    const { dataCurrencies, setExpenses, getCurrencies } = this.props;
+    await dataCurrencies();
     this.setState({ exchangeRates: getCurrencies });
-    const nextId = id + 1;
+    setExpenses(this.state);
+    const updateId = id + 1;
     this.setState({
-      id: nextId,
+      id: updateId,
       value: '',
       description: '',
       currency: '',
@@ -44,68 +46,71 @@ class ExpensesForm extends React.Component {
     });
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
-  }
-
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { getCurrencies } = this.props;
     return (
-      <form>
+      <form className="m-2">
         <Input
+          label="Valor"
           type="number"
-          name="Valor"
-          data-testid="email-input"
+          name="value"
           value={ value }
           onChange={ this.handleChange }
         />
-        <TextArea
+        <Input
+          label="Descrição"
+          name="description"
           value={ description }
-          name="Descrição"
           onChange={ this.handleChange }
         />
-        <label className="form" htmlFor="currency">
+        <label className="form-label m-1" htmlFor="currency">
           Moeda
           <select
             id="currency"
             name="currency"
             value={ currency }
-            onChange={ this.handleChangeInputs }
-            className="form-control"
+            onChange={ this.handleChange }
           >
-            {Object.values(getCurrencies).filter(({ codein }) => codein !== 'BRLT') // getCurrencies vai receber o estado de currencies
-              .map(({ code }, index) => ( // code e codein esta no retorno da api
-                <option key={ index } value={ code }>{code}</option>// !=='BRLT' exlcui informação da api
+            {Object.values(getCurrencies).filter(({ codein }) => codein !== 'BRLT')
+              .map(({ code }, index) => (
+                <option key={ index } value={ code }>{code}</option>
               ))}
           </select>
         </label>
-        <SelectLabel
-          id="method"
+        <Select
+          label="Método de pagamento"
+          name="method"
           value={ method }
-          name="Método de pagamento"
-          callbackFunc={ this.handleChange }
-          data={ paymentMethodData }
+          handleChange={ this.handleChange }
+          dataArray={ pagamento }
         />
-        <SelectLabel
-          id="tag"
-          value={ tag }
+        <Select
+          label="Tag"
           name="tag"
-          callbackFunc={ this.handleChange }
-          data={ tagData }
+          value={ tag }
+          handleChange={ this.handleChange }
+          dataArray={ tags }
         />
+        <AddExpenseButton click={ this.handleClick } />
       </form>
     );
   }
 }
 
+Form.propTypes = {
+  dataCurrencies: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
+  setExpenses: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  getCurrencies: state.wallet.currencies, // wallet é o reducer;
+  getCurrencies: state.wallet.currencies,
 });
 
-const mapDispatachToProps = (dispatch) => ({
-  currenciesData: () => dispatch(getCurrenciesDataThunk()),
+const mapDispatchToProps = (dispatch) => ({
+  dataCurrencies: () => dispatch(getCurrenciesDataThunk()),
+  setExpenses: (state) => dispatch(setDataExpenses(state)),
 });
 
-export default connect(mapStateToProps, mapDispatachToProps)(ExpensesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
