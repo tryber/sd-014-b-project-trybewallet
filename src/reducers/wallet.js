@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   error: '',
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_CURRENCIES:
     return {
@@ -20,16 +20,9 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     };
   case ADD_EXPENSE:
     return {
-      ...state.wallet,
-      expenses: [{
-        id: 0,
-        value: action.payload.value,
-        description: action.payload.description,
-        currency: action.payload.currency,
-        method: action.payload.method,
-        tag: action.payload.tag,
-        exchangeRates: {},
-      }],
+      ...state,
+      // expenses: [...state.expenses, ...action.payload],
+      expenses: action.payload,
     };
   case FAILED_REQUEST:
     return { ...state, error: action.payload };
@@ -38,24 +31,14 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-// export const addExpenseReducer = (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
-//   case ADD_EXPENSE:
-//     return {
-//       ...state,
-//       wallet: {
-//         expenses: [...expenses, {
-//           value: action.payload.value,
-//           description: action.payload.description,
-//           currency: action.payload.currencies,
-//           payMethod: action.payload.payMethod,
-//           tag: action.payload.tag,
-//         }],
-//       },
-//     };
-//   default:
-//     return state;
-//   }
-// };
+export default wallet;
 
-export default walletReducer;
+// [{
+//   id: 0,
+//   value: action.payload.value,
+//   description: action.payload.description,
+//   currency: action.payload.currency,
+//   method: action.payload.method,
+//   tag: action.payload.tag,
+//   exchangeRates: {},
+// }],

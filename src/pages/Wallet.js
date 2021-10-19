@@ -26,8 +26,6 @@ class Wallet extends React.Component {
   }
 
   async componentDidMount() {
-    // const { fetchCurrenciesData } = this.props;
-    // await fetchCurrenciesData();
     await this.setCurrenciesToLocalState();
   }
 
@@ -48,7 +46,7 @@ class Wallet extends React.Component {
 
   async addExpenseClick() {
     const { addExpenseToWallet } = this.props;
-    await addExpenseToWallet(this.state);
+    console.log(await addExpenseToWallet(this.state));
     this.setState({
       value: 0.00,
       currency: 'USD',
@@ -59,7 +57,6 @@ class Wallet extends React.Component {
   }
 
   renderExpensesForm1() {
-    // const { currenciesData } = this.props;
     const { value, description, currency, currData } = this.state;
     return (
       <div>
@@ -138,7 +135,6 @@ class Wallet extends React.Component {
   }
 
   render() {
-    // const { total, currency } = this.state;
     const { userEmail } = this.props;
     return (
       <main>
@@ -174,8 +170,7 @@ Wallet.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  userEmail: state.loginEmailReducer.user.email,
-  // currenciesData: state.walletReducer.wallet.currencies,
+  userEmail: state.user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
