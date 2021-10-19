@@ -1,7 +1,29 @@
 import React from 'react';
+import fetchCurrencies from '../services/api';
 
 class WalletForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currencyList: [],
+    };
+
+    this.addCurrency = this.addCurrency.bind(this);
+  }
+
+  async componentDidMount() {
+    const currencyList = await fetchCurrencies();
+    delete currencyList.USDT;
+    this.addCurrency(Object.keys(currencyList));
+  }
+
+  addCurrency(currencyList) {
+    this.setState({ currencyList });
+  }
+
   render() {
+    const { currencyList } = this.state;
     return (
       <form>
         <label htmlFor="value-input">
@@ -15,7 +37,7 @@ class WalletForm extends React.Component {
         <label htmlFor="currency-select">
           Moeda:
           <select id="currency-select" name="coin">
-            <option value="empty">Vazio</option>
+            { currencyList.map((currency, index) => <option key={ index }>{ currency }</option>) }
           </select>
         </label>
         <label htmlFor="payment-select">
