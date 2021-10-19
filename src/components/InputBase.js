@@ -3,11 +3,11 @@ import { PropTypes } from 'prop-types';
 
 class InputBase extends Component {
   render() {
-    const { name, type, value, onChange } = this.props;
+    const { name, type, value, onChange, label } = this.props;
     return (
       <div>
         <label htmlFor={ `input-${name}` }>
-          { `${name}:` }
+          { label }
           <input
             name={ name }
             type={ type }

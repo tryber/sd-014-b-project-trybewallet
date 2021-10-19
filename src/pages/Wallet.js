@@ -1,14 +1,24 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { savingWallet } from '../actions';
 import Header from '../components/Header';
 import InputBase from '../components/InputBase';
 import getAPI from '../services/currencyAPI';
 import SelectBase from '../components/SelectBase';
+import { tagDefault, methodDefault } from '../data';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      currency: [],
+      data: [],
+      id: 0,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
     };
   }
 
@@ -22,7 +32,7 @@ class Wallet extends React.Component {
     const USDT = resultAPI.indexOf('USDT');
     resultAPI.splice(USDT, 1);
     this.setState({
-      currency: resultAPI,
+      data: resultAPI,
     });
   }
 
@@ -30,46 +40,85 @@ class Wallet extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleClick = async () => {
+    const { walletSaved } = this.props;
+    const { id, value, currency, method, tag, description } = this.state;
+    const api = await getAPI();
+    walletSaved({
+      id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates: api,
+    });
+    this.setState((prev) => ({
+      id: prev.id + 1,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: tagDefault[0],
+      description: '',
+    }));
+  }
+
   render() {
-    const { currency } = this.state;
+    const { data, value, description, method, tag, currency } = this.state;
     return (
       <div>
         <Header />
-        TrybeWallet
         <form>
           <InputBase
             onChange={ this.handleChange }
-            name="Valor"
+            name="value"
             type="number"
+            label="Valor:"
+            value={ value }
           />
-          <InputBase name="Descrição" type="text" />
           <SelectBase
-            newId="moeda"
-            label="Moeda"
-            name="moeda"
-            dataAPI={ currency }
+            onChange={ this.handleChange }
+            idLabel="currency"
+            label="Moeda:"
+            name="currency"
+            mapIteration={ data }
+            value={ currency }
           />
-          <label htmlFor="payment">
-            Método de pagamento
-            <select id="payment">
-              <option value="dinheiro">Dinheiro</option>
-              <option value="credito">Cartão de crédito</option>
-              <option value="debito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
-            </select>
-          </label>
+          <SelectBase
+            onChange={ this.handleChange }
+            idLabel="method"
+            label="Método de pagamento:"
+            name="method"
+            mapIteration={ methodDefault }
+            value={ method }
+          />
+          <SelectBase
+            onChange={ this.handleChange }
+            idLabel="tag"
+            label="Tag:"
+            name="tag"
+            mapIteration={ tagDefault }
+            value={ tag }
+          />
+          <InputBase
+            onChange={ this.handleChange }
+            name="description"
+            type="text"
+            label="Descrição:"
+            value={ description }
+          />
+          <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
       </div>);
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  walletSaved: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  walletSaved: (value) => dispatch(savingWallet(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Wallet);

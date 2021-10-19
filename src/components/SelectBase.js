@@ -3,17 +3,17 @@ import { PropTypes } from 'prop-types';
 
 class SelectBase extends Component {
   render() {
-    const { dataAPI, newId, name, handleChange, value, label } = this.props;
+    const { mapIteration, idLabel, name, onChange, value, label } = this.props;
     return (
-      <label htmlFor={ newId }>
+      <label htmlFor={ idLabel }>
         { label }
         <select
-          id={ newId }
+          id={ idLabel }
           name={ name }
-          onChange={ handleChange }
+          onChange={ onChange }
           value={ value }
         >
-          { dataAPI.map((element) => (
+          { mapIteration.map((element) => (
             <option
               key={ element }
               value={ element }
@@ -27,11 +27,11 @@ class SelectBase extends Component {
 }
 
 SelectBase.propTypes = {
-  dataAPI: PropTypes.array,
+  mapIteration: PropTypes.array,
   NewId: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 }.isRequired;
 
 export default SelectBase;

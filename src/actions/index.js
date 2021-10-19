@@ -1,6 +1,12 @@
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
-export const savingEmail = (value) => ({
+export const savingEmail = (payload) => ({
   type: SAVE_EMAIL,
-  value,
+  payload,
+});
+
+export const SAVE_WALLET = 'SAVE_WALLET';
+export const savingWallet = (payload) => ({
+  type: SAVE_WALLET,
+  payload,
 });
