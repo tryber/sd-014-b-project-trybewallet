@@ -9,6 +9,7 @@ function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SAVE_LOGIN_INFO:
     return {
+      ...state,
       email: action.state,
     };
   default:

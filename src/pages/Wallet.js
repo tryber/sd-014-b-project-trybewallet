@@ -4,21 +4,23 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
-import { currenciesAction } from '../actions';
+import { currenciesAction, expensesAction } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      expensesValues: {
-        value: '',
-        description: '',
-        currencies: '',
-        payment: '',
-        tag: '',
-      },
+      id: [],
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: [],
     };
     this.fetchApi = this.fetchApi.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -26,71 +28,103 @@ class Wallet extends React.Component {
   }
 
   async fetchApi() {
-    const { dispatchToGlobal } = this.props;
+    const { dispatchCurrienciesToGlobal } = this.props;
     try {
       const urlPatch = 'https://economia.awesomeapi.com.br/json/all';
       const fetchApi = await fetch(urlPatch);
       const returnApi = await fetchApi.json();
       const currencies = Object.keys(returnApi).filter((code) => code !== 'USDT');
-      dispatchToGlobal(currencies);
+      dispatchCurrienciesToGlobal(currencies);
+      this.setState({
+        exchangeRates: returnApi,
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
+  handleChange({ target }) {
+    const { id, value } = target;
+    this.setState({
+      [id]: value,
+    });
+  }
+
+  handleClick() {
+    this.fetchApi();
+    const { dispatchExpensesToGlobal, expenses } = this.props;
+    dispatchExpensesToGlobal({
+      ...this.state,
+      id: expenses.length,
+    });
+  }
+
   render() {
     const { currenciesInfo } = this.props;
-    const { expensesValues: {
-      value,
-      description,
-      currencies,
-      payment,
-      tag,
-    } } = this.state;
-    const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const { value, description, currency, method, tag } = this.state;
+    const methodMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <>
         <Header />
         <form>
-          <InputComponent value={ value } label="Valor" id="value" />
-          <InputComponent value={ description } label="Descrição" id="description" />
+          <InputComponent
+            value={ value }
+            onChange={ this.handleChange }
+            label="Valor"
+            id="value"
+          />
+          <InputComponent
+            value={ description }
+            onChange={ this.handleChange }
+            label="Descrição"
+            id="description"
+          />
           <SelectComponent
-            value={ currencies }
+            value={ currency }
+            onChange={ this.handleChange }
             label="Moeda"
-            id="moeda"
+            id="currency"
             options={ currenciesInfo }
           />
           <SelectComponent
-            value={ payment }
+            value={ method }
+            onChange={ this.handleChange }
             label="Método de pagamento"
-            id="pagamento"
-            options={ paymentMethods }
+            id="method"
+            options={ methodMethods }
           />
           <SelectComponent
             value={ tag }
+            onChange={ this.handleChange }
             label="Tag"
             id="tag"
             options={ tags }
           />
         </form>
-        <button type="button">Adicionar despesa</button>
+        <button onClick={ this.handleClick } type="button">
+          Adicionar despesa
+        </button>
       </>
     );
   }
 }
 
 Wallet.propTypes = {
-  dispatchToGlobal: PropTypes.func.isRequired,
+  dispatchCurrienciesToGlobal: PropTypes.func.isRequired,
   currenciesInfo: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dispatchExpensesToGlobal: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currenciesInfo: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchToGlobal: (currencies) => dispatch(currenciesAction(currencies)),
+  dispatchCurrienciesToGlobal: (currencies) => dispatch(currenciesAction(currencies)),
+  dispatchExpensesToGlobal: (expense) => dispatch(expensesAction(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
