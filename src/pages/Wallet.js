@@ -20,4 +20,8 @@ class Wallet extends React.Component {
 
 const mapStateToProps = ({ user: { email } }) => ({ email });
 
+Wallet.propTypes = {
+  email: PropTypes.string.isRequired,
+};
+
 export default connect(mapStateToProps, null)(Wallet);
