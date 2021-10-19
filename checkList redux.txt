@@ -132,4 +132,109 @@ npm install redux-thunk
 
 	export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
+# extra(redux assincrono)
+*configurar thunk na store:*
+- [x] import thunk from 'redux-thunk';
+- [x] adicionar o "applyMiddleware" no import do redux
+	import { createStore, applyMiddleware } from 'redux';
 
+- [x] adicionar o applyMiddleware(thunk) no create store
+	const store = createStore(
+		rootReducer,
+		composeWithDevTools(
+			applyMiddleware(thunk)
+		)
+	);
+
+- [x] configurar o reducer
+
+import {
+  GET_API_DATA,
+  FAILED_REQUEST,
+} from '../actions/walletAction';
+
+const initialState = {
+  currencies: [],
+  expenses: [],
+  error: '',
+  loading: true,
+};
+
+function walletReducer(state = initialState, action) {
+  switch (action.type) {
+  case GET_API_DATA:
+    return {
+      ...state,
+      currencies: action.payload,
+      loading: false,
+    };
+  case FAILED_REQUEST:
+    return {
+      ...state,
+      wallet: action.error,
+      loading: true,
+    };
+  default:
+    return state;
+  }
+}
+
+export default walletReducer;
+
+
+- [x] configurar a action
+
+export const GET_API_DATA = 'GET_API_DATA';
+export const FAILED_REQUEST = 'FAILED_REQUEST';
+
+// actions creators
+export function getCoin(data) {
+  return {
+    type: GET_API_DATA,
+    payload: data,
+  };
+}
+
+export function faildedRequest(error) {
+  return {
+    type: FAILED_REQUEST,
+    payload: error,
+  };
+}
+
+export function fetchDataAction() {
+  const URL = 'https://economia.awesomeapi.com.br/json/all';
+  return async (dispatch) => {
+    try {
+      const response = await fetch(URL);
+      const data = await response.json();
+      return dispatch(getCoin(data));
+    } catch (error) {
+      dispatch(faildedRequest(error));
+    }
+  };
+}
+
+- [x] configurar o mapDispatchToProps (dispara ação que altera o global state)
+// dentro da classe colocar o:
+  componentDidMount() {
+    const { dispatchFetchedData } = this.props;
+    dispatchFetchedData();
+  }
+
+// const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchedData: () => dispatch(fetchDataAction()),
+});
+
+// configurar o connect
+import { connect } from 'react-redux';
+	...código...
+export default connect(null, mapDispatchToProps)(Wallet);
+
+- [x] configurar o mapStateToProps (dispara ação recebe o global state)
+
+const mapStateToProps = (state) => ({
+  currencies: state.walletReducer.currencies,
+});
+
+export default connect(mapStateToProps)(WalletForm);

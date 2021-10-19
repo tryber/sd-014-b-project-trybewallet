@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class WalletForm extends React.Component {
   constructor() {
@@ -50,12 +52,20 @@ class WalletForm extends React.Component {
   }
 
   formAddMoeda() {
+    let { currencies } = this.props;
+
+    if (currencies === undefined) {
+      currencies = { noCodeReturned: 'não retornou dados da API' };
+    }
+
+    const codes = Object.keys(currencies)
+      .filter((currencyCode) => currencyCode !== 'USDT');
+
     return (
       <label htmlFor="moeda">
         Moeda:
-        <select id="moeda">
-          <option value="" data-testid="select-option">vazio</option>
-          <option value="action" data-testid="select-option">outro vazio</option>
+        <select id="moeda" value="currency" onChange={ this.handleChange }>
+          { codes.map((code) => <option key={ code } value={ code }>{ code }</option>) }
         </select>
       </label>
     );
@@ -102,4 +112,14 @@ class WalletForm extends React.Component {
   }
 }
 
-export default WalletForm;
+WalletForm.propTypes = {
+  currencies: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.string),
+  ).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.walletReducer.currencies,
+});
+
+export default connect(mapStateToProps)(WalletForm);
