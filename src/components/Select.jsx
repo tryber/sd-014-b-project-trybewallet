@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 class Select extends React.Component {
   render() {
     const { currency, currencies, method, tag, handleChange } = this.props;
@@ -54,7 +55,7 @@ class Select extends React.Component {
 }
 
 Select.propTypes = {
-  currency: PropTypes.string,
+  currency: PropTypes.string.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
