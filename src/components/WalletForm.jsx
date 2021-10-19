@@ -38,9 +38,9 @@ class WalletForm extends React.Component {
           Moeda:
           <select id="currency-select" name="coin">
             { currencyList.map((currency, index) => (
-            <option key={ index }>
-              { currency }
-            </option>
+              <option key={ index }>
+                { currency }
+              </option>
             ))}
           </select>
         </label>
