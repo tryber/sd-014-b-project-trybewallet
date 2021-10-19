@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import AddExpenseForm from '../components/AddExpenseForm';
 import { addExpense as addExpenseAction, thunkCurrencies } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -64,6 +65,7 @@ class Wallet extends React.Component {
           onChange={ this.handleChange }
           addExpense={ this.handleClick }
         />
+        <Table />
       </div>
     );
   }
