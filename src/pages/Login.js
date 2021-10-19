@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Input from '../components/Input';
-import { setLogin } from '../redux/actions';
+import { setLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -26,9 +26,10 @@ class Login extends React.Component {
   }
 
   handleChange({ target }) {
-    const { email } = this.state;
+    const min = 5;
+    const { email, senha } = this.state;
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (re.test(email)) {
+    if (re.test(email) && senha.length >= min) {
       this.setState({ disabled: false });
     } else {
       this.setState({ disabled: true });
@@ -88,10 +89,5 @@ Login.propTypes = {
   dispatchSetValue: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-
-// Login.defaultProps = {
-//   dispatchSetValue: PropTypes.func,
-//   history: PropTypes.object,
-// };
 
 export default withRouter(connect(null, mapDispatchToProps)(Login));
