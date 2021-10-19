@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCoins } from '../actions/index';
 import AddExpense from '../components/AddExpense';
 import Header from '../components/Header';
+import Table from '../components/Table';
 
 export default function Wallet() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function Wallet() {
     <div>
       <Header />
       {isFetching ? <h3>Loading...</h3> : <AddExpense />}
+      <Table />
     </div>
   );
 }

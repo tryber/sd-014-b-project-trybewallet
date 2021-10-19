@@ -18,7 +18,6 @@ export default function AddExpense() {
   const [counter, addCounter] = useState(0);
   const { valor, description, currency, method, tag } = localState;
   const coins = useSelector((state) => state.wallet.currencies);
-  // const exchangeRates = useSelector((state) => state.wallet.rates);
   const dispatch = useDispatch();
 
   const handleChange = ({ target: { id, value } }) => {
