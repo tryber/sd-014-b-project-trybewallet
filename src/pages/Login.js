@@ -27,8 +27,7 @@ class Login extends React.Component {
     const { getEmailToState } = this.props;
     const n = 6;
     const validEmail = /\S+@\S+\.\S+/;
-    const showButton = validEmail.test(email) && password.length >= n
-    && email.split('').includes('@');
+    const showButton = validEmail.test(email) && password.length >= n;
     return (
       <form>
         Login
