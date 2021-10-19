@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SAVE_USER:
-    console.log(action.state);
     return {
       email: action.state.email,
       password: action.state.password,

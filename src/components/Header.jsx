@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import './header.css';
 
 class Header extends Component {
   render() {
-    // const { email } = this.props;
+    const { email } = this.props;
     return (
       <header className="header">
         <img
@@ -14,22 +16,26 @@ class Header extends Component {
         />
         <div className="user-info">
           <p data-testid="email-field">
-            Email:
+            {`Email: ${email}`}
           </p>
           <p data-testid="total-field">
-            Despesa Total:
+            Despesa Total: R$1.123,02
+            <span data-testid="header-currency-field">
+              {' BRL'}
+            </span>
           </p>
-          <span data-testid="header-currency-field">
-            BRL
-          </span>
         </div>
       </header>
     );
   }
 }
 
-// Header.propTypes = {
-//   email: PropTypes.string.isRequired,
-// };
+Header.propTypes = {
+  email: PropTypes.string.isRequired,
+};
 
-export default Header;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStateToProps, null)(Header);

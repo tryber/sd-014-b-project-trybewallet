@@ -21,7 +21,6 @@ class Login extends React.Component {
 
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.isUserValid = this.isUserValid.bind(this);
   }
 
   onSubmitForm() {
