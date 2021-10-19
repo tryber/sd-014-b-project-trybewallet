@@ -1,25 +1,25 @@
 #container {
-  background-color: #181b1f;
-  height: 100vh;
-  display: flex;
-  width: 100vw;
   align-items: center;
+  background-color: #181b1f;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
   justify-content: center;
 }
 
 form {
   background: #0b0e10;
+  border-radius: 8px;
   height: 40vh;
   width: 400px;
-  border-radius: 8px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   padding: 2rem;
 }
 
 h2 {
+  align-items: center;
   color: white;
   display: flex;
-  align-items: center;
   font-size: 2rem;
   justify-content: center;
 }
