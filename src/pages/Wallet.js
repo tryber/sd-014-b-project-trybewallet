@@ -3,24 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import AddExpenseForm from '../components/AddExpenseForm';
-import { thunkCurrencies } from '../actions';
+import { addExpense as addExpenseAction, thunkCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      totalExpense: 0,
-      newExpense: {
-        amount: 0,
+      expenseInfo: {
+        value: '0',
         description: '',
-        currency: '',
-        paymentMethod: '',
-        tag: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
       },
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,43 +31,67 @@ class Wallet extends React.Component {
   handleChange(event) {
     const { name, value } = event.target;
     this.setState((state) => ({
-      newExpense: {
-        ...state.newExpense,
+      expenseInfo: {
+        ...state.expenseInfo,
         [name]: value,
       },
     }));
   }
 
+  handleClick() {
+    const { importedThunk, exchangeRates, expenses, addExpense } = this.props;
+    importedThunk();
+
+    const { expenseInfo } = this.state;
+    const newExpense = {
+      id: expenses.length,
+      ...expenseInfo,
+      exchangeRates,
+    };
+
+    addExpense(newExpense);
+  }
+
   render() {
-    const { email, error } = this.props;
-    const { totalExpense, newExpense } = this.state;
+    const { error } = this.props;
+    const { expenseInfo } = this.state;
     if (error) console.error(error);
     return (
       <div>
-        <Header userEmail={ email } totalExpense={ totalExpense } />
-        <AddExpenseForm newExpense={ newExpense } onChange={ this.handleChange } />
+        <Header />
+        <AddExpenseForm
+          expenseInfo={ expenseInfo }
+          onChange={ this.handleChange }
+          addExpense={ this.handleClick }
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
   error: state.wallet.error,
+  exchangeRates: state.wallet.exchangeRates,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   importedThunk: () => dispatch(thunkCurrencies()),
+  addExpense: (newExpense) => dispatch(addExpenseAction(newExpense)),
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-  importedThunk: PropTypes.func.isRequired,
   error: PropTypes.string,
+  importedThunk: PropTypes.func.isRequired,
+  exchangeRates: PropTypes.objectOf(PropTypes.object),
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  addExpense: PropTypes.func.isRequired,
 };
 
 Wallet.defaultProps = {
   error: '',
+  exchangeRates: {},
+  expenses: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

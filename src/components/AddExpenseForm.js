@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
+import Button from './Button';
 
 class AddExpenseForm extends Component {
   render() {
-    const { newExpense, onChange, currencies } = this.props;
-    const { amount, description, currency, paymentMethod, tag } = newExpense;
+    const { expenseInfo, onChange, addExpense, currencies } = this.props;
+    const { value, description, currency, method, tag } = expenseInfo;
 
-    const currenciesCodes = Object.keys(currencies)
-      .filter((currencyCode) => currencyCode !== 'USDT');
+    const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
     return (
       <form>
         <Input
           label="Valor"
           type="number"
-          id="amount"
-          value={ amount }
+          id="value"
+          value={ value }
           onChange={ onChange }
         />
         <Input
@@ -29,27 +30,26 @@ class AddExpenseForm extends Component {
           onChange={ onChange }
         />
         <Select label="Moeda" id="currency" value={ currency } onChange={ onChange }>
-          { currenciesCodes.map((currencyCode) => (
+          { currencies.map((currencyCode) => (
             <option key={ currencyCode }>{ currencyCode }</option>
           ))}
         </Select>
         <Select
           label="Método de pagamento"
-          id="paymentMethod"
-          value={ paymentMethod }
+          id="method"
+          value={ method }
           onChange={ onChange }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+          { paymentMethods.map((paymentMethod) => (
+            <option key={ paymentMethod }>{ paymentMethod }</option>
+          ))}
         </Select>
         <Select label="Tag" id="tag" value={ tag } onChange={ onChange }>
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          { categories.map((category) => (
+            <option key={ category }>{ category }</option>
+          ))}
         </Select>
+        <Button label="Adicionar despesa" onClick={ addExpense } />
       </form>
     );
   }
@@ -61,16 +61,15 @@ const mapStateToProps = (state) => ({
 
 AddExpenseForm.propTypes = {
   onChange: PropTypes.func.isRequired,
-  newExpense: PropTypes.shape({
-    amount: PropTypes.number,
+  expenseInfo: PropTypes.shape({
+    value: PropTypes.string,
     description: PropTypes.string,
     currency: PropTypes.string,
-    paymentMethod: PropTypes.string,
+    method: PropTypes.string,
     tag: PropTypes.string,
   }).isRequired,
-  currencies: PropTypes.objectOf(
-    PropTypes.objectOf(PropTypes.string),
-  ).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(AddExpenseForm);
