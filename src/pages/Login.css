@@ -18,8 +18,8 @@ input {
 
 button {
   background-color: rgb(88, 124, 245);
-  cursor:pointer;
   border-radius: 2px;
+  cursor: pointer;
   padding: 0.2rem;
   padding-left: 4.2rem;
   padding-right: 4.2rem;
@@ -28,5 +28,5 @@ button {
 
 button:disabled {
   cursor: default;
-  filter:opacity(0.4)
+  filter: opacity(0.4);
 }
