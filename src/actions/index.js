@@ -34,7 +34,6 @@ export const fetchCurrencies = () => async (dispatch) => { // adaptado do course
     const fetchUrl = await fetch(endpoint);
     const jsonParsing = await fetchUrl.json();
     dispatch(getCurrencies(jsonParsing));
-    console.log(jsonParsing);
   } catch (error) {
     return dispatch(failedRequest(error));
   }
