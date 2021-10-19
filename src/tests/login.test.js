@@ -102,7 +102,7 @@ describe('3 - Utilize o Redux para salvar no estado global as informações da p
     userEvent.type(email, VALID_EMAIL);
     userEvent.type(senha, VALID_PASSWORD);
     fireEvent.click(button);
-
+    console.log(store.getState());
     expect(store.getState().user.email).toBe(VALID_EMAIL);
   });
 
