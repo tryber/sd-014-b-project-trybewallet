@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Login extends Component {
   render() {
     return(
-      <nav>
+      <form>
         <label htmlFor="email-input">
           E-mail
           <input
@@ -22,7 +22,10 @@ class Login extends Component {
             placeholder="Digite sua senha"
           />
         </label>
-      </nav>
+        <button type="button">
+          Entrar
+        </button>
+      </form>
     );
   }
 }
