@@ -5,16 +5,16 @@ import { fetchCurrencies } from '../actions';
 
 class SelectCurrency extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchCurrencies());
+    const { currenciesDispatch } = this.props;
+    currenciesDispatch();
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange } = this.props;
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda
-        <select id="moeda">
+        <select id="currency" onChange={ onChange }>
           Moeda
           {Object.keys(currencies)
             .filter((coin) => coin !== 'USDT')
@@ -29,9 +29,14 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  currenciesDispatch: () => dispatch(fetchCurrencies()),
+});
+
 SelectCurrency.propTypes = {
-  dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
+  currenciesDispatch: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(SelectCurrency);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectCurrency);
