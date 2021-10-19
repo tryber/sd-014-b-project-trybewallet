@@ -45,6 +45,15 @@ class Wallet extends Component {
     addNewExpense(this.state);
   }
 
+  sumCart() {
+    const { wallet: { expenses } } = this.props;
+    const reducer = (acc, { value, currency, exchangeRates }) => (
+      acc + value * exchangeRates[currency].ask
+    );
+    const total = Object.values(expenses).reduce(reducer, 0);
+    return total.toFixed(2);
+  }
+
   render() {
     const { user: { email }, wallet: { currencies } } = this.props;
     const initials = Object.keys(currencies).filter((e) => e !== 'USDT');
@@ -55,7 +64,7 @@ class Wallet extends Component {
         <header>
           <h1>TrybeWallet</h1>
           <h5 data-testid="email-field">{ email }</h5>
-          <h5 data-testid="total-field">0</h5>
+          <h5 data-testid="total-field">{ this.sumCart() }</h5>
           <h5 data-testid="header-currency-field">BRL</h5>
         </header>
         <form>
