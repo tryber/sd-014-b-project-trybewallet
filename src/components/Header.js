@@ -8,7 +8,21 @@ class Header extends React.Component {
     return (
       <header>
         <div data-testid="email-field">{ userEmail }</div>
-        <div data-testid="total-field">{expenses.length}</div>
+        <div data-testid="total-field">
+          {
+            expenses.length > 0
+              ? expenses.reduce(
+                (result, {
+                  value,
+                  currency,
+                  exchangeRates: {
+                    [currency]: {
+                      ask,
+                    } } }) => result + (Number(value) * Number(ask)), 0,
+              ) : 0
+          }
+
+        </div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );

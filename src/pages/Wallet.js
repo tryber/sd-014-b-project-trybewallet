@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
 import { currenciesAction, expensesAction } from '../actions';
+import TableComponent from '../components/TableComponent';
 
 class Wallet extends React.Component {
   constructor() {
@@ -70,6 +71,7 @@ class Wallet extends React.Component {
         <form>
           <InputComponent
             value={ value }
+            type="number"
             onChange={ this.handleChange }
             label="Valor"
             id="value"
@@ -102,9 +104,8 @@ class Wallet extends React.Component {
             options={ tags }
           />
         </form>
-        <button onClick={ this.handleClick } type="button">
-          Adicionar despesa
-        </button>
+        <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
+        <TableComponent />
       </>
     );
   }
