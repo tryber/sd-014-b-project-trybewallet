@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies, addExpense, endpoint } from '../actions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -10,6 +10,7 @@ class WalletForm extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       valueInput: '',
       descriptionInput: '',
       payments: paymentOptions,
@@ -21,6 +22,8 @@ class WalletForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.LabelOptions = this.LabelOptions.bind(this);
     this.LabelInput = this.LabelInput.bind(this);
+    this.ButtonElement = this.ButtonElement.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
@@ -65,6 +68,37 @@ class WalletForm extends Component {
     );
   }
 
+  async handleClick() { // adaptado do PR#1 de Michael Caxias - https://github.com/tryber/sd-014-b-project-trybewallet/pull/1
+    const { id, valueInput,
+      descriptionInput, currencyValue, paymentValue, expenseValue } = this.state;
+    const { diaptchExpenseToGlobalState } = this.props;
+    const fetchUrl = await fetch(endpoint);
+    const jsonParsing = await fetchUrl.json();
+    const expenseToBeDispatched = {
+      value: valueInput,
+      description: descriptionInput,
+      id,
+      exchangeRates: jsonParsing,
+      currency: currencyValue,
+      method: paymentValue,
+      tag: expenseValue,
+    };
+    diaptchExpenseToGlobalState(expenseToBeDispatched);
+    this.setState((prev) => ({
+      valueInput: '',
+      descriptionInput: '',
+      id: prev.id + 1,
+    }));
+  }
+
+  ButtonElement(func) {
+    return (
+      <button type="button" onClick={ func }>
+        Adicionar despesa
+      </button>
+    );
+  }
+
   render() {
     const { isFetching, currenciesFromGlobalState } = this.props;
     const {
@@ -103,6 +137,7 @@ class WalletForm extends Component {
             Tag
             {this.LabelOptions(expenses, 'tag-options', 'expenseValue', expenseValue)}
           </label>
+          {this.ButtonElement(this.handleClick)}
         </form>
       </section>
     );
@@ -113,6 +148,7 @@ WalletForm.propTypes = {
   currenciesFromGlobalState: PropTypes.arrayOf(PropTypes.string).isRequired,
   isFetching: PropTypes.bool.isRequired,
   fetchCurrenciesToGlobalState: PropTypes.func.isRequired,
+  diaptchExpenseToGlobalState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ // adaptado do course, bloco 15.4 (Actions Assíncronas), no conteúdo 'Exemplos guiados'; link: https://app.betrybe.com/course/front-end/gerenciamento-de-estado-com-redux/usando-o-redux-no-react-actions-assincronas/5e038872-db20-44f5-b6d5-ab36b654fff6/conteudos/4024403d-2645-41c3-9916-76f37bb7997f/exemplos-guiados/4c67f17a-9c4f-4067-a702-4b15c4c055b5?use_case=side_bar
@@ -122,6 +158,7 @@ const mapStateToProps = (state) => ({ // adaptado do course, bloco 15.4 (Actions
 
 const mapDispatchToProps = (dispatch) => ({ // adaptado do course, bloco 15.4 (Actions Assíncronas), no conteúdo 'Exemplos guiados'; link: https://app.betrybe.com/course/front-end/gerenciamento-de-estado-com-redux/usando-o-redux-no-react-actions-assincronas/5e038872-db20-44f5-b6d5-ab36b654fff6/conteudos/4024403d-2645-41c3-9916-76f37bb7997f/exemplos-guiados/4c67f17a-9c4f-4067-a702-4b15c4c055b5?use_case=side_bar
   fetchCurrenciesToGlobalState: () => dispatch(fetchCurrencies()),
+  diaptchExpenseToGlobalState: (expense) => dispatch(addExpense(expense)), // adaptado do PR#1 de Michael Caxias - https://github.com/tryber/sd-014-b-project-trybewallet/pull/1
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

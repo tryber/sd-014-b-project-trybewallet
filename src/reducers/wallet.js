@@ -1,6 +1,7 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { FAILED_REQUEST, GET_CURRENCIES, REQUEST_CURRENCIES } from '../actions';
+import { ADD_EXPENSE,
+  FAILED_REQUEST, GET_CURRENCIES, REQUEST_CURRENCIES } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -17,6 +18,8 @@ const wallet = (state = initialState, { type, payload }) => { // adaptado do cou
     return { ...state, currencies: payload, isFetching: false };
   case FAILED_REQUEST:
     return { ...state, error: payload, isFetching: false };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, payload] }; // adaptado do PR#1 de Michael Caxias - https://github.com/tryber/sd-014-b-project-trybewallet/pull/1
   default:
     return state;
   }
