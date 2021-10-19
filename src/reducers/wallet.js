@@ -1,13 +1,21 @@
 // import { GET_MOEDAS } from '../actions/actionAcync';
+import { ADD_FORM } from '../actions/index';
 
-// const INITIAL_STATE = {
-//   moedas: '',
-// };
+const INITIAL_STATE = {
+  expenses: [{
+    id: '',
+    value: '',
+    description: '',
+    currency: 'USD',
+    method: 'money',
+    tag: 'meal',
+  }],
+};
 
-// function wallet(state = INITIAL_STATE, action) {
-//   if (action.type === GET_MOEDAS) {
-//     return { ...state, USD: action.payload.USD.code };
-//   } return state;
-// }
+function wallet(state = INITIAL_STATE, action) {
+  if (action.type === ADD_FORM) {
+    return { ...state, expenses: [action.payload] };
+  } return state;
+}
 
-// export default wallet;
+export default wallet;

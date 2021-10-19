@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import addEmail from '../actions';
+import { addEmail } from '../actions';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
