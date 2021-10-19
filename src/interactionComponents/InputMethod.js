@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { pagamento } from '../data/ExpensesFormData';
+import { methods } from '../data/ExpensesFormData';
 
 class InputMethod extends Component {
   render() {
@@ -14,7 +14,7 @@ class InputMethod extends Component {
           value={ value }
           onChange={ handleChange }
         >
-          { pagamento.map((data, index) => (
+          { methods.map((data, index) => (
             <option key={ index } value={ data }>{data}</option>
           )) }
         </select>
