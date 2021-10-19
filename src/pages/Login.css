@@ -4,12 +4,12 @@ form {
   flex-direction: column;
   height: 90vh;
   justify-content: center;
-  padding: .1rem;
+  padding: 0.1rem;
 }
 
 input {
   border-radius: 2px;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .login {
@@ -20,10 +20,10 @@ button {
   background-color: rgb(88, 124, 245);
   cursor:pointer;
   border-radius: 2px;
-  padding: .2rem;
+  padding: 0.2rem;
   padding-left: 4.2rem;
   padding-right: 4.2rem;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 button:disabled {
