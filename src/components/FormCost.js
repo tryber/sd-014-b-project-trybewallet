@@ -1,8 +1,29 @@
 import React from 'react';
+import fetchCurriences from '../fetch/RequestApi';
 import '../pages/WalletPage.css';
 
 class FormCost extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      typeOfCoins: [],
+    };
+    this.apiResults = this.apiResults.bind(this);
+  }
+
+  componentDidMount() {
+    this.apiResults();
+  }
+
+  async apiResults() {
+    const results = await fetchCurriences();
+    this.setState({
+      typeOfCoins: results.filter((item) => item !== 'USDT'),
+    });
+  }
+
   render() {
+    const { typeOfCoins } = this.state;
     return (
       <form>
         <label htmlFor="cost-value">
@@ -12,7 +33,10 @@ class FormCost extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency">
-            ..
+            {typeOfCoins.map((coin, index) => (
+              <option key={ index }>
+                {coin}
+              </option>))}
           </select>
         </label>
         <label htmlFor="payment">
