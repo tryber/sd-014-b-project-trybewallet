@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.headerDiv {
+  align-items: center;
+  background-color: green;
+  color: white;
+  display: flex;
+  font-size: 30px;
+  height: 5vh;
+  justify-content: center;
+  width: 100%;
+}
