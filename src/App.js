@@ -4,14 +4,14 @@ import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 class App extends Component {
-  render(){
+  render() {
     return (
       <section>
         <div>Hello, TrybeWallet!</div>
-          <Switch>
-            <Route path='/carteira' component={ Wallet } />
-            <Route exact path='/' component={ Login } />
-          </Switch>
+        <Switch>
+          <Route path="/carteira" component={ Wallet } />
+          <Route exact path="/" component={ Login } />
+        </Switch>
       </section>
     );
   }
