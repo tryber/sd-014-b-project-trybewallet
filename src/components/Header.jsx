@@ -4,12 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
-  constructor() {
-    super();
-
-    this.totalExpense = this.totalExpense.bind(this);
-  }
-
   totalExpense() {
     const { despesas } = this.props;
     return despesas.reduce((total, { currency, value, exchangeRates }) => {

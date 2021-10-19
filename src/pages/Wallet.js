@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Select from '../components/Select';
-import { fetchCurrencies, addExpenses } from '../actions';
+import { fetchCurrencies, addExpenses, removeExpenses } from '../actions';
 
 const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -72,42 +72,67 @@ class Wallet extends React.Component {
     );
   }
 
+  renderHeadTable() {
+    return (
+      <tr>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </tr>
+    );
+  }
+
   renderTable() {
-    const { gastos } = this.props;
+    const { gastos, removeExpense } = this.props;
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          {this.renderHeadTable()}
         </thead>
         <tbody>
           {gastos.length === 0 ? (<tr><td>Adicione uma despesa</td></tr>) : gastos
-            .map(({ id, value, description, currency, method, tag, exchangeRates }) => (
-              <tr key={ id }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{ method }</td>
-                <td>{ value}</td>
-                <td>
-                  {exchangeRates[currency].name.split('/')[0]}
-                </td>
-                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>
-                  {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
-                </td>
-                <td>Real</td>
-                <td>Editar/Excluir</td>
-              </tr>
-            ))}
+            .map((gasto) => {
+              const {
+                id,
+                value,
+                description,
+                currency,
+                method,
+                tag,
+                exchangeRates } = gasto;
+              return (
+                <tr key={ id }>
+                  <td>{description}</td>
+                  <td>{tag}</td>
+                  <td>{ method }</td>
+                  <td>{ value}</td>
+                  <td>
+                    {exchangeRates[currency].name.split('/')[0]}
+                  </td>
+                  <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                  <td>
+                    {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
+                  </td>
+                  <td>Real</td>
+                  <td>
+                    <button
+                      data-testid="delete-btn"
+                      onClick={ () => removeExpense(gasto) }
+                      type="button"
+                    >
+                      Excluir
+                    </button>
+
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     );
@@ -158,6 +183,7 @@ Wallet.propTypes = {
   gastos: PropTypes.arrayOf(PropTypes.any).isRequired,
   moedas: PropTypes.arrayOf(PropTypes.any).isRequired,
   receiveCurrencies: PropTypes.func.isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -168,6 +194,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   receiveCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (state) => dispatch(addExpenses(state)),
+  removeExpense: (state) => dispatch(removeExpenses(state)),
 
 });
 
