@@ -19,12 +19,14 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const regex = /\S+@\S+\.\S+/; // consultei https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    const MIN_PASSWORD = 6;
     return (
       <form>
         <input
           type="email"
           data-testid="email-input"
-          name="e-mail"
+          name="email"
           placeholder="E-mail"
           onChange={ (event) => this.handleChange(event) }
           value={ email }
@@ -32,7 +34,7 @@ class Login extends React.Component {
         <input
           type="password"
           data-testid="password-input"
-          name="senha"
+          name="password"
           placeholder="Senha"
           onChange={ (event) => this.handleChange(event) }
           value={ password }
@@ -41,7 +43,7 @@ class Login extends React.Component {
           type="button"
           name="entrar"
           value="Entrar"
-          /* disable={  } */
+          disabled={ regex.test(email) && password.length >= MIN_PASSWORD ? 0 : true }
         />
       </form>
     );
