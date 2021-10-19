@@ -41,3 +41,14 @@ export const fetchRates = (expensesData) => async (dispatch) => {
   const rates = await fetch(endpoint).then((response) => response.json());
   dispatch(saveExpenses({ ...expensesData, exchangeRates: rates }));
 };
+
+// DELETAR DESPESA
+
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
+
+export const deleteExpenses = (expenses, index) => ({
+  type: DELETE_EXPENSES,
+  payload: expenses.filter((el) => el !== expenses[index]),
+});
+
+// Commit 1

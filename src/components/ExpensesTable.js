@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpenses } from '../actions';
 
 class ExpensesTable extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, updatedExpenses } = this.props;
     return (
       <table>
         <thead>
@@ -21,7 +22,7 @@ class ExpensesTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense, index) => {
+          {expenses.map((expense, index, everyExpense) => {
             const currency = expense.exchangeRates[expense.currency];
             return (
               <tr key={ index }>
@@ -35,6 +36,15 @@ class ExpensesTable extends Component {
                 <td>Real</td>
                 {/* Observação sobre o Number() e o toFixed() */}
                 {/*  no fim do código! */}
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => updatedExpenses(everyExpense, index) }
+                  >
+                    Excluir despesa
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -46,13 +56,18 @@ class ExpensesTable extends Component {
 
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  updatedExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(ExpensesTable);
+const mapDispatchToProps = (dispatch) => ({
+  updatedExpenses: (array, index) => dispatch(deleteExpenses(array, index)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
 
 // O teste não achava o 5.58. Eu imaginei que fosse problema de arredondamento,
 // porque no broser mostrava tudo certo, mas a moeda de cotação tinha 4 casas depois
