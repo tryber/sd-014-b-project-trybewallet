@@ -27,11 +27,13 @@ class FormRender extends Component {
     const { value, description } = this.state;
     return (
       <div>
-        <Value value={ value } handleChange={ this.handleChange } />
-        <Description value={ description } handleChange={ this.handleChange } />
-        <Currency />
-        <PayMethod />
-        <Tag />
+        <form>
+          <Value value={ value } handleChange={ this.handleChange } />
+          <Description value={ description } handleChange={ this.handleChange } />
+          <Currency />
+          <PayMethod />
+          <Tag />
+        </form>
       </div>
     );
   }

@@ -7,7 +7,13 @@ class Value extends Component {
     return (
       <label htmlFor="value">
         Valor:
-        <input id="value" value={ value } onChange={ (event) => handleChange(event) } type="text" />
+        <input
+          id="value"
+          name="value"
+          value={ value }
+          onChange={ (event) => handleChange(event) }
+          type="text"
+        />
       </label>
     );
   }

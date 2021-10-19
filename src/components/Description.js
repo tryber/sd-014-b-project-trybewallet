@@ -6,7 +6,12 @@ class Description extends Component {
     return (
       <label htmlFor="value">
         Descrição:
-        <input value={ description } onChange={ (event) => handleChange(event) } type="text" />
+        <input
+          value={ description }
+          name="description"
+          onChange={ (event) => handleChange(event) }
+          type="text"
+        />
       </label>
     );
   }
