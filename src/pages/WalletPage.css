@@ -38,7 +38,7 @@ select {
   justify-content: space-evenly;
 }
 
-.input-wallet {
+#description {
   width: 150px;
   margin: 9p
 }
@@ -56,14 +56,14 @@ select {
 }
 
 .header-table-costs {
-  background-color: rgba(180, 179, 179, 0.26);
-  display: flex;
-  justify-content: space-evenly;
+  background-color: rgba(180, 179, 179, 0.26); 
+  border-collapse: separate;
+  border-spacing: 80px 8px;
 }
 
-.h6-table {
+.th-table {
   font-size: 12px;
   font-weight: 450;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border: 1px solid rgba(170, 168, 168, 0.685);
+  padding: 4px;
 }

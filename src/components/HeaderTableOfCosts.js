@@ -1,21 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class HeaderTableOfCost extends React.Component {
   render() {
     return (
-      <header className="header-table-costs">
-        <h6 className="h6-table">Descrição</h6>
-        <h6 className="h6-table">Tag</h6>
-        <h6 className="h6-table">Método de pagamento</h6>
-        <h6 className="h6-table">Valor</h6>
-        <h6 className="h6-table">Moeda</h6>
-        <h6 className="h6-table">Câmbio utilizado</h6>
-        <h6 className="h6-table">Valor convertido</h6>
-        <h6 className="h6-table">Moeda de conversão</h6>
-        <h6 className="h6-table">Editar/Excluir</h6>
-      </header>
+      <table className="header-table-costs">
+        <tr>
+          <th className="th-table">Descrição</th>
+          <th className="th-table">Tag</th>
+          <th className="th-table">Método de pagamento</th>
+          <th className="th-table">Valor</th>
+          <th className="th-table">Moeda</th>
+          <th className="th-table">Câmbio utilizado</th>
+          <th className="th-table">Valor convertido</th>
+          <th className="th-table">Moeda de conversão</th>
+          <th className="th-table">Editar/Excluir</th>
+        </tr>
+      </table>
     );
   }
 }
 
-export default HeaderTableOfCost;
+const mapStateToProps = (state) => ({
+  listOfExpenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, null)(HeaderTableOfCost);

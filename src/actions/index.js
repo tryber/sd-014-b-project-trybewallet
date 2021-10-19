@@ -6,7 +6,7 @@ export const handleEmailUser = (email) => ({
   email,
 });
 
-export const handleWalletExpenses = (data) => ({
+export const handleWalletExpenses = (object) => ({
   type: WALLET_EXPENSES,
-  data,
+  object,
 });
