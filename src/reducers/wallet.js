@@ -2,17 +2,7 @@ import { REQUEST_CURRENCY, ADD_EXPENSES } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
-  expenses: [
-    {
-      id: 0,
-      valor: '0',
-      descrição: '',
-      moeda: '',
-      método_de_pagamento: '',
-      tag: '',
-      exchangeRates: [''],
-    },
-  ],
+  expenses: [],
 };
 
 function wallet(state = INITIAL_STATE, { type, currencies, expenses }) {

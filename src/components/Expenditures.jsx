@@ -43,7 +43,7 @@ class Expenditures extends Component {
         <Select name="tag" selectItems={ tags } handleChange={ handleChange } />
         <button
           type="button"
-          onClick={ () => { dispatchState(this.state); addId(expenses.length); } }
+          onClick={ () => { dispatchState(this.state, expenses); addId(expenses.length); } }
         >
           Adicionar despesa
         </button>
@@ -67,7 +67,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchState: (state) => dispatch(addExpenses(state)),
+  dispatchState: (state, expenses) => dispatch(addExpenses(state, expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenditures);

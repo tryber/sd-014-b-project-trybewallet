@@ -5,13 +5,18 @@ export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const loginAction = (email) => ({ type: 'LOGIN', email });
 
-export function addExpenses(state) {
+export function addExpenses(state, actualExpense) {
   return async (dispatch) => {
     const data = await requestCurrency();
-    const expenses = [{
-      ...state,
-      exchangeRates: data,
-    }];
+    const expenses = [
+
+      ...actualExpense,
+
+      {
+        ...state,
+        exchangeRates: data,
+      },
+    ];
     dispatch({ type: ADD_EXPENSES, expenses });
   };
 }

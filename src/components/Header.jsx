@@ -11,8 +11,7 @@ class Header extends Component {
     const total = expenses.reduce(
       (acc, expense) => acc + parseInt(expense.valor, 10), 0,
     );
-    const { moeda } = expenses[0];
-    console.log(total, moeda);
+    const { moeda } = expenses[0] || { moeda: 'BRL' };
     return (
       <header>
         <span data-testid="email-field">{email}</span>
