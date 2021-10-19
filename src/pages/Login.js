@@ -37,7 +37,7 @@ class Login extends React.Component {
     const { submitInputEmail } = this.props;
 
     return (
-      <main id="container">
+      <main className="container">
         <form>
           <h2>
             Trybe
