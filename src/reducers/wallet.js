@@ -2,22 +2,18 @@
 import { ADD_MOUNT } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    total: 0,
-  },
+  total: 0,
 };
 
-function walletReducer(state = INITIAL_STATE, action) {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_MOUNT:
     return {
-      wallet: {
-        total: action.wallet.total,
-      },
+      total: action.wallet.total,
     };
   default:
     return state;
   }
 }
 
-export default walletReducer;
+export default wallet;

@@ -1,41 +1,53 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { userAction } from '../actions';
+
+const PASS_LENGTH = 6;
+const REGEX_EMAIL = /\S+@\S+\.\S+/;
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
+      disabled: true,
     };
 
-    this.onSubmitForm = this.onSubmitForm(this);
-    this.handleChange = this.handleChange(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    // this.isUserValid = this.isUserValid.bind(this);
   }
 
   onSubmitForm() {
     const { dispatchUser } = this.props;
-    const { user } = this.state;
-    dispatchUser(user);
+    dispatchUser(this.state);
   }
 
-  handleChange({ target: { name, value } }) {
+  isUserValid() {
+    const { email, password } = this.state;
+    const validEmail = REGEX_EMAIL.test(email);
+
+    if ((password.length >= PASS_LENGTH) && (validEmail === true)) {
+      this.setState({ disabled: false });
+    } else {
+      this.setState({ disabled: true });
+    }
+  }
+
+  handleChange({ target }) {
     this.setState({
-      user: {
-        [name]: value,
-      },
-    });
+      [target.name]: target.value,
+    }, this.isUserValid);
   }
 
   render() {
-    const { user: { email, password } } = this.state;
+    const { email, password, disabled } = this.state;
     return (
       <div>
         <img
@@ -65,11 +77,14 @@ class Login extends React.Component {
           />
           <br />
           <br />
-          <Button
-            testid="login-btn"
-            label="Entrar"
-            onClick={ this.onSubmitForm }
-          />
+          <Link to="/carteira">
+            <Button
+              testid="login-btn"
+              label="Entrar"
+              disabled={ disabled }
+              onClick={ this.onSubmitForm }
+            />
+          </Link>
         </form>
       </div>
     );
@@ -81,10 +96,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUser: (emailAndPass) => dispatch(userAction(emailAndPass)),
+  dispatchUser: (state) => dispatch(userAction(state)),
 });
-
-// falta conectar o state
-// const mapStateToProps = (state) => ({ userInfo: state.userAction.state });
 
 export default connect(null, mapDispatchToProps)(Login);

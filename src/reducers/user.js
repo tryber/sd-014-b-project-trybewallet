@@ -2,24 +2,21 @@
 import { SAVE_USER } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    password: '',
-  },
+  email: '',
+  password: '',
 };
 
-function userReducer(state = INITIAL_STATE, action) {
+function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SAVE_USER:
+    console.log(action.state);
     return {
-      user: {
-        email: action.email,
-        password: action.password,
-      },
+      email: action.state.email,
+      password: action.state.password,
     };
   default:
     return state;
   }
 }
 
-export default userReducer;
+export default user;
