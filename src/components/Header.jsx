@@ -24,18 +24,18 @@ class Header extends React.Component {
           </span>
         </span>
       </header>
-    )
+    );
   }
 }
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   totalField: PropTypes.string.isRequired,
-}
+};
 
 const calculateTotalExpense = (expenses) => {
   let total = 0;
-  expenses.forEach(({value, currency, exchangeRates}) => {
+  expenses.forEach(({ value, currency, exchangeRates }) => {
     const exchangeRate = parseFloat(exchangeRates[currency].ask);
     const convertedValue = parseFloat(value) * exchangeRate;
     total += convertedValue;

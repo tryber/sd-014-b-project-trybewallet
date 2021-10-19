@@ -50,18 +50,18 @@ class Form extends React.Component {
           <select
             id="currency"
             name="currency"
-            onChange={(e) => this.handleChange(e)}
+            onChange={ (e) => this.handleChange(e) }
           >
             {currencies.map((currency, i) => (
-              <option key={i} value={currency}>
-                {currency}
+              <option key={ i } value={ currency }>
+                { currency }
               </option>
             ))}
           </select>
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select id="method" name="method" onChange={(e) => this.handleChange(e)}>
+          <select id="method" name="method" onChange={ (e) => this.handleChange(e) }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -69,7 +69,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag" name="tag" onChange={(e) => this.handleChange(e)}>
+          <select id="tag" name="tag" onChange={ (e) => this.handleChange(e) }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -84,24 +84,26 @@ class Form extends React.Component {
   render() {
     return (
       <form>
-        <label htmlFor="value">Valor</label>
-        <input
-          type="text"
-          id="value"
-          name="value"
-          onChange={(e) => this.handleChange(e)}
-        />
+        <label htmlFor="value">
+          Valor
+          <input
+            type="text"
+            id="value"
+            name="value"
+            onChange={ (e) => this.handleChange(e) }
+          />
+        </label>
         <label htmlFor="description">
           Descrição
           <input
             type="text"
             id="description"
             name="description"
-            onChange={(e) => this.handleChange(e)}
+            onChange={ (e) => this.handleChange(e) }
           />
         </label>
         { this.renderSelects() }
-        <button type="button" onClick={() => this.submitExpense()}>
+        <button type="button" onClick={ () => this.submitExpense() }>
           Adicionar despesa
         </button>
       </form>
