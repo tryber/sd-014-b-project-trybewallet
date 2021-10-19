@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { pagamento, tags } from '../data/ExpensesFormData';
+import { methods, tags } from '../data/ExpensesFormData';
 import { getCurrenciesDataThunk, setDataExpenses } from '../redux/actions';
+import Input from '../interactionComponents/Input';
 import Select from '../interactionComponents/Select';
 import AddExpenseButton from '../interactionComponents/AddExpenseButton';
-import Input from '../interactionComponents/Input';
 
-class ExpensesForm extends Component {
+class Form extends Component {
   constructor() {
     super();
     this.state = {
@@ -53,17 +53,16 @@ class ExpensesForm extends Component {
       <form className="m-2">
         <Input
           label="Valor"
-          type="number"
           name="value"
           value={ value }
-          onChange={ this.handleChange }
+          handleChange={ this.handleChange }
         />
         <Input
-          type="string"
           label="Descrição"
           name="description"
           value={ description }
-          onChange={ this.handleChange } />
+          handleChange={ this.handleChange }
+        />
         <label className="form-label m-1" htmlFor="currency">
           Moeda
           <select
@@ -71,6 +70,7 @@ class ExpensesForm extends Component {
             name="currency"
             value={ currency }
             onChange={ this.handleChange }
+            className="form-control"
           >
             {Object.values(getCurrencies).filter(({ codein }) => codein !== 'BRLT')
               .map(({ code }, index) => (
@@ -83,7 +83,7 @@ class ExpensesForm extends Component {
           name="method"
           value={ method }
           handleChange={ this.handleChange }
-          dataArray={ pagamento }
+          dataArray={ methods }
         />
         <Select
           label="Tag"
@@ -98,7 +98,7 @@ class ExpensesForm extends Component {
   }
 }
 
-ExpensesForm.propTypes = {
+Form.propTypes = {
   dataCurrencies: PropTypes.func.isRequired,
   getCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
   setExpenses: PropTypes.func.isRequired,
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
   setExpenses: (state) => dispatch(setDataExpenses(state)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

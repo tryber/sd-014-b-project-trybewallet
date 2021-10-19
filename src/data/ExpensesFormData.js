@@ -1,8 +1,8 @@
-const pagamento = ['Dinheiro', 'Cartão de cŕedito', 'Cartão de débito'];
+const methods = ['Dinheiro', 'Cartão de cŕedito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Transporte', 'Saúde'];
 
 export {
-  pagamento,
+  methods,
   tags,
 };
 
