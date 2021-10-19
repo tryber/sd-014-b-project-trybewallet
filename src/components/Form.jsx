@@ -114,7 +114,7 @@ class Form extends React.Component {
 Form.propTypes = {
   expensesLength: PropTypes.number.isRequired,
   submitExpense: PropTypes.func.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
   expensesLength: state.wallet.expenses.length,
