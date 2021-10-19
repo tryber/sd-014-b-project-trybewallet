@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
-  render() {
+  renderForm() {
     return(
       <form>
         <label htmlFor="email-input">
@@ -25,7 +25,15 @@ class Login extends Component {
         <button type="button">
           Entrar
         </button>
-      </form>
+        </form>
+    );
+  }
+
+  render() {
+    return(
+      <nav>
+        {this.renderForm()}
+      </nav>
     );
   }
 }
