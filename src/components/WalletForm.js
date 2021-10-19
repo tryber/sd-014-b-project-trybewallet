@@ -18,7 +18,8 @@ class WalletForm extends Component {
       expenseValue: expenseOptions[0],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.labelOptions = this.handleChange.bind(this);
+    this.LabelOptions = this.LabelOptions.bind(this);
+    this.LabelInput = this.LabelInput.bind(this);
   }
 
   async componentDidMount() {
@@ -51,6 +52,18 @@ class WalletForm extends Component {
     );
   }
 
+  LabelInput(type, name, value) {
+    return (
+      <input
+        type={ type }
+        name={ name }
+        id={ name }
+        value={ value }
+        onChange={ this.handleChange }
+      />
+    );
+  }
+
   render() {
     const {
       valueInput, descriptionInput,
@@ -59,25 +72,13 @@ class WalletForm extends Component {
     return (
       <section>
         <form>
-          <label htmlFor="value-input">
+          <label htmlFor="valueInput">
             Valor
-            <input
-              type="number"
-              name="valueInput"
-              id="value-input"
-              value={ valueInput }
-              onChange={ this.handleChange }
-            />
+            { this.LabelInput('number', 'valueInput', valueInput) }
           </label>
-          <label htmlFor="description-input">
+          <label htmlFor="descriptionInput">
             Descrição
-            <input
-              type="text"
-              name="descriptionInput"
-              id="description-input"
-              value={ descriptionInput }
-              onChange={ this.handleChange }
-            />
+            { this.LabelInput('text', 'descriptionInput', descriptionInput) }
           </label>
           <label htmlFor="currency-input">
             Moeda
