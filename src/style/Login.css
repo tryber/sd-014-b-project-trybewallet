@@ -12,8 +12,8 @@ form {
   border-radius: 8px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   height: 40vh;
-  width: 400px;
   padding: 2rem;
+  width: 400px;
 }
 
 h2 {
