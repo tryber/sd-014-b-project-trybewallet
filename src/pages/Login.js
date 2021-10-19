@@ -7,6 +7,7 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      statusBtn: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,14 +15,23 @@ export default class Login extends Component {
 
   handleChange({ target }) {
     const { name, value } = target;
+    const MIN_CHARACTERES_IN_PASSWORD = 5;
 
     this.setState({
       [name]: value,
     });
+
+    const { email, password } = this.state;
+    // ref: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
+    const regexEmail = /\S+@\S+\.\S+/.test(email);
+    const validPassword = password.length >= MIN_CHARACTERES_IN_PASSWORD;
+    if (regexEmail && validPassword) {
+      this.setState({ statusBtn: false });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, statusBtn } = this.state;
     return (
       <div>
         <label htmlFor="email-input">
@@ -51,6 +61,7 @@ export default class Login extends Component {
         </label>
         <button
           type="button"
+          disabled={ statusBtn }
         >
           Entrar
         </button>
