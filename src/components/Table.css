@@ -1,12 +1,12 @@
 table {
   background-color: white;
-  border-collapse:collapse;
+  border-collapse: collapse;
   color: black;
   text-align: center;
   width: 100vw;
 }
 
-tr:nth-child(even) {
+tr:nth-child( even ) {
   background-color: lightgrey;
   width: 100vw;
 }
