@@ -1,25 +1,21 @@
-import { GET_DATA, SAVE_EXPENSES } from '../../redux/actions';
+import { GET_CURRENCIES_DATA_SUCCESS, GET_CURRENCIES_DATA_ERROR } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  erro: null,
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
+const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case GET_DATA:
+  case GET_CURRENCIES_DATA_SUCCESS:
     return {
       ...state,
-      currencies: Object.keys(action.data),
-    };
-  case SAVE_EXPENSES:
-    return {
-      ...state,
-      expenses: [...state.expenses, action.data],
+      currencies: action.currencies,
     };
   default:
     return state;
   }
 };
 
-export default wallet;
+export default walletReducer;

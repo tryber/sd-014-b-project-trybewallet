@@ -1,8 +1,9 @@
-const getCurrenciesData = async () => {
-  const requestApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const data = await requestApi.json();
-  const arrayCurrencies = Object.keys(data);
-  return arrayCurrencies;
+const endPoint = 'https://economia.awesomeapi.com.br/json/all';
+
+const lala = async () => {
+  const response = await fetch(endPoint);
+  const currencies = await response.json();
+  return currencies;
 };
 
-export default getCurrenciesData;
+export default lala;
