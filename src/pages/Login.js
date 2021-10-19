@@ -41,7 +41,7 @@ class Login extends React.Component {
 
   handleChange({ target }) {
     this.setState({
-      [target.name]: target.value,
+      [target.id]: target.value,
     }, this.isUserValid);
   }
 
@@ -58,7 +58,7 @@ class Login extends React.Component {
         <form>
           <Input
             testid="email-input"
-            name="email"
+            id="email"
             type="email"
             value={ email }
             placeholder="Digite seu email"
@@ -68,7 +68,7 @@ class Login extends React.Component {
           <br />
           <Input
             testid="password-input"
-            name="password"
+            id="password"
             type="password"
             value={ password }
             placeholder="Digite sua senha"
