@@ -40,7 +40,7 @@ class Login extends Component {
       <form>
         <input
           data-testid="email-input"
-          placeholder="E-mail"
+          placeholder="E-mail (commit 2)"
           name="emailInput"
           onChange={ handleChange }
         />
