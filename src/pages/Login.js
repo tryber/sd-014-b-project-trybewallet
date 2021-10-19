@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
+import { saveEmailAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -7,9 +11,11 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      loggedIn: false,
     };
 
     this.handleInputs = this.handleInputs.bind(this);
+    this.loginButtonClick = this.loginButtonClick.bind(this);
   }
 
   handleInputs({ target }) {
@@ -19,12 +25,21 @@ class Login extends React.Component {
     });
   }
 
+  loginButtonClick() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+    saveEmail(email);
+    this.setState({ loggedIn: true });
+  }
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, loggedIn } = this.state;
+    // const { saveEmail } = this.props;
     // Link de onde encontrei o Regex para a validação do email:
     // https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
     const valid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const passMinLength = 6;
+    if (loggedIn) return <Redirect to="/carteira" />;
     return (
       <div>
         <h2>Login</h2>
@@ -51,7 +66,10 @@ class Login extends React.Component {
             disabled={
               !email.match(valid) || password.length < passMinLength
             }
-            // onClick={}
+            onClick={
+              // () => saveEmail(email) && this.setState({ loggedIn: true })
+              this.loginButtonClick
+            }
           />
         </form>
       </div>
@@ -59,4 +77,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch(saveEmailAction(payload)),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
