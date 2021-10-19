@@ -34,13 +34,13 @@ select {
 
 .form-wallet-page {
   display: flex;
-  margin: 15px;
   justify-content: space-evenly;
+  margin: 15px;
 }
 
-#description {
+input {
+  margin: 9px;
   width: 150px;
-  margin: 9p
 }
 
 .btn-add-expense {
@@ -49,21 +49,20 @@ select {
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  font-weight: bold;
-  padding: 5px;
-  margin: 10px;
   height: 30px;
+  margin: 10px;
+  padding: 5px;
 }
 
 .header-table-costs {
-  background-color: rgba(180, 179, 179, 0.26); 
+  background-color: rgba(180, 179, 179, 0.26);
   border-collapse: separate;
   border-spacing: 80px 8px;
 }
 
 .th-table {
+  border: 1px solid rgba(170, 168, 168, 0.685);
   font-size: 12px;
   font-weight: 450;
-  border: 1px solid rgba(170, 168, 168, 0.685);
   padding: 4px;
 }
