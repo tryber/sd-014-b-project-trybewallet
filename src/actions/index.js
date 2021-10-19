@@ -1,6 +1,7 @@
 export const SAVE_LOGIN_INFO = 'SAVE_LOGIN_INFO';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const loginInfoAction = (state) => (
   { type: SAVE_LOGIN_INFO,
@@ -15,4 +16,9 @@ export const currenciesAction = (currencies) => ({
 export const expensesAction = (expense) => ({
   type: SAVE_EXPENSE,
   expense,
+});
+
+export const deleteExpensesAction = (expenses) => ({
+  type: DELETE_EXPENSE,
+  expenses,
 });

@@ -6,6 +6,7 @@ import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
 import { currenciesAction, expensesAction } from '../actions';
 import TableComponent from '../components/TableComponent';
+import ButtonComponent from '../components/ButtonComponent';
 
 class Wallet extends React.Component {
   constructor() {
@@ -104,7 +105,7 @@ class Wallet extends React.Component {
             options={ tags }
           />
         </form>
-        <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
+        <ButtonComponent onClick={ this.handleClick } text="Adicionar despesa" />
         <TableComponent />
       </>
     );
