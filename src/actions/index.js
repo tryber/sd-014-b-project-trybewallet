@@ -3,8 +3,11 @@ export const SAVE_USER = 'SAVE_USER';
 export const REQUEST_WALLET = 'REQUEST_WALLET';
 export const GET_DATA = 'GET_DATA';
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const saveUser = (value) => ({ type: SAVE_USER, value });
+
+export const deleteItem = (data) => ({ type: REMOVE_EXPENSE, data });
 
 // export const requestAPI = () => ({ type: REQUEST_WALLET });
 

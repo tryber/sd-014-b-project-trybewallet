@@ -33,8 +33,9 @@ td {
   background-image: url('../images/icons8-delete-row-64.png');
   background-size: 24px 24px;
   border: none;
+  cursor: pointer;
   height: 24px;
-  margin: 1px 5px;
+  margin: 2px 7px;
   padding: 2px;
   width: 24px;
 }
@@ -44,8 +45,9 @@ td {
   background-image: url('../images/icons8-edit-row-64.png');
   background-size: 24px 24px;
   border: none;
+  cursor: pointer;
   height: 24px;
-  margin: 1px 5px;
+  margin: 2px 7px;
   padding: 2px;
   width: 24px;
 }

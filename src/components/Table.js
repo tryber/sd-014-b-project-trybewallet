@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './Table.css';
 import HeadTable from './HeadTable';
+import { deleteItem } from '../actions';
 
 class Table extends React.Component {
-  handleClick = (id) => {
-    console.log(id);
+  deleteItem = (id) => {
+    const { purchases, removeItem } = this.props;
+    const newArray = purchases.filter((purchase) => purchase.id !== id);
+    removeItem(newArray);
   };
 
   render() {
@@ -39,7 +42,7 @@ class Table extends React.Component {
                 type="button"
                 className="deleteButton"
                 data-testid="delete-btn"
-                onClick={ () => this.handleClick(purchase.id) }
+                onClick={ () => this.deleteItem(purchase.id) }
               />
             </td>
           </tr>
@@ -60,10 +63,15 @@ Table.propTypes = {
   purchases: PropTypes.arrayOf(PropTypes.shape({
     map: PropTypes.func,
   })).isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   purchases: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  removeItem: (array) => dispatch(deleteItem(array)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
