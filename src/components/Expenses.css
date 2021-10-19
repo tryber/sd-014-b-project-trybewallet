@@ -2,9 +2,9 @@ form {
   align-items: center;
   display: flex;
   flex-wrap: row wrap;
+  justify-content: space-evenly;
   margin-bottom: 10px;
   margin-top: 10px;
-  justify-content: space-evenly;
 }
 
 label {
@@ -21,8 +21,8 @@ input {
 }
 
 select {
-  border-radius: 5px;
   background-color: white;
+  border-radius: 5px;
   height: 39px;
   width: 120px;
 }

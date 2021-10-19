@@ -1,14 +1,14 @@
 table {
-  text-align: center;
   background-color: white;
-  color: black;
   border-collapse:collapse;
+  color: black;
+  text-align: center;
   width: 100vw;
 }
 
-tr:nth-child(even) {
-  width: 100vw;
+tr : nth-child (even) {
   background-color: lightgrey;
+  width: 100vw;
 }
 
 th {
@@ -20,7 +20,7 @@ th {
 
 tr:hover {
   background-color: darkslategrey;
-  color: white
+  color: white;
 }
 
 td {
