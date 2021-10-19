@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header';
+import SelectCoin from '../Components/SelectCoin';
 
 class Wallet extends React.Component {
   render() {
@@ -15,10 +16,7 @@ class Wallet extends React.Component {
             Descrição:
             <input type="text" id="descricao" />
           </label>
-          <label htmlFor="moeda">
-            Moeda:
-            <select id="moeda">$</select>
-          </label>
+          <SelectCoin />
           <label htmlFor="pagamento">
             Método de pagamento:
             <select id="pagamento">
