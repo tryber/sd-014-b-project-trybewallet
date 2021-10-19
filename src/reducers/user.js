@@ -2,25 +2,19 @@
 import { SET_EMAIL } from '../actions';
 
 const INICIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
-const userReducer = (state = INICIAL_STATE, action) => {
+const user = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case SET_EMAIL:
     return {
       ...state,
-      user: { email: action.payload },
+      email: action.payload,
     };
   default:
     return state;
   }
 };
 
-export default userReducer;
+export default user;

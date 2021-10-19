@@ -1,5 +1,5 @@
 import React from 'react';
-import Rotas from './content/rotas';
+import Rotas from './component/rotas';
 
 class App extends React.Component {
   render() {
