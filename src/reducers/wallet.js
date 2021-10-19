@@ -2,10 +2,8 @@
 import { GET_CURRENCIES, FAILED_REQUEST, ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
   error: '',
 };
 
@@ -21,8 +19,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return {
       ...state,
-      // expenses: [...state.expenses, ...action.payload],
-      expenses: action.payload,
+      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }],
+      // expenses: action.payload,
     };
   case FAILED_REQUEST:
     return { ...state, error: action.payload };

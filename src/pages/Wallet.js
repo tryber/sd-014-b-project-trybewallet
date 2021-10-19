@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { addExpenseAction, fetchCurrencies } from '../actions';
 
 const WALLET_INIT_STATE = {
+  total: 0,
   value: 0.00,
   currency: 'USD',
   method: 'Dinheiro',
@@ -23,6 +24,7 @@ class Wallet extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.setCurrenciesToLocalState = this.setCurrenciesToLocalState.bind(this);
     this.addExpenseClick = this.addExpenseClick.bind(this);
+    this.calculateTotalExpenses = this.calculateTotalExpenses.bind(this);
   }
 
   async componentDidMount() {
@@ -45,14 +47,36 @@ class Wallet extends React.Component {
   }
 
   async addExpenseClick() {
-    const { addExpenseToWallet } = this.props;
-    console.log(await addExpenseToWallet(this.state));
+    const { value, description, currency, method, tag } = this.state;
+    const { addExpenseToWallet, fetchCurrenciesData } = this.props;
+    const exchangeRates = await fetchCurrenciesData();
+    await addExpenseToWallet({
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: exchangeRates.payload,
+    });
     this.setState({
       value: 0.00,
       currency: 'USD',
       method: 'Dinheiro',
       description: '',
       tag: 'Alimentação',
+    });
+    this.calculateTotalExpenses();
+  }
+
+  calculateTotalExpenses() {
+    const { totalExpenses } = this.props;
+    const totalReduce = totalExpenses.reduce((acc, curr) => {
+      const exCurrency = curr.currency;
+      const exchangedValue = curr.exchangeRates.match(exCurrency);
+      return acc + exchangedValue;
+    }, 0);
+    this.setState({
+      total: totalReduce,
     });
   }
 
@@ -136,11 +160,12 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmail } = this.props;
+    const { total } = this.state;
     return (
       <main>
         <header>
           <h3 data-testid="email-field">{ userEmail }</h3>
-          <h3 data-testid="total-field">{ 0 }</h3>
+          <h3 data-testid="total-field">{ total }</h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <section>
@@ -171,6 +196,7 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  totalExpenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
