@@ -1,6 +1,7 @@
 // Coloque aqui suas actions
 export const LOGIN = 'LOGIN';
 export const SUBMIT_EXPENSE = 'SUBMIT_EXPENSE';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
 
 export const loginSaveEmail = (email) => ({
   type: LOGIN,
@@ -10,6 +11,11 @@ export const loginSaveEmail = (email) => ({
 export const submitExpense = (expense) => ({
   type: SUBMIT_EXPENSE,
   expense,
+});
+
+export const updateExpenses = (expenses) => ({
+  type: UPDATE_EXPENSES,
+  expenses,
 });
 
 export const preparingExpense = (expense) => async (dispatch) => {

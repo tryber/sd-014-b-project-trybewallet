@@ -1,8 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { updateExpenses } from '../actions';
 
 class Table extends React.Component {
+  deleteItem(id) {
+    const { expenses, updateExpenses } = this.props;
+    const mutedExpenses = [...expenses];
+    mutedExpenses.forEach((expense, index) => {
+      if (expense.id === id) {
+        mutedExpenses.splice(index, 1);
+      }
+    });
+    /* 
+      Poderia atualizar o id de todas as despesas toda vez que
+      o array atualizar:
+
+      mutedExpenses.forEach((expense, i) => {
+        expense.id = i;
+      }); 
+    */
+    updateExpenses(mutedExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -39,7 +59,13 @@ class Table extends React.Component {
                 <td>Real</td>
                 <td>
                   <button type="button">Editar</button>
-                  <button type="button">Excluir</button>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.deleteItem(expense.id) }
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             );
@@ -52,10 +78,15 @@ class Table extends React.Component {
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+  updateExpenses: PropTypes.func.isRequired,
+}
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  updateExpenses: (expenses) => dispatch(updateExpenses(expenses)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
