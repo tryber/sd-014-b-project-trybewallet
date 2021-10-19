@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.login {
+  height: 250px;
+  width: 350px;
+  margin: auto;
+  margin-top: 140px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+input {
+  width: 260px;
+  height: 15px;
+  padding: 3px;
+  margin: 1px;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+button {
+  width: 270px;
+  height: 30px;
+  padding: 3px;
+  margin: 1px;
+  margin-top: 10px;
+  background-color: lightgreen;
+  font-size: 15px;
+}
