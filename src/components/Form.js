@@ -18,6 +18,7 @@ class Form extends Component {
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
       exchangeRates: {},
+      expenses: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,14 +37,27 @@ class Form extends Component {
     });
   }
 
-  addExpenses() {
-    const { currencies, actionExpenses } = this.props;
-
+  async addExpenses() {
+    const { actionExpenses, requisicaoApi } = this.props;
+    const newReqApi = await requisicaoApi();
+    console.log(newReqApi);
     this.setState((state) => ({
       id: state.id + 1,
-      exchangeRates: currencies,
+      exchangeRates: newReqApi.payload,
     }));
-    actionExpenses(this.state);
+    this.setState((state) => ({
+      expenses: [...state.expenses, {
+        id: state.id,
+        valor: state.valor,
+        descricao: state.descricao,
+        moeda: state.moeda,
+        metdPagamento: state.metdPagamento,
+        tag: state.tag,
+        exchangeRates: state.exchangeRates,
+      }],
+    }));
+    const { expenses } = this.state;
+    actionExpenses(expenses);
   }
 
   render() {
@@ -83,7 +97,7 @@ class Form extends Component {
           value={ tag }
           onChange={ this.handleChange }
         />
-        <button type="button" onClick={ this.addExpenses }>Adicionar Despesa</button>
+        <button type="button" onClick={ this.addExpenses }>Adicionar despesa</button>
       </form>
     );
   }
