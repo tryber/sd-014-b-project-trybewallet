@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
 
 class AddExpenseForm extends Component {
   render() {
-    const { newExpense, onChange } = this.props;
+    const { newExpense, onChange, currencies } = this.props;
     const { amount, description, currency, paymentMethod, tag } = newExpense;
+
+    const currenciesCodes = Object.keys(currencies)
+      .filter((currencyCode) => currencyCode !== 'USDT');
+
     return (
       <form>
         <Input
@@ -24,7 +29,9 @@ class AddExpenseForm extends Component {
           onChange={ onChange }
         />
         <Select label="Moeda" id="currency" value={ currency } onChange={ onChange }>
-          {}
+          { currenciesCodes.map((currencyCode) => (
+            <option key={ currencyCode }>{ currencyCode }</option>
+          ))}
         </Select>
         <Select
           label="Método de pagamento"
@@ -48,6 +55,10 @@ class AddExpenseForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
 AddExpenseForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   newExpense: PropTypes.shape({
@@ -57,6 +68,9 @@ AddExpenseForm.propTypes = {
     paymentMethod: PropTypes.string,
     tag: PropTypes.string,
   }).isRequired,
+  currencies: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.string),
+  ).isRequired,
 };
 
-export default AddExpenseForm;
+export default connect(mapStateToProps)(AddExpenseForm);
