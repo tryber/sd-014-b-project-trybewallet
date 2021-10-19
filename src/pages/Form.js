@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SelectCurrency from './SelectCurrency';
 import { expenses, fetchCurrencies } from '../actions';
-import PropTypes from 'prop-types';
 
 class Form extends React.Component {
   constructor(props) {
