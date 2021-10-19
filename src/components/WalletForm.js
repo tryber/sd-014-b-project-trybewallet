@@ -145,7 +145,7 @@ class WalletForm extends Component {
 }
 
 WalletForm.propTypes = {
-  currenciesFromGlobalState: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currenciesFromGlobalState: PropTypes.arrayOf(PropTypes.string).isRequired, // adaptado de https://dev.to/cesareferrari/how-to-specify-the-shape-of-an-object-with-proptypes-3c56
   isFetching: PropTypes.bool.isRequired,
   fetchCurrenciesToGlobalState: PropTypes.func.isRequired,
   diaptchExpenseToGlobalState: PropTypes.func.isRequired,

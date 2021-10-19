@@ -47,5 +47,5 @@ export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
   emailFromGlobalState: PropTypes.string.isRequired,
-  expensesFromGlobalState: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expensesFromGlobalState: PropTypes.arrayOf(PropTypes.object).isRequired, // adaptado de https://dev.to/cesareferrari/how-to-specify-the-shape-of-an-object-with-proptypes-3c56
 };
