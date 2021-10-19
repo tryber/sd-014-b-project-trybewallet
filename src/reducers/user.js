@@ -1,7 +1,3 @@
-const INITIAL_STATE = {
-  email: '',
-};
-
 function userReducer(state, action) {
   switch (action.type) {
   case 'LOGIN':
