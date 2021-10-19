@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 class Select extends React.Component {
   render() {
     const { currency, currencies, method, tag, handleChange } = this.props;
@@ -14,8 +14,8 @@ class Select extends React.Component {
             name="currency"
           >
             {currencies.map((currencyType, index) => (
-              <option key={index}>
-                {currencyType}
+              <option key={ index }>
+                { currencyType }
               </option>
             ))}
           </select>
@@ -36,21 +36,29 @@ class Select extends React.Component {
         <label htmlFor="tag-select">
           Tag:
           <select
-          onChange={ handleChange }
-          value={ tag }
-          id="tag-select"
-          name="tag"
+            onChange={ handleChange }
+            value={ tag }
+            id="tag-select"
+            name="tag"
           >
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </div>
     );
   }
 }
+
+Select.propTypes = {
+  currency: PropTypes.string,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  method: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Select;
