@@ -2,12 +2,14 @@ import {
   ADD_NEW_EXPENSE,
   DELIVER_CURRENCIES,
   EDIT_EXPENSES,
+  REDUCE_TOTAL,
   REQUEST_CURRENCIES,
 } from '../actions';
 
 const initialState = {
   currencies: [],
   expenses: [],
+  total: 0.00,
 };
 
 const wallet = (state = initialState, action) => {
@@ -29,6 +31,11 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       expenses: action.expenses,
+    };
+  case REDUCE_TOTAL:
+    return {
+      ...state,
+      total: action.total,
     };
   case REQUEST_CURRENCIES:
     return {

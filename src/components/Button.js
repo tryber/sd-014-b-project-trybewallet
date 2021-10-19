@@ -26,7 +26,6 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  expenseId: undefined,
   id: '',
   onClick: () => null,
 };
