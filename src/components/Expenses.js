@@ -4,22 +4,26 @@ import PropTypes from 'prop-types';
 import SelectCurrency from './SelectCurrency';
 import './Expenses.css';
 import { saveExpenses } from '../actions';
+import SelectTAG from './SelectTAG';
+
+const INITIAL_STATE = {
+  id: 0,
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+  exchangeRates: '',
+};
 
 class Expenses extends React.Component {
   constructor() {
     super();
-    this.state = ({
-      id: 0,
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      exchangeRates: '',
-    });
+    this.state = INITIAL_STATE;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   handleChange({ target }) {
@@ -31,7 +35,6 @@ class Expenses extends React.Component {
   }
 
   async handleSubmit() {
-    const { id } = this.state;
     const urlAPI = 'https://economia.awesomeapi.com.br/json/all';
     const getData = await fetch(urlAPI)
       .then((response) => response.json())
@@ -39,13 +42,23 @@ class Expenses extends React.Component {
     this.setState({
       exchangeRates: getData,
     });
-    const { saveExpenseData } = this.props;
+    const { saveExpenseData, lastId } = this.props;
+    console.log(lastId.length);
+    if (lastId !== []) {
+      this.setState({
+        id: lastId.length,
+      });
+    }
     saveExpenseData(this.state);
-    this.setState({ id: id + 1 });
+    this.resetState();
+  }
+
+  resetState() {
+    this.setState(INITIAL_STATE);
   }
 
   render() {
-    const { value, description } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -69,25 +82,25 @@ class Expenses extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <SelectCurrency id="select-currency-expense" handleChange={ this.handleChange } />
+        <SelectCurrency
+          value={ currency }
+          id="select-currency-expense"
+          handleChange={ this.handleChange }
+        />
         <label htmlFor="payment-method">
           Método de Pagamento:
-          <select id="payment-method" name="method" onChange={ this.handleChange }>
+          <select
+            value={ method }
+            id="payment-method"
+            name="method"
+            onChange={ this.handleChange }
+          >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de Crédito</option>
             <option value="Cartão de débito">Cartão de Débito</option>
           </select>
         </label>
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag" name="tag" onChange={ this.handleChange }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
+        <SelectTAG value={ tag } handleChange={ this.handleChange } />
         <button type="button" onClick={ this.handleSubmit }>Adicionar despesa</button>
       </form>
     );
@@ -96,10 +109,17 @@ class Expenses extends React.Component {
 
 Expenses.propTypes = {
   saveExpenseData: PropTypes.func.isRequired,
+  lastId: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+  })).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  lastId: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpenseData: (values) => dispatch(saveExpenses(values)),
 });
 
-export default connect(null, mapDispatchToProps)(Expenses);
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

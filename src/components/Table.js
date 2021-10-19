@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './Table.css';
 import HeadTable from './HeadTable';
-import { deleteItem } from '../actions';
+import { changeItem, editExpenses } from '../actions';
 
 class Table extends React.Component {
   deleteItem = (id) => {
     const { purchases, removeItem } = this.props;
     const newArray = purchases.filter((purchase) => purchase.id !== id);
     removeItem(newArray);
+  };
+
+  changeItem = (id) => {
+    const { editItem } = this.props;
+    editItem(id, true);
   };
 
   render() {
@@ -37,6 +42,7 @@ class Table extends React.Component {
                 type="button"
                 className="editButton"
                 data-testid="edit-btn"
+                onClick={ () => this.changeItem(purchase.id) }
               />
               <input
                 type="button"
@@ -64,6 +70,7 @@ Table.propTypes = {
     map: PropTypes.func,
   })).isRequired,
   removeItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -71,7 +78,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeItem: (array) => dispatch(deleteItem(array)),
+  removeItem: (array) => dispatch(changeItem(array)),
+  editItem: (id, edit) => dispatch(editExpenses(id, edit)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

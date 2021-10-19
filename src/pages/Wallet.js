@@ -6,6 +6,7 @@ import Expenses from '../components/Expenses';
 import { fetchAPI } from '../actions';
 import './Wallet.css';
 import Table from '../components/Table';
+import EditExpense from '../components/EditExpense';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -14,11 +15,12 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { editor } = this.props;
     return (
       <>
         <Header />
         <hr />
-        <Expenses />
+        { editor ? <EditExpense /> : <Expenses />}
         <hr />
         <Table />
       </>
@@ -27,13 +29,16 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
+  editor: PropTypes.bool.isRequired,
   requestApi: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = (state) => {};
+const mapStateToProps = (state) => ({
+  editor: state.wallet.editor,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   requestApi: () => dispatch(fetchAPI()),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
