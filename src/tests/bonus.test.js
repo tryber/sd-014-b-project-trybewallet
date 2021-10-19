@@ -59,7 +59,7 @@ describe('11 - Crie um botão para editar uma despesa da tabela contendo as segu
     expect(screen.getAllByRole('cell', { name: '4.20' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '420.41' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Real' })[0]).toBeInTheDocument();
-
+    
     const newExpenses = [
       {
         id: 0,

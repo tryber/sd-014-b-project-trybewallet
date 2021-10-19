@@ -1,0 +1,19 @@
+.header-container {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-family: Josefin Sans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  margin: 20px;
+}
+
+.header-container img {
+  height: 50px;
+  margin-right: 50px;
+  width: 50px;
+}
+
+.header-container span {
+  margin-left: 10px;
+}

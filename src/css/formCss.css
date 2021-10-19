@@ -1,0 +1,23 @@
+.form-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-container input , .form-container select {
+  margin: 15px auto;
+  max-width: 100%;
+  padding: 5px;
+}
+
+.form-container label {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 3px;
+  text-align: center;
+}
+

@@ -1,0 +1,46 @@
+/* css feito usando como base o css generator,
+disponível em https://divtable.com/table-styler/ */
+
+.table-container {
+  background-color: rgba(57, 55, 56, 0.8);
+  border: 1px solid rgba(57, 55, 56, 0.8);
+  border-collapse: collapse;
+  color: rgba(242, 242, 242, 0.8);
+  margin-left: 20px;
+  margin-top: 20px;
+  padding: 3px;
+  text-align: center;
+  width: 100%;
+}
+
+.table-container thead {
+  background: linear-gradient(to bottom, rgba(57, 55, 56, 0.8) 0%, rgba
+  (88, 88, 88, 0.8) 66%, rgba(100, 100, 100, 0.8) 100%);
+  border-bottom: 2px solid rgba(57, 55, 56, 0.8);
+}
+
+.table-container td , th {
+  border: 1px solid rgba(242, 242, 242, 0.8);
+  padding: 3px 6px;
+}
+
+.table-container th {
+  font-family: Josefin Sans, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  padding-top: 8px;
+}
+
+.table-container tbody {
+  background-color: rgba(165, 255, 198, 0.8);
+  color: rgba(99, 66, 126, 0.86);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+@media screen and ( max-width : 980px ) {
+
+  .table-container {
+    width: 90%;
+  }
+}

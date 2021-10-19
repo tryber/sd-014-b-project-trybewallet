@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.login-container {
+  align-items: center;
+  background-image: url('https://images.unsplash.com/photo-1512358958014-b651a7ee1773?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.login-box {
+  align-items: center;
+  background-color: rgba(220, 218, 218, 1);
+  border: 3px solid rgba(246, 246, 246, 0.8);
+  border-radius: 15px;
+  box-shadow: 5px 5px 4px 3px rgba(57, 55, 56, 0.8);
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+  width: 300px;
+}
+
+.login-box input {
+  margin: 15px auto;
+  max-width: 100%;
+  padding: 5px;
+}
+
+.button-disable {
+  background-color: rgba(255, 36, 36, 0.8);
+  border: 1px solid rgba(255, 36, 36, 0.8);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px auto 5px;
+  padding: 16px 35px;
+}
+
+.button-active {
+  background-color: rgba(49, 250, 122, 0.8);
+  border: 1px solid rgba(49, 250, 122, 0.8);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px auto 5px;
+  padding: 16px 35px;
+}
+
+.button-disable .button-active {
+  border-radius: 5px;
+  color: rgba(246, 246, 246, 0.8);
+  max-width: 80%;
+  padding: 10px;
+  text-decoration: none;
+  transition: all ease 0.2;
+}
+
+.button-disable:hover {
+  color: rgba(57, 55, 56, 0.8);
+  text-decoration: line-through;
+  text-transform: uppercase;
+  transition: all ease 0.2;
+}
+
+
+.button-active:hover {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: all ease 0.2;
+}
+
+.button-active:active {
+  color: rgba(57, 55, 56, 0.8);
+}
+
+.image-login {
+  align-self: flex-start;
+  box-shadow: 5px 5px 4px 3px rgba(57, 55, 56, 0.3);
+  height: 130px;
+  margin-bottom: 30px;
+  margin-top: 0;
+  opacity: 0.7;
+  transform: rotate(-35deg);
+  width: 130px;
+}
+
+.login-title {
+  color: rgba(3, 164, 32, 0.8);
+  font-family: Josefin Sans, sans-serif;
+  font-size: 40px;
+  margin: 10px auto;
+  padding: 5px;
+}
