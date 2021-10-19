@@ -12,7 +12,6 @@ class Header extends Component {
     for (let index = 0; index < value.length; index += 1) {
       const myValue = value[index];
       const myAsk = exchangeRateArray[index];
-      console.log(exchangeRateArray);
       const subTotal = myValue * myAsk;
       total += subTotal;
     }
