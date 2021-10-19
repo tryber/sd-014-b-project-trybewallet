@@ -82,7 +82,7 @@ class Table extends React.Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   submitUpdateExpenses: PropTypes.func.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
