@@ -143,7 +143,7 @@ describe('7 - Implemente a lógica para preencher as opções do campo "Moedas",
   });
 });
 
-describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
+describe.only('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
   test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
 
@@ -180,7 +180,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
         id: 0,
         value: '10',
         currency: 'USD',
-        method: 'Cartão de crédito',
+        method: '',
         tag: 'Lazer',
         description: 'Dez dólares',
         exchangeRates: mockData,
@@ -191,7 +191,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
 
     userEvent.type(valueInput, '20');
     userEvent.selectOptions(currencyInput, 'EUR');
-    userEvent.selectOptions(methodInput, 'Cartão de débito');
+    userEvent.selectOptions(methodInput, '');
     userEvent.selectOptions(tagInput, 'Trabalho');
     userEvent.type(descriptionInput, 'Vinte euros');
     userEvent.click(addButton);
@@ -205,7 +205,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
         id: 0,
         value: '10',
         currency: 'USD',
-        method: 'Cartão de crédito',
+        method: '',
         tag: 'Lazer',
         description: 'Dez dólares',
         exchangeRates: mockData,
@@ -214,7 +214,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
         id: 1,
         value: '20',
         currency: 'EUR',
-        method: 'Cartão de débito',
+        method: '',
         tag: 'Trabalho',
         description: 'Vinte euros',
         exchangeRates: mockData,
