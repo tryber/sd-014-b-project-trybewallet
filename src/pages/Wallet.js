@@ -49,20 +49,16 @@ class Wallet extends React.Component {
   }
 
   valueChange = () => {
-    const { id, currency } = this.state;
     const { expenses } = this.props;
     let valor = 0;
 
     if (expenses.length > 0) {
-      const theCurrencies = expenses[id].exchangeRates;
-      switch (expenses[id].currency) {
-      case currency:
-        valor += (expenses[id].value * theCurrencies[currency].ask);
-        break;
-      default:
-        return 0;
-      }
-      console.log(theCurrencies[currency].ask);
+      // reducer feito com auxílio de Beatriz Ribeiro, maravilhosa!
+      valor = expenses.reduce((acc, curr) => {
+        acc += Number(curr.value) * curr.exchangeRates[curr.currency].ask;
+        return acc;
+      }, 0);
+      return valor;
     }
     return valor;
   }
