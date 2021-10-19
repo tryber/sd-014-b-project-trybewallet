@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FormWallet from '../components/formWallet';
+import { fetchDataCoins } from '../actions/index';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchCoins } = this.props;
+    fetchCoins();
+  }
+
   render() {
     const { email } = this.props;
     return (
@@ -19,6 +25,7 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchCoins: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -26,4 +33,8 @@ const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCoins: () => dispatch(fetchDataCoins()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
