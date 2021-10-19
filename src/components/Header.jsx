@@ -10,10 +10,8 @@ class Header extends React.Component {
 
   // A lógica para essa função foi feita por Luana Moneró, Src: https://github.com/tryber/sd-014-b-project-trybewallet/pull/9
   Expenses(expenses) {
-    console.log(expenses);
     if (expenses.length !== 0) {
       const somaTotal = expenses.reduce((acc, curr) => {
-        console.log('curr:' + curr.exchangeRates);
         acc += Number(curr.value) * curr.exchangeRates[curr.currency].ask;
         return acc;
       }, 0);

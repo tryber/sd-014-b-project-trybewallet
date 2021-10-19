@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fecthCurrencies, addExpense } from '../actions/index';
 
@@ -35,7 +36,7 @@ class WalletForm extends React.Component {
       value: '',
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     });
   }
@@ -53,25 +54,29 @@ class WalletForm extends React.Component {
       <form>
         <label htmlFor="value-input">
           Valor:
-          <input onChange={this.handleChange} value={ value } type="text" id="value-input" name="value" />
+          <input onChange={this.handleChange} value={ value }
+            type="text" id="value-input" name="value" />
         </label>
         <label htmlFor="desc-input">
           Descrição:
-          <input onChange={this.handleChange} value={ description } type="text" id="desc-input" name="description" />
+          <input onChange={this.handleChange} value={ description }
+            type="text" id="desc-input" name="description" />
         </label>
         <label htmlFor="currency-select">
           Moeda:
-          <select onChange={this.handleChange} value={ currency } id="currency-select" name="currency">
-            { currencies.map((currency, index) => (
+          <select onChange={this.handleChange} value={ currency }
+            id="currency-select" name="currency">
+            { currencies.map((currencyType, index) => (
               <option key={ index }>
-                { currency }
+                { currencyType }
               </option>
             ))}
           </select>
         </label>
         <label htmlFor="payment-select">
           Método de pagamento:
-          <select onChange={ this.handleChange } value={ method } id="payment-select" name="method">
+          <select onChange={ this.handleChange } value={ method }
+            id="payment-select" name="method">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -92,6 +97,12 @@ class WalletForm extends React.Component {
     );
   }
 }
+
+WalletForm.propTypes = {
+  getCurrencies: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
