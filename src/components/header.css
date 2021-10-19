@@ -1,13 +1,13 @@
 .header {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .user-info {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-evenly;
   width: 40%;
 }
