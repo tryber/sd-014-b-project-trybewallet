@@ -7,7 +7,7 @@ import Select from '../interactionComponents/Select';
 import AddExpenseButton from '../interactionComponents/AddExpenseButton';
 import Input from '../interactionComponents/Input';
 
-class Form extends Component {
+class ExpensesForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -98,7 +98,7 @@ class Form extends Component {
   }
 }
 
-Form.propTypes = {
+ExpensesForm.propTypes = {
   dataCurrencies: PropTypes.func.isRequired,
   getCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
   setExpenses: PropTypes.func.isRequired,
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
   setExpenses: (state) => dispatch(setDataExpenses(state)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
