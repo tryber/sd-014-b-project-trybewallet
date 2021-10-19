@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { setUsersValue } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,7 +12,15 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.disableBtn = this.disableBtn.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { history, dispatchSetValue } = this.props;
+    dispatchSetValue(this.state);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -19,6 +30,7 @@ class Login extends React.Component {
 
   disableBtn() {
     const N = 6;
+    const { email, password } = this.state;
     if (email.includes('@' && '.com') && password.length >= N) {
       return false;
     } return true;
@@ -26,8 +38,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { disableBtn, handleChange } = this;
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <h1>{email}</h1>
         <h1>{password}</h1>
         <label htmlFor="email">
@@ -36,7 +49,7 @@ class Login extends React.Component {
             type="email"
             name="email"
             placeholder="Email"
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="password">
@@ -45,7 +58,7 @@ class Login extends React.Component {
             type="password"
             name="password"
             placeholder="Password"
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           />
         </label>
         <button disabled={ disableBtn() } id="btn__submit" type="submit">Entrar</button>
@@ -54,4 +67,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (value) => dispatch(setUsersValue(value)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
