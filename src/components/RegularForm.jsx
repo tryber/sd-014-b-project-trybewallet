@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch) => ({
 RegularForm.defaultProps = {
   currencies: { },
   id: undefined,
-  objectCurrencies: [],
+  objectCurrencies: undefined,
 };
 
 RegularForm.propTypes = {
@@ -128,7 +128,7 @@ RegularForm.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number,
   // PropTypes de objectCurrencies desenvolvida com ajuda de Arthur Junior - 13B
-  objectCurrencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  objectCurrencies: PropTypes.objectOf(PropTypes.object),
   saveExpenses: PropTypes.func.isRequired,
 };
 

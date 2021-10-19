@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editExpense as editExpenseAction, excludeExpenses } from '../actions';
-import Button from './Button';
+import ButtonEdit from './ButtonEdit';
+import ButtonDelete from './ButtonDelete';
 import '../css/tableCss.css';
 
 class Table extends React.Component {
@@ -68,14 +69,12 @@ class Table extends React.Component {
               <td>{this.roundNumber(value, index, currency)}</td>
               <td>Real</td>
               <td>
-                <Button
-                  text="Editar"
+                <ButtonEdit
                   dataTestId="edit-btn"
                   onClick={ () => this.handleEditClick(id) }
                 />
-                <Button
+                <ButtonDelete
                   dataTestId="delete-btn"
-                  text="excluir"
                   onClick={ () => this.handleDeleteClick(id) }
                 />
               </td>

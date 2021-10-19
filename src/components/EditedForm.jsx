@@ -29,7 +29,7 @@ class EditedForm extends React.Component {
   handleSaveEditClick(id) {
     const { expenses, saveEditedExpenses } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const expenseIndex = expenses.find((expense) => expense.id === id);
+    const expenseIndex = expenses.findIndex((expense) => expense.id === id);
     const newExpenses = [...expenses];
     newExpenses[expenseIndex] = {
       ...newExpenses[expenseIndex],

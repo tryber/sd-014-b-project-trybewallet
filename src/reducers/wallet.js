@@ -47,7 +47,7 @@ const wallet = (state = INITIAL_STATE, { type, payload }) => {
   case SAVE_EDIT_EXPENSE:
     return {
       ...state,
-      expenses: [...payload],
+      expenses: payload,
       edited: false,
     };
   case GET_OBJ_CURRENCY:
