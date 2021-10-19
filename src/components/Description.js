@@ -17,4 +17,9 @@ class Description extends Component {
   }
 }
 
+Description.propTypes = {
+  description: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
+
 export default Description;
