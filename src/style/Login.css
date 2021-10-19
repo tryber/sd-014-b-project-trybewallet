@@ -1,28 +1,27 @@
 #container {
   background-color: #181b1f;
-  width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  width: 100vw;
   align-items: center;
+  justify-content: center;
 }
 
 form {
   background: #0b0e10;
-  width: 400px;
   height: 40vh;
-  padding: 2rem;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  width: 400px;
   border-radius: 8px;
-  
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
 }
 
 h2 {
-  color: #fff;
+  color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-size: 2rem;
+  justify-content: center;
 }
 
 h2 p {
