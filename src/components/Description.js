@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Description extends Component {
   render() {
     const { handleChange, description } = this.props;
     return (
-      <label htmlFor="value">
+      <label htmlFor="description">
         Descrição:
         <input
           value={ description }
           name="description"
+          id="description"
           onChange={ (event) => handleChange(event) }
           type="text"
         />
@@ -18,7 +20,7 @@ class Description extends Component {
 }
 
 Description.propTypes = {
-  description: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
