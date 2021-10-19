@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input_Text from '../components/Input_Text';
 import Select_Component from '../components/Select_Component';
+import { requestCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -20,8 +21,14 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-
+  async componentDidMount() {
+    const { getCurrencies } = this.props;
+    const patch = 'https://economia.awesomeapi.com.br/json/all';
+    const fetchApi = await fetch(patch);
+    const result = await fetchApi.json();
+    const filterCurrencies = Object.keys(result).
+      filter((currencie) => currencie !== 'USDT');
+    getCurrencies(filterCurrencies);
   }
 
   handleChange( {target} ) {
@@ -32,11 +39,10 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { getEmail } = this.props;
+    const { getEmail, currenciesOptions } = this.props;
     const { total_expensive, value, description, currencie, payment, tag } = this.state;
     const paymentsOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagsOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const currenciesOptions = [];
     return (
       <>
         <header>
@@ -93,10 +99,17 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   getEmail: state.user.email,
+  currenciesOptions: state.wallet.currencies,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: (payload) => dispatch(requestCurrencies(payload))
 })
 
 Wallet.propTypes = {
   getEmail: PropTypes.string.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  currenciesOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
