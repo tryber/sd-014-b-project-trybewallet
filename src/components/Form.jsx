@@ -1,68 +1,129 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { preparingExpense } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      coins: [],
+      currencies: [],
+      expense: {},
     };
   }
 
   componentDidMount() {
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((coins) => this.filterCoins(coins));
+      .then((currencies) => this.filterCurrencies(currencies));
   }
 
-  filterCoins(coins) {
-    let siglasCoins = Object.keys(coins);
-    siglasCoins = siglasCoins.filter((sig) => sig !== 'USDT');
-    this.setState({ coins: siglasCoins });
+  filterCurrencies(currencies) {
+    let siglasCurrencies = Object.keys(currencies);
+    siglasCurrencies = siglasCurrencies.filter((sig) => sig !== 'USDT');
+    this.setState({ currencies: siglasCurrencies });
+  }
+
+  handleChange({ target }) {
+    this.setState((state) => ({
+      expense: {
+        ...state.expense,
+        [target.name]: target.value,
+      },
+    }));
+  }
+
+  submitExpense() {
+    const { expenses, preparingExpense } = this.props;
+    const { expense } = this.state;
+    const newExpense = { ...expense };
+    newExpense['id'] = expenses.length;
+    preparingExpense(newExpense);
   }
 
   render() {
-    const { coins } = this.state;
+    const { currencies } = this.state;
     return (
       <form>
         <label htmlFor="value">
           Valor
-          <input type="text" id="value" />
+          <input
+            type="text"
+            id="value"
+            name="value"
+            onChange={(e) => this.handleChange(e)}
+          />
         </label>
+
         <label htmlFor="description">
           Descrição
-          <input type="text" id="description" />
+          <input
+            type="text"
+            id="description"
+            name="description"
+            onChange={(e) => this.handleChange(e)}
+          />
         </label>
-        <label htmlFor="coin">
+
+        <label htmlFor="currency">
           Moeda
-          <select id="coin">
-            { coins.map((coin, i) => (
-              <option key={ i } value={ coin }>
-                { coin }
+          <select
+            id="currency"
+            name="currency"
+            onChange={(e) => this.handleChange(e)}
+          >
+            { currencies.map((currency, i) => (
+              <option key={ i } value={ currency }>
+                { currency }
               </option>
             )) }
           </select>
         </label>
-        <label htmlFor="paymentMethod">
+
+        <label htmlFor="method">
           Método de pagamento
-          <select id="paymentMethod">
-            <option value="money">Dinheiro</option>
-            <option value="credit-card">Cartão de crédito</option>
-            <option value="debit-card">Cartão de débito</option>
+          <select
+            id="method"
+            name="method"
+            onChange={(e) => this.handleChange(e)}
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
+
         <label htmlFor="tag">
           Tag
-          <select id="tag">
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+          <select
+            id="tag"
+            name="tag"
+            onChange={(e) => this.handleChange(e)}
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
+
+        <button
+          type="button"
+          onClick={() => this.submitExpense()}
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  preparingExpense: (expense) => dispatch(preparingExpense(expense)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
