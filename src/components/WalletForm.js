@@ -16,7 +16,7 @@ class WalletForm extends Component {
       expenses: expenseOptions,
       paymentValue: paymentOptions[0],
       expenseValue: expenseOptions[0],
-      currencyValue: '',
+      currencyValue: 'USD',
     };
     this.handleChange = this.handleChange.bind(this);
     this.LabelOptions = this.LabelOptions.bind(this);
@@ -66,11 +66,11 @@ class WalletForm extends Component {
   }
 
   render() {
+    const { isFetching, currenciesFromGlobalState } = this.props;
     const {
       valueInput, descriptionInput,
       payments, expenses, paymentValue, expenseValue,
       currencyValue } = this.state;
-    const { isFetching, currenciesFromGlobalState } = this.props;
     return (
       <section>
         <form>
