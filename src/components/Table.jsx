@@ -38,8 +38,8 @@ class Table extends React.Component {
                 <td>{ convertedValue }</td>
                 <td>Real</td>
                 <td>
-                  <button>Editar</button>
-                  <button>Excluir</button>
+                  <button type="button">Editar</button>
+                  <button type="button">Excluir</button>
                 </td>
               </tr>
             );
@@ -51,7 +51,7 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  expenses: PropTypes.array.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

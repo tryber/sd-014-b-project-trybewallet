@@ -107,8 +107,8 @@ class Form extends React.Component {
           Adicionar despesa
         </button>
       </form>
-    )
-  };
+    );
+  }
 }
 
 Form.propTypes = {
