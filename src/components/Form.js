@@ -11,13 +11,13 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
-      // id: 0,
+      id: 0,
       valor: '0',
       descricao: '',
       moeda: 'USD',
       metdPagamento: 'Dinheiro',
       tag: 'Alimentação',
-      // exchangeRates: {},
+      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +37,13 @@ class Form extends Component {
   }
 
   addExpenses() {
+    const { currencies, actionExpenses } = this.props;
 
+    this.setState((state) => ({
+      id: state.id + 1,
+      exchangeRates: currencies,
+    }));
+    actionExpenses(this.state);
   }
 
   render() {
@@ -84,7 +90,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  // actionExpenses: PropTypes.func.isRequired,
+  actionExpenses: PropTypes.func.isRequired,
   requisicaoApi: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.object).isRequired,
 

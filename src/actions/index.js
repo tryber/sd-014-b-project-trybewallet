@@ -4,8 +4,6 @@ export const emailAction = (payload) => ({ type: 'EMAIL', payload });
 
 export const requestApi = () => ({ type: 'REQUEST_API' });
 
-// export const receiveApi = (coins) => ({ type: 'RECEIVE_API', coins });
-
 export const currenciesAction = (payload) => ({ type: 'CURRENCIES', payload });
 
 export const expensesAction = (payload) => ({ type: 'EXPENSES', payload });
