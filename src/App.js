@@ -1,7 +1,14 @@
 import React from 'react';
+import Rotas from './content/rotas';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Rotas />
+      </div>
+    );
+  }
 }
 
 export default App;
