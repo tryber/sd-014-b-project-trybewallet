@@ -25,3 +25,27 @@ import TextArea from '../interactionComponents/textArea';
 import { paymentMethodData, tagData } from '../data/ExpensesFormData';
 
 class ExpensesForm extends React.Component() {
+
+
+As despesas salvas no Redux ficarão com um formato semelhante ao seguinte:
+
+Clique para expandir.
+  expenses: [{
+    "id": 0,
+    "value": "3",
+    "description": "Hot Dog",
+    "currency": "USD",
+    "method": "Dinheiro",
+    "tag": "Alimentação",
+    "exchangeRates": {
+      "USD": {
+        "code": "USD",
+        "name": "Dólar Comercial",
+        "ask": "5.6208",
+        ...
+      },
+      "CAD": {
+        "code": "CAD",
+        "name": "Dólar Canadense",
+        "ask": "4.2313",
+        ...

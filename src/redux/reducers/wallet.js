@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   erro: null,
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_CURRENCIES_DATA_SUCCESS:
     return {
@@ -18,4 +18,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default walletReducer;
+export default wallet;
+
+// ** chama a action de fato com o dispatch
+// (Com redux e action definidos)
