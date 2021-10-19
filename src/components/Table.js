@@ -41,8 +41,9 @@ const Table = () => {
         {rows.map((row, ix) => {
           prepareRow(row);
           return (
-            <tr key={ ix } { ...row.getRowProps()}>
-              {row.cells.map((cell, inx) => (<td key={ inx } { ...cell.getCellProps() }>{ cell.render('Cell')}</td>))}
+            <tr key={ ix } { ...row.getRowProps() }>
+              {row.cells.map((cell, inx) => (
+                <td key={ inx } { ...cell.getCellProps() }>{ cell.render('Cell')}</td>))}
             </tr>
           );
         })}
