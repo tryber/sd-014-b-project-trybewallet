@@ -1,0 +1,23 @@
+.header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(241, 202, 151);
+	color: rgb(93, 148, 93);
+}
+
+.title {
+	width: 30%;
+}
+
+.header-email {
+	display: flex;
+	justify-content: space-around;
+	width: 40%;
+}
+
+.field {
+	display: flex;
+	justify-content: space-around;
+	width: 40%;
+}
