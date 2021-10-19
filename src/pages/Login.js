@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -35,7 +38,8 @@ class Login extends React.Component {
 
   render() {
     const { state: { email, password, disabled, redirect },
-      changeStateAndInputValue, renderRedirectTag } = this;
+      changeStateAndInputValue, renderRedirectTag,
+      props: { dispatchUserInfo } } = this;
 
     if (redirect) { return <Redirect to="/carteira" />; }
 
@@ -61,7 +65,11 @@ class Login extends React.Component {
             onChange={ (event) => changeStateAndInputValue(event, 'password') }
           />
         </label>
-        <button type="button" disabled={ disabled } onClick={ renderRedirectTag }>
+        <button
+          type="button"
+          disabled={ disabled }
+          onClick={ () => { renderRedirectTag(); dispatchUserInfo(this.state); } }
+        >
           Entrar
         </button>
       </form>
@@ -69,4 +77,11 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchUserInfo: PropTypes.object,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUserInfo: (userInfo) => dispatch(getUserInfo(userInfo)) });
+
+export default connect(null, mapDispatchToProps)(Login);
