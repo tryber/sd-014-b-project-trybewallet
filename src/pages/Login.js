@@ -34,7 +34,6 @@ class Login extends React.Component {
   handleClick() {
     const { history, dispatchSetValue } = this.props;
     const { email } = this.state;
-    console.log(email);
     dispatchSetValue(email);
     history.push('/carteira');
   }
