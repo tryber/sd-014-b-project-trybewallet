@@ -43,7 +43,7 @@ class Login extends React.Component {
   render() {
     const { emailValue, passwordValue } = this.state;
     return (
-      <div>
+      <form>
         <fieldset>
           <legend>TrybeWallet</legend>
           <input
@@ -72,14 +72,11 @@ class Login extends React.Component {
             </button>
           </Link>
         </fieldset>
-      </div>
+      </form>
     );
   }
 }
 
-/* const mapStateToProps = (state) => ({
-  email: state.user.email,
-}); */
 const mapDispatchToProps = (dispatch) => ({
   saveEmail: (email) => dispatch(loggedEmail(email)),
 });
