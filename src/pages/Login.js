@@ -1,25 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 import { salvaEmailLogin } from '../actions/index';
-
-/*
-const INITIAL_STATE = {
-  user = {
-    email: '',
-  },
-  wallet = {
-    valor: 0,
-    moeda: '',
-    metodoDePagamento: '',
-    tag: '',
-    descricao: '',
-  },
-}
-
-guardar email e coloca-lo no header
-
-*/
 
 class Login extends React.Component {
   constructor() {
@@ -101,6 +84,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  saveUserInf: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   saveUserInf: (userInf) => (dispatch(salvaEmailLogin(userInf))),
