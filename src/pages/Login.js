@@ -3,7 +3,7 @@ import React from 'react';
 class Login extends React.Component {
   render() {
     return (
-      <div>
+      <section>
         <input
           type="email"
           data-testid="email-input"
@@ -15,7 +15,7 @@ class Login extends React.Component {
         <button type="button">
           Entrar
         </button>
-      </div>
+      </section>
     );
   }
 }
