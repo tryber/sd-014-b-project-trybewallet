@@ -13,8 +13,8 @@ class Header extends Component {
 
   somatoriaDespesas() {
     const { despesas } = this.props;
-    const total = despesas.reduce((acc, { value }) => (
-      Number(acc) + Number(value)), 0);
+    const total = despesas.reduce((acc, { value, currency, exchangeRates }) => (
+      (Number(acc) + Number(value * exchangeRates[currency].ask)).toFixed(2)), 0);
     return total;
   }
 
