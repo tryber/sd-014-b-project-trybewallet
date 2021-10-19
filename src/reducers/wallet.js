@@ -1,15 +1,15 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { ADD_EXPENSES,
   EXCLUDE_EXPENSES,
-  GET_CURRENCY,
+  GET_OBJ_CURRENCY,
   LOADING,
   EDIT_EXPENSE,
   SAVE_EDIT_EXPENSE,
-  CODE_CURRENCY } from '../actions';
+  GET_CODE_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   isLoading: true,
-  codeCurrencies: [],
+  objectCurrencies: [],
   currencies: [],
   expenses: [],
   id: 0,
@@ -18,10 +18,10 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
-  case GET_CURRENCY:
+  case GET_CODE_CURRENCY:
     return {
       ...state,
-      currencies: [payload],
+      currencies: payload,
     };
   case ADD_EXPENSES:
     return {
@@ -50,10 +50,10 @@ const wallet = (state = INITIAL_STATE, { type, payload }) => {
       expenses: [...payload],
       edited: false,
     };
-  case CODE_CURRENCY:
+  case GET_OBJ_CURRENCY:
     return {
       ...state,
-      codeCurrencies: payload,
+      objectCurrencies: payload,
     };
   default:
     return state;

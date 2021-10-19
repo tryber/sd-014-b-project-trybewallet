@@ -33,7 +33,7 @@ class RegularForm extends React.Component {
   }
 
   handleAddClick() {
-    const { saveExpenses, currencies, getCurrenciesValue } = this.props;
+    const { saveExpenses, objectCurrencies, getCurrenciesValue } = this.props;
     const { id, value, description, currency, method, tag } = this.state;
     getCurrenciesValue();
     saveExpenses({ id,
@@ -42,7 +42,7 @@ class RegularForm extends React.Component {
       currency,
       method,
       tag,
-      exchangeRates: currencies,
+      exchangeRates: objectCurrencies,
     });
     this.setState(() => ({
       id: id + 1,
@@ -55,7 +55,7 @@ class RegularForm extends React.Component {
   }
 
   render() {
-    const { codeCurrencies } = this.props;
+    const { currencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="form-container">
@@ -74,7 +74,7 @@ class RegularForm extends React.Component {
           onChange={ this.handleChange }
         />
         <Select
-          arrayOption={ codeCurrencies }
+          arrayOption={ currencies }
           labelTitle="Moeda"
           value={ currency }
           name="currency"
@@ -101,8 +101,8 @@ class RegularForm extends React.Component {
 }
 
 const mapStateToProps = ({ wallet, user }) => ({
-  currencies: wallet.currencies[0],
-  codeCurrencies: wallet.codeCurrencies,
+  currencies: wallet.currencies,
+  objectCurrencies: wallet.objectCurrencies,
   email: user.email,
   loading: wallet.isLoading,
   edited: wallet.edited,
@@ -119,17 +119,17 @@ const mapDispatchToProps = (dispatch) => ({
 RegularForm.defaultProps = {
   currencies: { },
   id: undefined,
-  codeCurrencies: [],
+  objectCurrencies: [],
 };
 
 RegularForm.propTypes = {
   getCurrenciesValue: PropTypes.func.isRequired,
-  // PropTypes de currencies desenvolvida com ajuda de Arthur Junior - 13B
-  currencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  codeCurrencies: PropTypes.arrayOf(PropTypes.string),
-  saveExpenses: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string),
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number,
+  // PropTypes de objectCurrencies desenvolvida com ajuda de Arthur Junior - 13B
+  objectCurrencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  saveExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegularForm);

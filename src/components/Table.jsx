@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editExpense as editExpenseAction, excludeExpenses } from '../actions';
-import ButtonEdit from './ButtonEdit';
-import ButtonDelete from './ButtonDelete';
+import Button from './Button';
 import '../css/tableCss.css';
 
 class Table extends React.Component {
@@ -33,9 +32,8 @@ class Table extends React.Component {
     excludeExpense(newExpenses);
   }
 
-  roundNumber(value, index, currency) {
-    return Math.round(Number(value)
-    * Number(this.getBrlCurrency(index, currency)) * 100) / 100;
+  roundNumber(value, i, cur) {
+    return Math.round(Number(value) * Number(this.getBrlCurrency(i, cur)) * 100) / 100;
   }
 
   render() {
@@ -65,17 +63,19 @@ class Table extends React.Component {
               <td>{tag}</td>
               <td>{method}</td>
               <td>{value}</td>
-              <td>{exchangeRates[currency].name.split('/')[0]}</td>
-              <td>{Math.round(Number(exchangeRates[currency].ask) * 100) / 100}</td>
+              <td>{exchangeRates[currency].name}</td>
+              <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
               <td>{this.roundNumber(value, index, currency)}</td>
               <td>Real</td>
               <td>
-                <ButtonEdit
+                <Button
+                  text="Editar"
                   dataTestId="edit-btn"
                   onClick={ () => this.handleEditClick(id) }
                 />
-                <ButtonDelete
+                <Button
                   dataTestId="delete-btn"
+                  text="excluir"
                   onClick={ () => this.handleDeleteClick(id) }
                 />
               </td>

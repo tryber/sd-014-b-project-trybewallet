@@ -1,7 +1,8 @@
 // Coloque aqui suas actions
 import getAllCurrencies from '../services/currencyAPI';
 
-export const GET_CURRENCY = 'GET_CURRENCY';
+export const GET_CODE_CURRENCY = 'GET_CODE_CURRENCY';
+export const GET_OBJ_CURRENCY = 'GET_OBJ_CURRENCY';
 export const CODE_CURRENCY = 'CODE_CURRENCY';
 export const USER_EMAIL = 'USER_EMAIL';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
@@ -10,8 +11,8 @@ export const SAVE_EDIT_EXPENSE = 'SAVE_EDIT_EXPENSE';
 export const EXCLUDE_EXPENSES = 'EXCLUDE_EXPENSES';
 export const LOADING = 'LOADING';
 
-export const getCurrency = (payload) => ({
-  type: GET_CURRENCY,
+export const getObjCurrency = (payload) => ({
+  type: GET_OBJ_CURRENCY,
   payload,
 });
 
@@ -43,7 +44,7 @@ export const excludeExpenses = (payload) => ({
 export const isLoading = () => ({ type: LOADING });
 
 export const getCodeCurrency = (payload) => ({
-  type: CODE_CURRENCY,
+  type: GET_CODE_CURRENCY,
   payload,
 });
 
@@ -52,8 +53,7 @@ export const getCurrencies = () => async (dispatch) => {
   // dica delete dada pelo Rodrigo Augusto.
   // o delete é um operador que remove uma propriedade de um objeto.
   delete response.USDT;
-  const payload = { ...response };
-  dispatch(getCurrency(payload));
-  dispatch(getCodeCurrency(Object.keys(payload)));
+  dispatch(getObjCurrency(response));
+  dispatch(getCodeCurrency(Object.keys(response)));
   dispatch(isLoading());
 };

@@ -39,7 +39,6 @@ class EditedForm extends React.Component {
       method,
       tag,
     };
-    console.log(newExpenses)
     saveEditedExpenses(newExpenses);
   }
 
@@ -57,11 +56,10 @@ class EditedForm extends React.Component {
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
-    console.log(this.state)
   }
 
   render() {
-    const { codeCurrencies, id } = this.props;
+    const { currencies, id } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="form-container">
@@ -82,7 +80,7 @@ class EditedForm extends React.Component {
           dataTestId="description-input"
         />
         <Select
-          arrayOption={ codeCurrencies }
+          arrayOption={ currencies }
           labelTitle="Moeda"
           value={ currency }
           name="currency"
@@ -115,8 +113,8 @@ class EditedForm extends React.Component {
 const mapStateToProps = ({ wallet }) => ({
   expenses: wallet.expenses,
   id: wallet.id,
-  codeCurrencies: wallet.codeCurrencies,
-  currencies: wallet.currencies[0],
+  objectCurrencies: wallet.objectCurrencies,
+  currencies: wallet.currencies,
   excludeExpense: wallet.exclude,
 });
 
@@ -125,13 +123,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 EditedForm.defaultProps = {
-  codeCurrencies: [],
+  currencies: [],
 };
 
 EditedForm.propTypes = {
   // PropTypes de currencies desenvolvida com ajuda de Arthur Junior - 13B
   // currencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  codeCurrencies: PropTypes.arrayOf(PropTypes.string),
+  currencies: PropTypes.arrayOf(PropTypes.string),
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   saveEditedExpenses: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
