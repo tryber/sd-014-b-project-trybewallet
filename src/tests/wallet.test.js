@@ -180,7 +180,7 @@ describe.only('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de 
         id: 0,
         value: '10',
         currency: 'USD',
-        method: '',
+        method: 'Cartão de crédito',
         tag: 'Lazer',
         description: 'Dez dólares',
         exchangeRates: mockData,
@@ -191,7 +191,7 @@ describe.only('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de 
 
     userEvent.type(valueInput, '20');
     userEvent.selectOptions(currencyInput, 'EUR');
-    userEvent.selectOptions(methodInput, '');
+    userEvent.selectOptions(methodInput, 'Cartão de débito');
     userEvent.selectOptions(tagInput, 'Trabalho');
     userEvent.type(descriptionInput, 'Vinte euros');
     userEvent.click(addButton);
@@ -205,7 +205,7 @@ describe.only('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de 
         id: 0,
         value: '10',
         currency: 'USD',
-        method: '',
+        method: 'Cartão de crédito',
         tag: 'Lazer',
         description: 'Dez dólares',
         exchangeRates: mockData,
@@ -214,7 +214,7 @@ describe.only('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de 
         id: 1,
         value: '20',
         currency: 'EUR',
-        method: '',
+        method: 'Cartão de débito',
         tag: 'Trabalho',
         description: 'Vinte euros',
         exchangeRates: mockData,

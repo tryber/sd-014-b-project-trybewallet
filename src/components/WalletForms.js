@@ -115,9 +115,9 @@ class WalletForms extends React.Component {
           value={ method }
           onChange={ this.handleChange }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de Crédito</option>
-          <option>Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
