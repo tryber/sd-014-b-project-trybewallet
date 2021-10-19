@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class FormWallet extends Component {
   render() {
     const { coins } = this.props;
+    if (!coins) return <span>Loading</span>;
     return (
       <div>
         <label htmlFor="valor">
