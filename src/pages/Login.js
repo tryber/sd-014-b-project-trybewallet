@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { salvaEmailLogin } from '../actions/index';
 
 /*
 const INITIAL_STATE = {
@@ -23,11 +26,13 @@ class Login extends React.Component {
     super();
 
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       email: '',
       senha: '',
       loginHabilitado: false,
+      mudarRota: false,
     };
   }
 
@@ -46,8 +51,18 @@ class Login extends React.Component {
     }
   }
 
+  handleSubmit() {
+    const { saveUserInf } = this.props;
+    const { email } = this.state;
+
+    saveUserInf(email);
+    this.setState({ mudarRota: true });
+  }
+
   render() {
-    const { loginHabilitado, email, senha } = this.state;
+    const { loginHabilitado, email, senha, mudarRota } = this.state;
+    if (mudarRota) return <Redirect to="/carteira" />;
+
     return (
       <div>
 
@@ -76,6 +91,7 @@ class Login extends React.Component {
         <button
           disabled={ loginHabilitado === false }
           type="button"
+          onClick={ () => this.handleSubmit() }
         >
           Entrar
         </button>
@@ -86,4 +102,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveUserInf: (userInf) => (dispatch(salvaEmailLogin(userInf))),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+/* dispatchSetValue, quando quer atualizar o stado */
