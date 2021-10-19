@@ -2,6 +2,7 @@ export const SAVE_USER_EMAIL = 'SAVE_USER_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const REQUEST_ERROR = 'REQUEST_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const saveUserEmail = (payload) => ({
   type: SAVE_USER_EMAIL,
@@ -20,6 +21,11 @@ export const requestError = (error) => ({
 
 export const addExpense = (payload) => ({
   type: ADD_EXPENSE,
+  payload,
+});
+
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE,
   payload,
 });
 
