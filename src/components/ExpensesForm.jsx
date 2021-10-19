@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Input from './Input';
+// import { connect } from 'react-redux';
 import './css/expensesForm.css';
 
 class ExpensesForm extends Component {
   render() {
     // const { value } = this.state;
     return (
-      <form>
+      <form className="expensesForm">
         <label htmlFor="value">
           Valor:
           <input type="text" id="value" placeholder="Valor" />
@@ -45,8 +44,9 @@ class ExpensesForm extends Component {
   }
 }
 
-const mapDispatchToProps = (state) => ({
+// const mapDispatchToProps = (state) => ({
 
-});
+// });
 
-export default connect(null, mapDispatchToProps)(ExpensesForm);
+// export default connect(null, mapDispatchToProps)(ExpensesForm);
+export default ExpensesForm;
