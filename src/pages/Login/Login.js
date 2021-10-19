@@ -42,31 +42,33 @@ class Login extends React.Component {
     const { dispatchMail } = this.props;
     const { mail, password } = this.state;
     return (
-      <fieldset>
-        <CustomInput
-          id="mail"
-          onChange={ this.handleChange }
-          type="text"
-          describe="Email:"
-          dataTestId="email-input"
-        />
-        <CustomInput
-          id="password"
-          onChange={ this.handleChange }
-          dataTestId="password-input"
-          type="password"
-          describe="Senha:"
-        />
-        <Link to="/carteira">
-          <button
-            disabled={ this.disabledButton(mail, password) }
-            type="button"
-            onClick={ () => dispatchMail(mail) }
-          >
-            Entrar
-          </button>
-        </Link>
-      </fieldset>
+      <form>
+        <fieldset>
+          <CustomInput
+            id="mail"
+            onChange={ this.handleChange }
+            type="text"
+            description="Email:"
+            dataTestId="email-input"
+          />
+          <CustomInput
+            id="password"
+            onChange={ this.handleChange }
+            dataTestId="password-input"
+            type="password"
+            description="Senha:"
+          />
+          <Link to="/carteira">
+            <button
+              disabled={ this.disabledButton(mail, password) }
+              type="button"
+              onClick={ () => dispatchMail(mail) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </fieldset>
+      </form>
     );
   }
 }
