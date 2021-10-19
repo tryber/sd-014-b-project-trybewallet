@@ -59,6 +59,14 @@ class Wallet extends React.Component {
       ...this.state,
       id: expenses.length,
     });
+
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   render() {
