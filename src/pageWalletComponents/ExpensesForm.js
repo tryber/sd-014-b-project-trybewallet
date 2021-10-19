@@ -46,6 +46,7 @@ class ExpensesForm extends Component {
     });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { getCurrencies } = this.props;
@@ -59,6 +60,7 @@ class ExpensesForm extends Component {
           onChange={ this.handleChange }
         />
         <Input
+          type="string"
           label="Descrição"
           name="description"
           value={ description }
