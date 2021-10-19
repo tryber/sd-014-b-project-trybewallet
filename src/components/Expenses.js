@@ -13,8 +13,8 @@ class Expenses extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      method: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: '',
     });
 
@@ -36,8 +36,6 @@ class Expenses extends React.Component {
     const getData = await fetch(urlAPI)
       .then((response) => response.json())
       .catch((error) => new Error(error));
-    // const data = Object.values(getData);
-    // const selectedCurrency = data.find((coin) => coin.code === currency).bid;
     this.setState({
       exchangeRates: getData,
     });

@@ -1,24 +1,39 @@
 table {
-  border: 1px solid white;
-  border-collapse: collapse;
+  text-align: center;
+  background-color: white;
+  color: black;
+  border-collapse:collapse;
   width: 100vw;
 }
 
-td {
-  border: 1px solid white;
-  border-collapse: collapse;
-  text-align: center;
+tr:nth-child(even) {
   width: 100vw;
+  background-color: lightgrey;
 }
 
 th {
-  border: 1px solid white;
-  border-collapse: collapse;
+  background-color: white;
+  color: black;
+  font-weight: 500;
   width: 100vw;
 }
 
-tr {
-  border: 1px solid white;
-  border-collapse: collapse;
+tr:hover {
+  background-color: darkslategrey;
+  color: white
+}
+
+td {
+  height: 25px;
   width: 100vw;
 }
+
+.imageButton {
+  background-color: transparent;
+  cursor: pointer;
+  height: 24px;
+  margin: 1px 5px;
+  padding: 2px;
+  width: 24px;
+}
+

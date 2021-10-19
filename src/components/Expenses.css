@@ -2,6 +2,8 @@ form {
   align-items: center;
   display: flex;
   flex-wrap: row wrap;
+  margin-bottom: 10px;
+  margin-top: 10px;
   justify-content: space-evenly;
 }
 
@@ -9,17 +11,18 @@ label {
   align-items: center;
   display: flex;
   flex-wrap: row wrap;
-  margin-bottom: 8px;
+  height: 39px;
 }
 
 input {
   border-radius: 5px;
-  height: 25px;
+  height: 33px;
   width: 150px;
 }
 
 select {
   border-radius: 5px;
+  background-color: white;
   height: 39px;
   width: 120px;
 }
@@ -31,8 +34,7 @@ button {
   color: white;
   font-size: medium;
   font-weight: 900;
-  height: 35px;
-  margin-bottom: 8px;
+  height: 39px;
   width: 160px;
 }
 

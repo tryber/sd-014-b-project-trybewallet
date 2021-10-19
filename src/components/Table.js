@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import editIcon from '../images/icons8-edit-row-64.png';
+import deleteIcon from '../images/icons8-delete-row-64.png';
 import './Table.css';
+import HeadTable from './HeadTable';
 
 class Table extends React.Component {
   render() {
     const { purchases } = this.props;
     let arrayPurchase = false;
-
-    if (purchases.length !== 0) {
-      arrayPurchase = true;
-    }
-
+    if (purchases.length !== 0) arrayPurchase = true;
     const renderPurchase = (
       purchases.map((purchase) => {
         const currency = purchase.exchangeRates[purchase.currency].name;
@@ -28,26 +27,20 @@ class Table extends React.Component {
             <td>{ parseFloat(exchangeRate).toFixed(2) }</td>
             <td>{ convertedValue.toFixed(2) }</td>
             <td>Real</td>
+            <img className="imageButton" src={ editIcon } alt="editar" />
+            <img
+              className="imageButton"
+              data-testid="delete-btn"
+              src={ deleteIcon }
+              alt="deletar"
+            />
           </tr>
         );
-      })
-    );
-
-    console.log(purchases);
+      }));
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          <HeadTable />
           {arrayPurchase && renderPurchase}
         </thead>
       </table>
