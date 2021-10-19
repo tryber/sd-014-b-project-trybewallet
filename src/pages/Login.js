@@ -49,7 +49,11 @@ export default class Login extends Component {
             data-testid="password-input"
           />
         </label>
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+        >
+          Entrar
+        </button>
       </div>
     );
   }
