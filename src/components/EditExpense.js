@@ -9,13 +9,11 @@ class EditExpenses extends React.Component {
   constructor() {
     super();
     this.state = ({
-      id: 0,
       value: 0,
       description: '',
       currency: '',
       method: '',
       tag: '',
-      exchangeRates: '',
     });
     this.handleChange = this.handleChange.bind(this);
   }
@@ -58,9 +56,9 @@ class EditExpenses extends React.Component {
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { id, exchangeRates, value, description, currency, method, tag } = this.state;
     return (
-      <form>
+      <form className={ id }>
         <label htmlFor="value">
           Valor:
           <input
@@ -86,6 +84,7 @@ class EditExpenses extends React.Component {
           value={ currency }
           id="select-currency-expense"
           handleChange={ this.handleChange }
+          obj={ exchangeRates }
         />
         <label htmlFor="payment-method">
           Método de Pagamento:
