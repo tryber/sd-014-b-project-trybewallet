@@ -13,7 +13,7 @@ class Header extends Component {
       acc += value * exchangeRates[currency].ask;
       return acc;
     }, 0);
-    return somaTotal.toFixed(2);
+    return somaTotal.toFixed(2); // https://www.alura.com.br/artigos/formatando-numeros-no-javascript?gclid=CjwKCAjw2bmLBhBREiwAZ6ugo8Fpy4M3XoxCf4egBGujbJfAk7oTaqGBswSyvL8RSx1HU7EC3RiGuxoCMtcQAvD_BwE
   }
 
   render() {
