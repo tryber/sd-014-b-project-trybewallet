@@ -1,9 +1,9 @@
-/* eslint-disable max-lines-per-function */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { currencies, addExpenses } from '../actions';
 import Header from '../Components/Header';
+import Inp from '../Components/TextInput';
 
 class Wallet extends React.Component {
   constructor() {
@@ -11,7 +11,7 @@ class Wallet extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
-    this.addExpense = this.addExpense.bind(this);
+    this.addExp = this.addExp.bind(this);
 
     this.state = {
       value: '',
@@ -46,7 +46,7 @@ class Wallet extends React.Component {
     });
   }
 
-  async addExpense() {
+  async addExp() {
     const { nExpenses, value, description, method, currency, tag } = this.state;
     const eRates = await this.fetchCurrencies();
     const { dispatchExpenses } = this.props;
@@ -72,25 +72,15 @@ class Wallet extends React.Component {
       <>
         <Header />
         <form>
-          <label htmlFor="value">
-            Valor
-            <input
-              id="value"
-              type="text"
-              value={ value }
-              onChange={ this.handleChange }
-            />
-          </label>
+          <Inp id="value" label="Valor" value={ value } onChange={ this.handleChange } />
           <label htmlFor="currency">
             Moeda
             <select id="currency" onChange={ this.handleChange }>
-              {
-                curr.map((currency, index) => (
-                  <option key={ index } value={ currency.code }>
-                    { currency.code }
-                  </option>
-                ))
-              }
+              { curr.map((currency, index) => (
+                <option key={ index } value={ currency.code }>
+                  { currency.code }
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="method">
@@ -120,11 +110,7 @@ class Wallet extends React.Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
-          <input
-            type="button"
-            onClick={ this.addExpense }
-            value="Adicionar despesa"
-          />
+          <input type="button" onClick={ this.addExp } value="Adicionar despesa" />
         </form>
       </>
     );
