@@ -2,9 +2,9 @@ import React from 'react';
 
 const paymentMethods = ['', 'Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
-const expenseCategory = ['', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const expensesCategory = ['', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
-function FormExpenses() {
+function formEstructure(response) {
   return (
     <form>
       <label htmlFor="value">
@@ -26,7 +26,8 @@ function FormExpenses() {
       <label htmlFor="currency">
         Moeda:
         <select id="currency">
-          <option>BRL</option>
+          { response.length > 0 && response.map((coin) => (
+            <option key={ coin } value={ coin }>{coin}</option>)) }
         </select>
       </label>
       <label htmlFor="paymentMethod">
@@ -39,12 +40,29 @@ function FormExpenses() {
       <label htmlFor="category">
         Tag:
         <select id="category">
-          { expenseCategory.map((category) => (
+          { expensesCategory.map((category) => (
             <option key={ category } value={ category }>{category}</option>)) }
         </select>
       </label>
     </form>
   );
+}
+// código visto nesse site, utilizado abaixo
+// https://stackoverflow.com/questions/3455405/how-do-i-remove-a-key-from-a-javascript-object
+function FormExpenses() {
+  const [currenciesArray, setResponse] = React.useState([]);
+  async function fetchApiCurrencies() {
+    const promise = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const json = await promise.json();
+    delete json.USDT;
+    setResponse(Object.keys(json));
+  }
+  // https://dev.to/vinodchauhan7/react-hooks-with-async-await-1n9g
+  React.useEffect(() => {
+    fetchApiCurrencies();
+  }, []);
+
+  return formEstructure(currenciesArray);
 }
 
 export default FormExpenses;
