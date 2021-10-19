@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveUserData } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,6 +11,7 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -15,8 +19,17 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleClick() {
+    const { history, saveLoginAndPassword } = this.props;
+    const { login, password } = this.state;
+    saveLoginAndPassword(login, password);
+    history.push('/carteira');
+  }
+
   render() {
     const { email, password } = this.state;
+    const isValidEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/);
+    const minLength = 6;
     return (
       <div>
         <input
@@ -37,10 +50,30 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           required
         />
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          disabled={ password.length < minLength || !isValidEmail }
+        >
+          Entrar
+
+        </button>
       </div>
     );
   }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    saveLoginAndPassword: (login, password) => dispatch(saveUserData(login, password)),
+  };
+}
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  saveLoginAndPassword: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
