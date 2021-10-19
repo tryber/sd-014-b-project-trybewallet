@@ -14,3 +14,14 @@ estado global:
 validação de email:
 https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
 https://ui.dev/validate-email-address-javascript/
+
+https://dirask.com/posts/React-how-to-pass-array-of-options-to-select-D9qW2D
+(map select)
+
+
+import React from 'react';
+import Input from '../interactionComponents/input';
+import TextArea from '../interactionComponents/textArea';
+import { paymentMethodData, tagData } from '../data/ExpensesFormData';
+
+class ExpensesForm extends React.Component() {
