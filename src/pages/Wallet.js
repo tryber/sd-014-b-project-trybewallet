@@ -5,7 +5,26 @@ import PropTypes from 'prop-types';
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      moedas: [],
+    };
+
     this.header = this.header.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  fetchApi() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => {
+        const filtered = Object.keys(json).filter((key) => key !== 'USDT');
+        this.setState({
+          moedas: filtered,
+        });
+      });
   }
 
   header() {
@@ -26,6 +45,8 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { moedas } = this.state;
+
     return (
       <div>
         TrybeWallet
@@ -42,7 +63,10 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda:
             <select name="moeda" id="moeda">
-              <option value="BRL">BRL</option>
+              {moedas.map((moeda, index) => (
+                <option key={ index }>
+                  { moeda }
+                </option>))}
             </select>
           </label>
           <label htmlFor="pagamento">
