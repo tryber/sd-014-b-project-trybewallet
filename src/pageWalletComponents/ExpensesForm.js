@@ -46,7 +46,6 @@ class ExpensesForm extends Component {
     });
   }
 
-  // eslint-disable-next-line max-lines-per-function
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { getCurrencies } = this.props;
@@ -64,8 +63,7 @@ class ExpensesForm extends Component {
           label="Descrição"
           name="description"
           value={ description }
-          onChange={ this.handleChange }
-        />
+          onChange={ this.handleChange } />
         <label className="form-label m-1" htmlFor="currency">
           Moeda
           <select
