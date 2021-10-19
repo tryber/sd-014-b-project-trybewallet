@@ -11,7 +11,7 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
+      id: -1,
       valor: '0',
       descricao: '',
       moeda: 'USD',
@@ -23,6 +23,7 @@ class Form extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.addExpenses = this.addExpenses.bind(this);
+    // this.somatoriaDespesas = this.somatoriaDespesas.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +41,6 @@ class Form extends Component {
   async addExpenses() {
     const { actionExpenses, requisicaoApi } = this.props;
     const newReqApi = await requisicaoApi();
-    console.log(newReqApi);
     this.setState((state) => ({
       id: state.id + 1,
       exchangeRates: newReqApi.payload,
@@ -48,10 +48,10 @@ class Form extends Component {
     this.setState((state) => ({
       expenses: [...state.expenses, {
         id: state.id,
-        valor: state.valor,
-        descricao: state.descricao,
-        moeda: state.moeda,
-        metdPagamento: state.metdPagamento,
+        value: state.valor,
+        description: state.descricao,
+        currency: state.moeda,
+        method: state.metdPagamento,
         tag: state.tag,
         exchangeRates: state.exchangeRates,
       }],
@@ -107,11 +107,20 @@ Form.propTypes = {
   actionExpenses: PropTypes.func.isRequired,
   requisicaoApi: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.object).isRequired,
-
+  // despesas: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.number,
+  //   value: PropTypes.string,
+  //   description: PropTypes.string,
+  //   currency: PropTypes.string,
+  //   method: PropTypes.string,
+  //   tag: PropTypes.string,
+  //   exchangeRate: PropTypes.objectOf(PropTypes.object),
+  // })).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  despesas: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

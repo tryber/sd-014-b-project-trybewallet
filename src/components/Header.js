@@ -6,14 +6,21 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      despesaTotal: 0,
       cambio: 'BRL',
     };
+    this.somatoriaDespesas = this.somatoriaDespesas.bind(this);
+  }
+
+  somatoriaDespesas() {
+    const { despesas } = this.props;
+    const total = despesas.reduce((acc, { value }) => (
+      Number(acc) + Number(value)), 0);
+    return total;
   }
 
   render() {
     const { email } = this.props;
-    const { despesaTotal, cambio } = this.state;
+    const { cambio } = this.state;
     return (
       <div>
         <p data-testid="email-field">
@@ -22,10 +29,13 @@ class Header extends Component {
           { email }
         </p>
 
-        <p data-testid="total-field">
+        {/* <div>
+          { this.somatoriaDespesas() }
+        </div> */}
+        <p>
           Despesa Total:
           {' '}
-          { despesaTotal }
+          <span data-testid="total-field">{ this.somatoriaDespesas() }</span>
         </p>
 
         <p data-testid="header-currency-field">
@@ -40,10 +50,20 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  despesas: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRate: PropTypes.objectOf(PropTypes.object),
+  })).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  despesas: state.wallet.expenses,
 });
 
 const mapDispatchToProps = {
