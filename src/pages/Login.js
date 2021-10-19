@@ -1,5 +1,6 @@
 import { Button } from 'bootstrap';
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // func retirada do slack, colaboracao do amigo michael turma 14b
 function isEmailValid(email) {
@@ -12,19 +13,9 @@ const six = 6;
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const button = useRef(null);
-
-  function submitPassword(pw) {
-    if (pw.length < six) {
-      const invalidPasswordMessage = 'password must have at least six characters dumbass';
-      // eslint-disable-next-line no-alert
-      alert(invalidPasswordMessage);
-    } else if (pw.length >= six) {
-      // eslint-disable-next-line no-alert
-      alert('password is correct');
-    }
-  }
 
   function isPasswordValid(pw) {
     return pw.length > six;
@@ -48,7 +39,9 @@ function Login() {
         ref={ button }
         disabled={ !isEmailValid(email) || !isPasswordValid(password) }
         type="submit"
-        onClick={ () => { submitPassword(email); } }
+        onClick={ () => {
+          history.push('/carteira');
+        } }
       >
         Entrar
       </Button>
