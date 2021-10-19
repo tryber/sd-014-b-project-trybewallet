@@ -6,6 +6,9 @@ class ButtonTable extends Component {
     const { click } = this.props;
     return (
       <>
+        <button className="btn btn-warning m-1" type="button">
+          <i className="bi bi-pencil-square"> </i>
+        </button>
         <button
           className="btn btn-danger m-1"
           type="button"
@@ -13,9 +16,6 @@ class ButtonTable extends Component {
           data-testid="delete-btn"
         >
           <i className="bi bi-trash"> </i>
-        </button>
-        <button className="btn btn-warning m-1" type="button">
-          <i className="bi bi-pencil-square"> </i>
         </button>
       </>
     );

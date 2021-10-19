@@ -50,7 +50,7 @@ class Form extends Component {
     const { value, description, currency, method, tag } = this.state;
     const { getCurrencies } = this.props;
     return (
-      <form>
+      <form className="m-2">
         <InputDefault
           desc="Valor"
           name="value"
