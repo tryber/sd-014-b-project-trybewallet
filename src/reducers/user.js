@@ -3,7 +3,6 @@ import { USER } from '../actions';
 const INITIAL_STATE = {
   user: {
     email: '',
-    redirect: false,
   },
 };
 
@@ -12,7 +11,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case USER:
     return {
       email: action.payload,
-      redirect: true,
     };
 
   default:
