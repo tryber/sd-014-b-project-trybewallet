@@ -3,7 +3,7 @@
     "browser": true,
     "es2020": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": ["plugin:react/recommended", "trybe-frontend"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
