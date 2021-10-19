@@ -6,11 +6,11 @@ class TiposDeGastos extends Component {
     const arrayOption = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { onChange } = this.props;
     return (
-      <label htmlFor="Tag">
+      <label htmlFor="tag">
         Tag
         <select
-          name="Tag"
-          id="Tag"
+          name="tag"
+          id="tag"
           onChange={ onChange }
         >
           { arrayOption.map((item, index) => (
