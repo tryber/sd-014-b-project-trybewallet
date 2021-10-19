@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  update = () => this.forceUpdate();
-
   render() {
     const { globalState:
       { user: { email }, wallet: { expenses } } } = this.props;

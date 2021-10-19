@@ -28,8 +28,24 @@ class Expenditures extends Component {
   render() {
     const { data, dispatchState, globalState: { wallet: { expenses } } } = this.props;
     const { handleChange, addId } = this;
+    const
+      { id,
+        valor,
+        descrição,
+        moeda,
+        método_de_pagamento: metodoDePagamento,
+        tag,
+      } = this.state;
     const paymentMetods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const requiredObject = {
+      id,
+      value: valor,
+      currency: moeda,
+      method: metodoDePagamento,
+      tag,
+      description: descrição,
+    };
     return (
       <form>
         <Input name="valor" handleChange={ handleChange } />
@@ -43,7 +59,10 @@ class Expenditures extends Component {
         <Select name="tag" selectItems={ tags } handleChange={ handleChange } />
         <button
           type="button"
-          onClick={ () => { dispatchState(this.state, expenses); addId(expenses.length); } }
+          onClick={ () => {
+            dispatchState(requiredObject, expenses);
+            addId(expenses.length);
+          } }
         >
           Adicionar despesa
         </button>
