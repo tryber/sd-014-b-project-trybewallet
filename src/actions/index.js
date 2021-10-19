@@ -1,9 +1,13 @@
 // Coloque aqui suas actions
-const ADD_MAIL = 'ADD_MAIL';
+import { ADD_EXPENSES } from '../reducers/wallet';
+import { ADD_MAIL } from '../reducers/user';
 
-const mailToGlobalState = (mail) => ({
+export const mailToGlobalState = (mail) => ({
   type: ADD_MAIL,
   mail,
 });
 
-export default mailToGlobalState;
+export const expensesToGlobalState = (expenses) => ({
+  type: ADD_EXPENSES,
+  expenses,
+});

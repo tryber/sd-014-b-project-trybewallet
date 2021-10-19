@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 export default class CustomInput extends Component {
   render() {
-    const { describe, id, onChange, dataTestId, type } = this.props;
+    const { description, id, onChange, dataTestId, type } = this.props;
     return (
       <label htmlFor={ id }>
-        {describe}
+        {description}
         <input
           onChange={ onChange }
           data-testid={ dataTestId }
@@ -21,7 +21,7 @@ export default class CustomInput extends Component {
 
 CustomInput.propTypes = {
   dataTestId: PropTypes.string,
-  describe: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,

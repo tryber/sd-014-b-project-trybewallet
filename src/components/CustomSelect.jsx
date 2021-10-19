@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 
 export default class CustomSelect extends Component {
   render() {
-    const { options, onChange, id, describe } = this.props;
+    const { options, onChange, id, description } = this.props;
     return (
       <label htmlFor={ id }>
-        {describe}
+        {description}
         <select id={ id } name={ id } onChange={ onChange }>
           {options.map((element) => (
             <option
@@ -23,7 +23,7 @@ export default class CustomSelect extends Component {
 }
 
 CustomSelect.propTypes = {
-  describe: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
