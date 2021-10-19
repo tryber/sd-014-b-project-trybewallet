@@ -1,5 +1,9 @@
 import React from 'react';
 import '../style/Login.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { emailSubmit } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,13 +27,14 @@ class Login extends React.Component {
   validateForms() {
     const { inputEmail, inputPassword } = this.state;
     const minLength = 6;
-    const emailValidate = /\S+@\S+\.\S+/;
+    const emailValidate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailValidate.test(inputEmail) && inputPassword.length >= minLength;
   }
 
   render() {
     const { inputEmail, inputPassword } = this.state;
     const { validateForms } = this;
+    const { submitInputEmail } = this.props;
 
     return (
       <main id="container">
@@ -60,23 +65,33 @@ class Login extends React.Component {
             />
             <div className="underline" />
           </div>
-          <button
-            type="button"
-            value="Entrar"
-            className="buttonLogin"
-            disabled={ !validateForms() }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              value="Entrar"
+              className="buttonLogin"
+              disabled={ !validateForms() }
+              onClick={ () => submitInputEmail(inputEmail) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </main>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  submitInputEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  submitInputEmail: (emailInfo) => dispatch(emailSubmit(emailInfo)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
 
 /* links que peguei de referencia para validação do email */
-/* https://pt.stackoverflow.com/questions/291974/valida%C3%A7%C3%A3o-campo-e-mails
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-https://pt.stackoverflow.com/questions/291974/valida%C3%A7%C3%A3o-campo-e-mails */
+/* https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions */

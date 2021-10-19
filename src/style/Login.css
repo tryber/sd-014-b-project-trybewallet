@@ -1,8 +1,5 @@
-body {
-  background-color: #181b1f;
-}
-
 #container {
+  background-color: #181b1f;
   width: 100vw;
   height: 100vh;
   display: flex;
