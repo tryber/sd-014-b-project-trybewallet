@@ -3,24 +3,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class HeaderWallet extends Component {
+  constructor() {
+    super();
+    this.sumExpenses = this.sumExpenses.bind(this);
+  }
+
+  sumExpenses(expenses) {
+    if (expenses.length < 1) return 0;
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, currency, expenses } = this.props;
     return (
-      <div>
+      <header>
         <span data-testid="email-field">{ email }</span>
-        <span data-testid="total-field">0</span>
-        <span data-testid="header-currency-field">BRL</span>
-      </div>
+        <span data-testid="total-field">{ this.sumExpenses(expenses)}</span>
+        <span data-testid="header-currency-field">{ currency }</span>
+      </header>
     );
   }
 }
 
 HeaderWallet.propTypes = {
+  currency: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
-const mapState = (state) => ({
-  email: state.user.email,
+const mapState = ({ user, wallet }) => ({
+  email: user.email,
+  expenses: wallet.expenses,
+  currency: wallet.currency,
 });
 
 export default connect(mapState)(HeaderWallet);

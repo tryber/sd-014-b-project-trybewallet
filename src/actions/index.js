@@ -5,4 +5,4 @@
 
 export const USER_ACTION = 'USER_ACTION';
 
-export const walletAction = (payload) => ({ type: USER_ACTION, payload });
+export const userAction = (payload) => ({ type: USER_ACTION, payload });
