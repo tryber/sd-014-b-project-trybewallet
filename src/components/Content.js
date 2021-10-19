@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import Login from '../pages/Login';
 import Wallet from '../pages/Wallet';
 
 class Content extends Component {
   render() {
     return (
-      <div>
+      <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/carteira" component={ Wallet } />
-      </div>
+      </Switch>
+
     );
   }
 }
