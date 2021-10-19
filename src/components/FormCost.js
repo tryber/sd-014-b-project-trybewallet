@@ -7,8 +7,14 @@ class FormCost extends React.Component {
     super();
     this.state = {
       typeOfCoins: [],
+      description: '',
+      coin: '',
+      payment: '',
+      tag: '',
+      value: '',
     };
     this.apiResults = this.apiResults.bind(this);
+    this.addNewExpense = this.addNewExpense.bind(this);
   }
 
   componentDidMount() {
@@ -25,10 +31,10 @@ class FormCost extends React.Component {
   render() {
     const { typeOfCoins } = this.state;
     return (
-      <form>
+      <form className="form-wallet-page">
         <label htmlFor="cost-value">
           Valor:
-          <input type="number" id="cost-value" />
+          <input className="input-wallet" type="number" id="cost-value" />
         </label>
         <label htmlFor="currency">
           Moeda:
@@ -42,25 +48,32 @@ class FormCost extends React.Component {
         <label htmlFor="payment">
           Método de pagamento:
           <select id="payment">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Crédito">Cartão de crédito</option>
+            <option value="Débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag:
           <select id="tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <label htmlFor="description">
           Descrição:
-          <input type="text" id="description" />
+          <input className="input-wallet" type="text" id="description" />
         </label>
+        <button
+          className="btn-add-expense"
+          type="button"
+          onChange={ this.addNewExpense }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }

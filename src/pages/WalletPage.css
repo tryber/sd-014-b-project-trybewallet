@@ -4,6 +4,7 @@
 }
 
 .header-wallet-page {
+  background-color: rgb(192, 253, 192);
   display: flex;
   justify-content: space-between;
 }
@@ -20,4 +21,49 @@
   font-size: 20px;
   font-weight: 200;
   margin: 10px;
+}
+
+select {
+  background-color: white;
+  border: 1px solid rgb(214, 213, 213);
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  width: 100px;
+}
+
+.form-wallet-page {
+  display: flex;
+  margin: 15px;
+  justify-content: space-evenly;
+}
+
+.input-wallet {
+  width: 150px;
+  margin: 9p
+}
+
+.btn-add-expense {
+  background-color: rgb(14, 212, 14);
+  border: 1px solid rgb(14, 212, 14);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px;
+  margin: 10px;
+  height: 30px;
+}
+
+.header-table-costs {
+  background-color: rgba(180, 179, 179, 0.26);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.h6-table {
+  font-size: 12px;
+  font-weight: 450;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
