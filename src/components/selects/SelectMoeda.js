@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class SelectMoeda extends React.Component {
@@ -22,14 +23,13 @@ class SelectMoeda extends React.Component {
 
   render() {
     const { moedas } = this.state;
+    const { value, onChange, name } = this.props;
     return (
       <div>
-        <div>
-          {console.log(moedas)}
-        </div>
+        {console.log(moedas)}
         <label htmlFor="moeda">
           Moeda
-          <select id="moeda">
+          <select id="moeda" name={ name } value={ value } onChange={ onChange }>
             {moedas.map((item) => <option key={ item } value={ item }>{item}</option>)}
           </select>
         </label>
@@ -37,6 +37,12 @@ class SelectMoeda extends React.Component {
     );
   }
 }
+
+SelectMoeda.propTypes = {
+  name: PropTypes.isRequired,
+  onChange: PropTypes.isRequired,
+  value: PropTypes.isRequired,
+};
 
 // const mapStateToProps = (state) => ({
 //   USD: state.wallet,
