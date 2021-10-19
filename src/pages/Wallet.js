@@ -2,57 +2,102 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { resultApi } from '../actions';
+import { resultApi, resultApiExpenses } from '../actions';
+import Button from '../components/Button';
+import Select from '../components/Select';
+import Input from '../components/Input';
+import TextArea from '../components/TextArea';
+
+const methodPg = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const typeTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleCLick = this.handleCLick.bind(this);
+  }
+
   componentDidMount() {
     const { armazeApiEstadoGlobal } = this.props;
     armazeApiEstadoGlobal();
   }
 
-  render() {
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleCLick() {
+    const { armazenaApiExpense } = this.props;
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
+    armazenaApiExpense(this.state);
+  }
+
+  forms() {
     const { currencies } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    return (
+      <form>
+        <Input
+          label="Valor:"
+          type="text"
+          id="addValue"
+          value={ value }
+          onChange={ this.handleChange }
+          name="value"
+        />
+        <TextArea
+          label="Descrição"
+          id="description"
+          value={ description }
+          onChange={ this.handleChange }
+          name="description"
+        />
+        <Select
+          array={ currencies }
+          label="Moeda"
+          id="expense-currency"
+          value={ currency }
+          onChange={ this.handleChange }
+          name="currency"
+        />
+        <Select
+          array={ methodPg }
+          label="Método de pagamento"
+          value={ method }
+          id="payment"
+          onChange={ this.handleChange }
+          name="method"
+        />
+        <Select
+          array={ typeTag }
+          label="Tag"
+          id="tag"
+          value={ tag }
+          onChange={ this.handleChange }
+          name="tag"
+        />
+        <Button label="Adicionar despesa" onClick={ this.handleCLick } />
+      </form>
+    );
+  }
+
+  render() {
     return (
       <div>
         <Header />
-        <form>
-          <label htmlFor="addValue">
-            Valor:
-            <input type="text" id="addValue" />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <textarea id="description" cols="30" rows="10" />
-          </label>
-          <label htmlFor="expense-currency">
-            Moeda
-            <select id="expense-currency">
-              {
-                currencies.map((currency) => (
-                  currency !== 'USDT'
-                    ? <option key={ currency }>{currency}</option> : ''))
-              }
-            </select>
-          </label>
-          <label htmlFor="payment">
-            Método de pagamento
-            <select id="payment">
-              <option value="dinheiro" id="dinheiro">Dinheiro</option>
-              <option value="credito" id="credito">Cartão de crédito</option>
-              <option value="debito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
-        </form>
+        { this.forms()}
       </div>
     );
   }
@@ -61,17 +106,20 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   currencies: PropTypes.func.isRequired,
   armazeApiEstadoGlobal: PropTypes.func.isRequired,
+  armazenaApiExpense: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     currencies: state.wallet.currencies,
+    exchange: state.wallet.exchange,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     armazeApiEstadoGlobal: () => dispatch(resultApi()),
+    armazenaApiExpense: (state) => dispatch(resultApiExpenses(state)),
   };
 }
 
