@@ -50,5 +50,3 @@ export const deleteExpenses = (expenses, index) => ({
   type: DELETE_EXPENSES,
   payload: expenses.filter((el) => el !== expenses[index]),
 });
-
-// Commit 1

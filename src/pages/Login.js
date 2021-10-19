@@ -47,7 +47,7 @@ class Login extends Component {
         <input
           type="password"
           data-testid="password-input"
-          placeholder="Senha"
+          placeholder="Senha (commit 1)"
           name="passwordInput"
           onChange={ handleChange }
         />
