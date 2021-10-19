@@ -5,9 +5,10 @@ import './Header.css';
 import walletLogo from '../../images/wallet.png';
 
 function Header({ user, expenses }) {
-  const totalValue = expenses.reduce((acc, { value, currency, exchangeRates }) => {
-    const quotation = exchangeRates[currency].ask;
-    return acc + (value * quotation);
+  const totalValue = expenses.reduce((acc, { value, exchangeRates, currency }) => {
+    const expenseValue = Number(value);
+    const quotation = Number(exchangeRates[currency].ask);
+    return acc + (expenseValue * quotation);
   }, 0);
 
   return (
