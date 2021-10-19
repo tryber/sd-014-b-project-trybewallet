@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { label, onClick } = this.props;
+    const { id, label, onClick } = this.props;
     return (
       <button
+        data-testid={ id }
         type="button"
         onClick={ onClick }
       >
@@ -16,25 +17,16 @@ class Button extends React.Component {
   }
 }
 
-/*
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-};
-*/
-
 export default connect()(Button);
 
 Button.propTypes = {
+  id: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
+  expenseId: undefined,
+  id: '',
   onClick: () => null,
 };

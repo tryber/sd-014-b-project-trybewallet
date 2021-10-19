@@ -32,10 +32,20 @@ class Form extends React.Component {
     });
   }
 
-  handleSubmit() {
-    const { addExpense } = this.props;
-    const currentState = this.state;
-    addExpense(currentState);
+  async handleSubmit() {
+    const { addExpense, currencies, expenses, fetchCurrencies } = this.props;
+    const { currency, description, method, tag, value } = this.state;
+    await fetchCurrencies();
+    const newExpense = {
+      id: expenses.length,
+      currency,
+      description,
+      method,
+      tag,
+      value,
+      exchangeRates: currencies,
+    };
+    await addExpense(newExpense);
   }
 
   treatCurrencyList() {
@@ -56,7 +66,7 @@ class Form extends React.Component {
           label="Valor"
           name="value"
           onChange={ this.handleChange }
-          type="text"
+          type="number"
           value={ value }
           required
         />
@@ -99,10 +109,11 @@ class Form extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (state) => dispatch(addNewExpense(state)),
+  addExpense: (object) => dispatch(addNewExpense(object)),
   fetchCurrencies: () => dispatch(fetchEconomiaAPI()),
 });
 
@@ -115,6 +126,8 @@ Form.propTypes = {
       PropTypes.any.isRequired,
     ).isRequired,
   ).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {

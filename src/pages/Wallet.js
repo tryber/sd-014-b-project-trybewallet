@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Form from '../components/Form';
 import Header from '../components/Header';
+import Table from '../components/Table';
 
 import { fetchEconomiaAPI } from '../actions';
 
@@ -18,6 +19,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
+        <Table />
       </div>
     );
   }
