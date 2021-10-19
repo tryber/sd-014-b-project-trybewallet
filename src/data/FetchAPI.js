@@ -1,12 +1,8 @@
-const currenciesApi = ' https://economia.awesomeapi.com.br/json/all';
-
-export const getCurrenciesData = () => (
-  fetch(currenciesApi)
-    .then((response) => (
-      response
-        .json()
-        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ))
-);
+const getCurrenciesData = async () => {
+  const requestApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const data = await requestApi.json();
+  const arrayCurrencies = Object.keys(data);
+  return arrayCurrencies;
+};
 
 export default getCurrenciesData;

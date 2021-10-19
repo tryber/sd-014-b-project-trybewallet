@@ -1,51 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Select extends Component {
+export default class SelectLabel extends Component {
   render() {
-    const {
-      label,
-      name,
-      onChange,
-      value,
-      id,
-      defaultOption,
-      defaultValue,
-      options,
-    } = this.props;
+    const { name, id, value, callbackFunc, isLoaded, data } = this.props;
     return (
-      <label htmlFor={ name }>
-        { label }
+      <label htmlFor={ id }>
+        { `${name}: ` }
         <select
-          name={ name }
           id={ id }
-          required
-          onChange={ onChange }
+          type="text"
           value={ value }
+          name={ id }
+          onChange={ callbackFunc }
         >
-          <option value={ defaultValue }>{ defaultOption }</option>
-          {
-            options.map((option, index) => (
-              <option key={ index }>{ option }</option>
-            ))
-          }
+          { isLoaded && data.map((item) => (
+            <option key={ item } value={ item }>
+              { item }
+            </option>)) }
         </select>
       </label>
     );
   }
 }
 
-Select.propTypes = {
-  label: PropTypes.string.isRequired,
+SelectLabel.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
-  defaultValue: PropTypes.string.isRequired,
-  defaultOption: PropTypes.string.isRequired,
+  callbackFunc: PropTypes.func.isRequired,
+  isLoaded: PropTypes.bool,
+  data: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default Select;
+SelectLabel.defaultProps = { isLoaded: true };

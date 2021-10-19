@@ -2,23 +2,25 @@ import React from 'react';
 import Input from '../interactionComponents/input';
 import TextArea from '../interactionComponents/textArea';
 import { paymentMethodData, tagData } from '../data/ExpensesFormData';
+import SelectLabel from '../interactionComponents/select';
 
 class ExpensesForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      value: 0,
-      currencies: [],
-      expenses: [],
-      paymentMethod: '',
-      tag: '',
-      description: '',
-
+      expenses: [{
+        id: [],
+        value: 0,
+        description: '',
+        currency: '',
+        method: '',
+        tag: '',
+        exchangeRates: [],
+      }],
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleTypeSelect = this.handleTypeSelect.bind(this);
   }
 
   handleChange({ target }) {
@@ -26,12 +28,8 @@ class ExpensesForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleTypeSelect(e) {
-    this.setState({ paymentMethod: e.target.value });
-}
-
   render() {
-    const { currencies, expenses, paymentMethod, tag, description, value } = this.state;
+    const { currency, expenses, method, tag, description, value } = this.state;
     return (
       <form>
         <Input
@@ -59,21 +57,21 @@ class ExpensesForm extends React.Component {
               ;
             </select> */}
 
-        <label htmlFor={ paymentMethod }>
-          Método de pagamento:
-          <select id={ paymentMethod } value={ this.state.value } onChange={ this.handleTypeSelect }>
-            {paymentMethodData.map((item) => (
-              <option key={ item } value={ item }>{ item }</option>))}
-          </select>
-        </label>
+        <SelectLabel
+          id="method"
+          value={ method }
+          name="Método de pagamento"
+          callbackFunc={ this.handleChange }
+          data={ paymentMethodData }
+        />
 
-        <label htmlFor={ tag }>
-          Tag:
-          <select id={ tag } value={ tag } onChange={ this.handleTypeSelect }>
-            {tagData.map((item) => (
-              <option key={ item } value={ item }>{ item }</option>))}
-          </select>
-        </label>
+        <SelectLabel
+          id="tag"
+          value={ tag }
+          name="tag"
+          callbackFunc={ this.handleChange }
+          data={ tagData }
+        />
 
       </form>
 
