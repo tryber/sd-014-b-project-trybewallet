@@ -1,5 +1,5 @@
 import React from 'react';
-import getCurrencies from '../services/CurrencyAPI';
+import { getCurrencies } from '../services/CurrencyAPI';
 
 class CurrencySelectOptions extends React.Component {
   constructor() {
