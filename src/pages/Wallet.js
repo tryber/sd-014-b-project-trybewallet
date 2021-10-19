@@ -5,20 +5,17 @@ import PropTypes from 'prop-types';
 function Wallet({ email }) {
   const INITIAL_VALUE = 0;
   return (
-    <div>
-      <header className="header">
-        <p data-testid="email-field">
-          { email }
-        </p>
-        {' '}
-      </header>
+    <header className="header">
+      <p data-testid="email-field">
+        { email }
+      </p>
       <p data-testid="total-field">
         { INITIAL_VALUE }
       </p>
       <p data-testid="header-currency-field">
         BRL
       </p>
-    </div>
+    </header>
   );
 }
 
