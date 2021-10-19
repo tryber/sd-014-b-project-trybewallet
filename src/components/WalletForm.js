@@ -16,6 +16,7 @@ class WalletForm extends Component {
       expenses: expenseOptions,
       paymentValue: paymentOptions[0],
       expenseValue: expenseOptions[0],
+      currencyValue: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.LabelOptions = this.LabelOptions.bind(this);
@@ -24,7 +25,7 @@ class WalletForm extends Component {
 
   async componentDidMount() {
     const { fetchCurrenciesToGlobalState } = this.props;
-    fetchCurrenciesToGlobalState();
+    await fetchCurrenciesToGlobalState();
   }
 
   handleChange(event) {
@@ -67,8 +68,9 @@ class WalletForm extends Component {
   render() {
     const {
       valueInput, descriptionInput,
-      payments, expenses, paymentValue, expenseValue } = this.state;
-    const { currenciesFromGlobalState, isFetching } = this.props;
+      payments, expenses, paymentValue, expenseValue,
+      currencyValue } = this.state;
+    const { isFetching, currenciesFromGlobalState } = this.props;
     return (
       <section>
         <form>
@@ -82,10 +84,15 @@ class WalletForm extends Component {
           </label>
           <label htmlFor="currency-input">
             Moeda
-            <select name="currency-input" id="currency-input">
-              { isFetching ? <option>loading...</option> : currenciesFromGlobalState.map(
-                (currency, index) => <option key={ index }>{ currency }</option>,
-              ) }
+            <select
+              name="currencyValue"
+              id="currency-input"
+              value={ currencyValue }
+              onChange={ this.handleChange }
+            >
+              { isFetching ? <option>loading...</option>
+                : currenciesFromGlobalState
+                  .map((currency, index) => <option key={ index }>{ currency }</option>) }
             </select>
           </label>
           <label htmlFor="payment-options">
