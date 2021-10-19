@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
 
@@ -26,7 +28,7 @@ class Form extends Component {
     const { valueInput, coinInput, paymentInput, tagInput, describeInput } = this.state;
     const paymentArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const coinsArray = [];
+    const { coinsArray } = this.props;
     return (
       <form>
         <Input
@@ -72,4 +74,12 @@ class Form extends Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  coinsArray: state.wallet.currencies,
+});
+
+Form.propTypes = {
+  coinsArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps)(Form);
