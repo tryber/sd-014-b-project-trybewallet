@@ -1,47 +1,73 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Label from '../helpers/LabelWithInput';
+import { connect } from 'react-redux';
+import Input from '../helpers/Input';
+import Select from '../helpers/Select';
+import { addExpenses } from '../actions/index';
 
-export default class Expenditures extends Component {
+class Expenditures extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+      valor: '',
+      descrição: '',
+      moeda: '',
+      método_de_pagamento: '',
+      tag: '',
+      exchange: '',
+    };
+  }
+
+  handleChange = ({ target: { id, value } }) => {
+    this.setState({ [id]: value });
+  }
+
+  addId = (id) => this.setState({ id })
+
   render() {
-    const { data } = this.props;
+    const { data, dispatchState, globalState: { wallet: { expenses } } } = this.props;
+    const { handleChange, addId } = this;
+    const paymentMetods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <form>
-        <Label name="valor" />
-        <Label name="descrição" />
-        <label htmlFor="moeda">
-          Moeda:
-          <select id="moeda">
-            {data.map((moeda, index) => <option key={ index }>{moeda}</option>)}
-          </select>
-        </label>
-        <label htmlFor="metodo de pagamento">
-          Método de pagamento:
-          <select id="metodo de pagamento">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        <Input name="valor" handleChange={ handleChange } />
+        <Input name="descrição" handleChange={ handleChange } />
+        <Select name="moeda" selectItems={ data } handleChange={ handleChange } />
+        <Select
+          name="método_de_pagamento"
+          selectItems={ paymentMetods }
+          handleChange={ handleChange }
+        />
+        <Select name="tag" selectItems={ tags } handleChange={ handleChange } />
+        <button
+          type="button"
+          onClick={ () => { dispatchState(this.state); addId(expenses.length); } }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
 Expenditures.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.arrayOf(PropTypes.string),
+  dispatchState: PropTypes.func.isRequired,
+  globalState: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 Expenditures.defaultProps = {
   data: ['BRL'],
 };
+
+const mapStateToProps = (state) => ({
+  globalState: state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchState: (state) => dispatch(addExpenses(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expenditures);

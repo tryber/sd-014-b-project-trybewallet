@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Label from '../helpers/LabelWithInput';
-import loginAction from '../actions';
+import Input from '../helpers/Input';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -45,7 +45,7 @@ render() {
   const { disabled, login } = this.state;
   return (
     <form>
-      <Label
+      <Input
         name="login"
         type="email"
         dataTestid="email-input"
@@ -53,7 +53,7 @@ render() {
         handleChange={ handleChange }
       />
       <br />
-      <Label
+      <Input
         name="Password"
         type="password"
         dataTestid="password-input"

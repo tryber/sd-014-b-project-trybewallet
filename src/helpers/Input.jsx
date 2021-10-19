@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import firstLetterUpperCase from './helperFunctions';
 
-export default class Label extends Component {
+export default class Input extends Component {
   render() {
     const { name, type, dataTestid, minlength, required, handleChange } = this.props;
-    const nameFirstLetterUpperCase = name.slice(0, 1).toUpperCase();
-    const nameUpper = nameFirstLetterUpperCase + name.slice(1, name.lenght);
+    const nameUpper = firstLetterUpperCase(name);
     return (
       <label htmlFor={ name }>
         {`${nameUpper}:`}
@@ -23,7 +23,7 @@ export default class Label extends Component {
   }
 }
 
-Label.propTypes = {
+Input.propTypes = {
   dataTestid: PropTypes.string,
   minlength: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -32,7 +32,7 @@ Label.propTypes = {
   handleChange: PropTypes.func,
 };
 
-Label.defaultProps = {
+Input.defaultProps = {
   minlength: null,
   dataTestid: '',
   required: false,
