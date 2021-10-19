@@ -28,12 +28,24 @@ td {
   width: 100vw;
 }
 
-.imageButton {
+.deleteButton {
   background-color: transparent;
-  cursor: pointer;
+  background-image: url('../images/icons8-delete-row-64.png');
+  background-size: 24px 24px;
+  border: none;
   height: 24px;
-  margin: 1px 5px;
   padding: 2px;
+  margin: 1px 5px;
   width: 24px;
 }
 
+.editButton {
+  background-color: transparent;
+  background-image: url('../images/icons8-edit-row-64.png');
+  background-size: 24px 24px;
+  border: none;
+  height: 24px;
+  padding: 2px;
+  margin: 1px 5px;
+  width: 24px;
+}
