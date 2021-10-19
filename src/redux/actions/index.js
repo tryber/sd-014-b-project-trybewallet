@@ -10,8 +10,13 @@ export function addExpenseAction(expense) {
     .then((json) => {
       const keys = Object.keys(json);
       const values = Object.values(json);
-      const exchangeRates = keys.map((currency, index) => ({ [currency]: values[index] }))
-        .filter((currency) => currency.code !== 'USDT');
+      const exchangeRates = keys.reduce((acc, currency, index) => {
+        acc[currency] = values[index];
+        return acc;
+      }, {});
       dispatch(addExpense({ ...expense, exchangeRates: { ...exchangeRates } }));
     });
 }
+
+export const saveTotalExpenses = (totalExpenses) => ({
+  type: 'SAVE_TOTAL_EXPENSES', totalExpenses });

@@ -8,7 +8,7 @@ export default class SelectDefault extends Component {
       <label htmlFor={ `${name}-input` }>
         { children }
         <select
-          name="currency"
+          name={ name }
           id={ `${name}-input` }
           onChange={ onChange }
         >

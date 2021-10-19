@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { fetchCurrenciesList } from '../services/currencyQuotesApi';
 import InputDefault from './InputDefault';
 import SelectDefault from './SelectDefault';
-import { addExpenseAction } from '../actions/index';
+import { addExpenseAction } from '../redux/actions/index';
 
 class AddExpense extends Component {
   constructor() {
@@ -13,9 +13,9 @@ class AddExpense extends Component {
     this.state = {
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       currencies: [],
     };
 
@@ -92,7 +92,6 @@ class AddExpense extends Component {
           Adicionar Despesa
         </button>
       </form>
-
     );
   }
 }

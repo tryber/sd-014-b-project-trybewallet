@@ -1,16 +1,13 @@
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  name: '',
+  email: '',
+  password: '',
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SAVE_USER_INFO':
-    return {
-      ...state,
-      user: action.user,
-    };
+    return { ...action.user };
   default:
     return state;
   }
