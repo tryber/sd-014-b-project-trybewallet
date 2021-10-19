@@ -3,6 +3,7 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 const CURRENCY_API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -26,8 +27,26 @@ export const fetchCurrencies = () => async (dispatch) => {
     const response = await fetch(CURRENCY_API_URL);
     const data = await response.json();
     delete data.USDT;
+    delete data.DOGE;
     return dispatch(getCurrencies(data));
   } catch (err) {
     return dispatch(failedRequest(err));
   }
 };
+
+export const addExpenseAction = (exRates) => ({
+  type: ADD_EXPENSE,
+  payload: exRates,
+});
+
+// export const onClickExpenseExchange = () => async (dispatch) => {
+//   try {
+//     const response = await fetch(CURRENCY_API_URL);
+//     const data = await response.json();
+//     delete data.USDT;
+//     delete data.DOGE;
+//     return dispatch(addExpenseAction(data));
+//   } catch (error) {
+//     return dispatch(failedRequest(error));
+//   }
+// };
