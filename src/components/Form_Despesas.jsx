@@ -29,7 +29,8 @@ class Form_Despesas extends React.Component {
       <section>
         <label htmlFor="valor">
           Valor
-          <input 
+          <input
+            id="valor" 
             type="number"
             name="valor"
             value = { valor }
@@ -39,6 +40,7 @@ class Form_Despesas extends React.Component {
         <label htmlFor="descricao">
           Descrição
           <input
+            id="descricao"
             type="text"
             name="descricao" 
             value={ descricao }
@@ -48,14 +50,18 @@ class Form_Despesas extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select
+            id="moeda"
             name="moeda"
             value={ moeda }
             onChange={ this.handleChange } 
-          />
+          >
+            <option value="">Selecione</option>
+          </select>  
         </label>
         <label htmlFor="pagamento">
           Método de pagamento
           <select
+            id="pagamento"
             name="pagamento"
             value={ pagamento }
             onChange={ this.handleChange }
@@ -69,6 +75,7 @@ class Form_Despesas extends React.Component {
         <label htmlFor="tag">
           Tag
           <select
+            id="tag"
             name="tag"
             value={ tag }
             onChange={ this.handleChange }
