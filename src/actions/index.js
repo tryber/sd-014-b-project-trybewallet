@@ -1,5 +1,5 @@
-export const LOGIN_SUBMIT = 'LOGIN_SUBMIT';
-export const userEmail = (email) => ({
-  type: LOGIN_SUBMIT,
-  email,
+export const LOGIN_ACTION = 'LOGIN_ACTION';
+export const loginAction = (payload) => ({
+  type: LOGIN_ACTION,
+  payload,
 });

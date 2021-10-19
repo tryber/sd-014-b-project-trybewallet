@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +12,14 @@ class Login extends React.Component {
     };
     this.inputValidation = this.inputValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onSumbmit = this.onSumbmit.bind(this);
+  }
+
+  onSumbmit(event, userInfo) {
+    event.preventDefault();
+    const { submitDispatch, history } = this.props;
+    submitDispatch(userInfo);
+    history.push('/carteira');
   }
 
   // Inicio da Referência
@@ -52,11 +63,28 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button disabled={ this.inputValidation() } type="button">Entrar</button>
+          <button
+            disabled={ this.inputValidation() }
+            type="button"
+            onClick={ (event) => this.onSumbmit(event, { email, password }) }
+          >
+            Entrar
+          </button>
         </form>
       </section>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  submitDispatch: (userInfo) => dispatch(loginAction(userInfo)),
+});
+
+Login.propTypes = {
+  submitDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
