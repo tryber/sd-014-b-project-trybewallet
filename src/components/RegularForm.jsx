@@ -123,9 +123,9 @@ RegularForm.defaultProps = {
 };
 
 RegularForm.propTypes = {
-  getCurrenciesValue: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string),
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getCurrenciesValue: PropTypes.func.isRequired,
   id: PropTypes.number,
   // PropTypes de objectCurrencies desenvolvida com ajuda de Arthur Junior - 13B
   objectCurrencies: PropTypes.objectOf(PropTypes.object),

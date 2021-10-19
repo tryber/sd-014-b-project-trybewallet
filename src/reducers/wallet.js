@@ -9,7 +9,7 @@ import { ADD_EXPENSES,
 
 const INITIAL_STATE = {
   isLoading: true,
-  objectCurrencies: [],
+  objectCurrencies: {},
   currencies: [],
   expenses: [],
   id: 0,
