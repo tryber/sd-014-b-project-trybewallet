@@ -30,20 +30,14 @@ class Wallet extends React.Component {
       <div>
         TrybeWallet
         {this.header()}
-        <form className="add_despesas_container">
+        <form className="add__despesas__container">
           <label htmlFor="valor">
             Valor:
-            <input
-              type="number"
-              min="0.0"
-              step="0.01"
-              name="valor"
-              id="valor"
-            />
+            <input type="number" min="0.00" step="0.01" name="valor" id="valor" />
           </label>
-          <label htmlFor="Descricao">
-            Descrição
-            <input type="text" name="Descricao" id="descricao" />
+          <label htmlFor="descricao">
+            Descrição:
+            <input type="text" name="descricao" id="descricao" />
           </label>
           <label htmlFor="moeda">
             Moeda:
@@ -51,10 +45,11 @@ class Wallet extends React.Component {
               <option value="BRL">BRL</option>
             </select>
           </label>
-          <label htmlFor="pagamento" id="pagamento">
+          <label htmlFor="pagamento">
+            Método de pagamento:
             <select name="metodo_de_pagamento" id="pagamento">
               <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de crédito" selected>Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
