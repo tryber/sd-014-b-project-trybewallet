@@ -14,8 +14,10 @@ function validateEmail(email) {
 // a constante enabled eu tinha feito de outra forma, mas a forma que ele fez
 // achei mais elegante e inteligente.
 function Login({ history, dispatchEmail }) {
-  const [email, changeEmail] = useState('');
-  const [password, changePassword] = useState('');
+  // Usando o State do Hook. Código abaixo
+  // https://pt-br.reactjs.org/docs/hooks-state.html
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleSubmit() {
     dispatchEmail(email);
@@ -32,7 +34,7 @@ function Login({ history, dispatchEmail }) {
           placeholder="Digite o E-mail"
           value={ email }
           required
-          onChange={ ({ target: { value } }) => changeEmail(value) }
+          onChange={ ({ target: { value } }) => setEmail(value) }
           data-testid="email-input"
         />
       </label>
@@ -42,7 +44,7 @@ function Login({ history, dispatchEmail }) {
           placeholder="Digite a Senha"
           value={ password }
           required
-          onChange={ ({ target: { value } }) => changePassword(value) }
+          onChange={ ({ target: { value } }) => setPassword(value) }
           data-testid="password-input"
         />
       </label>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const paymentMethods = ['', 'Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
-const expenseCategory = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const expenseCategory = ['', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 function FormExpenses() {
   return (
