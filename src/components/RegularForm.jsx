@@ -55,9 +55,8 @@ class RegularForm extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { codeCurrencies } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const arrayOfCodeIn = Object.keys(currencies);
     return (
       <form className="form-container">
         <Input
@@ -75,7 +74,7 @@ class RegularForm extends React.Component {
           onChange={ this.handleChange }
         />
         <Select
-          arrayOption={ arrayOfCodeIn }
+          arrayOption={ codeCurrencies }
           labelTitle="Moeda"
           value={ currency }
           name="currency"
@@ -103,6 +102,7 @@ class RegularForm extends React.Component {
 
 const mapStateToProps = ({ wallet, user }) => ({
   currencies: wallet.currencies[0],
+  codeCurrencies: wallet.codeCurrencies,
   email: user.email,
   loading: wallet.isLoading,
   edited: wallet.edited,
@@ -119,12 +119,14 @@ const mapDispatchToProps = (dispatch) => ({
 RegularForm.defaultProps = {
   currencies: { },
   id: undefined,
+  codeCurrencies: [],
 };
 
 RegularForm.propTypes = {
   getCurrenciesValue: PropTypes.func.isRequired,
   // PropTypes de currencies desenvolvida com ajuda de Arthur Junior - 13B
   currencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  codeCurrencies: PropTypes.arrayOf(PropTypes.string),
   saveExpenses: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number,

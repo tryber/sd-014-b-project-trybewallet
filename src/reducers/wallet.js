@@ -4,10 +4,12 @@ import { ADD_EXPENSES,
   GET_CURRENCY,
   LOADING,
   EDIT_EXPENSE,
-  SAVE_EDIT_EXPENSE } from '../actions';
+  SAVE_EDIT_EXPENSE,
+  CODE_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   isLoading: true,
+  codeCurrencies: [],
   currencies: [],
   expenses: [],
   id: 0,
@@ -47,6 +49,11 @@ const wallet = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       expenses: [...payload],
       edited: false,
+    };
+  case CODE_CURRENCY:
+    return {
+      ...state,
+      codeCurrencies: payload,
     };
   default:
     return state;

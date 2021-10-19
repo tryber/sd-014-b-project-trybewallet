@@ -33,8 +33,9 @@ class Table extends React.Component {
     excludeExpense(newExpenses);
   }
 
-  roundNumber(value, i, cur) {
-    return Math.round(Number(value) * Number(this.getBrlCurrency(i, cur)) * 100) / 100;
+  roundNumber(value, index, currency) {
+    return Math.round(Number(value)
+    * Number(this.getBrlCurrency(index, currency)) * 100) / 100;
   }
 
   render() {
@@ -64,7 +65,7 @@ class Table extends React.Component {
               <td>{tag}</td>
               <td>{method}</td>
               <td>{value}</td>
-              <td>{exchangeRates[currency].name}</td>
+              <td>{exchangeRates[currency].name.split('/')[0]}</td>
               <td>{Math.round(Number(exchangeRates[currency].ask) * 100) / 100}</td>
               <td>{this.roundNumber(value, index, currency)}</td>
               <td>Real</td>

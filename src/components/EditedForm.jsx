@@ -29,7 +29,7 @@ class EditedForm extends React.Component {
   handleSaveEditClick(id) {
     const { expenses, saveEditedExpenses } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const expenseIndex = expenses.findIndex((expense) => expense.id === id);
+    const expenseIndex = expenses.find((expense) => expense.id === id);
     const newExpenses = [...expenses];
     newExpenses[expenseIndex] = {
       ...newExpenses[expenseIndex],
@@ -39,6 +39,7 @@ class EditedForm extends React.Component {
       method,
       tag,
     };
+    console.log(newExpenses)
     saveEditedExpenses(newExpenses);
   }
 
@@ -56,12 +57,12 @@ class EditedForm extends React.Component {
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
+    console.log(this.state)
   }
 
   render() {
-    const { currencies, id } = this.props;
+    const { codeCurrencies, id } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const arrayOfCodeIn = Object.keys(currencies);
     return (
       <form className="form-container">
         <Input
@@ -81,12 +82,13 @@ class EditedForm extends React.Component {
           dataTestId="description-input"
         />
         <Select
-          arrayOption={ arrayOfCodeIn }
+          arrayOption={ codeCurrencies }
           labelTitle="Moeda"
           value={ currency }
           name="currency"
           onChange={ this.handleChange }
           dataTestId="currency-input"
+          id="currency"
         />
         <Select
           arrayOption={ paymentMethod }
@@ -113,6 +115,7 @@ class EditedForm extends React.Component {
 const mapStateToProps = ({ wallet }) => ({
   expenses: wallet.expenses,
   id: wallet.id,
+  codeCurrencies: wallet.codeCurrencies,
   currencies: wallet.currencies[0],
   excludeExpense: wallet.exclude,
 });
@@ -122,12 +125,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 EditedForm.defaultProps = {
-  currencies: {},
+  codeCurrencies: [],
 };
 
 EditedForm.propTypes = {
   // PropTypes de currencies desenvolvida com ajuda de Arthur Junior - 13B
-  currencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  // currencies: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  codeCurrencies: PropTypes.arrayOf(PropTypes.string),
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   saveEditedExpenses: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
