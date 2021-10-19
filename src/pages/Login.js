@@ -1,4 +1,3 @@
-import { Button } from 'bootstrap';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -35,7 +34,7 @@ function Login() {
         placeholder="password"
         onChange={ (event) => { setPassword(event.target.value); } }
       />
-      <Button
+      <button
         ref={ button }
         disabled={ !isEmailValid(email) || !isPasswordValid(password) }
         type="submit"
@@ -44,7 +43,7 @@ function Login() {
         } }
       >
         Entrar
-      </Button>
+      </button>
     </>
   );
 }
