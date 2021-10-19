@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { sendUserInfo } from '../actions';
 import '../App.css';
 
 class Login extends React.Component {
@@ -9,6 +12,14 @@ class Login extends React.Component {
       senha: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+  }
+
+  onSubmitForm() {
+    const { email } = this.state;
+    const { history, dispatchSetValue } = this.props;
+    dispatchSetValue(email);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -57,6 +68,7 @@ class Login extends React.Component {
             <button
               disabled={ !this.isEmailValid(email) || senha.length < MININUM_NUMBER }
               type="button"
+              onClick={ this.onSubmitForm }
             >
               Entrar
 
@@ -68,4 +80,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (payload) => dispatch(sendUserInfo(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
