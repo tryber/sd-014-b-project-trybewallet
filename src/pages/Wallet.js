@@ -1,7 +1,11 @@
 import React from 'react';
 
 function Wallet() {
-  return <div>TrybeWallet</div>;
+  return (
+    <header>
+      <p data-testid="email-field">Um email qualquer</p>
+    </header>
+  );
 }
 
 export default Wallet;
