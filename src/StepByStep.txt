@@ -56,5 +56,8 @@ https://github.com/tryber/sd-014-b-project-trybewallet/blob/beatriz-ribeiro-proj
 
 
 ****Sao necessárias as açoes:
+1) Receber o email
+2) Receber a API + thunk (importa o thunk no Component e mas a ação vai Reducer)
+3) Enviar os dados do formulario das despesas
   
 1)definir os dados de login (reducer/user)

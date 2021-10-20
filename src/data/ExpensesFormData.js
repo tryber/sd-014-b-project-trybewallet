@@ -1,5 +1,5 @@
-const methods = ['Dinheiro', 'Cartão de cŕedito', 'Cartão de débito'];
-const tags = ['Alimentação', 'Lazer', 'Transporte', 'Saúde'];
+const methods = ['Dinheiro', 'cartão de crédito', 'Cartão de débito'];
+const tags = ['Alimentação', 'Lazer', 'Transporte', 'Saúde', 'Trabalho'];
 
 export {
   methods,
