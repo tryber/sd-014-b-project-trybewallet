@@ -12,14 +12,13 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: '',
+      id: [],
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Trabalho',
       exchangeRates: [],
-      editing: false,
     };
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -90,6 +89,14 @@ class Wallet extends React.Component {
     const { expenses, expenseEdit, dispatchEdited } = this.props;
     expenses.splice([expenseEdit.id], 1, this.state);
     dispatchEdited(expenses);
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Trabalho',
+      editing: false,
+    });
   }
 
   render() {
@@ -151,14 +158,26 @@ Wallet.propTypes = {
   dispatchEdited: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   expenseEdit: PropTypes.shape({
-    id: PropTypes.string,
-    value: PropTypes.string,
-    description: PropTypes.string,
-    currency: PropTypes.string,
-    method: PropTypes.string,
-    tag: PropTypes.string,
-    exchangeRates: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
+    id: PropTypes.arrayOf(PropTypes.object),
+    value: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    currency: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+    exchangeRates: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }),
+};
+
+Wallet.defaultProps = {
+  expenseEdit: {
+    id: [],
+    value: '',
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Trabalho',
+    exchangeRates: [],
+  },
 };
 
 const mapStateToProps = (state) => ({
