@@ -1,6 +1,8 @@
 main {
   align-items: center;
   background-color: black;
+  background-image: url('../images/world-map2.jpg');
+  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
@@ -11,7 +13,8 @@ main {
 
 section {
   background-color: rgb(41, 41, 41);
-  border-radius: 5px;
+  border-radius: 30px;
+  opacity: 92%;
   padding: 120px 50px;
   text-align: center;
 }

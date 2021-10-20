@@ -1,0 +1,9 @@
+#e {
+  background-color: maroon;
+  border-color: maroon;
+}
+
+#e:hover {
+  background-color: firebrick;
+  border-color: firebrick;
+}

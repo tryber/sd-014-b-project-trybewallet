@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Image from '../images/iconLogin.png';
+import Image from '../images/logoTrybeWallet.png';
 import { saveUser } from '../actions';
 import './Login.css';
 

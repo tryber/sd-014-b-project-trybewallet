@@ -5,3 +5,7 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+.logo {
+  background-color: transparent;
+}

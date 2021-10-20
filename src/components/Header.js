@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import SelectCurrency from './SelectCurrency';
+import ProjectLogo from '../images/trybewhite.png';
 import './Header.css';
 
 class Header extends React.Component {
@@ -16,7 +16,7 @@ class Header extends React.Component {
 
     return (
       <div className="container-header">
-        <h1>TrybeWallet</h1>
+        <img className="logo" src={ ProjectLogo } alt="Logo Projeto" />
         <span data-testid="email-field">{ email }</span>
         <div>
           <span>Despesa total: </span>

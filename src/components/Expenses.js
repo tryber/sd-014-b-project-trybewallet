@@ -43,7 +43,6 @@ class Expenses extends React.Component {
       exchangeRates: getData,
     });
     const { saveExpenseData, lastId } = this.props;
-    console.log(lastId.length);
     if (lastId !== []) {
       this.setState({
         id: lastId.length,
