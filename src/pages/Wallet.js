@@ -5,12 +5,15 @@ import FormExpense from '../components/FormExpense';
 
 class Wallet extends React.Component {
   render() {
-    const { emailUser } = this.props;
+    const { emailUser, totalField } = this.props;
+    const totalFieldValue = totalField
+      .reduce((acc, { value, currency, exchangeRates }) => (
+        (Number(acc) + Number(value * exchangeRates[currency].ask)).toFixed(2)), 0);
     return (
       <>
         <header>
           <span data-testid="email-field">{ emailUser.email }</span>
-          <span data-testid="total-field">0</span>
+          <span data-testid="total-field">{ totalFieldValue }</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <FormExpense />
@@ -21,6 +24,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   emailUser: state.user,
+  totalField: state.wallet.expenses,
 });
 
 Wallet.propTypes = {

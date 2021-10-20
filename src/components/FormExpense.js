@@ -12,6 +12,7 @@ class FormExpense extends React.Component {
     super();
     this.state = {
       coins: [],
+      id: -1,
       value: '',
       description: '',
       currency: 'USD',
@@ -37,7 +38,8 @@ class FormExpense extends React.Component {
   async requestCoinsButton() {
     const currentCoins = await getCoins().then((response) => response);
     delete currentCoins.USDT;
-    this.setState(() => ({
+    this.setState((prev) => ({
+      id: prev.id + 1,
       exchangeRates: currentCoins,
     }));
 
@@ -46,9 +48,9 @@ class FormExpense extends React.Component {
 
   submitForm() {
     const { dispatchFormExpenses } = this.props;
-    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const { value, description, currency, method, tag, exchangeRates, id } = this.state;
     const dateForm = {
-      id: 0,
+      id,
       value,
       description,
       currency,
@@ -62,7 +64,6 @@ class FormExpense extends React.Component {
   async requestCoins() {
     const currentCoins = await getCoins().then((response) => response);
     const coinsArrayCurrency = Object.values(currentCoins);
-    console.log(coinsArrayCurrency);
     coinsArrayCurrency.splice(1, 1);
     this.setState({
       coins: coinsArrayCurrency,
