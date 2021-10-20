@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { setUsersValue } from '../actions/index';
+import { setUserValue, getCurrencyThunk } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -37,14 +37,12 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
     const { disableBtn, handleChange } = this;
     return (
       <form onSubmit={ this.handleSubmit }>
-        <h1>{email}</h1>
-        <h1>{password}</h1>
         <label htmlFor="email">
           <input
+            id="email"
             data-testid="email-input"
             type="email"
             name="email"
@@ -75,7 +73,8 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (value) => dispatch(setUsersValue(value)),
+  dispatchSetValue: (value) => dispatch(setUserValue(value)),
+  getCurrency: () => dispatch(getCurrencyThunk()),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
