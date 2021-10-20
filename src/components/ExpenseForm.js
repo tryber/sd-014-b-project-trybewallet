@@ -144,6 +144,7 @@ class ExpenseForm extends Component {
           {this.renderCurrency()}
           {this.renderPayment()}
           {this.renderTag()}
+          <button type="submit">Adicionar Despesa</button>
         </form>
       </section>
     );
