@@ -1,0 +1,9 @@
+body {
+  background-color: rgb(29, 28, 28);
+  color: white;
+}
+
+hr {
+  margin-bottom: 0; /* no unit */
+  margin-top: 0; /* no unit */
+}

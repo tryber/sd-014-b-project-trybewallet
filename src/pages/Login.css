@@ -1,0 +1,66 @@
+main {
+  align-items: center;
+  background-color: black;
+  background-image: url('../images/world-map2.jpg');
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+section {
+  background-color: rgb(41, 41, 41);
+  border-radius: 30px;
+  opacity: 92%;
+  padding: 120px 50px;
+  text-align: center;
+}
+
+.span-msg {
+  font-size: smaller;
+}
+
+.input-login {
+  align-self: center;
+  border-radius: 5px;
+  display: flex;
+  height: 25px;
+  margin: 5px;
+  padding: 5px 10px;
+  width: 200px;
+}
+
+.input-login::placeholder {
+  font-size: larger;
+}
+
+.btnSubmit {
+  background-color: rgb(26, 61, 219);
+  border-color: rgb(26, 61, 219);
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: 900;
+  height: 39px;
+  width: 224px;
+}
+
+.btnSubmit:hover {
+  background-color: lightcoral;
+  border-color: lightcoral;
+  cursor: pointer;
+}
+
+.btnSubmit:disabled {
+  background-color: lightslategray;
+  border-color: lightslategray;
+  cursor: default;
+}
+
+img {
+  background-color: white;
+  border-radius: 5px;
+  width: 220px;
+}

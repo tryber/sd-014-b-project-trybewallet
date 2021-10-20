@@ -1,0 +1,11 @@
+.container-header {
+  align-items: center;
+  background-color: darkslategrey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.logo {
+  background-color: transparent;
+}

@@ -1,0 +1,53 @@
+table {
+  background-color: white;
+  border-collapse: collapse;
+  color: black;
+  text-align: center;
+  width: 100vw;
+}
+
+tr:nth-child( even ) {
+  background-color: lightgrey;
+  width: 100vw;
+}
+
+th {
+  background-color: white;
+  color: black;
+  font-weight: 500;
+  width: 100vw;
+}
+
+tr:hover {
+  background-color: darkslategrey;
+  color: white;
+}
+
+td {
+  height: 25px;
+  width: 100vw;
+}
+
+.deleteButton {
+  background-color: transparent;
+  background-image: url('../images/icons8-delete-row-64.png');
+  background-size: 24px 24px;
+  border: none;
+  cursor: pointer;
+  height: 24px;
+  margin: 2px 7px;
+  padding: 2px;
+  width: 24px;
+}
+
+.editButton {
+  background-color: transparent;
+  background-image: url('../images/icons8-edit-row-64.png');
+  background-size: 24px 24px;
+  border: none;
+  cursor: pointer;
+  height: 24px;
+  margin: 2px 7px;
+  padding: 2px;
+  width: 24px;
+}
