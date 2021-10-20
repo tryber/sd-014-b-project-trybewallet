@@ -1,41 +1,137 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: whitesmoke;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.main {
   align-items: center;
-  background-color: #282c34;
-  color: white;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
   justify-content: center;
-  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.login-form {
+  align-items: center;
+  background-color: lightgrey;
+  border-radius: 5px;
+  box-shadow: 0 0 1px 0.3px black;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  justify-content: space-around;
+  margin: 5% auto;
+  min-height: calc(100px + 10vmin);
+  padding: 15px;
+  width: fit-content;
 }
 
-@keyframes App-logo-spin {
+.login-form input {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 1.5px 0.5px black;
+  margin-bottom: 15px;
+  outline: none;
+  padding: 5px 10px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.login-form button {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 1.3px 0.1px black;
+  font-weight: 600;
+  padding: 5px 15px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.header {
+  align-items: center;
+  background-color: rgba(211, 211, 211, 0.5);
+  box-shadow: 0 0 2px 0.5px black;
+  display: flex;
+  font-weight: 600;
+  justify-content: space-between;
+  padding: 15px 30px;
+  top: 0;
+  width: 100%;
+}
+
+.wallet-form {
+  align-items: center;
+  background-color: darkslategrey;
+  box-shadow: 0 0 2px 0.3px black;
+  color: whitesmoke;
+  display: flex;
+  flex-flow: wrap;
+  font-size: calc(1em + 0.15vmin);
+  font-weight: 600;
+  justify-content: space-around;
+  padding: 18px 5px;
+  text-shadow: 0 0 2.5px black;
+  width: 100%;
+}
+
+.editor {
+  background-image: linear-gradient(mediumseagreen, darkslategrey);
+}
+
+.wallet-form label {
+  padding: 5px 0;
+}
+
+.wallet-form input , .wallet-form select {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-left: 1.5px;
+  outline: none;
+  padding: 5px 8px;
+}
+
+.wallet-form button {
+  background-color: teal;
+  border-radius: 8px;
+  color: whitesmoke;
+  font-weight: 600;
+  padding: 10px 8px;
+}
+
+table {
+  background-color: rgba(211, 211, 211, 0.5);
+  border-collapse: collapse;
+  box-shadow: 0 0 2px 0.3px black;
+  text-align: center;
+  width: 100%;
+}
+
+table tr {
+  display: grid;
+  grid-template-columns: 17% 10% 15% 8% repeat(5, 10%);
+}
+
+th , td {
+  align-items: center;
+  box-shadow: 0 0 2px 0.3px black;
+  display: flex;
+  justify-content: center;
+  padding: 5px 15px;
+}
+
+.edit-delete button {
+  background-color: darkred;
+  border-radius: 5px;
+  color: whitesmoke;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0 5px;
+  padding: 5px;
+}
+
+.edit-delete button:first-child {
+  background-color: yellow;
+  color: black;
+  font-size: 1.5em;
+  padding: 3px;
 }
