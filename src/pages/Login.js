@@ -1,6 +1,8 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 import validator from 'validator';
+import { connect } from 'react-redux';
+import { setUserValue } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,7 +10,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,16 +24,15 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    this.setState({
-      redirect: true,
-    });
+    const { history, keyEmail } = this.props;
+    const { email } = this.state;
+    keyEmail(email);
+    history.push('/carteira');
   }
 
   render() {
-    const { email, password, redirect } = this.state;
+    const { email, password } = this.state;
     const min = 6;
-
-    if (redirect) return <Redirect to="/carteira" />;
 
     return (
       <section>
@@ -64,4 +64,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  keyEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapStateToProps = (dispatch) => ({
+  keyEmail: (email) => dispatch(setUserValue(email)),
+});
+
+export default connect(null, mapStateToProps)(Login);
