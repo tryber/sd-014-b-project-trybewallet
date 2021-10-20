@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { userAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -26,7 +29,7 @@ class Login extends React.Component {
   validateButton() {
     const { password } = this.state;
     const five = 5;
-    if (this.validateEmail() && password.length > five) {
+    if (this.validateEmail() && password.length >= five) {
       this.setState({
         ableButton: false,
       });
@@ -49,9 +52,12 @@ class Login extends React.Component {
   }
 
   handleButton() {
+    const { email } = this.state;
+    const { getEmailToState } = this.props;
     this.setState({
       redirection: true,
     });
+    getEmailToState({ email });
   }
 
   render() {
@@ -91,4 +97,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  getEmailToState: (payload) => dispatch(userAction(payload)),
+});
+
+Login.propTypes = {
+  getEmailToState: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
