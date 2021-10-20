@@ -10,7 +10,6 @@ class Inputs extends React.Component {
     const { initialState } = this.props;
     this.state = {
       expenses: [],
-      exchange: [],
       value: initialState.value,
       description: initialState.description,
       currency: initialState.currency,
@@ -38,9 +37,8 @@ class Inputs extends React.Component {
     const { saveCurrency } = this.props;
     const response = await fetch(URL_BASE);
     const moedaResponse = await response.json();
-    const arrayMoedas = Object.values(moedaResponse);
-    this.setState({ exchange: arrayMoedas });
-    saveCurrency(moedaResponse);
+    const arrayMoedas = Object.keys(moedaResponse);
+    saveCurrency(arrayMoedas);
     return moedaResponse;
   }
 
@@ -101,7 +99,8 @@ class Inputs extends React.Component {
   }
 
   render() {
-    const { value, description, currency, method, tag, exchange, button } = this.state;
+    const { value, description, currency, method, tag, button } = this.state;
+    const { moedas } = this.props;
     return (
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="value">
@@ -120,8 +119,8 @@ class Inputs extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" value={ currency } onChange={ this.handleChange }>
-            {exchange.filter(({ codein }) => codein !== 'BRLT')
-              .map(({ code }) => <option key={ code } value={ code }>{ code }</option>)}
+            {moedas.filter((code) => code !== 'USDT')
+              .map((elemt) => <option key={ elemt } value={ elemt }>{ elemt }</option>)}
           </select>
         </label>
         <label htmlFor="method">
@@ -156,10 +155,12 @@ Inputs.propTypes = {
   saveCurrency: PropTypes.func.isRequired,
   despesas: PropTypes.objectOf.isRequired,
   initialState: PropTypes.objectOf.isRequired,
+  moedas: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
+  moedas: state.wallet.currencies,
   initialState: state.soma.stateEdit,
 });
 
