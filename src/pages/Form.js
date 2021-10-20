@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 
 const currencyOptions = [
   { brl: 'BRL' },
@@ -64,7 +64,8 @@ class Form extends React.Component {
 
   render() {
     const { createOptions, changeStateAndElementValue, state } = this;
-    const idsArray = Object.values(state);
+    const idsArray = Object.keys(state);
+    const valuesArray = Object.values(state);
 
     return (
       <form>
@@ -73,7 +74,7 @@ class Form extends React.Component {
           <input
             type="number"
             id={ idsArray[0] }
-            value={ idsArray[0] }
+            value={ valuesArray[0] }
             onChange={ (event) => changeStateAndElementValue(event, idsArray[0]) }
           />
         </label>
@@ -81,7 +82,7 @@ class Form extends React.Component {
           Descrição
           <textarea
             id={ idsArray[1] }
-            value={ idsArray[1] }
+            value={ valuesArray[1] }
             onChange={ (event) => changeStateAndElementValue(event, idsArray[1]) }
           />
         </label>
@@ -93,12 +94,12 @@ class Form extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
+// const mapStateToProps = (state) => ({
+//   email: state.user.email,
+// });
 
-Form.propTypes = {
-  email: PropTypes.string,
-}.isRequired;
+// Form.propTypes = {
+//   email: PropTypes.string,
+// }.isRequired;
 
-export default connect(mapStateToProps, null)(Form);
+export default Form;
