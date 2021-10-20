@@ -3,16 +3,7 @@ import PropTypes from 'prop-types';
 
 class Select extends React.Component {
   render() {
-    const {
-      id,
-      label,
-      name,
-      onChange,
-      value,
-      defaultOption,
-      defaultValue,
-      options,
-    } = this.props;
+    const { id, label, name, onChange, value, options } = this.props;
 
     return (
       <label htmlFor={ id }>
@@ -24,7 +15,6 @@ class Select extends React.Component {
           onChange={ onChange }
           value={ value }
         >
-          <option value={ defaultValue }>{ defaultOption }</option>
           {
             options.map((option, index) => (
               <option key={ index }>{ option }</option>
@@ -45,8 +35,6 @@ Select.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
-  defaultValue: PropTypes.string,
-  defaultOption: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -54,8 +42,6 @@ Select.defaultProps = {
   label: '',
   name: '',
   value: '',
-  defaultValue: '',
-  defaultOption: '',
 };
 
 export default Select;
