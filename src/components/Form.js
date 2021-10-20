@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Tag from './Tag';
 import Currency from './Currency';
 import Description from './Description';
-import PaymentOption from './PaymentOption';
+import Method from './Method';
 import Value from './Value';
 import {
   fetchAPI as dispatchFetchAPI,
@@ -36,7 +36,7 @@ class Form extends Component {
       id: prevState.id + 1,
       value: 0,
       currency: 'USD',
-      paymentOption: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
     }));
@@ -54,7 +54,7 @@ class Form extends Component {
     const {
       value,
       currency,
-      paymentOption,
+      method,
       tag,
       description } = this.state;
     return (
@@ -68,7 +68,7 @@ class Form extends Component {
           handleChange={ handleChange }
           currencies={ currencies }
         />
-        <PaymentOption value={ paymentOption } handleChange={ handleChange } />
+        <Method value={ method } handleChange={ handleChange } />
         <Tag value={ tag } handleChange={ handleChange } />
         <Description value={ description } handleChange={ handleChange } />
         <button
