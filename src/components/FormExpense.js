@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import getCoins from '../services/coinsAPI';
 import Input from './Input';
 import Select from './Select';
 import SelectPayment from './SelectPayment';
+import { getCoinsCurrent } from '../actions';
 
 class FormExpense extends React.Component {
   constructor() {
@@ -14,9 +17,12 @@ class FormExpense extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      exchangeRates: {},
     };
     this.requestCoins = this.requestCoins.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.requestCoinsButton = this.requestCoinsButton.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +34,35 @@ class FormExpense extends React.Component {
     this.setState({ [name]: value });
   }
 
+  async requestCoinsButton() {
+    const currentCoins = await getCoins().then((response) => response);
+    delete currentCoins.USDT;
+    this.setState(() => ({
+      exchangeRates: currentCoins,
+    }));
+
+    this.submitForm();
+  }
+
+  submitForm() {
+    const { dispatchFormExpenses } = this.props;
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const dateForm = {
+      id: 0,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    };
+    dispatchFormExpenses(dateForm);
+  }
+
   async requestCoins() {
     const currentCoins = await getCoins().then((response) => response);
     const coinsArrayCurrency = Object.values(currentCoins);
+    console.log(coinsArrayCurrency);
     coinsArrayCurrency.splice(1, 1);
     this.setState({
       coins: coinsArrayCurrency,
@@ -78,10 +110,23 @@ class FormExpense extends React.Component {
             value={ tag }
           />
         </form>
-        <button type="button">Adicionar despesa</button>
+        <button
+          type="button"
+          onClick={ this.requestCoinsButton }
+        >
+          Adicionar despesa
+        </button>
       </section>
     );
   }
 }
 
-export default FormExpense;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFormExpenses: (payload) => dispatch(getCoinsCurrent(payload)),
+});
+
+FormExpense.propTypes = {
+  dispatchFormExpenses: PropTypes.func.isRequired,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(FormExpense);
