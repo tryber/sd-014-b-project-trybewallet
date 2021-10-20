@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 import './css/expensesForm.css';
@@ -12,11 +11,11 @@ class ExpensesForm extends Component {
     this.state = {
       loading: true,
       currencyArray: [],
-      value: '',
-      resume: '',
-      currency: 'USD',
-      payment: 'Dinheiro',
-      tag: 'Alimentação',
+      // value: '',
+      // resume: '',
+      // currency: 'USD',
+      // payment: 'Dinheiro',
+      // tag: 'Alimentação',
     };
 
     this.fetchCurrency = this.fetchCurrency.bind(this);
