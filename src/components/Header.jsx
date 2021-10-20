@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, expenses } = this.props;
+    const soniblein = expenses.reduce((acc, atual) => {
+      acc += parseFloat(atual.value * atual.exchangeRates[atual.currency].ask);
+      return acc;
+    }, 0);
     return (
       <main>
         <header>
@@ -22,7 +26,7 @@ class Header extends React.Component {
               BRL
             </span>
             {' '}
-            0
+            { soniblein }
           </h3>
         </header>
       </main>
@@ -31,11 +35,13 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   user: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (state) => ({
   user: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapDispatchToProps, null)(Header);

@@ -13,7 +13,7 @@ export const statusUser = (payload) => (
 
 export const statusCurrency = (payload) => (
   {
-    type: LOGIN_OK,
+    type: CURRENCY_OK,
     payload,
   }
 );
