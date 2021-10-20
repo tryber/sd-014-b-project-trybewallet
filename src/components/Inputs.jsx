@@ -1,66 +1,107 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { inputDespesa, valorConvertidoDespesa } from '../actions/index';
+import { inputDespesa, valorConvertidoDespesa, saveCurrencies } from '../actions/index';
 
 const URL_BASE = 'https://economia.awesomeapi.com.br/json/all';
-
 class Inputs extends React.Component {
   constructor(props) {
     super(props);
+    const { initialState } = this.props;
     this.state = {
       expenses: [],
       exchange: [],
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      value: initialState.value,
+      description: initialState.description,
+      currency: initialState.currency,
+      method: initialState.method,
+      tag: initialState.tag,
+      button: initialState.button,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.funcTeste = this.funcTeste.bind(this);
   }
 
   componentDidMount() {
     this.getCurrencyApi();
   }
 
+  componentDidUpdate(nextProps, prevState) {
+    if (prevState === this.state) {
+      this.funcTeste();
+    }
+  }
+
   async getCurrencyApi() {
+    const { saveCurrency } = this.props;
     const response = await fetch(URL_BASE);
     const moedaResponse = await response.json();
     const arrayMoedas = Object.values(moedaResponse);
     this.setState({ exchange: arrayMoedas });
+    saveCurrency(moedaResponse);
     return moedaResponse;
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+  funcTeste() {
+    const { initialState } = this.props;
+    this.setState({ value: initialState.value,
+      description: initialState.description,
+      currency: initialState.currency,
+      method: initialState.method,
+      tag: initialState.tag,
+      button: initialState.button,
+    });
+  }
+
+  handleChange({ target }) {
+    this.setState({ [target.id]: target.value });
   }
 
   handleSubmit() {
-    const { despesas } = this.props;
+    const { button } = this.state;
+    const { despesaDispatch, valorConvertido, initialState, despesas } = this.props;
     this.setState({ expenses: despesas }, async () => {
-      const { despesaDispatch, valorConvertido } = this.props;
-      const { value,
-        description, currency, method, tag, expenses } = this.state;
-      const exchange = await this.getCurrencyApi();
-      const newCurrencies = [...expenses,
-        { id: expenses.length,
+      if (button === 'Adicionar despesa') {
+        const { value,
+          description, currency, method, tag, expenses } = this.state;
+        const exchange = await this.getCurrencyApi();
+        const newCurrencies = [...expenses,
+          { id: expenses.length,
+            value,
+            description,
+            currency,
+            method,
+            tag,
+            exchangeRates: exchange }];
+        despesaDispatch(newCurrencies);
+        valorConvertido(newCurrencies);
+        this.setState({ expenses: newCurrencies });
+        this.funcTeste();
+      } else {
+        const { value, description, currency, method, tag } = this.state;
+        const newValue = { id: initialState.id,
           value,
           description,
           currency,
           method,
           tag,
-          exchangeRates: exchange }];
-      despesaDispatch(newCurrencies);
-      valorConvertido(newCurrencies);
-      this.setState({ expenses: newCurrencies });
+          exchangeRates: initialState.exchangeRates };
+        const newDespesas = despesas
+          .map((despesa) => (despesa.id !== newValue.id ? despesa : newValue));
+        despesaDispatch(newDespesas);
+        valorConvertido(newDespesas);
+        this.setState({
+          expenses: newDespesas,
+          button: 'Adicionar despesa',
+        });
+      }
     });
   }
 
   render() {
-    const { value, description, currency, method, tag, exchange } = this.state;
+    const { value, description, currency, method, tag, exchange, button } = this.state;
     return (
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="value">
@@ -101,8 +142,8 @@ class Inputs extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button" onClick={ this.handleSubmit }>
-          Adicionar despesa
+        <button value={ button } type="button" onClick={ this.handleSubmit }>
+          { button }
         </button>
       </form>
     );
@@ -112,16 +153,20 @@ class Inputs extends React.Component {
 Inputs.propTypes = {
   despesaDispatch: PropTypes.func.isRequired,
   valorConvertido: PropTypes.func.isRequired,
+  saveCurrency: PropTypes.func.isRequired,
   despesas: PropTypes.objectOf.isRequired,
+  initialState: PropTypes.objectOf.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
+  initialState: state.soma.stateEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   despesaDispatch: (e) => dispatch(inputDespesa(e)),
   valorConvertido: (e) => dispatch(valorConvertidoDespesa(e)),
+  saveCurrency: (e) => dispatch(saveCurrencies(e)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
