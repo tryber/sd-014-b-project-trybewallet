@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { changeItem, editExpenses } from '../actions';
 import SelectTAG from './SelectTAG';
 import SelectCurrency from './SelectCurrency';
-import './EditExpense.css';
 
 class EditExpenses extends React.Component {
   constructor() {
@@ -101,7 +100,7 @@ class EditExpenses extends React.Component {
           </select>
         </label>
         <SelectTAG value={ tag } handleChange={ this.handleChange } />
-        <button id="e" type="button" onClick={ this.handleSubmit }>Editar despesa</button>
+        <button type="button" onClick={ this.handleSubmit }>Editar despesa</button>
       </form>
     );
   }
