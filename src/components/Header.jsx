@@ -10,7 +10,10 @@ class Header extends React.Component {
       <header data-testid="email-field">
         <div>{ globalStateEmail }</div>
         <div data-testid="total-field">
-          { total.reduce((acc, { value, currency, exchangeRates }) => acc + parseFloat(value) * exchangeRates[currency].ask, 0)}
+          { total.reduce((acc, {
+            value,
+            currency,
+            exchangeRates }) => acc + parseFloat(value) * exchangeRates[currency].ask, 0)}
         </div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
