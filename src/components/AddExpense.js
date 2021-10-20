@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { fetchCurrenciesList } from '../services/currencyQuotesApi';
 import InputDefault from './InputDefault';
 import SelectDefault from './SelectDefault';
-import { addExpenseAction } from '../redux/actions/index';
+import { addExpenseAction } from '../actions/index';
 
 class AddExpense extends Component {
   constructor() {
