@@ -1,3 +1,3 @@
-// Coloque aqui suas actions
-// eslint-disable-next-line import/prefer-default-export
 export const submitForm = (state) => ({ type: 'SUBMIT', state });
+
+export const action = (state) => ({ type: 'NEW_ACTION', state });
