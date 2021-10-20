@@ -68,15 +68,28 @@ class Wallet extends React.Component {
     this.calculateTotalExpenses();
   }
 
+  // calculateTotalExpenses() {
+  //   const { totalExpenses } = this.props;
+  //   const totalReduce = totalExpenses.reduce((acc, curr) => {
+  //     const exchangeRatesObj = curr.exchangeRates;
+  //     const { currency } = curr;
+  //     const rates = Object.values(exchangeRatesObj[currency])[3];
+  //     const ratedValue = parseFloat(curr.value).toFixed(2) * parseFloat(rates);
+  //     return acc + (Math.round(ratedValue * 100) / 100).toFixed(2);
+  //   }, 0);
+  //   this.setState({ total: parseFloat(totalReduce) });
+  //   console.log(this.state.total);
+  // }
+
   calculateTotalExpenses() {
     const { totalExpenses } = this.props;
-    const totalReduce = totalExpenses.reduce((acc, curr) => {
-      const exCurrency = curr.currency;
-      const exchangedValue = curr.exchangeRates.match(exCurrency);
-      return acc + exchangedValue;
-    }, 0);
+    const teste = totalExpenses.map((exp) => {
+      const rates = parseFloat(exp.exchangeRates[exp.currency].ask);
+      const value = parseFloat(exp.value).toFixed(2);
+      return rates * value;
+    }).reduce((acc, curr) => acc + curr, 0);
     this.setState({
-      total: totalReduce,
+      total: parseFloat(teste).toFixed(2),
     });
   }
 
@@ -97,7 +110,7 @@ class Wallet extends React.Component {
         <label htmlFor="expense-description">
           Descrição
           <input
-            type="textarea"
+            type="text"
             id="expense-description"
             name="description"
             value={ description }
@@ -191,6 +204,9 @@ Wallet.propTypes = {
     map: PropTypes.func,
   }).isRequired,
   fetchCurrenciesData: PropTypes.func.isRequired,
+  totalExpenses: PropTypes.shape({
+    map: PropTypes.func.isRequired,
+  }).isRequired,
   userEmail: PropTypes.string.isRequired,
 };
 
