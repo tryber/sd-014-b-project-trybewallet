@@ -10,13 +10,12 @@ button {
 }
 
 section {
-  padding: 50px;
-  box-shadow: 10px;
-  border: 1px solid purple;
   background-color: black;
-  border-radius: 10px;  
+  border-radius: 10px;
+  box-shadow: 0 0 1em rgb(112, 165, 43);
+  padding: 50px;
 }
 
 form {
-  margin: 40px 10px;  
+  margin: 40px 10px;
 }
