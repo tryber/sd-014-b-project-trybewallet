@@ -6,12 +6,12 @@ class Value extends Component {
     const { value, handleChange } = this.props;
 
     return (
-      <label htmlFor="valueInput">
+      <label htmlFor="value">
         Valor:
         <input
           type="number"
-          name="valueInput"
-          id="valueInput"
+          name="value"
+          id="value"
           value={ value }
           onChange={ (event) => handleChange(event) }
         />
