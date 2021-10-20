@@ -7,11 +7,11 @@ class Header extends React.Component {
     const { user } = this.props;
     const total = 0;
     return (
-      <div>
+      <header>
         <span data-testid="email-field">{ user }</span>
         <span data-testid="total-field">{total}</span>
         <span data-testid="header-currency-field">BRL</span>
-      </div>
+      </header>
     );
   }
 }
