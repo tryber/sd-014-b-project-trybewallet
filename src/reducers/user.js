@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_USERS:
-    return { ...state, ...action.payload };
+    return { ...state, email: action.payload };
   default:
     return state;
   }

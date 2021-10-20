@@ -1,11 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import fetchEndPoint from '../service/API';
+import { setExpenses } from '../actions/index';
 
 class ExpenseForm extends Component {
   constructor() {
     super();
     this.state = {
       currency: [],
+      valor: 0,
+      descricao: '',
+      moeda: '',
+      pagamento: '',
+      tag: '',
     };
 
     this.renderValue = this.renderValue.bind(this);
@@ -27,11 +35,32 @@ class ExpenseForm extends Component {
     this.setState({ currency: arrayCurrency });
   }
 
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { valor, descricao, moeda, pagamento, tag } = this.state;
+    const currentExpense = { valor, descricao, moeda, pagamento, tag };
+    const { dispatchSetValue, expenses } = this.props;
+    let oldExpense = expenses;
+    const Id = (oldExpense.length - 1) + 1;
+    const newMovie = { ...currentExpense, id: Id };
+    oldExpense = [...oldExpense, newMovie];
+    dispatchSetValue(oldExpense);
+  }
+
   renderValue() {
     return (
       <label htmlFor="valor">
         Valor
-        <input id="valor" type="number" name="valor" />
+        <input
+          id="valor"
+          type="number"
+          name="valor"
+          onChange={ this.handleChange }
+        />
       </label>
     );
   }
@@ -40,7 +69,12 @@ class ExpenseForm extends Component {
     return (
       <label htmlFor="descricao">
         Descrição
-        <input id="descricao" type="text" name="descricao" />
+        <input
+          id="descricao"
+          type="text"
+          name="descricao"
+          onChange={ this.handleChange }
+        />
       </label>
     );
   }
@@ -50,7 +84,11 @@ class ExpenseForm extends Component {
     return (
       <label htmlFor="moeda">
         Moeda
-        <select id="moeda" name="moeda">
+        <select
+          id="moeda"
+          name="moeda"
+          onChange={ this.handleChange }
+        >
           {currency.map((e, i) => (
             <option key={ i } value={ e }>
               {' '}
@@ -67,7 +105,11 @@ class ExpenseForm extends Component {
     return (
       <label htmlFor="pagamento">
         Método de pagamento
-        <select id="pagamento" name="pagamento">
+        <select
+          id="pagamento"
+          name="pagamento"
+          onChange={ this.handleChange }
+        >
           <option value="dinheiro">Dinheiro</option>
           <option value="credito">Cartão de crédito</option>
           <option value="debito">Cartão de débito</option>
@@ -80,7 +122,11 @@ class ExpenseForm extends Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select id="tag" name="tag">
+        <select
+          id="tag"
+          name="tag"
+          onChange={ this.handleChange }
+        >
           <option value="alimentacao"> Alimentacão</option>
           <option value="lazer"> Lazer</option>
           <option value="trabalho"> Trabalho</option>
@@ -95,7 +141,7 @@ class ExpenseForm extends Component {
   render() {
     return (
       <section>
-        <form>
+        <form onSubmit={ this.handleSubmit }>
           {this.renderValue()}
           {this.renderDescription()}
           {this.renderCurrency()}
@@ -107,4 +153,17 @@ class ExpenseForm extends Component {
   }
 }
 
-export default ExpenseForm;
+ExpenseForm.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (value) => dispatch(setExpenses(value)),
+});
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
