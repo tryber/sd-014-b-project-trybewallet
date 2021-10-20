@@ -44,10 +44,18 @@ function formEstructure(response) {
             <option key={ category } value={ category }>{category}</option>)) }
         </select>
       </label>
+      <button
+        type="button"
+        onClick={ () => console.log('clicou') }
+      >
+        Adicionar despesa
+
+      </button>
     </form>
   );
 }
 // código visto nesse site, utilizado abaixo
+// delete object.key => código para deletar chave determinada de um objeto determinado
 // https://stackoverflow.com/questions/3455405/how-do-i-remove-a-key-from-a-javascript-object
 function FormExpenses() {
   const [currenciesArray, setResponse] = React.useState([]);
