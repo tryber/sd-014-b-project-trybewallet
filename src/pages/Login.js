@@ -23,9 +23,9 @@ class Login extends React.Component {
     });
   }
 
-  handleClick() {
+  handleClick(e, email) {
+    e.preventDefault();
     const { history, keyEmail } = this.props;
-    const { email } = this.state;
     keyEmail(email);
     history.push('/carteira');
   }
@@ -54,7 +54,7 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          onClick={ this.handleClick }
+          onClick={ (e) => this.handleClick(e, email) }
           disabled={ password.length < min || !validator.isEmail(email) }
         >
           Entrar
