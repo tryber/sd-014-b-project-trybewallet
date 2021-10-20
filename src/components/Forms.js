@@ -1,7 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrenciesAPI } from '../actions';
 
 class Forms extends React.Component {
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
   render() {
+    const { coins } = this.props;
+    console.log(coins);
     return (
       <form>
         <label htmlFor="input-expense">
@@ -15,7 +25,11 @@ class Forms extends React.Component {
         <label htmlFor="input-coin">
           Moeda
           <select id="input-coin" name="coin">
-            <option>nada</option>
+            {coins.map((coin) => (
+              <option value={ coin } key={ coin }>
+                {coin}
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="input-method">
@@ -41,4 +55,18 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+Forms.propTypes = {
+  getCoins: PropTypes.func.isRequired,
+  coins: PropTypes.shape({
+    map: PropTypes.func.isRequired,
+  }).isRequired,
+};
+const mapStateToProps = (state) => ({
+  coins: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(fetchCurrenciesAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
