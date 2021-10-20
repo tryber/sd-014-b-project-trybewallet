@@ -7,37 +7,39 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <form>
-          <label htmlFor="Valor">
-            Valor da despesa
+          <label htmlFor="valor">
+            Valor
             <input
               type="text"
-              id="Valor"
+              id="valor"
+              name="valor"
             />
           </label>
-          <label htmlFor="Descrição">
-            Descrição da despesa
-            <textarea
-              id="Descrição"
-              placeholder="descrição"
+          <label htmlFor="descrição">
+            Descrição
+            <input
+              type="text"
+              id="descrição"
+              name="descrição"
             />
           </label>
-          <label htmlFor="Moeda">
-            Moeda utilizada
-            <select id="Moeda">
-              <option value="Vazio">Vazio</option>
+          <label htmlFor="moeda">
+            Moeda
+            <select id="moeda" name="moeda">
+              {}
             </select>
           </label>
-          <label htmlFor="Método de pagamento">
+          <label htmlFor="pagamento">
             Método de pagamento
-            <select id="Método de pagamento">
+            <select id="pagamento" name="pagamento">
               <option value="Dinheiro">Dinheiro</option>
               <option value="Credito">Cartão de crédito</option>
               <option value="Debito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="Tag">
-            Tipo de despesa
-            <select id="Tag">
+          <label htmlFor="tag">
+            Tag
+            <select id="tag" name="tag">
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
