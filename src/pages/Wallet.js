@@ -68,19 +68,6 @@ class Wallet extends React.Component {
     this.calculateTotalExpenses();
   }
 
-  // calculateTotalExpenses() {
-  //   const { totalExpenses } = this.props;
-  //   const totalReduce = totalExpenses.reduce((acc, curr) => {
-  //     const exchangeRatesObj = curr.exchangeRates;
-  //     const { currency } = curr;
-  //     const rates = Object.values(exchangeRatesObj[currency])[3];
-  //     const ratedValue = parseFloat(curr.value).toFixed(2) * parseFloat(rates);
-  //     return acc + (Math.round(ratedValue * 100) / 100).toFixed(2);
-  //   }, 0);
-  //   this.setState({ total: parseFloat(totalReduce) });
-  //   console.log(this.state.total);
-  // }
-
   calculateTotalExpenses() {
     const { totalExpenses } = this.props;
     const teste = totalExpenses.map((exp) => {
