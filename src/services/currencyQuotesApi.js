@@ -15,6 +15,6 @@ export const fetchCurrencies = async () => {
 export const fetchCurrenciesList = async () => {
   const response = await fetch(API_URL);
   const json = await response.json();
-  const currencies = Object.keys(json).filter((currency) => currency.code !== 'USDT');
+  const currencies = Object.keys(json).filter((code) => code !== 'USDT');
   return currencies;
 };
