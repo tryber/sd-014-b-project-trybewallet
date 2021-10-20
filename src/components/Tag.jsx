@@ -9,7 +9,7 @@ class Tag extends Component {
       <label htmlFor="tag">
         Tag:
         <select
-          name="category"
+          name="tag"
           id="tag"
           value={ value }
           onChange={ (event) => handleChange(event) }
