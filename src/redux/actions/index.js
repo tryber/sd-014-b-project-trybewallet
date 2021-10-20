@@ -4,6 +4,12 @@ export const addUser = (info) => ({ type: 'SAVE_USER_INFO', user: info });
 
 export const addExpense = (expense) => ({ type: 'ADD_EXPENSE', expense });
 
+export const sumTotalExpenses = (value) => ({
+  type: 'SUM_TO_TOTAL_EXPENSES', value });
+
+export const updateCurrencies = (currencies) => ({
+  type: 'UPDATE_CURRENCIES', currencies });
+
 export function addExpenseAction(expense) {
   return (dispatch) => fetch(API_URL)
     .then((response) => response.json())
@@ -14,9 +20,9 @@ export function addExpenseAction(expense) {
         acc[currency] = values[index];
         return acc;
       }, {});
-      dispatch(addExpense({ ...expense, exchangeRates: { ...exchangeRates } }));
+      const value = parseFloat(exchangeRates[expense.currency]
+        .ask) * parseFloat(expense.value);
+      dispatch(addExpense({ ...expense, exchangeRates }));
+      dispatch(sumTotalExpenses(value));
     });
 }
-
-export const saveTotalExpenses = (totalExpenses) => ({
-  type: 'SAVE_TOTAL_EXPENSES', totalExpenses });

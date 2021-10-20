@@ -15,6 +15,16 @@ function expenses(state = INITIAL_STATE, action) {
         action.expense,
       ],
     };
+  case 'UPDATE_CURRENCIES':
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
+  case 'SUM_TO_TOTAL_EXPENSES':
+    return {
+      ...state,
+      totalExpenses: state.totalExpenses + action.value,
+    };
   default:
     return state;
   }
