@@ -8,10 +8,21 @@ export const loggedEmail = (email) => ({
 
 export const changeWallet = (currencies, expenses) => ({
   type: CHANGE_WALLET,
-  payload: {
-    wallet: {
-      currencies,
-      expenses,
-    },
+  wallet: {
+    currencies,
+    expenses,
   },
 });
+
+const url = 'https://economia.awesomeapi.com.br/json/all';
+
+export const getCoinsOfApi = () => async (dispatch) => {
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    delete json.USDT;
+    return dispatch(changeWallet(json));
+  } catch (err) {
+    console.log(err.message);
+  }
+};

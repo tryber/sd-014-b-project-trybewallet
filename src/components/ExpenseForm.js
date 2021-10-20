@@ -1,77 +1,99 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import {
+  changeWallet as changeWalletAction,
+  getCoinsOfApi as getCoinsOfApiAction,
+} from '../actions';
+import CoinOptions from './CoinOptions';
+import FormInputs from './FormInputs';
+import PaymentOptions from './PaymentOptions';
+import TagOptions from './TagOptions';
 
 class ExpenseForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      coinsOptions: [],
+      id: 0,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      exchangeRates: {},
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.fetchApi();
+    const { getCoinsOfApi } = this.props;
+    getCoinsOfApi();
   }
 
-  async fetchApi() {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    delete data.USDT;
+  handleChange({ target: { name, value } }) {
     this.setState({
-      coinsOptions: data,
+      [name]: value,
+    });
+  }
+
+  increaseId() {
+    const { id } = this.state;
+    this.setState({
+      id: id + 1,
     });
   }
 
   render() {
-    const { coinsOptions } = this.state;
-    console.log(coinsOptions);
+    const { currencies, changeWallet } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    const values = {
+      value,
+      description,
+    };
+
     return (
       <form>
         <fieldset>
-          <label htmlFor="value">
-            Valor
-            <input type="number" name="name" id="value" />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input type="text" name="name" id="description" />
-          </label>
-          <label htmlFor="coin">
-            Moeda
-            <input type="text" name="name" id="coin" />
-          </label>
-          <label htmlFor="coins-options">
-            Opções de Moedas
-            <select id="coins-options">
-              {
-                Object.keys(coinsOptions).map((coin, index) => (
-                  <option key={ index }>{coin}</option>
-                ))
-              }
-            </select>
-          </label>
-          <label htmlFor="payment-method">
-            Método de pagamento
-            <select id="payment-method">
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <FormInputs handleChange={ this.handleChange } value={ values } />
+          <CoinOptions
+            currencies={ currencies }
+            handleChange={ this.handleChange }
+            value={ currency }
+          />
+          <PaymentOptions handleChange={ this.handleChange } value={ method } />
+          <TagOptions handleChange={ this.handleChange } value={ tag } />
+          <button
+            type="submit"
+            onClick={ (e) => {
+              e.preventDefault();
+              changeWallet(currencies, { ...this.state, exchangeRates: currencies });
+              this.increaseId();
+            } }
+          >
+            Adicionar Despesa
+          </button>
         </fieldset>
       </form>
     );
   }
 }
 
-export default ExpenseForm;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoinsOfApi: () => dispatch(getCoinsOfApiAction()),
+  changeWallet: (currencies, expenses) => (
+    dispatch(changeWalletAction(currencies, expenses))),
+});
+
+ExpenseForm.propTypes = {
+  getCoinsOfApi: PropTypes.func,
+  changeWallet: PropTypes.func,
+  currencies: PropTypes.object,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
