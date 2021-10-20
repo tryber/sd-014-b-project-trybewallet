@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
-import { currenciesAction, expensesAction } from '../actions';
+import { currenciesAction, expensesAction, editedExpensesAction } from '../actions';
 import TableComponent from '../components/TableComponent';
 import ButtonComponent from '../components/ButtonComponent';
 
@@ -12,17 +12,20 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: [],
+      id: '',
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: 'Trabalho',
       exchangeRates: [],
+      editing: false,
     };
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.expenseEditState = this.expenseEditState.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
   }
 
   componentDidMount() {
@@ -65,13 +68,33 @@ class Wallet extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: 'Trabalho',
     });
+  }
+
+  expenseEditState() {
+    const { expenseEdit } = this.props;
+    this.setState({
+      id: expenseEdit.id,
+      value: expenseEdit.value,
+      description: expenseEdit.description,
+      currency: expenseEdit.currency,
+      method: expenseEdit.method,
+      tag: expenseEdit.tag,
+      exchangeRates: expenseEdit.exchangeRates,
+      editing: true,
+    });
+  }
+
+  saveEdit() {
+    const { expenses, expenseEdit, dispatchEdited } = this.props;
+    expenses.splice([expenseEdit.id], 1, this.state);
+    dispatchEdited(expenses);
   }
 
   render() {
     const { currenciesInfo } = this.props;
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, editing } = this.state;
     const methodMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
@@ -112,9 +135,10 @@ class Wallet extends React.Component {
             id="tag"
             options={ tags }
           />
+          {editing ? <ButtonComponent onClick={ this.saveEdit } text="Editar despesa" />
+            : <ButtonComponent onClick={ this.handleClick } text="Adicionar despesa" />}
         </form>
-        <ButtonComponent onClick={ this.handleClick } text="Adicionar despesa" />
-        <TableComponent />
+        <TableComponent expenseEditState={ this.expenseEditState } />
       </>
     );
   }
@@ -124,17 +148,30 @@ Wallet.propTypes = {
   dispatchCurrienciesToGlobal: PropTypes.func.isRequired,
   currenciesInfo: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatchExpensesToGlobal: PropTypes.func.isRequired,
+  dispatchEdited: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenseEdit: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currenciesInfo: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  expenseEdit: state.wallet.expenseEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchCurrienciesToGlobal: (currencies) => dispatch(currenciesAction(currencies)),
   dispatchExpensesToGlobal: (expense) => dispatch(expensesAction(expense)),
+  dispatchEdited: (editedExpenses) => dispatch(editedExpensesAction(editedExpenses)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

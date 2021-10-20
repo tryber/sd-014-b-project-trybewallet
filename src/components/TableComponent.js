@@ -2,20 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ButtonComponent from './ButtonComponent';
-import { deleteExpensesAction } from '../actions';
+import { deleteExpensesAction, editExpensesAction } from '../actions';
 
 class TableComponent extends React.Component {
   constructor() {
     super();
 
-    this.handleClick = this.handleClick.bind(this);
+    this.deleteClick = this.deleteClick.bind(this);
+    this.editClick = this.editClick.bind(this);
     this.tHeadRender = this.tHeadRender.bind(this);
   }
 
-  handleClick({ target }) {
+  deleteClick({ target }) {
     const { expenses, dispatchExpensesToGlobal } = this.props;
     const newExpenses = expenses.filter(({ id }) => id !== Number(target.id));
     dispatchExpensesToGlobal(newExpenses);
+  }
+
+  async editClick({ target }) {
+    const { expenses, dispatchExpenseEditToGlobal, expenseEditState } = this.props;
+    const editExpense = expenses.filter(({ id }) => id === Number(target.id));
+    await dispatchExpenseEditToGlobal(editExpense[0]);
+    expenseEditState();
   }
 
   tHeadRender() {
@@ -66,7 +74,13 @@ class TableComponent extends React.Component {
               <td>
                 <ButtonComponent
                   id={ id }
-                  onClick={ this.handleClick }
+                  onClick={ this.editClick }
+                  text="Edit"
+                  datatestid="edit-btn"
+                />
+                <ButtonComponent
+                  id={ id }
+                  onClick={ this.deleteClick }
                   text="Delete"
                   datatestid="delete-btn"
                 />
@@ -82,10 +96,13 @@ class TableComponent extends React.Component {
 TableComponent.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchExpensesToGlobal: PropTypes.func.isRequired,
+  dispatchExpenseEditToGlobal: PropTypes.func.isRequired,
+  expenseEditState: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchExpensesToGlobal: (expenses) => dispatch(deleteExpensesAction(expenses)),
+  dispatchExpenseEditToGlobal: (expense) => dispatch(editExpensesAction(expense)),
 });
 
 const mapStateToProps = (state) => ({
