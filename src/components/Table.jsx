@@ -1,26 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateExpenses } from '../actions';
+import { editExpense, updateExpenses } from '../actions';
 
 class Table extends React.Component {
   deleteItem(id) {
     const { expenses, submitUpdateExpenses } = this.props;
-    const mutedExpenses = [...expenses];
-    mutedExpenses.forEach((expense, index) => {
+    const modifiedExpenses = [...expenses];
+    modifiedExpenses.forEach((expense, index) => {
       if (expense.id === id) {
-        mutedExpenses.splice(index, 1);
+        modifiedExpenses.splice(index, 1);
       }
     });
     /*
       Poderia atualizar o id de todas as despesas toda vez que
       o array atualizar:
 
-      mutedExpenses.forEach((expense, i) => {
+      modifiedExpenses.forEach((expense, i) => {
         expense.id = i;
       });
     */
-    submitUpdateExpenses(mutedExpenses);
+    submitUpdateExpenses(modifiedExpenses);
+  }
+
+  editItem(id) {
+    const { submitEditExpense, inEdit } = this.props;
+    if (!inEdit) {
+      submitEditExpense(id);
+    } else {
+      alert('Salve a edição do item anterior!');
+    }
   }
 
   renderItemsTable(expense, index) {
@@ -41,7 +50,13 @@ class Table extends React.Component {
         <td>{ convertedValue }</td>
         <td>Real</td>
         <td>
-          <button type="button">Editar</button>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => this.editItem(expense.id) }
+          >
+            Editar
+          </button>
           <button
             type="button"
             data-testid="delete-btn"
@@ -81,15 +96,23 @@ class Table extends React.Component {
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  inEdit: PropTypes.bool,
   submitUpdateExpenses: PropTypes.func.isRequired,
+  submitEditExpense: PropTypes.func.isRequired,
+};
+
+Table.defaultProps = {
+  inEdit: false,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  inEdit: state.wallet.editor,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   submitUpdateExpenses: (expenses) => dispatch(updateExpenses(expenses)),
+  submitEditExpense: (expense) => dispatch(editExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
