@@ -14,10 +14,14 @@ class Header extends React.Component {
 
   render() {
     const { gettingEmail } = this.props;
+    const formatPrice = (number) => Intl.NumberFormat(
+      'pt-br',
+      { style: 'currency', currency: 'BRL' },
+    ).format((number));
     return (
       <header>
         <span data-testid="email-field">{gettingEmail}</span>
-        <span data-testid="total-field">{ this.handleChange() }</span>
+        <span data-testid="total-field">{ formatPrice(this.handleChange()) }</span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
     );
