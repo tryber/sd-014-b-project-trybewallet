@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpenseAction, fetchCurrencies } from '../actions';
+import Table from '../components/Table';
 
 const WALLET_INIT_STATE = {
   total: 0,
@@ -180,6 +181,7 @@ class Wallet extends React.Component {
             </button>
           </form>
         </section>
+        <Table />
       </main>
     );
   }
