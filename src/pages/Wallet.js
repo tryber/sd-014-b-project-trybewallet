@@ -66,8 +66,17 @@ class Wallet extends React.Component {
     return 0;
   }
 
+  getExchangeValue(obj) {
+    return obj.exchangeRates[obj.currency].ask;
+  }
+
+  getConversion(obj) {
+    return parseFloat(obj.value) * 
+      parseFloat(obj.exchangeRates[obj.currency].ask)
+  }
+
   render() {
-    const { getEmail, currenciesOptions } = this.props;
+    const { getEmail, currenciesOptions, expensives } = this.props;
     const { value, description, currency, method, tag } = this.state;
     const paymentsOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagsOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -124,6 +133,41 @@ class Wallet extends React.Component {
            Adicionar despesa
          </button>
        </form>
+       <table>
+         <thead>
+           <tr>
+             <th>Descrição</th>
+             <th>Tag</th>
+             <th>Método de pagamento</th>
+             <th>Valor</th>
+             <th>Moeda</th>
+             <th>Câmbio utilizado</th>
+             <th>Valor convertido</th>
+             <th>Moeda de conversão</th>
+             <th>Editar/Excluir</th>
+           </tr>
+         </thead>
+         <tbody>
+           {expensives.map((expensive, index) => {
+             const exchangeValue = this.getExchangeValue(expensive);
+             const convertedValue = this.getConversion(expensive);
+             return(
+              <tr key={ index }>
+                <td>{ expensive.description }</td>
+                <td>{ expensive.tag }</td>
+                <td>{ expensive.method }</td>
+                <td>{ expensive.value }</td>
+                <td>{ expensive.exchangeRates[expensive.currency].
+                  name.split('/')[0] }</td>
+                <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
+                <td>{ convertedValue.toFixed(2) }</td>
+                <td>Real</td>
+              </tr>
+            )
+           }  
+           )}
+         </tbody>  
+       </table>
       </>
       
     )
