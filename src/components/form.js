@@ -2,7 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchAPI();
+  }
+
+  async fetchAPI() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const responseJson = await response.json();
+    let data = Object.keys(responseJson);
+    data = data.filter((coin) => coin !== 'USDT');
+    return this.setState({ data });
+  }
+
   render() {
+    const { data } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -16,7 +36,14 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency">
-            <option>0</option>
+            { data && data.map((coin) => (
+              <option
+                key={ coin }
+                value={ coin }
+              >
+                { coin }
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="payment">
