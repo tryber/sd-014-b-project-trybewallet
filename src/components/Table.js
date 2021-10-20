@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export class Table extends Component {
+class Table extends Component {
   render() {
+    const { itemsTable } = this.props;
+    console.log('lele', itemsTable);
     return (
       <table>
         <thead>
@@ -19,20 +22,26 @@ export class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>padaria</td>
-            <td>Alimentação</td>
-            <td>Cartão de Crédito</td>
-            <td>100.00</td>
-            <td>Euro</td>
-            <td>6.50</td>
-            <td>650.00</td>
-            <td>Real</td>
-            <td>
-              <button data-testid="edit-btn" type="button">EDIT</button>
-              <button data-testid="delete-btn" type="button">delete</button>
-            </td>
-          </tr>
+          {itemsTable
+            .map(({ id, exchangeRates, description, tag, method, value, currency }) => (
+              <tr key={ id }>
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{method}</td>
+                <td>{value}</td>
+                <td>{currency}</td>
+                <td>{exchangeRates[currency].ask}</td>
+                <td>
+                  {(Number(value) * Number(exchangeRates[currency].ask))
+                    .toFixed(2)}
+                </td>
+                <td>Real</td>
+                <td>
+                  <button data-testid="edit-btn" type="button">EDIT</button>
+                  <button data-testid="delete-btn" type="button">delete</button>
+                </td>
+              </tr>
+            ))}
         </tbody>
 
       </table>
@@ -40,12 +49,24 @@ export class Table extends Component {
   }
 }
 
-const mapStateToProps = () => ({
-
-});
-
-const mapDispatchToProps = {
-
+Table.propTypes = {
+  itemsTable: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRate: PropTypes.objectOf(PropTypes.object),
+  })).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+const mapStateToProps = (state) => ({
+  itemsTable: state.wallet.expenses,
+});
+
+// const mapDispatchToProps = {
+
+// };
+
+export default connect(mapStateToProps, null)(Table);
