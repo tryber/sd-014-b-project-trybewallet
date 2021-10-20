@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { methods, tags } from '../data/ExpensesFormData';
-import { getCurrenciesDataThunk, setDataExpenses } from '../redux/actions';
+import { getCurrenciesDataThunk, setDataExpenses } from '../actions/index';
 import Input from '../interactionComponents/Input';
 import Select from '../interactionComponents/Select';
 import AddExpenseButton from '../interactionComponents/AddExpenseButton';
