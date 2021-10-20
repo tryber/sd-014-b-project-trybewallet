@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validator from 'validator';
 import { connect } from 'react-redux';
 import { setUserValue } from '../actions';
 
@@ -33,6 +32,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     const min = 6;
+    const regex = /\S+@\S+\.\S+/;
 
     return (
       <section>
@@ -55,7 +55,7 @@ class Login extends React.Component {
         <button
           type="button"
           onClick={ (e) => this.handleClick(e, email) }
-          disabled={ password.length < min || !validator.isEmail(email) }
+          disabled={ password.length < min || !(regex.test(email)) }
         >
           Entrar
         </button>
