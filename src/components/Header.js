@@ -7,9 +7,10 @@ export default function Header() {
   const expenses = useSelector((state) => state.wallet.expenses);
 
   useEffect(() => {
+    const ask = 'ask';
     const mapExpenses = expenses.map((expense) => ({
       value: parseInt((expense.value), 10),
-      rate: parseFloat(expense.exchangeRates[expense.currency].ask),
+      rate: parseFloat(expense.exchangeRates[expense.currency][ask]),
     }))
       .map((expense) => (expense.value * expense.rate))
       .reduce((acc, curr) => (acc + curr), 0);

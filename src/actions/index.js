@@ -40,14 +40,21 @@ export function fetchCoins() {
 }
 
 export function fetchRates(expense) {
+  const name = 'name';
+  const ask = 'ask';
   return (dispatch) => {
     dispatch(requestRates());
     return fetch(ENDPOINT)
       .then((response) => response.json())
       .then((exchangeRates) => {
         delete exchangeRates.DOGE;
-        return { ...expense, exchangeRates };
+        return ({
+          ...expense,
+          exchangeRates,
+        });
       })
-      .then((exchangeRates) => dispatch(receiveRates(exchangeRates)));
+      .then((exchangeRates) => dispatch(
+        receiveRates(exchangeRates),
+      ));
   };
 }

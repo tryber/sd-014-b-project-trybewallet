@@ -21,12 +21,15 @@ const COLUMNS = [
   },
   {
     Header: 'Câmbio utilizado',
+    accessor: 'currency1',
   },
   {
     Header: 'Valor convertido',
+    accessor: 'convertValue',
   },
   {
     Header: 'Moeda de conversão',
+    accessor: 'conversionCurrency',
   },
   {
     Header: 'Editar/Excluir',
