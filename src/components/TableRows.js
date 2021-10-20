@@ -11,16 +11,12 @@ class TableRows extends React.Component {
     super(props);
 
     this.getRate = this.getRate.bind(this);
-    this.getTotal = this.getTotal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.getTotal();
-  }
-
-  componentDidUpdate() {
-    this.getTotal();
+    const { reduceTotals } = this.props;
+    reduceTotals();
   }
 
   componentWillUnmount() {
@@ -30,29 +26,17 @@ class TableRows extends React.Component {
 
   getRate() {
     const { expenses: { currency, exchangeRates } } = this.props;
-    const rate = exchangeRates.find(
+    const rate = Object.entries(exchangeRates).find(
       (array) => array[0] === currency,
     )[1]
       .ask;
-    return Number(rate).toFixed(2);
+    return rate;
   }
 
-  getTotal() {
-    const { reduceTotals, expenseList } = this.props;
-    const conversions = [];
-    expenseList.forEach((expense) => {
-      const rate = this.getRate();
-      const conversion = (expense.value * rate).toFixed(2);
-      conversions.push(Number(conversion));
-    });
-    const total = conversions.reduce((a, b) => a + b);
-    reduceTotals(total);
-  }
-
-  async handleSubmit({ id }) {
+  handleSubmit({ id }) {
     const { updateExpenses, expenseList } = this.props;
     const update = expenseList.filter((expense) => expense.id !== id);
-    await updateExpenses(update);
+    updateExpenses(update);
   }
 
   render() {
@@ -64,7 +48,8 @@ class TableRows extends React.Component {
       method,
       tag,
       value,
-    } } = this.props;
+    },
+    } = this.props;
     const rate = this.getRate();
     const conversion = (value * rate).toFixed(2);
     return (
@@ -74,13 +59,13 @@ class TableRows extends React.Component {
         <td header="method">{ method }</td>
         <td header="value">{ value }</td>
         <td header="currency">
-          { exchangeRates.find(
+          { Object.entries(exchangeRates).find(
             (array) => array[0] === currency,
           )[1]
             .name
             .replace('/Real Brasileiro', '') }
         </td>
-        <td header="rate">{ rate }</td>
+        <td header="rate">{ Number(rate).toFixed(2) }</td>
         <td header="conversion">{ conversion }</td>
         <td header="home-currency">Real</td>
         <td header="button">
@@ -100,14 +85,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateExpenses: (object) => dispatch(editExpenses(object)),
   reduceTotals: (value) => dispatch(reduceTotal(value)),
+  updateExpenses: (object) => dispatch(editExpenses(object)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableRows);
 
 TableRows.propTypes = {
-  expenseList: PropTypes.objectOf(PropTypes.any).isRequired,
+  expenseList: PropTypes.arrayOf(PropTypes.any).isRequired,
   expenses: PropTypes.objectOf(PropTypes.any).isRequired,
   reduceTotals: PropTypes.func.isRequired,
   updateExpenses: PropTypes.func.isRequired,

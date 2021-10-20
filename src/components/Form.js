@@ -33,9 +33,11 @@ class Form extends React.Component {
   }
 
   async handleSubmit() {
-    const { addExpense, currencies, expenses, fetchCurrencies } = this.props;
-    const { currency, description, method, tag, value } = this.state;
+    const { fetchCurrencies } = this.props;
     await fetchCurrencies();
+    const { currency, description, method, tag, value } = this.state;
+    const { addExpense, expenses } = this.props;
+    const { currencies } = this.props;
     const newExpense = {
       id: expenses.length,
       currency,
@@ -51,7 +53,9 @@ class Form extends React.Component {
   treatCurrencyList() {
     const { currencies } = this.props;
     const currencyOptions = [];
-    currencies.map((currency) => currencyOptions.push(currency[0]));
+    Object.entries(currencies)
+      .filter((currency) => currency[0] !== 'USDT')
+      .map((currency) => currencyOptions.push(currency[0]));
     return currencyOptions;
   }
 
@@ -121,15 +125,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.any.isRequired,
-    ).isRequired,
-  ).isRequired,
+  currencies: PropTypes.objectOf(PropTypes.any),
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   fetchCurrencies: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
-
+  currencies: {},
 };

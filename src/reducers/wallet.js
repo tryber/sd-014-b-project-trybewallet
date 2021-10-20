@@ -10,6 +10,7 @@ const initialState = {
   currencies: [],
   expenses: [],
   total: 0.00,
+  isFetching: undefined,
 };
 
 const wallet = (state = initialState, action) => {
@@ -26,6 +27,7 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       currencies: action.currencies,
+      isFetching: false,
     };
   case EDIT_EXPENSES:
     return {
@@ -40,6 +42,7 @@ const wallet = (state = initialState, action) => {
   case REQUEST_CURRENCIES:
     return {
       ...state,
+      isFetching: true,
     };
   default:
     return state;

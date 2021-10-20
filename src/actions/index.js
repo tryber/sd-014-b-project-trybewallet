@@ -41,8 +41,6 @@ export const fetchEconomiaAPI = () => (dispatch) => {
 
   getCurrencies()
     .then((object) => {
-      const filteredObject = Object.entries(object)
-        .filter((currency) => currency[0] !== 'USDT');
-      dispatch(deliverCurrencies(filteredObject));
+      dispatch(deliverCurrencies(object));
     });
 };
