@@ -8,7 +8,7 @@ class Wallet extends React.Component {
     const { emailUser, totalField } = this.props;
     const totalFieldValue = totalField
       .reduce((acc, { value, currency, exchangeRates }) => (
-        (Number(acc) + Number(value * exchangeRates[currency].ask)).toFixed(2)), 0);
+        (acc + (parseFloat(value) * parseFloat(exchangeRates[currency].ask)))), 0);
     return (
       <>
         <header>
