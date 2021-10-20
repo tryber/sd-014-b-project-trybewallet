@@ -43,25 +43,26 @@ class Login extends Component {
     return (
       <fieldset>
         <form className="Login-form">
-          <Input
-            className="Input-login"
-            type="email"
-            name="email"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-            placeholder="Email"
-          />
-          <Input
-            className="Input-password"
-            type="password"
-            name="password"
-            data-testid="password-input"
-            placeholder="Senha"
-            value={ password }
-            onChange={ this.handleChange }
-            autoComplete="on"
-          />
+          <label htmlFor="email">
+            <input
+              placeholder="Email"
+              type="email"
+              name="email"
+              value={ email }
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              placeholder="Senha"
+              type="text"
+              name="password"
+              value={ password }
+              onChange={ this.handleChange }
+              data-testid="password-input"
+            />
+          </label>
           <button
             type="button"
             className="Enter-button"

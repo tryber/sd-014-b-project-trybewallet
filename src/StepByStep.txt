@@ -54,3 +54,7 @@ Clique para expandir.
 https://github.com/tryber/sd-014-b-project-trybewallet/tree/ivanielson-project-trybeallet/src
 https://github.com/tryber/sd-014-b-project-trybewallet/blob/beatriz-ribeiro-project-trybewallet/src/components/InsertForm.js
 
+
+****Sao necessárias as açoes:
+  
+1)definir os dados de login (reducer/user)
