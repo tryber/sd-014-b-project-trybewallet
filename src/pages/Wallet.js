@@ -16,11 +16,11 @@ class Wallet extends React.Component {
     super();
     this.state = {
       id: 0,
-      value: '',
+      value: '0',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCLick = this.handleCLick.bind(this);

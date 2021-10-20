@@ -10,6 +10,7 @@ function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'RESULTADO_API':
     return {
+      ...state,
       currencies: Object.keys(action.payload),
     };
   case API_EXPENSES:
