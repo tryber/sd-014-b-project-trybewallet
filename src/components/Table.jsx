@@ -27,8 +27,6 @@ class Table extends React.Component {
     const { submitEditExpense, inEdit } = this.props;
     if (!inEdit) {
       submitEditExpense(id);
-    } else {
-      alert('Salve a edição do item anterior!');
     }
   }
 

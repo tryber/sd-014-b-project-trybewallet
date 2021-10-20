@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateExpenses } from '../actions';
@@ -9,14 +9,19 @@ class FormEdit extends React.Component {
     this.state = {
       expenseUpdate: {},
     };
+    this.saveExpenseInState = this.saveExpenseInState.bind(this);
   }
 
   componentDidMount() {
+    this.saveExpenseInState();
+  }
+
+  saveExpenseInState() {
     const { expenses, expenseId } = this.props;
     const expense = expenses.find((item) => item.id === expenseId);
     this.setState({ expenseUpdate: expense });
   }
-  
+
   handleChange({ target }) {
     this.setState((state) => ({
       expenseUpdate: {
@@ -52,9 +57,7 @@ class FormEdit extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           >
             {currencies.map((currency, i) => (
-              <option key={ i } value={ currency }>
-                { currency }
-              </option>
+              <option key={ i } value={ currency }>{ currency }</option>
             ))}
           </select>
         </label>
@@ -76,7 +79,7 @@ class FormEdit extends React.Component {
           <select
             id="tag"
             name="tag"
-            value={ expenseUpdate.tag || ''}
+            value={ expenseUpdate.tag || '' }
             onChange={ (e) => this.handleChange(e) }
           >
             <option value="Alimentação">Alimentação</option>

@@ -31,4 +31,4 @@ const mapStateToProps = (state) => ({
   inEdit: state.wallet.editor,
 });
 
-export default connect(mapStateToProps)(Wallet)
+export default connect(mapStateToProps)(Wallet);
