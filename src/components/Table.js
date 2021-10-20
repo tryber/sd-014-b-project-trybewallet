@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class Table extends Component {
   render() {
     const { itemsTable } = this.props;
-    console.log('lele', itemsTable);
     return (
       <table>
         <thead>
@@ -29,8 +28,8 @@ class Table extends Component {
                 <td>{tag}</td>
                 <td>{method}</td>
                 <td>{value}</td>
-                <td>{currency}</td>
-                <td>{exchangeRates[currency].ask}</td>
+                <td>{exchangeRates[currency].name}</td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
                 <td>
                   {(Number(value) * Number(exchangeRates[currency].ask))
                     .toFixed(2)}
