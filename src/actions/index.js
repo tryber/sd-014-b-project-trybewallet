@@ -3,7 +3,7 @@
 // No momento em que tem mais de 1, esse arquivo
 // passa a ser um objeto e precisa desconstrui-lo pra importar o que tu precisa.
 // so existe um export default por aquivo
-import getDataCurrencies from '../../data/FetchAPI';
+import getDataCurrencies from '../data/FetchAPI';
 
 export const SET_EMAIL_VALUE = 'SET_EMAIL_VALUE';
 
