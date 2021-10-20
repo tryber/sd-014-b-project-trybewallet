@@ -3,10 +3,8 @@
 import { WALLET_SET_INFO } from '../actions/index';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -14,11 +12,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   case WALLET_SET_INFO:
     return ({
       ...state,
-      wallet: {
-        ...state.wallet,
-        currencies: action.currencies,
-        expenses: action.expenses,
-      },
+      currencies: action.object.currencies,
+      expenses: action.object.expenses,
     });
   default:
     return state;

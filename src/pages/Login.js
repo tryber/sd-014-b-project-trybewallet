@@ -65,7 +65,6 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    console.log('clicou no botão');
     const { history, dispatchUserInfo } = this.props;
     dispatchUserInfo(this.state);
     history.push('/carteira');

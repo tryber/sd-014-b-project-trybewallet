@@ -1,9 +1,7 @@
 import { USER_SET_INFO } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -11,10 +9,7 @@ const user = (state = INITIAL_STATE, action) => {
   case USER_SET_INFO:
     return ({
       ...state,
-      user: {
-        ...state.user,
-        email: action.object.email,
-      },
+      email: action.object.email,
     });
   default:
     return state;
