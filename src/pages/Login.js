@@ -24,8 +24,9 @@ class Login extends Component {
   }
 
   handleSubmit() {
+    const { email } = this.state;
     const { history, dispatchSetValues } = this.props;
-    dispatchSetValues(this.state);
+    dispatchSetValues(email);
     history.push('/carteira');
   }
 
