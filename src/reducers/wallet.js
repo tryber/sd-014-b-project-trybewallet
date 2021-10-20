@@ -1,10 +1,13 @@
-import { ADD_EXPENSE, GET_CURRENCIES, REMOVE_EXPENSE, REQUEST_ERROR } from '../actions';
+import { ADD_EXPENSE, EDIT_EXPENSE, GET_CURRENCIES,
+  REMOVE_EXPENSE, REQUEST_ERROR, UPDATE_EDITED_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   exchangeRates: {},
   error: '',
+  isEditing: false,
+  expenseToBeEdited: {},
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -31,9 +34,32 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses.filter((expense) => expense.id !== action.payload)],
     };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      isEditing: true,
+      expenseToBeEdited: state.expenses.find((expense) => expense.id === action.payload),
+    };
+  case UPDATE_EDITED_EXPENSE:
+    return {
+      ...state,
+      isEditing: false,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === action.payload.id) {
+          return action.payload;
+        }
+        return expense;
+      }),
+    };
   default:
     return state;
   }
 };
 
 export default wallet;
+
+/*
+Referências:
+Consultei o repositório do colega Luiz Gustavo para me ajudar a desenvolver a lógica do requisito 11:
+https://github.com/tryber/sd-014-b-project-trybewallet/pull/32/commits/d1bc0b822a257af37b6bd7865a89152a9c29ff20
+*/

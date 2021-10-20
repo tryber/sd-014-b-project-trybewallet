@@ -8,16 +8,16 @@ class Table extends Component {
   constructor() {
     super();
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
-  handleClick(id) {
+  handleDeleteClick(id) {
     const { removeExpense } = this.props;
     removeExpense(id);
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, handleEditClick } = this.props;
     return (
       <table>
         <TableHeader />
@@ -34,16 +34,22 @@ class Table extends Component {
                 <td>{ tag }</td>
                 <td>{ method }</td>
                 <td>{ value }</td>
-                <td>{ exchangeRates[currency].name }</td>
+                <td>{ exchangeRates[currency].name.split('/')[0] }</td>
                 <td>{ exchangeRateUsed.toFixed(2) }</td>
                 <td>{ convertedValue.toFixed(2) }</td>
                 <td>Real</td>
                 <td>
-                  <button type="button">Editar</button>
+                  <button
+                    type="button"
+                    data-testid="edit-btn"
+                    onClick={ () => handleEditClick(id) }
+                  >
+                    Editar
+                  </button>
                   <button
                     type="button"
                     data-testid="delete-btn"
-                    onClick={ () => this.handleClick(id) }
+                    onClick={ () => this.handleDeleteClick(id) }
                   >
                     Excluir
                   </button>
@@ -68,6 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
   removeExpense: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {

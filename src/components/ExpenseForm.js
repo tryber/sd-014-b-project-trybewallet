@@ -5,14 +5,14 @@ import Input from './Input';
 import Select from './Select';
 import Button from './Button';
 
-class AddExpenseForm extends Component {
+class ExpenseForm extends Component {
   render() {
-    const { expenseInfo, onChange, addExpense, currencies } = this.props;
+    const {
+      expenseInfo, onChange, addExpense, currencies, isEditing, updateExpense,
+    } = this.props;
     const { value, description, currency, method, tag } = expenseInfo;
-
     const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const categories = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-
     return (
       <form>
         <Input
@@ -49,7 +49,9 @@ class AddExpenseForm extends Component {
             <option key={ category }>{ category }</option>
           ))}
         </Select>
-        <Button label="Adicionar despesa" onClick={ addExpense } />
+        { isEditing
+          ? <Button label="Editar despesa" onClick={ updateExpense } />
+          : <Button label="Adicionar despesa" onClick={ addExpense } />}
       </form>
     );
   }
@@ -57,9 +59,10 @@ class AddExpenseForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  isEditing: state.wallet.isEditing,
 });
 
-AddExpenseForm.propTypes = {
+ExpenseForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   expenseInfo: PropTypes.shape({
     value: PropTypes.string,
@@ -70,6 +73,12 @@ AddExpenseForm.propTypes = {
   }).isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpense: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
+  updateExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(AddExpenseForm);
+ExpenseForm.defaultProps = {
+  isEditing: false,
+};
+
+export default connect(mapStateToProps)(ExpenseForm);
