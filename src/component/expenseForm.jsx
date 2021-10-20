@@ -1,10 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchAwesomeApi } from '../actions';
 
 class ExpenseForm extends React.Component {
+  componentDidMount() {
+    const { fetchcoin } = this.props;
+
+    fetchcoin();
+  }
+
   render() {
+    const { arrayCoin } = this.props;
     return (
       <form>
-
         <label htmlFor="valor">
           Valor
           <input type="text" id="valor" />
@@ -18,7 +27,7 @@ class ExpenseForm extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda">
-            <option value="brl" select>{}</option>
+            {arrayCoin.map((coin) => <option value={ coin } key={ coin }>{coin}</option>)}
           </select>
         </label>
 
@@ -46,4 +55,16 @@ class ExpenseForm extends React.Component {
   }
 }
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  fetchcoin: () => dispatch(fetchAwesomeApi()),
+});
+
+const mapStateToProps = (state) => ({
+  arrayCoin: state.wallet.currencies,
+});
+
+ExpenseForm.propTypes = {
+  arrayCoin: PropTypes.array,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
