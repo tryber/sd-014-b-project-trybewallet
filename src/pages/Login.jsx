@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as loginActions from '../actions/index';
+import * as loginActions from '../actions/userActions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -77,8 +77,6 @@ Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
   loginUser: PropTypes.func.isRequired,
 };
-
-/* mapStateToProps() {} */
 
 function mapDispatchToProps(dispatch) {
   return {

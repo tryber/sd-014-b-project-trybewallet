@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { Component } from 'react';
 import DefaultInput from './DefaultInput';
 import DefaultSelect from './DefaultSelect';

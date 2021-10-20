@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const number = 0; // soma das expenses
+    const number = 0; // implementar soma das expenses
     const totalExpense = Intl.NumberFormat('pt-BR',
       { style: 'currency', currency: 'BRL' }).format(number).replace(',', '.');
-    const { user } = this.props;
+    const { email } = this.props;
     return (
       <header>
-        <span data-testid="email-field">{ user }</span>
+        <span data-testid="email-field">{ email }</span>
         <span data-testid="total-field">{ totalExpense }</span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
@@ -19,15 +19,13 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.user.email,
+    email: state.user.email,
   };
 }
-
-/* const { user } = mapStateToProps((state) => state.user.email); */
 
 export default connect(mapStateToProps)(Header);
