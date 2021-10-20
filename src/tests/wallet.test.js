@@ -33,7 +33,7 @@ describe('4 - Crie uma página para sua carteira com as seguintes característic
 describe('5 - Crie um header para a página de carteira contendo as seguintes características:', () => {
   const initial = initialStateHeader;
 
-  test.only('Um elemento que exiba o email do usuário que fez login.', () => {
+  test('Um elemento que exiba o email do usuário que fez login.', () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const emailField = screen.getByTestId('email-field');
 
@@ -41,7 +41,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
     expect(emailField).toContainHTML(store.getState().user.email);
   });
 
-  test.only('Crie um campo com a despesa total gerada pela lista de gastos.', () => {
+  test('Crie um campo com a despesa total gerada pela lista de gastos.', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const totalField = screen.getByTestId('total-field');
 
@@ -49,7 +49,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
     expect(totalField).toContainHTML(INITIAL_VALUE);
   });
 
-  test.only('Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso \'BRL\'', () => {
+  test('Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso \'BRL\'', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const exchangeField = screen.getByTestId('header-currency-field');
 
@@ -59,14 +59,14 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
 });
 
 describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
-  test('Um campo para adicionar o valor da despesa', async () => {
+  test.only('Um campo para adicionar o valor da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const valueInput = await screen.findByLabelText(/valor/i);
 
     expect(valueInput).toBeInTheDocument();
   });
 
-  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test.only('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
@@ -75,7 +75,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(currencyInput).toBeInTheDocument();
   });
 
-  test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
+  test.only('Um campo para selecionar qual método de pagamento será utilizado', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const methodInput = await screen.findByRole('combobox', {
       name: /método de pagamento/i,
@@ -91,7 +91,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(debitOption).toBeInTheDocument();
   });
 
-  test('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
+  test.only('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const tagInput = await screen.findByRole('combobox', {
       name: /tag/i,
@@ -110,7 +110,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(healthOption).toBeInTheDocument();
   });
 
-  test('Um campo para adicionar a descrição da despesa', async () => {
+  test.only('Um campo para adicionar a descrição da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const descriptionInput = await screen.findByRole('textbox', {
       name: /descrição/i,
