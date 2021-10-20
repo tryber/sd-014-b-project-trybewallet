@@ -21,7 +21,7 @@ const walletReducer = (state = INITIAL, action) => {
   case CURRENCY_LOADED:
     return { ...state, hasCurrencies: true };
   case EXPENSE_ENTRY:
-    return { ...state, expenses: action.value, newEntry: false };
+    return { ...state, expenses: action.value };
   case DELETE_EXPENSE:
     return { ...state, expenses: action.value };
   case INIT_EDIT_EXPENSE:

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import InputLabel from './InputLabel';
 import SelectLabel from './SelectLabel';
 import DATA from '../data';
-import { END_EDIT_EXPENSE, sortExpenses } from '../actions';
+import { END_EDIT_EXPENSE } from '../actions';
 
 class ExpenseEditorForm extends Component {
   constructor(props) {
@@ -17,11 +17,9 @@ class ExpenseEditorForm extends Component {
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleClick = () => {
-    const { state: { id, value }, props: { expenses, submitEdition } } = this;
-    if (value === '') return;
-    const newExpense = expenses;
-    newExpense.splice(id, 1, this.state);
-    submitEdition(sortExpenses(newExpense));
+    const { state: { id }, props: { expenses, submitEdition } } = this;
+    expenses.splice(id, 1, this.state);
+    submitEdition([...expenses]);
   }
 
   render() {

@@ -5,9 +5,9 @@ async function fetchApi(URL) {
 
 export function getConversion(expenses) {
   return expenses.reduce((acc, { value, currency, exchangeRates }) => {
-    const currencyItem = Object.entries(exchangeRates)
-      .find((item) => item[1].code === currency);
-    acc.push(+(currencyItem[1].ask) * +(value));
+    const currencyItem = Object.values(exchangeRates)
+      .find((item) => item.code === currency);
+    acc.push(+(currencyItem.ask) * +(value));
     return acc;
   }, []);
 }
@@ -42,10 +42,8 @@ const EXPENSE_ENTRY = (value) => ({ type: 'EXPENSE_ENTRY', value });
 
 export function EXPENSE_DISPATCH(previousExpenses, newExpense) {
   return async (dispatch) => {
-    const expensesResult = previousExpenses;
     const exchangeRates = await fetchApi(API_URL);
-    const expense = { ...newExpense, exchangeRates };
-    expensesResult.push(expense);
+    const expensesResult = [...previousExpenses, { ...newExpense, exchangeRates }];
     return dispatch(EXPENSE_ENTRY(sortExpenses(expensesResult)));
   };
 }
@@ -55,5 +53,3 @@ export const DELETE_EXPENSE = (value) => ({ type: 'DELETE_EXPENSE', value });
 export const INIT_EDIT_EXPENSE = (value) => ({ type: 'INIT_EDIT_EXPENSE', value });
 
 export const END_EDIT_EXPENSE = (value) => ({ type: 'END_EDIT_EXPENSE', value });
-
-export const FORCE_UPDATE = () => ({ type: 'FORCE_UPDATE' });

@@ -7,11 +7,7 @@ import {
 import DATA from '../data';
 
 class ExpensesTable extends Component {
-  // componentDidMount() { console.log('montou'); }
-
-  // componentDidUpdate() { console.log('atualizou'); }
-
-  getCambio = (obj, value) => Object.entries(obj).find((item) => item[0] === value)[1];
+  getCambio = (obj, value) => Object.values(obj).find(({ code }) => code === value);
 
   deleteValue = (id) => {
     const { expenses, erase } = this.props;
@@ -48,7 +44,7 @@ class ExpensesTable extends Component {
                 <td>{ method }</td>
                 <td>{ value }</td>
                 <td>
-                  { this.getCambio(exchangeRates, currency).name.match(/[^/]+/gi)[0] }
+                  { this.getCambio(exchangeRates, currency).name.match(/[^/]+/)[0] }
                 </td>
                 <td>{ rate.toFixed(2) }</td>
                 <td>{ getConversion(expenses)[ind].toFixed(2) }</td>
