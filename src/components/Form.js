@@ -1,7 +1,35 @@
 import React from 'react';
+import fetchCoin from '../services/coinsAPI';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      coins: [],
+    };
+
+    this.arrayCoins = this.arrayCoins.bind(this);
+  }
+
+  componentDidMount() {
+    this.arrayCoins();
+  }
+
+  async arrayCoins() {
+    const totalCoins = [];
+    const response = await fetchCoin();
+    Object.entries(response).forEach((coin) => {
+      if (coin[0] !== 'USDT') {
+        totalCoins.push(coin);
+      }
+    });
+    this.setState({ coins: totalCoins });
+  }
+
   render() {
+    const { coins } = this.state;
+    console.log(coins);
     return (
       <form>
         <label htmlFor="value">
@@ -15,7 +43,9 @@ class Form extends React.Component {
         <label htmlFor="coin">
           Moeda:
           <select id="coin">
-            <option> </option>
+            { coins.map((coin) => (
+              <option key={ coin[0] }>{coin[0]}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="methodPayment">
