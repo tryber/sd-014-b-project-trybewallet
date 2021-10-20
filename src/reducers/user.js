@@ -2,6 +2,13 @@
 const INITIAL_STATE = {
   email: '',
 };
-const user = (state = INITIAL_STATE) => state;
+const user = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case 'SUBMIT':
+    return { email: action.state };
+  default:
+    return state;
+  }
+};
 
 export default user;
