@@ -6,14 +6,13 @@ import SelectMoeda from './selects/SelectMoeda';
 import SelectPay from './selects/SelectPay';
 import SelectTag from './selects/SelectTag';
 import Button from './Button';
-// import { addForm } from '../actions';
 import { fetchApi } from '../actions/index';
 
 class FormWallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      // id: '',
+      id: 0,
       value: '',
       description: '',
       currency: 'USD',
@@ -33,12 +32,11 @@ class FormWallet extends React.Component {
 
   handleClick() {
     const { fetchMoedas } = this.props;
-    // const dados = fetchMoedas();
-    // this.setState({
-    //   exchangeRates: dados,
-    // });
+    const { id } = this.state;
+    this.setState({
+      id: id + 1,
+    });
     fetchMoedas(this.state);
-    // formToRedux(this.state);
   }
 
   render() {
@@ -71,11 +69,10 @@ class FormWallet extends React.Component {
 }
 
 FormWallet.propTypes = {
-  formToRedux: PropTypes.isRequired,
+  fetchMoedas: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  // formToRedux: (info) => dispatch(addForm(info)),
   fetchMoedas: (expense) => dispatch(fetchApi(expense)),
 });
 

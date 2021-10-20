@@ -26,7 +26,6 @@ class SelectMoeda extends React.Component {
     const { value, onChange, name } = this.props;
     return (
       <div>
-        {console.log(moedas)}
         <label htmlFor="moeda">
           Moeda
           <select id="moeda" name={ name } value={ value } onChange={ onChange }>

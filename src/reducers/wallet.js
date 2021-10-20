@@ -1,5 +1,4 @@
 import { GET_MOEDAS, FAILED } from '../actions/index';
-// import { ADD_FORM } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -7,9 +6,6 @@ const INITIAL_STATE = {
 };
 
 function wallet(state = INITIAL_STATE, action) {
-  // if (action.type === ADD_FORM) {
-  //   return { ...state, expenses: [...state.expenses, action.payload] };
-  // }
   if (action.type === GET_MOEDAS) {
     return { ...state, expenses: [...state.expenses, action.payload] };
   } if (action.type === FAILED) {
