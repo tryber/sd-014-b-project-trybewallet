@@ -1,5 +1,6 @@
 export const ADD_EXPENSE = 'ADD_EXPENSE';
-export const ADD_CURRENCY = 'ADD_CURRENCY';
+export const GET_CURRENCY = 'GET_CURRENCY';
+export const FAILED_REQUEST = 'FAILED_REQUEST';
 
 export function addExpense(payload) {
   return {
@@ -8,9 +9,28 @@ export function addExpense(payload) {
   };
 }
 
-export function addCurency(payload) {
+export function getCurency(payload) {
   return {
-    type: ADD_CURRENCY,
+    type: GET_CURRENCY,
     payload,
+  };
+}
+
+export function failedRequest(error) {
+  return {
+    type: FAILED_REQUEST,
+    payload: error,
+  };
+}
+
+export function fetchCurrency() {
+  return async (dispatch) => {
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const data = await response.json();
+      return dispatch(getCurency(data));
+    } catch (error) {
+      return dispatch(failedRequest(error));
+    }
   };
 }

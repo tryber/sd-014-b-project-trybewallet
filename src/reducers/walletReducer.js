@@ -1,16 +1,25 @@
-import { ADD_CURRENCY, ADD_EXPENSE } from '../actions/walletActions';
+import { GET_CURRENCY, FAILED_REQUEST, ADD_EXPENSE } from '../actions/walletActions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  loading: true,
+  error: '',
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case ADD_CURRENCY:
+  case GET_CURRENCY:
     return {
       ...state,
       currencies: action.payload,
+      loading: false,
+    };
+  case FAILED_REQUEST:
+    return {
+      ...state,
+      loading: true,
+      error: action.payload,
     };
   case ADD_EXPENSE:
     return {

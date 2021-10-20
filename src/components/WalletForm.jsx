@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import DefaultInput from './DefaultInput';
 import DefaultSelect from './DefaultSelect';
 
-class Form extends Component {
+class WalletForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +25,7 @@ class Form extends Component {
 
   render() {
     const { value, description, currency, tag, method } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <DefaultInput
@@ -42,7 +45,7 @@ class Form extends Component {
           id="currency"
           handleChange={ this.handleChange }
           value={ currency }
-          options={ [] }
+          options={ currencies } // fed from API
         />
         <DefaultSelect
           label="Método de pagamento"
@@ -64,4 +67,12 @@ class Form extends Component {
   }
 }
 
-export default Form;
+WalletForm.propTypes = {
+  currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(WalletForm);
