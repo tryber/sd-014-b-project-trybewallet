@@ -1,4 +1,4 @@
-import { GET_MOEDAS, FAILED } from '../actions/actionAcync';
+import { GET_MOEDAS, FAILED } from '../actions/index';
 // import { ADD_FORM } from '../actions/index';
 
 const INITIAL_STATE = {
