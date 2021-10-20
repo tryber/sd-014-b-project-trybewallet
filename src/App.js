@@ -1,7 +1,14 @@
 import React from 'react';
+import Routes from './Routes';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Routes />
+      </div>
+    );
+  }
 }
 
 export default App;
