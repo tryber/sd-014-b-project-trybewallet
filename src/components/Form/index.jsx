@@ -2,6 +2,7 @@ import React from 'react';
 
 import payments from '../../services/payments';
 import expenditures from '../../services/expenditures';
+import getCurrencies from '../../services/currenciesAPI';
 
 import Input from '../Input/index';
 import Select from '../Select';
@@ -13,12 +14,26 @@ class Form extends React.Component {
     this.state = {
       value: '',
       description: '',
+      coins: [],
       currency: '',
       payment: '',
       category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.setCoinsInState = this.setCoinsInState.bind(this);
+  }
+
+  async componentDidMount() {
+    let currencies = await getCurrencies();
+    delete currencies.USDT;
+    currencies = Object.values(currencies);
+    this.setCoinsInState(currencies);
+  }
+
+  setCoinsInState(currencies) {
+    const coins = currencies.map((currency) => currency.code);
+    this.setState({ coins: [...coins] });
   }
 
   handleChange({ target }) {
@@ -27,7 +42,8 @@ class Form extends React.Component {
   }
 
   render() {
-    const { value, description, currency, payment, category } = this.state;
+    const { value, description, currency, coins, payment, category } = this.state;
+    console.log(coins);
     return (
       <form>
         <Input
@@ -49,8 +65,7 @@ class Form extends React.Component {
           id="select-currency"
           label="Moeda"
           name="currency"
-          defaultOption="Selecione"
-          options={ ['BRL'] }
+          options={ coins }
           value={ currency }
           onChange={ this.handleChange }
         />
@@ -59,7 +74,6 @@ class Form extends React.Component {
           name="payment"
           label="Método de pagamento"
           options={ payments }
-          defaultOption="Selecione"
           value={ payment }
           onChange={ this.handleChange }
         />
@@ -67,7 +81,6 @@ class Form extends React.Component {
           id="select-category"
           name="category"
           label="Tag"
-          defaultOption="Selecione"
           options={ expenditures }
           value={ category }
           onChange={ this.handleChange }
