@@ -7,17 +7,18 @@ class Header extends React.Component {
     const { userEmail } = this.props;
     return (
       <main>
-        <span data-testid="email-field">
+        <span data-testid="email-input">
           {' '}
           Email:
           { userEmail }
         </span>
-        <span data-testid="total-field">
+        <span data-testid="password-input">
           Despesas Totais:0
         </span>
         <span data-testid="header-currency-field">
           Cambio: BRL
         </span>
+        <p>Entrar</p>
 
       </main>
     );
