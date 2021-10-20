@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { loginDone } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,6 +25,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const regex = /\S+@\S+\.\S+/; // consultei https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
     const MIN_PASSWORD = 6;
+    const { sendLogin } = this.props;
     return (
       <form>
         <input
@@ -39,15 +44,26 @@ class Login extends React.Component {
           onChange={ (event) => this.handleChange(event) }
           value={ password }
         />
-        <input
-          type="button"
-          name="entrar"
-          value="Entrar"
-          disabled={ regex.test(email) && password.length >= MIN_PASSWORD ? 0 : true }
-        />
+        <Link to="/carteira">
+          <input
+            type="button"
+            name="entrar"
+            value="Entrar"
+            disabled={ regex.test(email) && password.length >= MIN_PASSWORD ? 0 : true }
+            onClick={ () => sendLogin(email) }
+          />
+        </Link>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendLogin: (email) => dispatch(loginDone(email)),
+});
+
+Login.propTypes = {
+  sendLogin: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
