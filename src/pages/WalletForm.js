@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { saveExpenses } from '../actions/walletAction';
+import { saveExpenses } from '../actions/walletAction';
 
 class WalletForm extends React.Component {
   constructor() {
@@ -20,24 +20,15 @@ class WalletForm extends React.Component {
       value: '',
       description: '',
       currency: '',
-      method: '',
-      tag: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       // exchangeRates: '',
     };
   }
 
   onButtonAdicionarDespesa() {
-    let { expenses } = this.props;
-    const { saveExpenses } = this.props;
-    const { value, description, currency, method, tag } = this.state;
-    expenses = {
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    };
-    saveExpenses(expenses);
+    const { dispatchSaveExpenses } = this.props;
+    dispatchSaveExpenses(this.state);
   }
 
   handleChange({ target }) {
@@ -170,18 +161,17 @@ WalletForm.propTypes = {
   currencies: PropTypes.objectOf(
     PropTypes.objectOf(PropTypes.string),
   ).isRequired,
-  saveExpenses: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchSaveExpenses: PropTypes.func.isRequired,
 };
 
 // atualizando dados do form ao clicar no botão onButtonAdicionarDespesa
-/* const mapDispatchToProps = (dispatch) => ({
-  saveExpenses: (expenses) => dispatch(saveExpenses(expenses)),
-}); */
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSaveExpenses: (value) => dispatch(saveExpenses(value)),
+});
 
 // trazendo state do currency ao abrir página
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(WalletForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

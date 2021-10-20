@@ -1,10 +1,11 @@
 import {
   GET_API_DATA,
   FAILED_REQUEST,
+  ADD_EXPENSE,
 } from '../actions/walletAction';
 
 const initialState = {
-  currencies: {}, // dados vem da API em forma de objeto
+  currencies: [], // dados vem da API em forma de objeto
   expenses: [],
   error: '',
   loading: true,
@@ -23,6 +24,11 @@ function walletReducer(state = initialState, action) {
       ...state,
       wallet: action.error,
       loading: true,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;

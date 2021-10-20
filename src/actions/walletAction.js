@@ -30,11 +30,8 @@ export function fetchDataAction() {
   };
 }
 
-/*
 // add state da walletForm
-export function saveExpenses(payload) {
-  return {
-    type: ADD_EXPENSE,
-    payload,
-  };
-} */
+export const saveExpenses = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});
