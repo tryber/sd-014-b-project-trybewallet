@@ -16,7 +16,7 @@ class WalletForm extends React.Component {
     this.formAddTag = this.formAddTag.bind(this);
 
     this.state = {
-      // id: 0,
+      id: 0,
       value: '',
       description: '',
       currency: '',
@@ -27,7 +27,10 @@ class WalletForm extends React.Component {
   }
 
   onButtonAdicionarDespesa() {
-    const { dispatchSaveExpenses } = this.props;
+    const { dispatchSaveExpenses, expenses } = this.props;
+    this.setState({
+      id: (expenses.length + 1),
+    });
     dispatchSaveExpenses(this.state);
   }
 
@@ -162,6 +165,7 @@ WalletForm.propTypes = {
     PropTypes.objectOf(PropTypes.string),
   ).isRequired,
   dispatchSaveExpenses: PropTypes.func.isRequired,
+  length: Number.isRequired,
 };
 
 // atualizando dados do form ao clicar no botão onButtonAdicionarDespesa
@@ -172,6 +176,7 @@ const mapDispatchToProps = (dispatch) => ({
 // trazendo state do currency ao abrir página
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
