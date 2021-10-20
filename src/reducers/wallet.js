@@ -1,7 +1,6 @@
-import { GET_CURRENCY,
+import { SET_EXCHANGE_RATES_SUCCESS,
   GET_CURRENCY_SUCCESS,
-  GET_CURRENCY_ERROR,
-  SET_EXPENSES } from '../actions/index';
+} from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: {},
@@ -13,23 +12,14 @@ const INITIAL_STATE = {
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case GET_CURRENCY:
-    return { ...state,
-      loading: true,
-    };
-  case SET_EXPENSES:
+  case SET_EXCHANGE_RATES_SUCCESS:
+    // state.expenses.push(action.payload);
     return { ...state,
       expenses: action.payload,
     };
   case GET_CURRENCY_SUCCESS:
     return { ...state,
-      currencies: [action.payload],
-      loading: false,
-    };
-  case GET_CURRENCY_ERROR:
-    return { ...state,
-      error: action.payload.error,
-      loading: false,
+      currencies: action.payload,
     };
   default:
     return state;
