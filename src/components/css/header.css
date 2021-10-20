@@ -2,7 +2,13 @@
   align-items: center;
   display: flex;
   flex-direction: row;
+  height: 10vh;
   justify-content: space-between;
+}
+
+.header img {
+  padding-left: 120px;
+  height: inherit;
 }
 
 .user-info {

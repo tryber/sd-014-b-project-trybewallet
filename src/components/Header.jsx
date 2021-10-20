@@ -10,7 +10,6 @@ class Header extends Component {
         <img
           src="https://www.acate.com.br/wp-content/uploads/2020/01/trybe.png"
           alt="Logo da Trybe"
-          height="100px"
         />
         <div className="user-info">
           <p data-testid="email-field">

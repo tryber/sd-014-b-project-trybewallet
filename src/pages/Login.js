@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { userAction } from '../actions';
+import './css/login.css';
 
 const PASS_LENGTH = 6;
 const REGEX_EMAIL = /\S+@\S+\.\S+/;
@@ -48,14 +49,13 @@ class Login extends React.Component {
   render() {
     const { email, password, disabled } = this.state;
     return (
-      <div>
+      <div className="login-div">
         <img
           className="App-logo"
           src="https://www.acate.com.br/wp-content/uploads/2020/01/trybe.png"
           alt="Logo da Trybe"
-          height="150px"
         />
-        <form>
+        <form className="form-login">
           <Input
             testid="email-input"
             id="email"
