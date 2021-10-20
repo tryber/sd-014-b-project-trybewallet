@@ -1,7 +1,8 @@
 export const GET_API_DATA = 'GET_API_DATA';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
-// actions creators
+// action creator data from API
 export function getCoin(data) {
   return {
     type: GET_API_DATA,
@@ -28,3 +29,12 @@ export function fetchDataAction() {
     }
   };
 }
+
+/*
+// add state da walletForm
+export function saveExpenses(payload) {
+  return {
+    type: ADD_EXPENSE,
+    payload,
+  };
+} */

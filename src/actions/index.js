@@ -6,8 +6,3 @@ export const setUserEmail = (payload) => ({
   type: SET_USER_EMAIL,
   payload,
 });
-
-export const setWallet = (payload) => ({
-  type: SET_WALLET,
-  payload,
-});
