@@ -12,7 +12,7 @@ const VALID_PASSWORD = '123456';
 
 afterEach(() => jest.clearAllMocks());
 
-describe.only('1 - Crie uma página inicial de login com os seguintes campos e características:', () => {
+describe('1 - Crie uma página inicial de login com os seguintes campos e características:', () => {
   test('A rota para esta página deve ser \'/\'', () => {
     const { history } = renderWithRouterAndStore(<App />, '/');
     expect(history.location.pathname).toBe('/');
@@ -35,7 +35,7 @@ describe.only('1 - Crie uma página inicial de login com os seguintes campos e c
   });
 });
 
-describe('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
+describe.only('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
   test('O botão de "Entrar" está desabilitado ao entrar na página', () => {
     renderWithRouterAndStore(<App />, '/');
 
