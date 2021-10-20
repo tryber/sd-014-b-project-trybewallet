@@ -40,8 +40,6 @@ export function fetchCoins() {
 }
 
 export function fetchRates(expense) {
-  const name = 'name';
-  const ask = 'ask';
   return (dispatch) => {
     dispatch(requestRates());
     return fetch(ENDPOINT)
