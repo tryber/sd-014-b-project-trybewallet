@@ -44,26 +44,27 @@ class ExpensesForm extends Component {
 
     this.setState((prevState) => ({ id: prevState.id + 1 }));
 
-    submitState({ value, description, exchangeRates, id, currency, method, tag });
+    submitState({ value, description, id, currency, method, tag, exchangeRates });
     // subtmitState será um ferramenta para despachar os estados em mapDispatch
     this.setState({
       value: '',
       description: '',
-      currency: 'USD',
+      currencyCode: '',
       method: 'Dinheiro',
-      tag: this.tag,
+      tag: 'Alimentação',
     });
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currencyCode, method, tag } = this.state;
     const { receiveCurrenciesData } = this.props;
     const filterCurrency = receiveCurrenciesData.filter((item) => item !== 'USDT');
     return (
       <form>
         <Input
           label="Valor: "
-          type="text"
+          type="number"
+          min="0"
           value={ value }
           name="value"
           id="valor"
@@ -88,7 +89,7 @@ class ExpensesForm extends Component {
         <MapCurrencies
           label="Moeda"
           id="currency"
-          value={ currency }
+          value={ currencyCode }
           onChange={ this.handleChange }
           options={ filterCurrency }
         />
@@ -106,11 +107,11 @@ class ExpensesForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchWalletApi: () => dispatch(getCurrenciesDataThunk()),
-  submitState: (expenses) => dispatch(setWalletData(expenses)),
+  dispatchWalletApi: () => dispatch(getCurrenciesDataThunk()), // getCurrenciesDataThunk: action
+  submitState: (expenses) => dispatch(setWalletData(expenses)), // submitState
 }
 // o setWalletData recebe um parametro na ação (payload), ou seja, expenses é um objeto de retorno
-// para a ação
+// para a ação. A funçao submit state vai retornar para o estado global os esados locais
 );
 // mapDispatchToProps is used for dispatching actions to the store.
 // mapDispatch manda os dados para a store que interage com os reducers
@@ -121,11 +122,11 @@ const mapStateToProps = ({ user, wallet }) => ( // recebe as propriedades do est
     receiveCurrenciesData: wallet.currencies, // (wallet) este reducer que faz os dados da API "aparecerem"
     expenses: wallet.expenses, // os .x sao os estados de cada reducer
   }
-);
+); // receiveCurrenciesData, expenses:, email: são propriedades
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
 
-// as acçoes sao aplicadas no reducer e o reducer é chamado aqui para receber as acçoes;
+// as acçoes sao aplicadas no reducer e o reducer é chamado aqui para realizar as acçoes;
 // Redux Thunk is a middleware that allows you to call the action creators that return a function(thunk)
 // That function receives the store’s dispatch method, which is then used to dispatch regular synchronous
 // actions inside the function’s body once the asynchronous operations have been completed.
