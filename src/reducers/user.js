@@ -1,11 +1,11 @@
-const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
+// const INITIAL_STATE = {
+//   user: {
+//     email: '',
+//   },
+//   wallet: {
+//     currencies: [],
+//     expenses: [],
+//   },
+// };
 
-export default userReducer;
+// export default userReducer;
