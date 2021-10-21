@@ -64,7 +64,9 @@ class Wallet extends React.Component {
               <td>{ each.exchangeRates[each.currency].name }</td>
               <td>{ (+each.exchangeRates[each.currency].ask).toFixed(2) }</td>
               <td>
-                {Number.isInteger(each.value * each.exchangeRates[each.currency].ask) ? each.value * each.exchangeRates[each.currency].ask : (each.value * each.exchangeRates[each.currency].ask).toFixed(2) }
+                {Number.isInteger(each.value * each.exchangeRates[each.currency].ask)
+                  ? each.value * each.exchangeRates[each.currency].ask
+                  : (each.value * each.exchangeRates[each.currency].ask).toFixed(2) }
               </td>
               <td>Real</td>
               <td>teste</td>
