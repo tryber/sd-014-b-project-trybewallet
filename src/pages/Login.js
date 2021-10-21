@@ -25,7 +25,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     const minPsswdLength = 6;
-    const disabled = password.length >= minPsswdLength && this.isEmailValid(email);
+    const disabled = password.length >= minPsswdLength && isEmailValid(email);
     return (
       <section className="container-form">
         <div className="field-container">

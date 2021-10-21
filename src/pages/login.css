@@ -19,7 +19,7 @@
   width: 100%;
 }
 
-.input-field[type="button"] {
+.input-field[ type = "button" ] {
   align-self: center;
   background-color: rgb(72, 122, 97);
   border: 2px solid rgb(88, 102, 95);
@@ -36,15 +36,15 @@
   box-shadow: 0 0 20px rgb(90, 151, 121);
 }
 
-.input-field[type="button"]:hover {
+.input-field[ type = "button" ]:hover {
   background-color: rgb(90, 151, 121);
-  cursor: pointer;
   border: 2px solid rgb(224, 223, 223);
   border-radius: 10px;
   color: white;
+  cursor: pointer;
 }
 
-.input-field[type="button"]:disabled {
+.input-field[ type = "button" ]:disabled {
   background-color: rgb(88, 102, 95);
   border: 2px solid rgb(148, 199, 182);
   border-radius: 10px;
