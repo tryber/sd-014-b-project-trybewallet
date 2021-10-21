@@ -204,6 +204,7 @@ Wallet.propTypes = {
   currenciesOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   getExpensives: PropTypes.func.isRequired,
   expensives: PropTypes.array.isRequired,
+  delSpent: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
