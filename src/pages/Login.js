@@ -5,10 +5,12 @@ class Login extends React.Component {
     super();
 
     this.state = {
-      email: '',
+      emailInput: '',
+      passwordInput: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    // this.disabledButton = this.disabledButton.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,9 +20,20 @@ class Login extends React.Component {
     });
   }
 
-  render() {
-    const { email } = this.state;
+  // disabledButton() {
+  //   const { emailInput, passwordInput } = this.state;
+  //   const validateEmail = /\S+@\S+\.\S+/;
 
+  //   if (emailInput === validateEmail && passwordInput.length > 6) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  render() {
+    const { emailInput, passwordInput } = this.state;
+    const SIX = 6;
+    const validateEmail = /\S+@\S+\.\S+/;
     return (
       <div>
         Login
@@ -31,7 +44,7 @@ class Login extends React.Component {
               type="email"
               name="emailInput"
               data-testid="email-input"
-              value={ email }
+              value={ emailInput }
               onChange={ this.handleChange }
             />
           </label>
@@ -41,10 +54,13 @@ class Login extends React.Component {
               type="password"
               name="passwordInput"
               data-testid="password-input"
+              value={ passwordInput }
+              onChange={ this.handleChange }
             />
           </label>
           <button
             type="button"
+            disabled={ !(validateEmail.test(emailInput) && passwordInput.length >= SIX) }
           >
             Entrar
           </button>
