@@ -66,3 +66,25 @@ input {
   font-weight: 450;
   padding: 4px;
 }
+
+.edit-button {
+  width: 25px;
+  height: 25px;
+  background-color: yellow;
+  border: 2px solid yellow;
+  border-radius: 4px;
+  color: rgb(92, 91, 91);
+  margin: 5px;
+  cursor: pointer;
+}
+
+.delete-button {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  border: 2px solid red;
+  border-radius: 4px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}

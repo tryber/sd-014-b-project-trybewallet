@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import EditAndDeleteButtons from './EditAndDeleteButtons';
 
 class HeaderTableOfCost extends React.Component {
   render() {
@@ -18,7 +19,9 @@ class HeaderTableOfCost extends React.Component {
           <th className="th-table">Câmbio utilizado</th>
           <th className="th-table">Valor convertido</th>
           <th className="th-table">Moeda de conversão</th>
-          <th className="th-table">Editar/Excluir</th>
+          <th className="th-table">
+            Editar/Excluir
+          </th>
         </thead>
         <tbody>
           {listOfExpenses
@@ -34,7 +37,7 @@ class HeaderTableOfCost extends React.Component {
                   {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
                 </td>
                 <td>Real</td>
-                <td>Editar/Excluir</td>
+                <td><EditAndDeleteButtons /></td>
               </tr>
             ))}
         </tbody>
