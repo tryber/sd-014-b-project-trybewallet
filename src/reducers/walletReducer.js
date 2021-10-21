@@ -2,10 +2,33 @@ import { GET_CURRENCY, FAILED_REQUEST, ADD_EXPENSE } from '../actions/walletActi
 
 const INITIAL_STATE = {
   currencies: [],
-  expenses: [],
+  expenses: [{
+    id: 0,
+    value: 0,
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    /* exchangeRates: {
+      USD: {
+        code: 'USD',
+        name: 'Dólar comercial',
+        ask: 0,
+      },
+    }, */
+  }],
   loading: true,
   error: '',
 };
+
+/* {
+  id: 0,
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+} */
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -24,7 +47,7 @@ function walletReducer(state = INITIAL_STATE, action) {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload], // atenção!!
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;

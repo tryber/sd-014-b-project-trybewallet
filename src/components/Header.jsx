@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const number = 0; // implementar soma das expenses
+    const { expenses } = this.props;
+    const totalExpenses = expenses
+      .map((expense) => (expense.value) * expense.exchangeRates[expense.currency].ask)
+      .reduce((acc, cur) => (acc + cur), 0);
     const totalExpense = Intl.NumberFormat('pt-BR',
-      { style: 'currency', currency: 'BRL' }).format(number).replace(',', '.');
+      { style: 'currency', currency: 'BRL' }).format(totalExpenses).replace(',', '.');
     const { email } = this.props;
     return (
       <header>
@@ -20,11 +23,13 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     email: state.user.email,
+    expenses: state.wallet.expenses,
   };
 }
 

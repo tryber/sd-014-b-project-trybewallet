@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DefaultInput from './DefaultInput';
 import DefaultSelect from './DefaultSelect';
+import * as walletActions from '../actions/walletActions';
 
 class WalletForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: 0,
       value: '',
       description: '',
       currency: '',
@@ -16,12 +18,23 @@ class WalletForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.filterAPI = this.filterAPI.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
     this.setState({
       [target.id]: target.value,
     });
+  }
+
+  async handleSubmit() {
+    const { customProp } = this.props;
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const exchangeRates = await response.json();
+    customProp({ ...this.state, exchangeRates });
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
   }
 
   filterAPI() {
@@ -69,7 +82,7 @@ class WalletForm extends Component {
           value={ tag }
           options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
         />
-        <button type="button">Adicionar Despesa</button>
+        <button type="button" onClick={ this.handleSubmit }>Adicionar Despesa</button>
       </form>
     );
   }
@@ -77,10 +90,15 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+  customProp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(WalletForm);
+const mapDispatchToProps = (dispatch) => ({
+  customProp: (state) => dispatch(walletActions.addExpense(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
