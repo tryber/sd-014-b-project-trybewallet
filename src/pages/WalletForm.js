@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveExpenses } from '../actions/walletAction';
+import { saveExpenses, fetchDataAction } from '../actions/walletAction';
 
 class WalletForm extends React.Component {
   constructor() {
@@ -22,14 +22,18 @@ class WalletForm extends React.Component {
       currency: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      // exchangeRates: '',
+      exchangeRates: '',
     };
   }
 
-  onButtonAdicionarDespesa() {
-    const { dispatchSaveExpenses, expenses } = this.props;
+  async onButtonAdicionarDespesa() {
+    const {
+      dispatchSaveExpenses,
+      dispatchFetchedData,
+      expenses } = this.props;
     this.setState({
-      id: (expenses.length + 1),
+      id: (expenses.length),
+      exchangeRates: await dispatchFetchedData(),
     });
     dispatchSaveExpenses(this.state);
   }
@@ -80,6 +84,7 @@ class WalletForm extends React.Component {
       currencies = { noCodeReturned: 'não retornou dados da API' };
     }
 
+    console.log(currencies);
     const codes = Object.keys(currencies)
       .filter((currencyCode) => currencyCode !== 'USDT');
 
@@ -165,12 +170,14 @@ WalletForm.propTypes = {
     PropTypes.objectOf(PropTypes.string),
   ).isRequired,
   dispatchSaveExpenses: PropTypes.func.isRequired,
-  length: Number.isRequired,
+  dispatchFetchedData: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 // atualizando dados do form ao clicar no botão onButtonAdicionarDespesa
 const mapDispatchToProps = (dispatch) => ({
   dispatchSaveExpenses: (value) => dispatch(saveExpenses(value)),
+  dispatchFetchedData: () => dispatch(fetchDataAction()),
 });
 
 // trazendo state do currency ao abrir página

@@ -5,7 +5,7 @@ import {
 } from '../actions/walletAction';
 
 const initialState = {
-  currencies: [], // dados vem da API em forma de objeto
+  currencies: [],
   expenses: [],
   error: '',
   loading: true,
