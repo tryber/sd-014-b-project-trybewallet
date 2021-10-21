@@ -45,3 +45,30 @@ button {
   background-color: lightgreen;
   font-size: 15px;
 }
+
+header {
+  height: 50px;
+  /* background-color: lightblue; */
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  /* background-color: lightseagreen; */
+  margin: 0;
+  padding: 2%;
+}
+
+.header-info {
+  width: 50%;
+  font-size: 18px;
+  /* background-color: lightcoral; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.currency-info {
+  display: flex;
+};
