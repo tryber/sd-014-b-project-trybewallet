@@ -10,6 +10,7 @@
     },
     "sourceType": "module"
   },
+  "parser": "babel-eslint",
   "plugins": ["react", "sonarjs"],
   "rules": {
     "indent": ["error", 2],
