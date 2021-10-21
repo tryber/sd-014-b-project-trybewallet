@@ -8,10 +8,10 @@ class SelectPay extends React.Component {
       <div>
         <label htmlFor="pay">
           Método de pagamento
-          <select id="pay" name={ name } value={ value } onChange={ onChange }>
-            <option value="money">Dinheiro</option>
-            <option value="creditCard">Cartão de Crédito</option>
-            <option value="debitCard">Cartão de Débito</option>
+          <select id="pay" name={ name } defaultValue={ value } onChange={ onChange }>
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
       </div>

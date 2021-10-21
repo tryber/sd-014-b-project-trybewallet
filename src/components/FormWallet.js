@@ -6,7 +6,7 @@ import SelectMoeda from './selects/SelectMoeda';
 import SelectPay from './selects/SelectPay';
 import SelectTag from './selects/SelectTag';
 import Button from './Button';
-import { fetchApi, fetchCurrencies } from '../actions/index';
+import { fetchApi } from '../actions/index';
 
 class FormWallet extends React.Component {
   constructor() {
@@ -16,7 +16,7 @@ class FormWallet extends React.Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'money',
+      method: 'Dinheiro',
       tag: 'meal',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,23 +25,25 @@ class FormWallet extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
+    console.log(name, value);
     this.setState({
       [name]: value,
     });
   }
 
   handleClick() {
-    const { fetchMoedas, curruncies } = this.props;
+    const { fetchMoedas } = this.props;
     const { id } = this.state;
     this.setState({
       id: id + 1,
     });
     fetchMoedas(this.state);
-    curruncies();
+    // curruncies();
   }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    console.log(method);
     return (
       <div>
         <Input
@@ -70,13 +72,13 @@ class FormWallet extends React.Component {
 }
 
 FormWallet.propTypes = {
-  curruncies: PropTypes.func.isRequired,
+  // curruncies: PropTypes.func.isRequired,
   fetchMoedas: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchMoedas: (expense) => dispatch(fetchApi(expense)),
-  curruncies: () => dispatch(fetchCurrencies()),
+  // curruncies: () => dispatch(fetchCurrencies()),
 });
 
 export default connect(null, mapDispatchToProps)(FormWallet);

@@ -14,25 +14,25 @@ export function fetchApi(expense) {
       const response = await fetch(' https://economia.awesomeapi.com.br/json/all');
       const exchangeRates = await response.json();
       delete exchangeRates.USDT;
+      const currencies = Object.keys(exchangeRates);
+      dispatch(getCurrencies(currencies));
       return dispatch(getMoedas({ ...expense, exchangeRates }));
     } catch (error) {
-      return null;
+      return dispatch(failed(error));
     }
   };
 }
 
-export function fetchCurrencies() {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(' https://economia.awesomeapi.com.br/json/all');
-      const exchangeRates = await response.json();
-      delete exchangeRates.USDT;
-      const currencies = Object.keys(exchangeRates);
-      return dispatch(getCurrencies(currencies));
-    } catch (error) {
-      return null;
-    }
-  };
-}
-// Object.keys(data)
-//             .filter((moeda) => (moeda !== 'USDT'))
+// export function fetchCurrencies() {
+//   return async (dispatch) => {
+//     try {
+//       const response = await fetch(' https://economia.awesomeapi.com.br/json/all');
+//       const exchangeRat = await response.json();
+//       delete exchangeRat.USDT;
+//       const currencies = Object.keys(exchangeRat);
+//       return dispatch(getCurrencies(currencies));
+//     } catch (error) {
+//       return null;
+//     }
+//   };
+// }

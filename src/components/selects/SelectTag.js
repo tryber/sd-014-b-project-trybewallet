@@ -9,11 +9,11 @@ class SelectTag extends React.Component {
         <label htmlFor="tag">
           Tag
           <select id="tag" name={ name } value={ value } onChange={ onChange }>
-            <option value="meal">Alimentação</option>
-            <option value="hobbie">lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </div>

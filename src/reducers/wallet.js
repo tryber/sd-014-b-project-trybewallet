@@ -7,11 +7,12 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   if (action.type === ADD_CURRENCIES) {
-    return { ...state, currencies: [action.payload] };
-  } if (action.type === GET_MOEDAS) {
+    return { ...state, currencies: action.payload };
+  }
+  if (action.type === GET_MOEDAS) {
     return { ...state, expenses: [...state.expenses, action.payload] };
   } if (action.type === FAILED) {
-    return console.log();// o que colocar nesse retorno?
+    return action.payload;
   } return state;
 }
 
