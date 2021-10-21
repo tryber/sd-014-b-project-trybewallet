@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { walletAction } from '../actions';
 import './css/expensesForm.css';
 
 const API_URL = ('https://economia.awesomeapi.com.br/json/all');
@@ -11,15 +13,18 @@ class ExpensesForm extends Component {
     this.state = {
       loading: true,
       currencyArray: [],
-      // value: '',
-      // resume: '',
-      // currency: 'USD',
-      // payment: 'Dinheiro',
-      // tag: 'Alimentação',
+      expense: {
+        value: '',
+        description: '',
+        currency: '',
+        method: '',
+        tag: '',
+      },
     };
 
     this.fetchCurrency = this.fetchCurrency.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addExpense = this.addExpense.bind(this);
   }
 
   componentDidMount() {
@@ -27,8 +32,12 @@ class ExpensesForm extends Component {
   }
 
   handleChange({ target: { id, value } }) {
+    const { expense } = this.state;
     this.setState({
-      [id]: value,
+      expense: {
+        ...expense,
+        [id]: value,
+      },
     });
   }
 
@@ -41,6 +50,13 @@ class ExpensesForm extends Component {
       }));
   }
 
+  addExpense() {
+    const { dispatchExpense } = this.props;
+    const { expense } = this.state;
+    console.log(this.state);
+    dispatchExpense(expense);
+  }
+
   render() {
     const { currencyArray, loading } = this.state;
     if (!loading) {
@@ -50,9 +66,9 @@ class ExpensesForm extends Component {
             Valor:
             <input type="number" id="value" onChange={ this.handleChange } />
           </label>
-          <label htmlFor="resume">
+          <label htmlFor="description">
             Descrição:
-            <input type="text" id="resume" onChange={ this.handleChange } />
+            <input type="text" id="description" onChange={ this.handleChange } />
           </label>
           <label htmlFor="currency">
             Moeda:
@@ -63,9 +79,9 @@ class ExpensesForm extends Component {
                 </option>)))}
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de pagamento:
-            <select id="payment" onChange={ this.handleChange }>
+            <select id="method" onChange={ this.handleChange }>
               <option value="money">Dinheiro</option>
               <option value="credit">Cartão de Crédito</option>
               <option value="debit">Cartão de Débito</option>
@@ -81,6 +97,9 @@ class ExpensesForm extends Component {
               <option value="saude">Saúde</option>
             </select>
           </label>
+          <button type="button" id="add-btn" onClick={ this.addExpense }>
+            Adicionar Despesa
+          </button>
         </form>
       );
     }
@@ -90,9 +109,13 @@ class ExpensesForm extends Component {
   }
 }
 
-// const mapDispatchToProps = (state) => ({
+ExpensesForm.propTypes = {
+  dispatchExpense: PropTypes.func.isRequired,
+};
 
-// });
+const mapDispatchToProps = (dispatch) => ({
+  dispatchExpense: (state) => dispatch(walletAction(state)),
+});
 
-// export default connect(null, mapDispatchToProps)(ExpensesForm);
-export default ExpensesForm;
+export default connect(null, mapDispatchToProps)(ExpensesForm);
+// export default ExpensesForm;

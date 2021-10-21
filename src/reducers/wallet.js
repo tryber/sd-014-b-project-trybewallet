@@ -1,15 +1,16 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { ADD_MOUNT } from '../actions';
+import { ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  total: 0,
+  expenses: [],
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case ADD_MOUNT:
+  case ADD_EXPENSE:
     return {
-      total: action.wallet.total,
+      ...state,
+      expenses: [...state.expenses, action.state],
     };
   default:
     return state;
