@@ -87,8 +87,9 @@ class Wallet extends React.Component {
 
   saveEdit() {
     const { expenses, expenseEdit, dispatchEdited } = this.props;
-    expenses.splice([expenseEdit.id], 1, this.state);
-    dispatchEdited(expenses);
+    const newExpenses = expenses.filter(({ id }) => id !== expenseEdit.id);
+    newExpenses.splice(expenseEdit.id, 0, this.state);
+    dispatchEdited(newExpenses);
     this.setState({
       value: '',
       description: '',
