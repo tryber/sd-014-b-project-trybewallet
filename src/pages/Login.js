@@ -1,81 +1,79 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { setUserValue, getCurrencyThunk } from '../actions/index';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { addEmailAddress } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
       email: '',
       password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.disableBtn = this.disableBtn.bind(this);
+    this.validateEmailAndLogin = this.validateEmailAndLogin.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { email } = this.state;
-    const { history, dispatchSetValue } = this.props;
-    dispatchSetValue(email);
-    history.push('/carteira');
+  handleChange({ target: { value, name } }) {
+    this.setState({
+      [name]: value,
+    });
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
-  }
-
-  disableBtn() {
-    const N = 6;
+  validateEmailAndLogin() {
     const { email, password } = this.state;
-    if (email.includes('@' && '.com') && password.length >= N) {
-      return false;
-    } return true;
+    const emailRegex = /\S+@\S+\.\S+/;
+    const MIN_PASSWORD_LENGTH = 6;
+
+    return emailRegex.test(email) && password.length >= MIN_PASSWORD_LENGTH;
   }
 
   render() {
-    const { disableBtn, handleChange } = this;
+    const { handleChange, validateEmailAndLogin } = this;
+    const { email, password } = this.state;
+    const { sendEmail } = this.props;
+
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="email">
-          <input
-            id="email"
-            data-testid="email-input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={ handleChange }
-          />
-        </label>
-        <button disabled={ disableBtn() } id="btn__submit" type="submit">Entrar</button>
+      <form>
+        <input
+          data-testid="email-input"
+          type="text"
+          name="email"
+          placeholder="Email"
+          value={ email }
+          onChange={ (event) => handleChange(event) }
+        />
+        <input
+          data-testid="password-input"
+          type="text"
+          name="password"
+          placeholder="Senha"
+          value={ password }
+          onChange={ (event) => handleChange(event) }
+        />
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !validateEmailAndLogin() }
+            onClick={ () => sendEmail(email) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-Login.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (value) => dispatch(setUserValue(value)),
-  getCurrency: () => dispatch(getCurrencyThunk()),
+  sendEmail: (emailAddress) => dispatch(addEmailAddress(emailAddress)),
 });
+
+Login.propTypes = {
+  sendEmail: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);

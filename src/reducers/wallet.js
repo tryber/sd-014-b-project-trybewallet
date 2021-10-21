@@ -1,29 +1,27 @@
-import { SET_EXCHANGE_RATES_SUCCESS,
-  GET_CURRENCY_SUCCESS,
-} from '../actions/index';
+import { API_SUCCESS, ADD_NEW_TRANSACTION } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: {},
+  currencies: [],
+  apiCurrenciesNow: {},
   expenses: [],
-  arrayCurrency: [],
-  loading: false,
-  error: null,
 };
 
-const walletReducer = (state = INITIAL_STATE, action) => {
+function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case SET_EXCHANGE_RATES_SUCCESS:
-    // state.expenses.push(action.payload);
-    return { ...state,
-      expenses: action.payload,
+  case API_SUCCESS:
+    return {
+      ...state,
+      currencies: Object.keys(action.payload).filter((currency) => currency !== 'USDT'),
+      apiCurrenciesNow: action.payload,
     };
-  case GET_CURRENCY_SUCCESS:
-    return { ...state,
-      currencies: action.payload,
+  case ADD_NEW_TRANSACTION:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;
   }
-};
+}
 
 export default walletReducer;

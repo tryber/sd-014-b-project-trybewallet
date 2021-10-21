@@ -1,35 +1,28 @@
-// Coloque aqui suas actions
-import fetchEndPoint from '../service/API';
+export const SEND_EMAIL_ADDRESS = 'SEND_EMAIL_ADDRESS';
+export const API_SUCCESS = 'API_SUCCESS';
+export const ADD_NEW_TRANSACTION = 'ADD_NEW_TRANSACTION';
 
-export const SET_USERS = 'SET_USERS';
-export const SET_EXCHANGE_RATES_SUCCESS = 'SET_EXCHANGE_RATES_SUCCESS';
-export const GET_CURRENCY_SUCCESS = 'GET_CURRENCY_SUCCESS';
-
-export const setUserValue = (payload) => (
-  {
-    type: SET_USERS, payload,
-  }
-);
-
-export const setExchangeRatesSucess = (payload) => (
-  {
-    type: SET_EXCHANGE_RATES_SUCCESS, payload,
-  }
-);
-
-export const getCurrencySucess = (payload) => ({
-  type: GET_CURRENCY_SUCCESS, payload,
+export const addEmailAddress = (emailAddress) => ({
+  type: SEND_EMAIL_ADDRESS,
+  emailAddress,
 });
 
-export const getCurrencyThunk = (expense) => async (dispatch) => {
-  const response = await fetchEndPoint();
-  if (expense !== undefined) {
-    const { expenses, newExense } = expense;
-    let totalExpenses = expenses;
-    const currentExpenses = { ...newExense, exchangeRates: response };
-    totalExpenses = [...totalExpenses, currentExpenses];
-    dispatch(setExchangeRatesSucess(totalExpenses));
-  } else {
-    dispatch(getCurrencySucess(response));
+export const apiSuccess = (data) => ({
+  type: API_SUCCESS,
+  payload: data,
+});
+
+export const addNewTransaction = (payload) => ({
+  type: ADD_NEW_TRANSACTION,
+  payload,
+});
+
+export const fetchAPI = () => async (dispatch) => {
+  try {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    return dispatch(apiSuccess(data));
+  } catch (error) {
+    console.log(error.message);
   }
 };
