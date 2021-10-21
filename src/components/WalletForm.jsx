@@ -15,6 +15,7 @@ class WalletForm extends Component {
       method: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.filterAPI = this.filterAPI.bind(this);
   }
 
   handleChange({ target }) {
@@ -23,9 +24,16 @@ class WalletForm extends Component {
     });
   }
 
+  filterAPI() {
+    const { currencies } = this.props;
+    return Object.keys(currencies).filter(
+      (currency) => currency !== 'USDT',
+    );
+  }
+
   render() {
     const { value, description, currency, tag, method } = this.state;
-    const { currencies } = this.props;
+    const filteredCurrencies = this.filterAPI();
     return (
       <form>
         <DefaultInput
@@ -45,7 +53,7 @@ class WalletForm extends Component {
           id="currency"
           handleChange={ this.handleChange }
           value={ currency }
-          options={ currencies } // fed from API
+          options={ filteredCurrencies }
         />
         <DefaultSelect
           label="Método de pagamento"
