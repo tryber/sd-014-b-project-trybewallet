@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header-wallet-page {
+  background-color: rgb(192, 253, 192);
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-wallet {
+  color: rgb(3, 117, 3);
+  font-size: 30px;
+  font-weight: 200;
+  margin: 10px;
+  text-align: center;
+}
+
+.email-header , .cost-total , .currency {
+  font-size: 20px;
+  font-weight: 200;
+  margin: 10px;
+}
+
+select {
+  background-color: white;
+  border: 1px solid rgb(214, 213, 213);
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  width: 100px;
+}
+
+.form-wallet-page {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px;
+}
+
+input {
+  margin: 9px;
+  width: 150px;
+}
+
+.btn-add-expense {
+  background-color: rgb(14, 212, 14);
+  border: 1px solid rgb(14, 212, 14);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  height: 30px;
+  margin: 10px;
+  padding: 5px;
+}
+
+.header-table-costs {
+  background-color: rgba(180, 179, 179, 0.26);
+  border-collapse: separate;
+  border-spacing: 80px 8px;
+}
+
+.th-table {
+  border: 1px solid rgba(170, 168, 168, 0.685);
+  font-size: 12px;
+  font-weight: 450;
+  padding: 4px;
+}
+
+.edit-button {
+  width: 25px;
+  height: 25px;
+  background-color: yellow;
+  border: 2px solid yellow;
+  border-radius: 4px;
+  color: rgb(92, 91, 91);
+  margin: 5px;
+  cursor: pointer;
+}
+
+.delete-button {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  border: 2px solid red;
+  border-radius: 4px;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}
