@@ -10,12 +10,11 @@ class Expenditures extends Component {
     super();
     this.state = {
       id: 0,
-      valor: '',
+      valor: 0,
       descrição: '',
       moeda: '',
       método_de_pagamento: '',
       tag: '',
-      exchange: '',
     };
   }
 
@@ -60,8 +59,9 @@ class Expenditures extends Component {
         <button
           type="button"
           onClick={ () => {
-            dispatchState(requiredObject, expenses);
             addId(expenses.length);
+            requiredObject.id = expenses.length;
+            dispatchState(requiredObject, expenses);
           } }
         >
           Adicionar despesa

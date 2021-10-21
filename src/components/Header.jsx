@@ -3,13 +3,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  brlValueIn = (currency, exchangeRates) => exchangeRates[currency].ask
+
   render() {
     const { globalState:
       { user: { email }, wallet: { expenses } } } = this.props;
+    const { brlValueIn } = this;
     const total = expenses.reduce(
-      (acc, expense) => acc + parseInt(expense.valor, 10), 0,
+      (acc, { currency, value, exchangeRates }) => {
+        const valueInt = parseInt(value, 10);
+        const ValueBrl = brlValueIn(currency, exchangeRates) * valueInt;
+        return acc + ValueBrl;
+      }, 0,
     );
-    const { moeda } = expenses[0] || { moeda: 'BRL' };
+    const moeda = 'BRL';
     return (
       <header>
         <span data-testid="email-field">{email}</span>
