@@ -1,0 +1,53 @@
+.container-form {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  width: 70vw;
+}
+
+.field-container {
+  width: 70%;
+}
+
+.input-field {
+  border-radius: 10px;
+  font-size: 1.3em;
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+}
+
+.input-field[type="button"] {
+  align-self: center;
+  background-color: rgb(72, 122, 97);
+  border: 2px solid rgb(88, 102, 95);
+  border-radius: 10px;
+  color: white;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 20px rgb(90, 151, 121);
+}
+
+.input-field:active {
+  border: none;
+  box-shadow: 0 0 20px rgb(90, 151, 121);
+}
+
+.input-field[type="button"]:hover {
+  background-color: rgb(90, 151, 121);
+  cursor: pointer;
+  border: 2px solid rgb(224, 223, 223);
+  border-radius: 10px;
+  color: white;
+}
+
+.input-field[type="button"]:disabled {
+  background-color: rgb(88, 102, 95);
+  border: 2px solid rgb(148, 199, 182);
+  border-radius: 10px;
+  color: rgb(49, 56, 51);
+  cursor: not-allowed;
+}
