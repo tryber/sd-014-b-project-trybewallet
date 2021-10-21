@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Input_Text from '../components/Input_Text';
 import Select_Component from '../components/Select_Component';
 import { requestCurrencies, fetchApiExchange, delExpensive } from '../actions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
 class Wallet extends React.Component {
   constructor() {
@@ -170,7 +168,7 @@ class Wallet extends React.Component {
                     data-testid="delete-btn"
                     onClick={() => delSpent(expensive.id)}
                   >
-                    <FontAwesomeIcon icon={ faTrashAlt } />
+                    Excluir
                   </button>
                 </td>
               </tr>
