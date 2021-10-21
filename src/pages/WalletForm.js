@@ -8,6 +8,7 @@ class WalletForm extends React.Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.onButtonAdicionarDespesa = this.onButtonAdicionarDespesa.bind(this);
+    this.fetchedData = this.fetchedData.bind(this);
 
     this.formAddValor = this.formAddValor.bind(this);
     this.formAddDescricao = this.formAddDescricao.bind(this);
@@ -22,20 +23,32 @@ class WalletForm extends React.Component {
       currency: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: '',
+      exchangeRates: [],
     };
   }
 
   async onButtonAdicionarDespesa() {
+  // console.log('aqui', this.fetchedData());
     const {
       dispatchSaveExpenses,
-      dispatchFetchedData,
       expenses } = this.props;
     this.setState({
       id: (expenses.length),
-      exchangeRates: await dispatchFetchedData(),
+      exchangeRates: await this.fetchedData(),
     });
     dispatchSaveExpenses(this.state);
+  }
+
+  async fetchedData() {
+    const URL = 'https://economia.awesomeapi.com.br/json/all';
+    try {
+      const response = await fetch(URL);
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   handleChange({ target }) {
@@ -170,7 +183,6 @@ WalletForm.propTypes = {
     PropTypes.objectOf(PropTypes.string),
   ).isRequired,
   dispatchSaveExpenses: PropTypes.func.isRequired,
-  dispatchFetchedData: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

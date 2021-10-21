@@ -23,7 +23,7 @@ export function fetchDataAction() {
     try {
       const response = await fetch(URL);
       const data = await response.json();
-      return data; // dispatch(getCoin(data));
+      return dispatch(getCoin(data));
     } catch (error) {
       dispatch(faildedRequest(error));
     }
