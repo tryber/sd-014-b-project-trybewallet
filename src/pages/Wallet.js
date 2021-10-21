@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input_Text from '../components/Input_Text';
 import Select_Component from '../components/Select_Component';
-import { requestCurrencies, fetchApiExchange } from '../actions';
+import { requestCurrencies, fetchApiExchange, delExpensive } from '../actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 
 class Wallet extends React.Component {
   constructor() {
@@ -76,7 +78,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { getEmail, currenciesOptions, expensives } = this.props;
+    const { getEmail, currenciesOptions, expensives, delSpent } = this.props;
     const { value, description, currency, method, tag } = this.state;
     const paymentsOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tagsOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -162,6 +164,15 @@ class Wallet extends React.Component {
                 <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
                 <td>{ convertedValue.toFixed(2) }</td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={() => delSpent(expensive.id)}
+                  >
+                    <FontAwesomeIcon icon={ faTrashAlt } />
+                  </button>
+                </td>
               </tr>
             )
            }  
@@ -184,6 +195,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: (payload) => dispatch(requestCurrencies(payload)),
   getExpensives: (state) => dispatch(fetchApiExchange(state)),
+  delSpent: (value) => dispatch(delExpensive(value)),
 })
 
 Wallet.propTypes = {

@@ -16,4 +16,6 @@ table {
   border: 1px solid;
   width: 100% ;
 }
-
+table td { 
+  text-align: center;
+}

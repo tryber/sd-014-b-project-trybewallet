@@ -1,4 +1,4 @@
-import { REQUEST_CURRENCIES, GET_SPENT } from "../actions";
+import { REQUEST_CURRENCIES, GET_SPENT, DEL_SPENT } from "../actions";
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,6 +22,12 @@ const wallet = (state = INITIAL_STATE, action) => {
             exchangeRates: action.dataApi,
           }
         ]
+      }
+    case DEL_SPENT:
+      return {
+        ...state,
+        expenses: state.expenses.filter((expensive) => 
+          expensive.id !== action.value),
       }
       default:
         return state;
