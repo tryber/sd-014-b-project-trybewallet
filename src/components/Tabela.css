@@ -1,0 +1,17 @@
+table,
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+
+.theBorder {
+  border-right: 10px;
+  border-left: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}

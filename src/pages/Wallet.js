@@ -5,6 +5,7 @@ import { setWalletExpenses, fetchWallet } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import Tabela from '../components/Tabela';
 
 class Wallet extends React.Component {
   constructor() {
@@ -46,6 +47,32 @@ class Wallet extends React.Component {
     this.setState((prevState) => ({
       id: prevState.id + 1,
     }));
+  }
+
+  toTable = () => {
+    const { expenses } = this.props;
+
+    if (expenses.length > 0) {
+      return (
+        expenses.map((each, index) => (
+          <tbody key={ index }>
+            <tr>
+              <td>{ each.description }</td>
+              <td>{ each.tag }</td>
+              <td>{ each.method }</td>
+              <td>{ each.value }</td>
+              <td>{ each.exchangeRates[each.currency].name }</td>
+              <td>{ (+each.exchangeRates[each.currency].ask).toFixed(2) }</td>
+              <td>
+                {Number.isInteger(each.value * each.exchangeRates[each.currency].ask) ? each.value * each.exchangeRates[each.currency].ask : (each.value * each.exchangeRates[each.currency].ask).toFixed(2) }
+              </td>
+              <td>Real</td>
+              <td>teste</td>
+            </tr>
+          </tbody>
+        ))
+      );
+    }
   }
 
   valueChange = () => {
@@ -108,6 +135,7 @@ class Wallet extends React.Component {
           />
           <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
+        <Tabela toTable={ this.toTable } />
       </section>
     );
   }
