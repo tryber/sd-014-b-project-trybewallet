@@ -1,6 +1,8 @@
 export const USER_DATA = 'USER_DATA';
 export const USER_WALLET = 'USER_WALLET';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const ADD_BUTTON = 'ADD_BUTTON';
+export const EXPENSE_WALLET = 'EXPENSE_WALLET';
 
 export const userLogin = (payload) => ({
   type: USER_DATA,
@@ -14,10 +16,24 @@ export function userWallet(payload) {
   };
 }
 
+export function expenseWallet(payload) {
+  return {
+    type: EXPENSE_WALLET,
+    object: payload,
+  };
+}
+
 export function failedRequest(error) {
   return {
     type: FAILED_REQUEST,
     error,
+  };
+}
+
+export function addButton(expenses) {
+  return {
+    type: ADD_BUTTON,
+    expenses,
   };
 }
 
