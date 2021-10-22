@@ -8,7 +8,7 @@ class WalletForm extends React.Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.onButtonAdicionarDespesa = this.onButtonAdicionarDespesa.bind(this);
-    this.fetchedData = this.fetchedData.bind(this);
+    this.fetchData = this.fetchData.bind(this);
 
     this.formAddValor = this.formAddValor.bind(this);
     this.formAddDescricao = this.formAddDescricao.bind(this);
@@ -18,33 +18,35 @@ class WalletForm extends React.Component {
 
     this.state = {
       id: 0,
-      value: '',
+      value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+
       exchangeRates: [],
     };
   }
 
   async onButtonAdicionarDespesa() {
-  // console.log('aqui', this.fetchedData());
     const {
       dispatchSaveExpenses,
       expenses } = this.props;
+
+    const fetchedData = await this.fetchData();
+
     this.setState({
       id: (expenses.length),
-      exchangeRates: await this.fetchedData(),
+      exchangeRates: fetchedData,
     });
     dispatchSaveExpenses(this.state);
   }
 
-  async fetchedData() {
+  async fetchData() {
     const URL = 'https://economia.awesomeapi.com.br/json/all';
     try {
       const response = await fetch(URL);
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.error(error);
@@ -97,7 +99,6 @@ class WalletForm extends React.Component {
       currencies = { noCodeReturned: 'não retornou dados da API' };
     }
 
-    console.log(currencies);
     const codes = Object.keys(currencies)
       .filter((currencyCode) => currencyCode !== 'USDT');
 
@@ -114,7 +115,7 @@ class WalletForm extends React.Component {
           { codes.map((code) => (
             <option key={ code } value={ code }>
               { code }
-            </option>))}
+            </option>)) }
         </select>
       </label>
     );
@@ -159,21 +160,60 @@ class WalletForm extends React.Component {
     );
   }
 
+  addHeader() {
+    const { currency } = this.state;
+    const { expenses } = this.props;
+
+    console.log('aqui expenses', expenses);
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td>{ expense.description }</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              <td>{ `${expense.currency} ${expense.value}` }</td>
+              <td>{ expenses[0].exchangeRates.USD.name }</td>
+            </tr>)) }
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     return (
-      <form>
-        { this.formAddValor() }
-        { this.formAddDescricao() }
-        { this.formAddMoeda() }
-        { this.formAddMetodoPagamento() }
-        { this.formAddTag() }
-        <button
-          type="button"
-          onClick={ this.onButtonAdicionarDespesa }
-        >
-          Adicionar despesa
-        </button>
-      </form>
+      <>
+        <form>
+          { this.formAddValor() }
+          { this.formAddDescricao() }
+          { this.formAddMoeda() }
+          { this.formAddMetodoPagamento() }
+          { this.formAddTag() }
+          <button
+            type="button"
+            onClick={ this.onButtonAdicionarDespesa }
+          >
+            Adicionar despesa
+          </button>
+        </form>
+
+        { this.addHeader() }
+      </>
     );
   }
 }
