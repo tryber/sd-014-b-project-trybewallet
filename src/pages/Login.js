@@ -7,10 +7,12 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      // enableButton: '',
+      disabledButton: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
+    this.validation = this.validation.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,11 +20,32 @@ class Login extends Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => this.validation());
+  }
+
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
+  validation() {
+    const { email, password } = this.state;
+    const minPasswordLength = 6;
+    const validEmail = this.isEmailValid(email);
+
+    if (validEmail && password.length >= minPasswordLength) {
+      this.setState({
+        disabledButton: false,
+      });
+    } else {
+      this.setState({
+        disabledButton: true,
+      });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, disabledButton } = this.state;
     return (
       <div>
 
@@ -37,7 +60,7 @@ class Login extends Component {
 
         <input
           name="password"
-          type="password"
+          type="text"
           data-testid="password-input"
           value={ password }
           onChange={ this.handleChange }
@@ -45,6 +68,7 @@ class Login extends Component {
 
         <button
           type="button"
+          disabled={ disabledButton }
 
         >
           Entrar
