@@ -8,7 +8,7 @@ class Select extends Component {
       <label htmlFor={ name }>
         {' '}
         { title }
-        <select name={ name }>
+        <select id={ name }>
           { options.map(
             (option, index) => (
               <option key={ index }>

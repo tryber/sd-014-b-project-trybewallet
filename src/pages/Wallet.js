@@ -1,10 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchCoinsAction } from '../actions';
+import Input from '../components/Input';
+import Select from '../components/Select';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchCoinsApi } = this.props;
+    fetchCoinsApi();
+  }
+
   render() {
-    const { user } = this.props;
+    const { user, currencies } = this.props;
     return (
       <>
         <header>
@@ -13,38 +21,19 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form>
-          <label htmlFor="valor">
-            Valor:
-            <input id="valor" type="text" />
-          </label>
-          <label htmlFor="descrição">
-            Descrição:
-            <input id="descrição" type="text" />
-          </label>
-          <label htmlFor="moeda">
-            Moeda:
-            <select id="moeda">
-              <option> Default </option>
-            </select>
-          </label>
-          <label htmlFor="pagamento">
-            Método de pagamento:
-            <select id="pagamento">
-              <option id="pagamento"> Dinheiro </option>
-              <option id="pagamento"> Cartão de crédito </option>
-              <option id="pagamento"> Cartão de débito </option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag:
-            <select id="tag">
-              <option id="tag">Alimentação</option>
-              <option id="tag">Lazer</option>
-              <option id="tag">Trabalho</option>
-              <option id="tag">Transporte</option>
-              <option id="tag">Saúde</option>
-            </select>
-          </label>
+          <Input type="text" id="valor" />
+          <Input type="text" id="descrição" />
+          <Select title="Moeda" name="moeda" options={ currencies } />
+          <Select
+            title="Método de pagamento:"
+            id="pagamento"
+            options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          />
+          <Select
+            title="Tag:"
+            id="tag"
+            options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          />
         </form>
       </>
     );
@@ -52,11 +41,17 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.email,
+  user: state.user.email, currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCoinsApi: () => dispatch(fetchCoinsAction()),
 });
 
 Wallet.propTypes = {
   user: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchCoinsApi: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
