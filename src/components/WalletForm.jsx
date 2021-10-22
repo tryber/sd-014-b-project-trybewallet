@@ -12,9 +12,9 @@ class WalletForm extends Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
-      tag: '',
-      method: '',
+      currency: 'USD',
+      tag: 'Alimentação',
+      method: 'Dinheiro',
     };
     this.handleChange = this.handleChange.bind(this);
     this.filterAPI = this.filterAPI.bind(this);

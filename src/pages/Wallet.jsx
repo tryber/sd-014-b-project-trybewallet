@@ -12,10 +12,11 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { loading, expenses } = this.props;
     return (
       <section>
         <div>TrybeWallet</div>
-        <Header />
+        { !loading ? <Header expenses={ expenses } /> : null }
         <WalletForm />
       </section>
     );
@@ -24,10 +25,17 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   fetchCurrency: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  expenses: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrency: () => dispatch(walletActions.fetchCurrency()),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+const mapStateToProps = (state) => ({
+  loading: state.wallet.loading,
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
