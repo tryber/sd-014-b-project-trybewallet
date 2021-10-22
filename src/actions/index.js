@@ -3,7 +3,7 @@ export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
-export const EDITED_EXPENSE = 'EDIT_EXPENSE';
+export const EDITED_EXPENSE = 'EDITED_EXPENSE';
 
 export const loginInfoAction = (state) => (
   { type: SAVE_LOGIN_INFO,

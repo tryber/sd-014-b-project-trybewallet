@@ -87,13 +87,6 @@ class Wallet extends React.Component {
 
   saveEdit() {
     const { expenses, expenseEdit, dispatchEdited } = this.props;
-    // Criando um Novo Array com Filter, mas nao atualiza o Global.//
-    // const newExpenses = expenses.filter(({ id }) => id !== expenseEdit.id);
-    // newExpenses.splice([expenseEdit.id], 0, this.state);
-    // dispatchEdited(newExpenses);
-    // console.log(newExpenses);
-
-    // Alteranto o Array Como Splice e Alterando o Global//
     expenses.splice([expenseEdit.id], 1, this.state);
     dispatchEdited(expenses);
     console.log(expenses);
