@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
+import currencyAPI from '../services/currencyAPI';
 
 class Forms extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      coins: [],
+    };
+
+    this.updateState = this.updateState.bind(this);
+  }
+
+  async componentDidMount() {
+    const response = await currencyAPI();
+    const arrayOfCoins = [];
+    Object.keys(response).map((coin) => {
+      if (coin !== 'USDT') {
+        arrayOfCoins.push(coin);
+      }
+      return arrayOfCoins;
+    });
+    console.log(arrayOfCoins);
+    this.updateState(arrayOfCoins);
+  }
+
+  updateState(arrayOfCoins) {
+    this.setState({
+      coins: arrayOfCoins,
+    });
+  }
+
   render() {
+    const { coins } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -15,9 +46,7 @@ class Forms extends Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="currency">
-            <option>USD</option>
-            <option>EUR</option>
-            <option>BRL</option>
+            { coins.map((coin, index) => <option key={ index }>{ coin }</option>) }
           </select>
         </label>
         <label htmlFor="payment-method">
