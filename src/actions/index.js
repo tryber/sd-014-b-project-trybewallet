@@ -1,8 +1,8 @@
-export const SUBMIT_EMAIL = 'SUBMIT_EMAIL';
+export const GET_EMAIL = 'SUBMIT_EMAIL';
 
-export function emailSubmit(payloadEmail) {
+export function getEmail(payloadEmail) {
   return {
-    type: SUBMIT_EMAIL,
+    type: GET_EMAIL,
     payloadEmail,
   };
 }

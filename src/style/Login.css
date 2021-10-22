@@ -7,7 +7,7 @@
   width: 100vw;
 }
 
-form {
+.form-container {
   background: #0b0e10;
   border-radius: 8px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
@@ -16,18 +16,19 @@ form {
   width: 400px;
 }
 
-h2 {
+.title {
   align-items: center;
   color: white;
   display: flex;
-  font-size: 2rem;
+  font-size: 2.2rem;
   justify-content: center;
 }
 
-h2 p {
+.title p {
   color: #3174bc;
 }
 
-.buttonLogin {
+.btn-entrar {
   cursor: pointer;
+
 }

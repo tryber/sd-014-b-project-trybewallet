@@ -3,7 +3,7 @@ import '../style/Login.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { emailSubmit } from '../actions';
+import { getEmail } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -38,8 +38,8 @@ class Login extends React.Component {
 
     return (
       <main className="container">
-        <form>
-          <h2>
+        <form className="form-container">
+          <h2 className="title">
             Trybe
             <p>Wallet</p>
           </h2>
@@ -69,7 +69,7 @@ class Login extends React.Component {
             <button
               type="button"
               value="Entrar"
-              className="buttonLogin"
+              className="btn-entrar"
               disabled={ !validateForms() }
               onClick={ () => submitInputEmail(inputEmail) }
             >
@@ -87,7 +87,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  submitInputEmail: (emailInfo) => dispatch(emailSubmit(emailInfo)),
+  submitInputEmail: (emailInfo) => dispatch(getEmail(emailInfo)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

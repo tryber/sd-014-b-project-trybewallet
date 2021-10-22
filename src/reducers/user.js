@@ -1,4 +1,4 @@
-import { SUBMIT_EMAIL } from '../actions';
+import { GET_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   inputEmail: '',
@@ -6,8 +6,11 @@ const INITIAL_STATE = {
 
 function formReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case SUBMIT_EMAIL:
-    return ({ ...state, email: action.payloadEmail });
+  case GET_EMAIL:
+    return ({
+      ...state,
+      email: action.payloadEmail,
+    });
 
   default:
     return state;
