@@ -86,10 +86,18 @@ class Wallet extends React.Component {
   }
 
   saveEdit() {
+    const { state } = this;
     const { expenses, expenseEdit, dispatchEdited } = this.props;
-    expenses.splice([expenseEdit.id], 1, this.state);
+    expenses.splice([expenseEdit.id], 1, {
+      id: state.id,
+      value: state.value,
+      description: state.description,
+      currency: state.currency,
+      method: state.method,
+      tag: state.tag,
+      exchangeRates: state.exchangeRates,
+    });
     dispatchEdited(expenses);
-    console.log(expenses);
     this.setState({
       value: '',
       description: '',
