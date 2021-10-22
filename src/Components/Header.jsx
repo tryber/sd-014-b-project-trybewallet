@@ -9,6 +9,7 @@ class Header extends Component {
       <header>
         <h2 data-testid="email-field">
           Email:
+          {' '}
           {email}
         </h2>
         <p data-testid="total-field">
