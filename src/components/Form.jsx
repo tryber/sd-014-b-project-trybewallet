@@ -7,7 +7,13 @@ class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      expense: {},
+      expense: {
+        currency: 'USD',
+        description: '',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        value: '',
+      },
     };
   }
 
@@ -39,6 +45,15 @@ class Form extends React.Component {
     const newExpense = { ...expense };
     newExpense.id = expensesLength;
     submitExpense(newExpense);
+    this.setState({
+      expense: {
+        currency: 'USD',
+        description: '',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        value: '',
+      },
+    })
   }
 
   renderSelects() {
@@ -82,14 +97,16 @@ class Form extends React.Component {
   }
 
   render() {
+    const { expense: { value, description } } = this.state;
     return (
-      <form>
+      <form className="form-expense">
         <label htmlFor="value">
           Valor
           <input
             type="text"
             id="value"
             name="value"
+            value={ value }
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
@@ -99,11 +116,16 @@ class Form extends React.Component {
             type="text"
             id="description"
             name="description"
+            value={ description }
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
         { this.renderSelects() }
-        <button type="button" onClick={ () => this.submitExpense() }>
+        <button
+          type="button"
+          className="add-expense"
+          onClick={ () => this.submitExpense() }
+        >
           Adicionar despesa
         </button>
       </form>

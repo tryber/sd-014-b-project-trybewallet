@@ -51,6 +51,7 @@ class Table extends React.Component {
           <button
             type="button"
             data-testid="edit-btn"
+            className="edit-btn"
             onClick={ () => this.editItem(expense.id) }
           >
             Editar
@@ -58,6 +59,7 @@ class Table extends React.Component {
           <button
             type="button"
             data-testid="delete-btn"
+            className="delete-btn"
             onClick={ () => this.deleteItem(expense.id) }
           >
             Excluir
@@ -70,7 +72,7 @@ class Table extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table border="1">
+      <table>
         <thead>
           <tr>
             <th>Descrição</th>

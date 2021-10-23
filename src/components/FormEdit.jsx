@@ -96,7 +96,7 @@ class FormEdit extends React.Component {
   render() {
     const { expenseUpdate } = this.state;
     return (
-      <form>
+      <form className="form-expense">
         <label htmlFor="value">
           Valor
           <input
@@ -118,7 +118,11 @@ class FormEdit extends React.Component {
           />
         </label>
         { this.renderSelects() }
-        <button type="button" onClick={ () => this.updateExpenses() }>
+        <button
+          type="button"
+          className="edit-expense"
+          onClick={ () => this.updateExpenses() }
+        >
           Editar despesa
         </button>
       </form>
