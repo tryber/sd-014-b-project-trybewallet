@@ -10,7 +10,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-        TrybeWallet
+        Área do wallet
       </div>
     );
   }
