@@ -1,1 +1,9 @@
-// Coloque aqui suas actions
+export const userMail = (email) => ({
+  type: 'EMAIL',
+  email,
+});
+
+export const teste = (state) => ({
+  type: 'EMAIL',
+  state,
+});
