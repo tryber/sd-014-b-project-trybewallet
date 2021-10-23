@@ -17,7 +17,6 @@ class Wallet extends React.Component {
         <div>
           TrybeWallet
           <span data-testid="email-field">{ email }</span>
-          <span>0</span>
           <span data-testid="header-currency-field">BRL</span>
         </div>
         <WalletForm />

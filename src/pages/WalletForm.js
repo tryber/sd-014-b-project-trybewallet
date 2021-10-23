@@ -33,7 +33,7 @@ class WalletForm extends React.Component {
       expenses } = this.props;
 
     const fetchedData = await this.fetchData();
-    
+
     this.setState({
       id: (expenses.length),
       exchangeRates: fetchedData,
@@ -93,7 +93,6 @@ class WalletForm extends React.Component {
 
   formAddMoeda() {
     let { currencies } = this.props;
-
     if (currencies === undefined) {
       currencies = { noCodeReturned: 'não retornou dados da API' };
     }
@@ -160,26 +159,18 @@ class WalletForm extends React.Component {
   }
 
   addHeader() {
-    const { currency, value, valorConvertido } = this.state;
     const { expenses } = this.props;
-    
-    
-    const arrayValoresConvertidos = [0,0];
-    expenses.map((expense) =>
-      arrayValoresConvertidos.push(expense.exchangeRates[expense.currency].ask * expense.value)
-    );
+    const XVI = -16;
 
-    
-  
-    const array1 = [1, 2, 3, 4]; // expenses.valorConvertido;
+    const arrayValoresConvertidos = [0, 0];
+    expenses.map((expense) => arrayValoresConvertidos.push(
+      expense.exchangeRates[expense.currency].ask * expense.value,
+    ));
+
     const reducer = (previousValue, currentValue) => previousValue + currentValue;
-
-    // 1 + 2 + 3 + 4
     let valorTotal = (arrayValoresConvertidos.reduce(reducer));
-    valorTotal = (valorTotal.toFixed(2)); // -0.97
+    valorTotal = (valorTotal.toFixed(2));
 
-
-    
     return (
       <table>
         <thead>
@@ -202,17 +193,15 @@ class WalletForm extends React.Component {
               <td>{ expense.tag }</td>
               <td>{ expense.method }</td>
               <td>{ `${expense.currency} ${expense.value}` }</td>
-              <td>{ (expense.exchangeRates[expense.currency].name).slice(0, -16) }</td>
+              <td>{ (expense.exchangeRates[expense.currency].name).slice(0, XVI) }</td>
               <td>{ expense.exchangeRates[expense.currency].ask }</td>
               <td>{ expense.exchangeRates[expense.currency].ask * expense.value }</td>
               <td>{ valorTotal }</td>
-              {/* <td>{ expense.exchangeRates[expense.currency].ask * expense.value }</td> */ }
             </tr>)) }
           <header data-testid="total-field">{ valorTotal }</header>
         </tbody>
-        
-        </table>
-     );
+      </table>
+    );
   }
 
   render() {
@@ -231,7 +220,6 @@ class WalletForm extends React.Component {
             Adicionar despesa
           </button>
         </form>
-
         { this.addHeader() }
       </>
     );
