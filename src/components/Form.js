@@ -1,72 +1,114 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import fetchCoin from '../services/coinsAPI';
+import { connect } from 'react-redux';
+import { fetchCoins, expenseAction } from '../actions';
+import Input from './Input';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      coins: [],
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
-    this.arrayCoins = this.arrayCoins.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.inputSelect = this.inputSelect.bind(this);
   }
 
   componentDidMount() {
-    this.arrayCoins();
+    const { requestCoinsToState } = this.props;
+    requestCoinsToState();
   }
 
-  async arrayCoins() {
-    const totalCoins = [];
-    const response = await fetchCoin();
-    Object.entries(response).forEach((coin) => {
-      if (coin[0] !== 'USDT') {
-        totalCoins.push(coin);
-      }
+  handleClick() {
+    const { addDispense } = this.props;
+    // requestCoinsToState();
+    addDispense(this.state);
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
     });
-    this.setState({ coins: totalCoins });
   }
 
-  render() {
-    const { coins } = this.state;
-    console.log(coins);
+  inputSelect() {
+    const { method, tag } = this.state;
     return (
-      <form>
-        <label htmlFor="value">
-          Valor:
-          <input type="text" placeholder="0,00" id="value" />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input type="text" placeholder="água, luz, carro" id="description" />
-        </label>
-        <label htmlFor="coin">
-          Moeda:
-          <select id="coin">
-            { coins.map((coin) => (
-              <option key={ coin[0] }>{coin[0]}</option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="methodPayment">
+      <div>
+        <label htmlFor="method">
           Método de pagamento:
-          <select id="methodPayment">
-            <option value="cash">Dinheiro</option>
-            <option value="credit">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+          <select
+            id="method"
+            name="method"
+            value={ method }
+            onChange={ this.handleChange }
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag:
-          <select id="tag">
-            <option value="food">Alimentação</option>
-            <option value="fun">Lazer</option>
-            <option value="job">Trabalho</option>
-            <option value="travel">Transporte</option>
-            <option value="health">Saúde</option>
+          <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button">
+      </div>
+    );
+  }
+
+  render() {
+    const { coins } = this.props;
+    const { value, description, currency } = this.state;
+    return (
+      <form>
+        <Input
+          type="text"
+          id="value"
+          name="value"
+          placeHolder="Valor:"
+          value={ value }
+          handleChange={ this.handleChange }
+        />
+        <Input
+          type="text"
+          id="description"
+          name="description"
+          placeHolder="Descrição:"
+          value={ description }
+          handleChange={ this.handleChange }
+        />
+        <label htmlFor="currency">
+          Moeda:
+          <select
+            id="currency"
+            name="currency"
+            value={ currency }
+            onChange={ this.handleChange }
+          >
+            { coins.length > 0 ? coins.map((coin, index) => (
+              <option key={ index }>{ coin }</option>
+            )) : null }
+          </select>
+        </label>
+        { this.inputSelect() }
+        <button type="button" onClick={ this.handleClick }>
           Adicionar despesa
         </button>
       </form>
@@ -74,4 +116,19 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+Form.propTypes = {
+  addDispense: PropTypes.func.isRequired,
+  requestCoinsToState: PropTypes.func.isRequired,
+  coins: PropTypes.arrayOf().isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addDispense: (state) => dispatch(expenseAction(state)),
+  requestCoinsToState: () => dispatch(fetchCoins()),
+});
+
+const mapStateToProps = (state) => ({
+  coins: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
