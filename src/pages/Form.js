@@ -1,10 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-
-const currencyOptions = [
-  { brl: 'BRL' },
-];
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 
 const paymentMethodOptions = [
   { money: 'Dinheiro' },
@@ -33,14 +30,19 @@ class Form extends React.Component {
     };
 
     this.changeStateAndElementValue = this.changeStateAndElementValue.bind(this);
-    this.createOptions = this.createOptions.bind(this);
+    this.createSelectElement = this.createSelectElement.bind(this);
+  }
+
+  componentDidMount() {
+    const { callFetchCurrencies } = this.props;
+    callFetchCurrencies();
   }
 
   changeStateAndElementValue({ target: { value } }, key) {
     this.setState({ [key]: value });
   }
 
-  createOptions(id, label, source) {
+  createSelectElement(id, label, source) {
     const { state, changeStateAndElementValue } = this;
     return (
       <label htmlFor={ id }>
@@ -63,9 +65,21 @@ class Form extends React.Component {
   }
 
   render() {
-    const { createOptions, changeStateAndElementValue, state } = this;
+    const {
+      createSelectElement, changeStateAndElementValue,
+      state,
+      props: { currencies },
+    } = this;
+
     const idsArray = Object.keys(state);
     const valuesArray = Object.values(state);
+    const filteredCurrencies = Object
+      .keys(currencies)
+      .filter((currency) => currency !== 'USDT');
+
+    const currencyOptions = filteredCurrencies.map((filteredCurrency) => (
+      { [filteredCurrency]: filteredCurrency }
+    ));
 
     return (
       <form>
@@ -86,20 +100,25 @@ class Form extends React.Component {
             onChange={ (event) => changeStateAndElementValue(event, idsArray[1]) }
           />
         </label>
-        { createOptions(idsArray[2], 'Moeda', currencyOptions) }
-        { createOptions(idsArray[3], 'Método de pagamento', paymentMethodOptions) }
-        { createOptions(idsArray[4], 'Tag', categoryOptions) }
+        { createSelectElement(idsArray[2], 'Moeda', currencyOptions) }
+        { createSelectElement(idsArray[3], 'Método de pagamento', paymentMethodOptions) }
+        { createSelectElement(idsArray[4], 'Tag', categoryOptions) }
       </form>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   email: state.user.email,
-// });
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  currencies: state.wallet.currencies,
+});
 
-// Form.propTypes = {
-//   email: PropTypes.string,
-// }.isRequired;
+const mapDispatchToProps = (dispatch) => ({
+  callFetchCurrencies: () => dispatch(fetchCurrencies()),
+});
 
-export default Form;
+Form.propTypes = {
+  email: PropTypes.string,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
