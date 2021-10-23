@@ -28,8 +28,8 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { addDispense } = this.props;
-    // requestCoinsToState();
+    const { addDispense, requestCoinsToState } = this.props;
+    requestCoinsToState();
     addDispense(this.state);
     this.setState((prevState) => ({
       id: prevState.id + 1,
