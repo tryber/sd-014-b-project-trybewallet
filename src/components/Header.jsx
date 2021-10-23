@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { user } from '../actions';
+// import { user } from '../actions';
 
 export default class Header extends Component {
   render() {
