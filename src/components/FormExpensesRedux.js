@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { sendWalletInfo } from '../actions';
 
 const paymentMethods = ['', 'Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
 const expensesCategory = ['', 'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
-export default class FormExpensesRedux extends React.Component {
+class FormExpensesRedux extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -16,6 +17,7 @@ export default class FormExpensesRedux extends React.Component {
       paymentMethod: 'Dinheiro',
       category: 'Alimentação',
       currencies: [],
+      expenses: [],
     };
 
     this.fetchApiCurrencies = this.fetchApiCurrencies.bind(this);
@@ -36,20 +38,19 @@ export default class FormExpensesRedux extends React.Component {
   }
 
   handleChange({ target }) {
-    this.setState({ [target.id]: target.value });
+    this.setState({ [target.id]: target.value }, console.log(target.value));
   }
 
   generateSelect(id, label, array) {
     return (
       <label htmlFor={ id }>
         {label}
-        <select id="currency">
+        <select id={ id } onChange={ this.handleChange }>
           { array.length > 0 && array.map((info) => (
             <option
               id={ id }
               key={ info }
               value={ info }
-              onClick={ this.handleChange }
             >
               {info}
 
@@ -57,6 +58,12 @@ export default class FormExpensesRedux extends React.Component {
         </select>
       </label>
     );
+  }
+
+  handleSubmit() {
+    const { sendWalletInfoToGlobal } = this.props;
+    const walletInfo = this.state;
+    sendWalletInfoToGlobal(walletInfo);
   }
 
   formEstructure(response) {
@@ -81,11 +88,11 @@ export default class FormExpensesRedux extends React.Component {
           />
         </label>
         { this.generateSelect('currency', 'Moeda:', response) }
-        { this.generateSelect('paymentMethod', 'Método de pagamento:', paymentMethods) }
+        { this.generateSelect('paymentMethod', 'método de pagamento', paymentMethods) }
         { this.generateSelect('category', 'Tag:', expensesCategory) }
         <button
           type="button"
-          onClick={ () => console.log(this.state) }
+          onClick={ () => this.handleSubmit() }
         >
           Adicionar despesa
         </button>
@@ -95,9 +102,21 @@ export default class FormExpensesRedux extends React.Component {
 
   render() {
     const { currencies } = this.state;
-
+    console.log(this.state);
     return (
       this.formEstructure(currencies)
     );
   }
 }
+
+FormExpensesRedux.propTypes = {
+  sendWalletInfoToGlobal: PropTypes.func.isRequired,
+};
+
+function mapDispatchToProps(dispatch) {
+  return ({
+    sendWalletInfoToGlobal: (info) => dispatch(sendWalletInfo(info)),
+  });
+}
+
+export default connect(null, mapDispatchToProps)(FormExpensesRedux);
