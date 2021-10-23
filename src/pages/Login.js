@@ -1,7 +1,35 @@
 import React from 'react';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      email: '',
+      password: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+
   render() {
+    const { email, password } = this.state;
+
+    const validationEmail = () => {
+      // https://www.horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
+      const reg = /\S+@\S+\.\S+/;
+      return reg.test(email);
+    };
+
+    const sizePass = 6;
+    const validationPass = password.length >= sizePass;
+
     return (
       <div>
         <label htmlFor="input-email">
@@ -11,6 +39,7 @@ class Login extends React.Component {
             name="email"
             type="email"
             data-testid="email-input"
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="input-password">
@@ -20,10 +49,12 @@ class Login extends React.Component {
             name="password"
             type="password"
             data-testid="password-input"
+            onChange={ this.handleChange }
           />
         </label>
         <button
           type="button"
+          disabled={ !(validationEmail() && validationPass) }
         >
           Entrar
         </button>
