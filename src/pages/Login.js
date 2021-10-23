@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginAction } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -7,7 +10,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      disabledButton: true,
+      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,17 +38,30 @@ class Login extends Component {
 
     if (validEmail && password.length >= minPasswordLength) {
       this.setState({
-        disabledButton: false,
+        disabled: false,
       });
     } else {
       this.setState({
-        disabledButton: true,
+        disabled: true,
       });
     }
   }
 
+  handleSubmit() {
+    const { submitUserInfo, history } = this.props;
+    const { email, password } = this.state;
+
+    submitUserInfo({ email, password });
+
+    this.setState({
+      disabled: true,
+    });
+
+    history.push('/carteira');
+  }
+
   render() {
-    const { email, password, disabledButton } = this.state;
+    const { email, password, disabled } = this.state;
     return (
       <div>
 
@@ -60,16 +76,16 @@ class Login extends Component {
 
         <input
           name="password"
-          type="text"
+          type="password"
           data-testid="password-input"
           value={ password }
           onChange={ this.handleChange }
         />
 
         <button
-          type="button"
-          disabled={ disabledButton }
-
+          type="submit"
+          disabled={ disabled }
+          onClick={ () => this.handleSubmit() }
         >
           Entrar
         </button>
@@ -78,4 +94,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  submitUserInfo: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  submitUserInfo: (payload) => (dispatch(loginAction(payload))),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
