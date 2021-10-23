@@ -6,11 +6,13 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      // email: '',
-      // password: ''
+      email: '',
+      password: '',
+      btnDisable: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.loginVerification = this.loginVerification.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,9 +20,26 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+    this.loginVerification();
+  }
+
+  loginVerification() {
+    const { email, password } = this.state;
+    const minPassworLength = 6;
+    const validatedEmail = email.includes('@') && email.endsWith('.com');
+    if (validatedEmail && password.length >= minPassworLength) {
+      this.setState({
+        btnDisable: false,
+      });
+    } else {
+      this.setState({
+        btnDisable: true,
+      });
+    }
   }
 
   render() {
+    const { btnDisable } = this.state;
     return (
       <div>
         <form>
@@ -41,7 +60,7 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </form>
-        <button type="button">Entrar</button>
+        <button type="button" disabled={ btnDisable }>Entrar</button>
       </div>
     );
   }
