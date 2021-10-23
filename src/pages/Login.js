@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { submitLogin } from '../actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
 
@@ -11,6 +14,7 @@ export default class Login extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -28,6 +32,18 @@ export default class Login extends Component {
     if (regexEmail && validPassword) {
       this.setState({ statusBtn: false });
     }
+  }
+
+  handleClick() {
+    const { history, submitEmail } = this.props;
+    const { email } = this.state;
+    submitEmail(email);
+    console.log(history);
+    /*
+      Enzo Thome me ajudou a resolver um bug ao fazer o redirecionamento para '/carteira'
+       Ref: https://github.com/tryber/sd-014-b-project-trybewallet/pull/41/files
+    */
+    history.push('/carteira');
   }
 
   render() {
@@ -62,6 +78,7 @@ export default class Login extends Component {
         <button
           type="button"
           disabled={ statusBtn }
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -69,3 +86,15 @@ export default class Login extends Component {
     );
   }
 }
+
+// Ref: https://github.com/MoisesSantana/Revisao-Bloco-15/blob/for-students-b/src/components/LoginForm.jsx
+const mapDispatchToprops = (dispatch) => ({
+  submitEmail: (email) => dispatch(submitLogin(email)),
+});
+
+Login.propTypes = {
+  submitEmail: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToprops)(Login);
