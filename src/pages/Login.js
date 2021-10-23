@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor() {
@@ -10,7 +11,6 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.disabledButton = this.disabledButton.bind(this);
   }
 
   handleChange({ target }) {
@@ -19,16 +19,6 @@ class Login extends React.Component {
       [name]: value,
     });
   }
-
-  // disabledButton() {
-  //   const { emailInput, passwordInput } = this.state;
-  //   const validateEmail = /\S+@\S+\.\S+/;
-
-  //   if (emailInput === validateEmail && passwordInput.length > 6) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   render() {
     const { emailInput, passwordInput } = this.state;
@@ -70,4 +60,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  submitEmail: (userEmail) => (dispatch()),
+});
+
+export default connect()(Login);
