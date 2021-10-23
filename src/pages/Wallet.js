@@ -1,8 +1,13 @@
 import React from 'react';
+import PageContainer from '../components/PageContainer';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <PageContainer>
+        <h1>Carteira</h1>
+      </PageContainer>
+    );
   }
 }
 
