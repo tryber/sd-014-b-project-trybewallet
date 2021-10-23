@@ -1,6 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveUserEmail } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -13,14 +15,20 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.loginVerification = this.loginVerification.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { setUserEmail } = this.props;
+    const { email } = this.state;
+    setUserEmail(email);
   }
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
-    this.loginVerification();
+    }, () => this.loginVerification()); // Coloquei como arrow func pois assim não gera erro de falso positivo
   }
 
   loginVerification() {
@@ -60,10 +68,26 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </form>
-        <button type="button" disabled={ btnDisable }>Entrar</button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ btnDisable }
+            onClick={ () => this.handleClick() }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setUserEmail: (state) => dispatch(saveUserEmail(state)),
+});
+
+Login.propTypes = {
+  setUserEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
