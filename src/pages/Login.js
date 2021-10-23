@@ -35,12 +35,6 @@ class Login extends React.Component {
     });
   }
 
-  // redirectWallet() {
-  //   const { email } = this.state;
-  //   dispatchUserMail(email);
-
-  // }
-
   render() {
     const { email, password } = this.state;
     const { dispatchUserMail } = this.props;
