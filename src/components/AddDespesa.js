@@ -26,10 +26,11 @@ class AddDespesa extends React.Component {
     const { descricao } = this.state;
     return (
       <label htmlFor="descricao">
-        Descrição:
+        Descrição
         <input
           type="text"
           name="descricao"
+          id="descricao"
           onChange={ this.handleChange }
           value={ descricao }
         />
@@ -42,25 +43,27 @@ class AddDespesa extends React.Component {
     return (
       <form>
         <label htmlFor="valor">
-          Valor:
+          Valor
           <input
             type="text"
+            id="valor"
             name="valor"
             onChange={ this.handleChange }
             value={ valor }
           />
         </label>
         <label htmlFor="moeda">
-          Moeda:
-          <select name="moeda" onChange={ this.handleChange } value={ moeda }>
+          Moeda
+          <select id="moeda" name="moeda" onChange={ this.handleChange } value={ moeda }>
             <option>BRL</option>
             <option>USD</option>
           </select>
         </label>
         <label htmlFor="pagamento">
-          Método de pagamento:
+          Método de pagamento
           <select
             name="pagamento"
+            id="pagamento"
             onChange={ this.handleChange }
             value={ pagamento }
           >
@@ -70,8 +73,8 @@ class AddDespesa extends React.Component {
           </select>
         </label>
         <label htmlFor="tag">
-          Tag:
-          <select name="tag" onChange={ this.handleChange } value={ tag }>
+          Tag
+          <select name="tag" id="tag" onChange={ this.handleChange } value={ tag }>
             <option>Lazer</option>
             <option>Trabalho</option>
             <option>Alimentação</option>
