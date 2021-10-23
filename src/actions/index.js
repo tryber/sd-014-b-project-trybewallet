@@ -1,12 +1,12 @@
-export const USER = 'USER';
-export const WALLET = 'WALLET';
+export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
+export const SUBMIT_WALLET = 'SUBMIT_WALLET';
 
-export const sendUser = (user) => ({
-  type: USER,
-  user,
+export const actionRegisterUser = (payload) => ({
+  type: SUBMIT_LOGIN,
+  payload,
 });
 
-export const sendWallet = (wallet) => ({
-  type: WALLET,
-  wallet,
+export const actionSetExpenses = (payload) => ({
+  type: SUBMIT_WALLET,
+  payload,
 });

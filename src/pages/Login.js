@@ -1,75 +1,79 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionRegisterUser } from '../actions';
+import { Inputs, Button } from '../components';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.validation = this.validation.bind(this);
   }
 
-  toWallet() {
-    const { history } = this.props;
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value }, () => this.validation());
+  }
+
+  validation() {
+    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const number = 5;
+    const { email, password } = this.state;
+    const disabled = !(regex.test(email) && password.length > number);
+
+    this.setState({ disabled });
+  }
+
+  handleClick() {
+    const { history, registerUser } = this.props;
+    const { email } = this.state;
+    registerUser(email);
     history.push('/carteira');
   }
 
-  handleEmail(email) {
-    this.setState(() => ({
-      email,
-    }));
-  }
-
-  handlePassword(password) {
-    this.setState(() => ({
-      password,
-    }));
-  }
-
-  isEmailValid(email) {
-    const regexEmail = /[\w]+@[\w]+.com/;
-    return regexEmail.test(email);
-  }
-
   render() {
-    const { email, password } = this.state;
-    const MIN_CHARACTERS = 6;
-    const validEmail = this.isEmailValid(email);
-    const validacao = validEmail && password.length >= MIN_CHARACTERS;
+    const { disabled } = this.state;
     return (
-      <div>
-        <input
-          type="email"
-          placeholder="E-mail"
-          data-testid="email-input"
-          onChange={ ({ target }) => this.handleEmail(target.value) }
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          data-testid="password-input"
-          onChange={ ({ target }) => this.handlePassword(target.value) }
-        />
-        <button
-          type="button"
-          disabled={ !validacao }
-          onClick={ this.toWallet }
-        >
-          Entrar
-        </button>
-      </div>
+      <form>
+        <fieldset>
+          <Inputs
+            name="email"
+            page="login"
+            type="text"
+            onHandleChange={ this.handleChange }
+          />
+          <Inputs
+            name="password"
+            page="login"
+            type="password"
+            onHandleChange={ this.handleChange }
+          />
+          <Button
+            name="Entrar"
+            onHandleClick={ this.handleClick }
+            disabled={ disabled }
+          />
+        </fieldset>
+      </form>
     );
   }
 }
 
+const mapDispathToProps = (dispatch) => ({
+  registerUser: (payload) => dispatch(actionRegisterUser(payload)),
+});
+
 Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  registerUser: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispathToProps)(Login);

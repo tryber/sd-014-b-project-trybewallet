@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Button extends React.Component {
+class Button extends Component {
   render() {
-    const { text } = this.props;
+    const { name, onHandleClick, disabled } = this.props;
     return (
-      <button type="button">{ text }</button>
+      <button type="button" onClick={ onHandleClick } disabled={ disabled }>
+        {name}
+      </button>
     );
   }
 }
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  onHandleClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+  name: 'Enviar',
+  disabled: false,
 };
 
 export default Button;

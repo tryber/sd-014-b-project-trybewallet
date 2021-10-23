@@ -1,16 +1,21 @@
-import { WALLET } from '../actions';
+import { SUBMIT_WALLET } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {},
+  currencies: [],
+  expenses: [],
 };
 
-function wallet(state = INITIAL_STATE, action) {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case WALLET:
-    return { state: action.state };
+  case SUBMIT_WALLET:
+    return {
+      ...state,
+      currencies: action.payload.currencies,
+      expenses: action.payload.expenses,
+    };
   default:
     return state;
   }
-}
+};
 
 export default wallet;

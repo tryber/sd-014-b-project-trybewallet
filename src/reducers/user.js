@@ -1,16 +1,20 @@
-import { USER } from '../actions';
+import { SUBMIT_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
-  user: '',
+  email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case USER:
-    return { state: action.state };
+  case SUBMIT_LOGIN:
+    return {
+      ...state,
+      email: action.payload,
+    };
+
   default:
     return state;
   }
-}
+};
 
 export default user;
