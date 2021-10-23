@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
@@ -30,9 +31,8 @@ class Wallet extends React.Component {
             </select>
           </label>
           <label htmlFor="moeda">
-            Moeda
+            Tag
             <select id="categoria">
-              Tag
               <option>Alimentação</option>
               <option>Lazer</option>
               <option>Trabalho</option>
