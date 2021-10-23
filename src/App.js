@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import Wallet from './pages/Wallet';
 import Login from './pages/Login';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div>
       <Switch>
         <Route exath path="/" component={ Login } />
+        <Route path="/carteira" component={ Wallet } />
       </Switch>
     </div>
   );
