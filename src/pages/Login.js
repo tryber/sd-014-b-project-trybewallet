@@ -25,8 +25,8 @@ class Login extends React.Component {
   handleClick() {
     const { history, userEmail } = this.props;
     const { email } = this.state;
-    userEmail(email);
     history.push('/carteira');
+    userEmail(email);
   }
 
   render() {

@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <Switch>
-        <Route exath path="/" component={ Login } />
+        <Route exact path="/" component={ Login } />
         <Route path="/carteira" component={ Wallet } />
       </Switch>
     </div>
