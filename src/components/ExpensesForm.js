@@ -50,9 +50,9 @@ class ExpensesForm extends Component {
       id,
       value,
       description,
-      currency,
-      method,
-      tag,
+      currency: currency || 'USD',
+      method: method || 'dinheiro',
+      tag: tag || 'alimentação',
       exchangeRates: quotes,
     };
     addExpense(expenses);
@@ -68,7 +68,7 @@ class ExpensesForm extends Component {
     return (
       <form>
         <label htmlFor="value">
-          Valor
+          valor
           <input
             type="text"
             id="value"
@@ -77,7 +77,7 @@ class ExpensesForm extends Component {
           />
         </label>
         <label htmlFor="description">
-          Descrição
+          descrição
           <input
             type="text"
             id="description"
@@ -86,16 +86,25 @@ class ExpensesForm extends Component {
           />
         </label>
         <label htmlFor="currency">
-          Moeda
-          <select id="currency" value={ currency } onChange={ (e) => handleChange(e) }>
+          moeda
+          <select
+            id="currency"
+            value={ currency }
+            onChange={ (e) => handleChange(e) }
+          >
             {
-              Object.keys(quotes).map((quote) => <option key={ quote }>{quote}</option>)
+              Object.keys(quotes)
+                .map((quote, index) => (
+                  <option selected={ index === 0 ? true : '' } key={ quote }>
+                    {quote}
+
+                  </option>))
             }
           </select>
         </label>
         <PaymentSelect method={ method } handleChange={ handleChange } />
         <CategorySelect tag={ tag } handleChange={ handleChange } />
-        <button type="button" onClick={ handleClick }>Adicionar despesa</button>
+        <button type="button" onClick={ handleClick }>adicionar despesa</button>
       </form>
     );
   }

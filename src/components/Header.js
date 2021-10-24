@@ -17,7 +17,7 @@ class Header extends Component {
       return acc;
     }, 0);
     return totalValue;
-  } /* Créditos ao Matheus Silveira */
+  } /* Créditos ao Matheus Silveira! */
 
   render() {
     const { email } = this.props;
