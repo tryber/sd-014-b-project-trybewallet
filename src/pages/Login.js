@@ -77,9 +77,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Login.propTypes = {
-  dispatchUserMail: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-  }).isRequired,
+  dispatchUserMail: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

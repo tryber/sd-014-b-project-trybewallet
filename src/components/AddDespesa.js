@@ -34,10 +34,10 @@ class AddDespesa extends React.Component {
   }
 
   async handleClick() {
-    const { submit, updateTotal, total, expenses } = this.props;
+    const { submit, updateTotal, total, expenses, getCurrency } = this.props;
     const { valor, moeda, pagamento, tag, descricao } = this.state;
-    await this.requestCurrency();
-    const { exchangeRates } = this.state;
+    await getCurrency();
+    const { exchangeRates } = this.props;
     const id = expenses.length;
     const expense = {
       id,
@@ -67,7 +67,6 @@ class AddDespesa extends React.Component {
     const filteredCurrencies = keys.filter((currency) => currency !== 'USDT');
     this.setState({
       currencies: filteredCurrencies,
-      exchangeRates: currencyData,
     });
   }
 
@@ -157,7 +156,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AddDespesa.propTypes = {
+  exchangeRates: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    tag: PropTypes.string,
+    method: PropTypes.string,
+    currency: PropTypes.string,
+    description: PropTypes.string,
+  }),
   submit: PropTypes.func.isRequired,
+  getCurrency: PropTypes.func.isRequired,
   updateTotal: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
@@ -168,6 +176,17 @@ AddDespesa.propTypes = {
     currency: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   })).isRequired,
+};
+
+AddDespesa.defaultProps = {
+  exchangeRates: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    tag: PropTypes.string,
+    method: PropTypes.string,
+    currency: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDespesa);
