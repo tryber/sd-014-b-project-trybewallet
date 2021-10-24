@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Value from './Value';
 import Currency from './Currency';
 import Description from './Description';
@@ -38,5 +39,11 @@ class FormRender extends Component {
     );
   }
 }
+
+Description.propTypes = {
+  value: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default FormRender;
