@@ -24,6 +24,7 @@ class Login extends React.Component {
     dispatchValue(email);
     history.push('/carteira');
   }
+
   // Req. 03 com ajuda do colega Denis Espanhol
   // https://github.com/tryber/sd-014-b-project-trybewallet/pull/81
 
