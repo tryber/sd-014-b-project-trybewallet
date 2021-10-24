@@ -4,10 +4,8 @@ export default class Login extends Component {
   constructor() {
     super();
     this.state = {
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,14 +14,16 @@ export default class Login extends Component {
   handleChange({ target: { name, value } }) {
     console.log(name + value);
     this.setState({
-      user: {
-        [name]: value,
-      },
+      [name]: value,
     });
   }
 
+  handleClick() {
+    console.log('cliquei');
+  }
+
   render() {
-    const { user: { email, password } } = this.state;
+    const { email, password } = this.state;
     return (
       <div>
         <label htmlFor="email-input">
@@ -48,11 +48,14 @@ export default class Login extends Component {
             onChange={ this.handleChange }
           />
         </label>
-        <button
-          type="button"
-        >
-          Entrar
-        </button>
+        <a href="/carteira">
+          <button
+            type="button"
+            onClick={ () => this.handleClick() }
+          >
+            Entrar
+          </button>
+        </a>
       </div>
     );
   }

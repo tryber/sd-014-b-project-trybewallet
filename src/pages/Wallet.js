@@ -1,11 +1,11 @@
 import React from 'react';
-import getCurrency from '../service';
+import getCurrencies from '../service';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      currency: '',
+      currencies: '',
       isLoading: true,
     };
   }
@@ -15,26 +15,26 @@ class Wallet extends React.Component {
   }
 
   async setCurrencyInState() {
-    const currency = await getCurrency();
+    const currencies = await getCurrencies();
     this.setState((state) => ({
       ...state,
-      currency,
+      currencies,
       isLoading: false,
     }));
   }
 
   render() {
-    const { currency, isLoading } = this.state;
-    const arrCurrency = Object.keys(currency);
+    const { currencies, isLoading } = this.state;
+    const arrCurrencies = Object.keys(currencies);
     return isLoading ? <p>Loading...</p>
       : (
         <div>
-          <h1>My Currencys</h1>
+          <h1>My Currenciess</h1>
           <form>
             <label htmlFor="currencys">
               Moedas
               <select id="currencys">
-                {arrCurrency.map((c) => c !== 'USDT' && <option key={ c }>{c}</option>)}
+                {arrCurrencies.map((c) => c !== 'USDT' && <option key={ c }>{c}</option>)}
               </select>
             </label>
           </form>
