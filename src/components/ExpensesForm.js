@@ -11,7 +11,7 @@ class ExpensesForm extends Component {
     super();
 
     this.state = {
-      quotes: [],
+      quotes: {},
       id: 0,
       value: '',
       description: '',
@@ -43,9 +43,9 @@ class ExpensesForm extends Component {
     });
   }
 
-  handleClick() {
+  async handleClick() {
     const { addExpense } = this.props;
-    const { id, quotes, value, description, currency, method, tag } = this.state;
+    const { id, value, description, currency, method, tag } = this.state;
     const expenses = {
       id,
       value,
@@ -53,12 +53,21 @@ class ExpensesForm extends Component {
       currency: currency || 'USD',
       method: method || 'dinheiro',
       tag: tag || 'alimentação',
-      exchangeRates: quotes,
+      exchangeRates: await fetchQuotes(),
     };
     addExpense(expenses);
-    this.setState({
-      id: id + 1,
-    });
+    this.resetInitialState();
+  }
+
+  resetInitialState() {
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+    }));
   }
 
   render() {
