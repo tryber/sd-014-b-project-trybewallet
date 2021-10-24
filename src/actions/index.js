@@ -27,3 +27,12 @@ export const fetchCurrencies = () => (dispatch) => {
 };
 
 //--------------------------------------------------------------------------------
+
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
+
+export const addToExpenses = (
+  { id, value, description, currency, method, tag, exchangeRates },
+) => ({
+  type: UPDATE_EXPENSES,
+  formState: { id, value, description, currency, method, tag, exchangeRates },
+});

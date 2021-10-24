@@ -1,40 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
+import { addToExpenses, fetchCurrencies } from '../actions';
 
-const paymentMethodOptions = [
-  { money: 'Dinheiro' },
-  { credit: 'Cartão de crédito' },
-  { debit: 'Cartão de débito' },
-];
+const paymentMethodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
-const categoryOptions = [
-  { meals: 'Alimentação' },
-  { leisure: 'Lazer' },
-  { work: 'Trabalho' },
-  { transportation: 'Transporte' },
-  { health: 'Saúde' },
-];
+const categoryOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
+    const { currencies } = props;
+
     this.state = {
-      expenditure: 0,
-      description: '',
-      currency: 'BRL',
+      value: 2,
+      description: 'bundinha',
+      currency: 'USD',
       method: 'money',
-      category: 'meals',
+      tag: 'meals',
+      id: 0,
+      exchangeRates: currencies,
     };
 
     this.changeStateAndElementValue = this.changeStateAndElementValue.bind(this);
     this.createSelectElement = this.createSelectElement.bind(this);
+    this.stateToExpenses = this.stateToExpenses.bind(this);
   }
 
   componentDidMount() {
-    const { callFetchCurrencies } = this.props;
+    const {
+      props: { callFetchCurrencies },
+    } = this;
     callFetchCurrencies();
   }
 
@@ -54,32 +51,44 @@ class Form extends React.Component {
         >
           { source.map((option) => (
             <option
-              key={ Object.keys(option)[0] }
-              value={ Object.keys(option)[0] }
+              key={ option }
+              value={ option }
             >
-              { Object.values(option)[0] }
+              { option }
             </option>))}
         </select>
       </label>
     );
   }
 
+  async stateToExpenses() {
+    const {
+      props: { id, dispatchToExpenses, callFetchCurrencies },
+    } = this;
+
+    await callFetchCurrencies();
+    const { currencies } = this.props;
+    this.setState({ id: id(), exchangeRates: currencies }, () => {
+      dispatchToExpenses(this.state);
+    });
+  }
+
   render() {
     const {
-      createSelectElement, changeStateAndElementValue,
+      createSelectElement, changeStateAndElementValue, stateToExpenses,
       state,
       props: { currencies },
     } = this;
 
     const idsArray = Object.keys(state);
     const valuesArray = Object.values(state);
+
     const filteredCurrencies = Object
       .keys(currencies)
       .filter((currency) => currency !== 'USDT');
 
-    const currencyOptions = filteredCurrencies.map((filteredCurrency) => (
-      { [filteredCurrency]: filteredCurrency }
-    ));
+    const currencyOptions = filteredCurrencies
+      .map((filteredCurrency) => (filteredCurrency));
 
     return (
       <form>
@@ -103,22 +112,32 @@ class Form extends React.Component {
         { createSelectElement(idsArray[2], 'Moeda', currencyOptions) }
         { createSelectElement(idsArray[3], 'Método de pagamento', paymentMethodOptions) }
         { createSelectElement(idsArray[4], 'Tag', categoryOptions) }
+        <button type="button" onClick={ stateToExpenses }>Adicionar despesa</button>
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  currencies: state.wallet.currencies,
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+  id: () => {
+    let output = 0;
+    if (wallet.expenses.length > 0) {
+      output = wallet.expenses.length;
+    }
+    return output;
+  },
 });
 
 const mapDispatchToProps = (dispatch) => ({
   callFetchCurrencies: () => dispatch(fetchCurrencies()),
+  dispatchToExpenses: (formState) => dispatch(addToExpenses(formState)),
 });
 
 Form.propTypes = {
-  email: PropTypes.string,
+  callFetchCurrencies: PropTypes.func,
+  id: PropTypes.number,
+  currencies: PropTypes.object,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
