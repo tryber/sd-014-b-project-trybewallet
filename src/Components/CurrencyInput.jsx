@@ -14,6 +14,7 @@ class CurrencyInput extends Component {
     this.getCurrenciesFromServices();
   }
   // Consultei https://github.com/tryber/sd-014-b-project-trybewallet/pull/21/files e tive ajuda do proprio.
+  // Porem apaguei funcoes redundantes.
 
   async getCurrenciesFromServices() {
     const dataApi = await getCurrencies();
