@@ -4,8 +4,23 @@ import PropTypes from 'prop-types';
 import AddDespesa from '../components/AddDespesa';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.updateTotal = this.updateTotal.bind(this);
+    this.state = {
+      total: 0,
+    };
+  }
+
+  updateTotal(value) {
+    this.setState({
+      total: value,
+    });
+  }
+
   render() {
     const { email } = this.props;
+    const { total } = this.state;
     return (
       <>
         <header>
@@ -16,13 +31,13 @@ class Wallet extends React.Component {
             {' '}
           </span>
           <span>Despesa Total: </span>
-          <span data-testid="total-field">0</span>
+          <span data-testid="total-field">{ total }</span>
           <span data-testid="header-currency-field">
             {' '}
             BRL
           </span>
         </header>
-        <AddDespesa />
+        <AddDespesa total={ total } updateTotal={ this.updateTotal } />
       </>
     );
   }

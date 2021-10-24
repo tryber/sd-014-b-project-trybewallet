@@ -1,17 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchCurrency, submitExpense } from '../actions';
 
 class AddDespesa extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.descricao = this.descricao.bind(this);
     this.currencyOptions = this.currencyOptions.bind(this);
     this.requestCurrency = this.requestCurrency.bind(this);
     this.state = {
       valor: '',
-      moeda: '',
-      pagamento: '',
-      tag: '',
+      moeda: 'USD',
+      pagamento: 'Cartão de crédito',
+      tag: 'Lazer',
       descricao: '',
       currencies: [],
     };
@@ -29,20 +33,46 @@ class AddDespesa extends React.Component {
     });
   }
 
+  async handleClick() {
+    const { submit, updateTotal, total, expenses } = this.props;
+    const { valor, moeda, pagamento, tag, descricao } = this.state;
+    await this.requestCurrency();
+    const { exchangeRates } = this.state;
+    const id = expenses.length;
+    const expense = {
+      id,
+      value: valor,
+      description: descricao,
+      currency: moeda,
+      method: pagamento,
+      tag,
+      exchangeRates,
+    };
+    submit(expense);
+    this.setState({
+      valor: '',
+      moeda: 'USD',
+      pagamento: 'Cartão de crédito',
+      tag: 'Lazer',
+      descricao: '',
+    });
+    const updateValue = total + ((+valor) * exchangeRates[moeda].ask);
+    updateTotal(updateValue);
+  }
+
   async requestCurrency() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const currencyData = await response.json();
     const keys = Object.keys(currencyData);
     const filteredCurrencies = keys.filter((currency) => currency !== 'USDT');
-    console.log(filteredCurrencies);
     this.setState({
       currencies: filteredCurrencies,
+      exchangeRates: currencyData,
     });
   }
 
   currencyOptions() {
     const { currencies } = this.state;
-    console.log(currencies);
     return currencies.map((currency, index) => (
       <option key={ index }>{ currency }</option>
     ));
@@ -108,10 +138,36 @@ class AddDespesa extends React.Component {
           </select>
         </label>
         { this.descricao() }
-        <button type="button">Adicionar dispesa</button>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );
   }
 }
 
-export default AddDespesa;
+function mapStateToProps(state) {
+  return {
+    exchangeRates: state.wallet.currencies,
+    expenses: state.wallet.expenses,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(fetchCurrency()),
+  submit: (expense) => dispatch(submitExpense(expense)),
+});
+
+AddDespesa.propTypes = {
+  submit: PropTypes.func.isRequired,
+  updateTotal: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    currency: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddDespesa);
