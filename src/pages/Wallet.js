@@ -23,8 +23,8 @@ class Wallet extends React.Component {
               Moedas
               <select id="currencys">
                 {currencies.map((c) => c !== 'USDT' && (
-                  <option key={ c[0] }>
-                    {c[0]}
+                  <option key={ c }>
+                    {c}
                   </option>))}
               </select>
             </label>
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: (currency) => dispatch(getCurrenciesApiThunk(currency)),
+  setCurrencies: () => dispatch(getCurrenciesApiThunk()),
 });
 
 Wallet.propTypes = {
