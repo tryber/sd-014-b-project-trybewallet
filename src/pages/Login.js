@@ -59,7 +59,9 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ !this.enableButton(email, password) }
-          onClick={ () => dispatchUserMail(email) }
+          onClick={ () => {
+            dispatchUserMail(email);
+          } }
         >
           <Link to="/carteira"> Entrar </Link>
         </button>

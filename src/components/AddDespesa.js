@@ -5,13 +5,20 @@ class AddDespesa extends React.Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.descricao = this.descricao.bind(this);
+    this.currencyOptions = this.currencyOptions.bind(this);
+    this.requestCurrency = this.requestCurrency.bind(this);
     this.state = {
       valor: '',
       moeda: '',
       pagamento: '',
       tag: '',
       descricao: '',
+      currencies: [],
     };
+  }
+
+  componentDidMount() {
+    this.requestCurrency();
   }
 
   handleChange({ target }) {
@@ -20,6 +27,25 @@ class AddDespesa extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  async requestCurrency() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currencyData = await response.json();
+    const keys = Object.keys(currencyData);
+    const filteredCurrencies = keys.filter((currency) => currency !== 'USDT');
+    console.log(filteredCurrencies);
+    this.setState({
+      currencies: filteredCurrencies,
+    });
+  }
+
+  currencyOptions() {
+    const { currencies } = this.state;
+    console.log(currencies);
+    return currencies.map((currency, index) => (
+      <option key={ index }>{ currency }</option>
+    ));
   }
 
   descricao() {
@@ -55,8 +81,7 @@ class AddDespesa extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda" name="moeda" onChange={ this.handleChange } value={ moeda }>
-            <option>BRL</option>
-            <option>USD</option>
+            { this.currencyOptions() }
           </select>
         </label>
         <label htmlFor="pagamento">
