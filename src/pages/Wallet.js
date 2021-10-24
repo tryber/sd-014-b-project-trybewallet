@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesApiThunk } from '../state/actions/currencies';
+import { getCurrenciesApiThunk } from '../redux/actions/currencies';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -11,9 +11,6 @@ class Wallet extends React.Component {
 
   render() {
     const { currencies, isLoading } = this.props;
-    // console.log(isLoading);
-    // console.log(currencies);
-    // const arrCurrencies = Object.values(currencies);
     return isLoading ? <p>Loading...</p>
       : (
         <div>
