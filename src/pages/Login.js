@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { userAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -10,7 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: 'alguem@email.com',
       password: '',
-      isDisabled: true,
+      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +20,7 @@ class Login extends React.Component {
   handleChange({ target }) {
     const { email, password } = target;
     const validHandleChange = this.handleEmail(email) && this.handlePass(password);
-    this.setState({ isDisabled: !validHandleChange });
+    this.setState({ disabled: !validHandleChange });
   }
 
   handleEmail(email) {
@@ -33,8 +34,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, isDisabled } = this.state;
-    const { submit } = this.props;
+    const { email, password, disabled } = this.state;
+    const { stateEmail } = this.props;
     return (
       <form>
         <input
@@ -55,8 +56,8 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          onClick={ () => submit(email && password) }
-          disabled={ isDisabled }
+          onClick={ () => stateEmail(email && password) }
+          disabled={ disabled }
         >
           <Link to="/carteira">
             Entrar
@@ -68,11 +69,14 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispathParam) => ({
-  submit: (state) => dispathParam(submit(state)),
+  stateEmail: (state) => dispathParam(userAction(state)),
 });
 
 Login.propTypes = {
-  submit: PropTypes.func.isRequired,
-};
+  handleEmail: PropTypes.func,
+  handlePass: PropTypes.func,
+  handleChange: PropTypes.func,
+  stateEmail: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
