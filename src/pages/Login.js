@@ -42,18 +42,18 @@ class Login extends React.Component {
       <form>
         <input
           data-testid="email-input"
-          type="email"
+          type="text"
           placeholder="Informe seu e-mail"
-          name="emailInput"
+          name="email"
           value={ email }
           onChange={ this.handleChange }
           required
         />
         <input
           data-testid="password-input"
-          type="password"
+          type="text"
           placeholder="Informe sua senha"
-          name="passwordInput"
+          name="password"
           value={ password }
           onChange={ this.handleChange }
           required
