@@ -19,7 +19,7 @@ class Header extends React.Component {
     } = this;
 
     let output = 0;
-    const INDEX = 3;
+    const INDEX = 2;
 
     if (expenses.length > 0) {
       output = expenses
