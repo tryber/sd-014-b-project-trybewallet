@@ -40,10 +40,10 @@ class CurrencyInput extends Component {
       <label htmlFor="currency">
         Moeda
         <select id="currency" name="currency-input">
-          {currencies.map((currencie) => {
-            if (currencie !== 'USDT') {
+          {currencies.map((currency) => {
+            if (currency !== 'USDT') {
               return (
-                <option key={ currencie }>{ currencie }</option>
+                <option key={ currency }>{ currency }</option>
               );
             }
             return '';
