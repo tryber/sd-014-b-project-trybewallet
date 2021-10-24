@@ -28,6 +28,9 @@ class Wallet extends React.Component {
     return total;
   }
 
+  // Sugestão da Bel Albuquerque em usar o forEach e usar o destructiring do ask para fazer o calculo
+  // do total de despesas.
+
   render() {
     const { email } = this.props;
     return (

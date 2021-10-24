@@ -37,6 +37,7 @@ export default function wallet(state = INITIAL_WALLET_STATE, action) {
         },
       ],
     };
+    // Sugestão da Bel Albuquerque em usar o expenses.length para adicionar o Id dinamicamente.
   default:
     return state;
   }
