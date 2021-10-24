@@ -5,3 +5,8 @@ export const loginDone = (email) => ({
   type: LOGIN,
   email,
 });
+
+export const addExpense = (allState) => ({
+  type: ADD_EXPENSE,
+  allState,
+});

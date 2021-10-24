@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import getCurrencies from '../services/currencyApi';
 
@@ -25,14 +26,20 @@ class CurrencyInput extends Component {
 
   render() {
     const { currencies } = this.state;
+    const { handleChange, currency } = this.props;
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency-input">
         Moeda
-        <select id="currency" name="currency-input">
-          {currencies.map((currency) => {
-            if (currency !== 'USDT') {
+        <select
+          id="currency-input"
+          name="currency"
+          onChange={ (event) => handleChange(event) }
+          value={ currency }
+        >
+          {currencies.map((coin) => {
+            if (coin !== 'USDT') {
               return (
-                <option key={ currency }>{ currency }</option>
+                <option key={ coin }>{ coin }</option>
               );
             }
             return '';
@@ -42,5 +49,10 @@ class CurrencyInput extends Component {
     );
   }
 }
+
+CurrencyInput.propTypes = {
+  currency: PropTypes.any,
+  handleChange: PropTypes.func,
+}.isRequired;
 
 export default CurrencyInput;

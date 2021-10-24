@@ -1,11 +1,18 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class ExpenseTypeInput extends Component {
   render() {
+    const { tag, handleChange } = this.props;
     return (
       <label htmlFor="expense-type">
         Tag
-        <select id="expense-type" name="expese-type-input">
+        <select
+          id="expense-type"
+          name="tag"
+          value={ tag }
+          onChange={ (event) => handleChange(event) }
+        >
           <option value="Alimentacao">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -16,5 +23,10 @@ class ExpenseTypeInput extends Component {
     );
   }
 }
+
+ExpenseTypeInput.propTypes = {
+  handleChange: PropTypes.func,
+  tag: PropTypes.string,
+}.isRequired;
 
 export default ExpenseTypeInput;
