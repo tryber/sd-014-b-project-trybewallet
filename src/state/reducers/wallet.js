@@ -4,7 +4,7 @@ import { REQUEST_API_START, REQUEST_API_SUCCESS } from '../actions/currencies';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  isLoading: true,
+  isLoading: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

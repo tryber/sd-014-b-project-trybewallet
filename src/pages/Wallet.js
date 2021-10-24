@@ -11,8 +11,8 @@ class Wallet extends React.Component {
 
   render() {
     const { currencies, isLoading } = this.props;
-    console.log(isLoading);
-    console.log(currencies);
+    // console.log(isLoading);
+    // console.log(currencies);
     // const arrCurrencies = Object.values(currencies);
     return isLoading ? <p>Loading...</p>
       : (
