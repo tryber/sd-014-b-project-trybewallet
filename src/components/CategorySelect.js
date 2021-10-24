@@ -5,10 +5,10 @@ class CategorySelect extends Component {
   render() {
     const { tag, handleChange } = this.props;
     return (
-      <label htmlFor="category">
+      <label htmlFor="tag">
         tag
-        <select id="tag" value={ tag } onClick={ (e) => handleChange(e) }>
-          <option selected value="Alimentação">alimentação</option>
+        <select id="tag" value={ tag } onChange={ handleChange }>
+          <option value="Alimentação">alimentação</option>
           <option value="Lazer">lazer</option>
           <option value="Trabalho">trabalho</option>
           <option value="Transporte">transporte</option>

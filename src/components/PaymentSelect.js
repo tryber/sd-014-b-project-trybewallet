@@ -7,8 +7,8 @@ class PaymentSelect extends Component {
     return (
       <label htmlFor="method">
         método de pagamento
-        <select id="method" value={ method } onClick={ (e) => handleChange(e) }>
-          <option selected value="Dinheiro">dinheiro</option>
+        <select id="method" value={ method } onChange={ handleChange }>
+          <option value="Dinheiro">dinheiro</option>
           <option value="Cartão de cŕedito">cartão de crédito</option>
           <option value="Cartão de débito">cartão de débito</option>
         </select>

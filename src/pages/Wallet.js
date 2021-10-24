@@ -7,9 +7,7 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-        <main>
-          <ExpensesForm />
-        </main>
+        <ExpensesForm />
       </div>
     );
   }

@@ -94,16 +94,13 @@ class ExpensesForm extends Component {
           >
             {
               Object.keys(quotes)
-                .map((quote, index) => (
-                  <option selected={ index === 0 ? true : '' } key={ quote }>
-                    {quote}
-
-                  </option>))
+                .map((quote) => (
+                  <option key={ quote }>{quote}</option>))
             }
           </select>
         </label>
-        <PaymentSelect method={ method } handleChange={ handleChange } />
-        <CategorySelect tag={ tag } handleChange={ handleChange } />
+        <PaymentSelect method={ method } handleChange={ (e) => handleChange(e) } />
+        <CategorySelect tag={ tag } handleChange={ (e) => handleChange(e) } />
         <button type="button" onClick={ handleClick }>adicionar despesa</button>
       </form>
     );
