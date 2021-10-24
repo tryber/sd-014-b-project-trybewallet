@@ -36,9 +36,9 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    const { saveUserInf } = this.props;
+    const { salvaEmail } = this.props;
     const { email } = this.state;
-    saveUserInf(email);
+    salvaEmail(email);
     this.setState({ mudarRota: true });
   }
 
@@ -86,11 +86,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  saveUserInf: PropTypes.func.isRequired,
+  salvaEmail: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUserInf: (userInf) => (dispatch(salvaEmailLogin(userInf))),
+  salvaEmail: (userInf) => (dispatch(salvaEmailLogin(userInf))),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -54,6 +54,9 @@ class Wallet extends React.Component {
             </select>
           </label>
         </form>
+        <button type="button">
+          Adicionar despesa
+        </button>
       </main>
     );
   }

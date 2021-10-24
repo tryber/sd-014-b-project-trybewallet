@@ -2,6 +2,7 @@ import { REQUEST_MOEDAS } from '../actions';
 
 const INITIAL_STATE = {
   moedas: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
