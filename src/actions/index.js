@@ -20,3 +20,8 @@ export const getCurrencies = (currencies) => ({
   type: SAVE_CURRENCIES,
   payload: currencies,
 });
+
+export const fetchRates = (expensesData) => async (dispatch) => {
+  const rates = await fetch('https://economia.awesomeapi.com.br/json/all').then((response) => response.json());
+  dispatch(handleExpenses({ ...expensesData, exchangeRates: rates }));
+};
