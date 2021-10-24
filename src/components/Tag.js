@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Tag extends Component {
+class Tag extends Component {
   render() {
+    const { value, handleChange } = this.props;
     return (
       <label htmlFor="tag">
         Tag:
-        <select id="tag" name="tag">
+        <select
+          value={ value }
+          onChange={ (event) => handleChange(event) }
+          id="tag"
+          name="tag"
+        >
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -16,3 +23,10 @@ export default class Tag extends Component {
     );
   }
 }
+
+Tag.propTypes = {
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
+
+export default Tag;

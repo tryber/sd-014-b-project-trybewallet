@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import fetchCurrency from '../services/fetchCurrency';
 
 class Currency extends Component {
@@ -30,17 +31,32 @@ class Currency extends Component {
 
   render() {
     const { currencies } = this.state;
+    const { handleChange, value } = this.props;
     return (
       <label htmlFor="currency">
         Moeda:
-        <select id="currency" name="currency">
+        <select
+          value={ value }
+          onChange={ (event) => handleChange(event) }
+          id="currency"
+          name="currency"
+        >
           {currencies.map((currency) => (
-            <option key={ currency }>{currency}</option>
+            <option
+              key={ currency }
+            >
+              {currency}
+            </option>
           ))}
         </select>
       </label>
     );
   }
 }
+
+Currency.propTypes = {
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Currency;
