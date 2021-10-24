@@ -22,6 +22,7 @@ export default class LoginForm extends React.Component {
       >
         <TextField
           required
+          type="email"
           id="email"
           name="email"
           label="Email"
@@ -30,6 +31,7 @@ export default class LoginForm extends React.Component {
         />
         <TextField
           required
+          type="password"
           id="password"
           name="password"
           label="Senha"
