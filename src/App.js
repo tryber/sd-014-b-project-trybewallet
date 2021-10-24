@@ -9,6 +9,10 @@ function App() {
     <div className="App">
       <header>
         <h1>Hello, TrybeWallet!</h1>
+        <nav>
+          <a href="/carteira">Wallet</a>
+          <a href="/">Login</a>
+        </nav>
       </header>
       <Switch>
         <Route path="/carteira" component={ Wallet } />

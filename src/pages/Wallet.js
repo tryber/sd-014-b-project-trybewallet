@@ -1,25 +1,46 @@
 import React from 'react';
+import getCurrency from '../service';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {};
-
-    this.fetchAPI = this.fetchAPI.bind(this);
+    this.state = {
+      currency: '',
+      isLoading: true,
+    };
   }
 
-  componentDidMount() {
-    this.fetchAPI();
+  async componentDidMount() {
+    await this.setCurrencyInState();
   }
 
-  fetchAPI() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((response) => console.log(response));
+  async setCurrencyInState() {
+    const currency = await getCurrency();
+    this.setState((state) => ({
+      ...state,
+      currency,
+      isLoading: false,
+    }));
   }
 
   render() {
-    return <div>TrybeWallet</div>;
+    const { currency, isLoading } = this.state;
+    const arrCurrency = Object.keys(currency);
+    return isLoading ? <p>Loading...</p>
+      : (
+        <div>
+          <h1>My Currencys</h1>
+          <form>
+            <label htmlFor="currencys">
+              Moedas
+              <select id="currencys">
+                {arrCurrency.map((c) => c !== 'USDT' && <option key={ c }>{c}</option>)}
+              </select>
+            </label>
+          </form>
+
+        </div>
+      );
   }
 }
 
