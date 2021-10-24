@@ -24,7 +24,7 @@ class Login extends React.Component {
   }
 
   validation() {
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const regex = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const number = 5;
     const { email, password } = this.state;
     const disabled = !(regex.test(email) && password.length > number);
@@ -48,12 +48,14 @@ class Login extends React.Component {
             name="email"
             page="login"
             type="text"
+            label="E-mail"
             onHandleChange={ this.handleChange }
           />
           <Inputs
             name="password"
             page="login"
             type="password"
+            label="Senha"
             onHandleChange={ this.handleChange }
           />
           <Button
