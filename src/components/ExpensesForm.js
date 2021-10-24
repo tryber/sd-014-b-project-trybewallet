@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addExpense as addExpenseAction } from '../actions';
-import fetchQuotes from '../services';
+import { addExpense as addExpenseAction, saveCurrenciesThunk } from '../actions';
 import CategorySelect from './CategorySelect';
 import PaymentSelect from './PaymentSelect';
 
@@ -11,31 +10,22 @@ class ExpensesForm extends Component {
     super();
 
     this.state = {
-      quotes: {},
       id: 0,
       value: '',
-      description: '',
       currency: '',
       method: '',
       tag: '',
+      description: '',
     };
 
-    this.requestQuotes = this.requestQuotes.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.resetInitialState = this.resetInitialState.bind(this);
   }
 
   componentDidMount() {
-    this.requestQuotes();
-  }
-
-  async requestQuotes() {
-    const quotes = await fetchQuotes();
-    console.log(quotes);
-    delete quotes.USDT;
-    this.setState({
-      quotes,
-    });
+    const { saveCurrencies } = this.props;
+    saveCurrencies();
   }
 
   handleChange({ target: { id, value } }) {
@@ -45,16 +35,17 @@ class ExpensesForm extends Component {
   }
 
   async handleClick() {
-    const { addExpense } = this.props;
-    const { id, quotes, value, description, currency, method, tag } = this.state;
+    const { addExpense, currencies, saveCurrencies } = this.props;
+    await saveCurrencies();
+    const { id, value, description, currency, method, tag } = this.state;
     const expenses = {
       id,
       value,
-      description,
       currency: currency || 'USD',
-      method: method || 'dinheiro',
+      method: method || 'Cartão de crédito',
       tag: tag || 'alimentação',
-      exchangeRates: quotes,
+      description,
+      exchangeRates: currencies,
     };
     addExpense(expenses);
     this.resetInitialState();
@@ -72,13 +63,14 @@ class ExpensesForm extends Component {
   }
 
   render() {
-    const { quotes, value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { handleChange, handleClick } = this;
+    const { currencies } = this.props;
 
     return (
       <form>
         <label htmlFor="value">
-          valor
+          Valor
           <input
             type="text"
             id="value"
@@ -87,7 +79,7 @@ class ExpensesForm extends Component {
           />
         </label>
         <label htmlFor="description">
-          descrição
+          Descrição
           <input
             type="text"
             id="description"
@@ -96,33 +88,40 @@ class ExpensesForm extends Component {
           />
         </label>
         <label htmlFor="currency">
-          moeda
+          Moeda
           <select
             id="currency"
             value={ currency }
             onChange={ (e) => handleChange(e) }
           >
             {
-              Object.keys(quotes)
+              Object.keys(currencies)
                 .map((quote) => (
                   <option key={ quote }>{quote}</option>))
             }
           </select>
         </label>
-        <PaymentSelect method={ method } handleChange={ (e) => handleChange(e) } />
-        <CategorySelect tag={ tag } handleChange={ (e) => handleChange(e) } />
+        <PaymentSelect method={ method } handleChange={ handleChange } />
+        <CategorySelect tag={ tag } handleChange={ handleChange } />
         <button type="button" onClick={ handleClick }>adicionar despesa</button>
       </form>
     );
   }
 }
 
+const mapStateToProps = ({ wallet: { currencies } }) => ({
+  currencies,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (payload) => dispatch(addExpenseAction(payload)),
+  saveCurrencies: () => dispatch(saveCurrenciesThunk()),
 });
 
 ExpensesForm.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  saveCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(ExpensesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

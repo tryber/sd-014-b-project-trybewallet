@@ -6,11 +6,11 @@ class PaymentSelect extends Component {
     const { method, handleChange } = this.props;
     return (
       <label htmlFor="method">
-        método de pagamento
-        <select id="method" value={ method } onChange={ handleChange }>
-          <option value="Dinheiro">dinheiro</option>
-          <option value="Cartão de cŕedito">cartão de crédito</option>
-          <option value="Cartão de débito">cartão de débito</option>
+        Método de pagamento
+        <select id="method" value={ method } onChange={ (e) => handleChange(e) }>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de cŕedito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );

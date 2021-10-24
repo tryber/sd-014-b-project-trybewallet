@@ -6,13 +6,13 @@ class CategorySelect extends Component {
     const { tag, handleChange } = this.props;
     return (
       <label htmlFor="tag">
-        tag
-        <select id="tag" value={ tag } onChange={ handleChange }>
-          <option value="Alimentação">alimentação</option>
-          <option value="Lazer">lazer</option>
-          <option value="Trabalho">trabalho</option>
-          <option value="Transporte">transporte</option>
-          <option value="Saúde">saúde</option>
+        Tag
+        <select id="tag" value={ tag } onChange={ (e) => handleChange(e) }>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
