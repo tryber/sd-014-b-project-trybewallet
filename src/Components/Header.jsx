@@ -8,7 +8,7 @@ class Header extends Component {
 
     this.totalExpenses = this.totalExpenses.bind(this);
   }
-  // recebi ajuda do meu amigo Kauan Carvalho
+  // recebi ajuda do meu amigo Kauan Carvalho https://github.com/kcda1102
 
   totalExpenses() {
     const { expenses } = this.props;
