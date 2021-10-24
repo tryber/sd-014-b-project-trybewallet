@@ -31,6 +31,7 @@ class ExpensesForm extends Component {
 
   async requestQuotes() {
     const quotes = await fetchQuotes();
+    console.log(quotes);
     delete quotes.USDT;
     this.setState({
       quotes,
@@ -45,7 +46,7 @@ class ExpensesForm extends Component {
 
   async handleClick() {
     const { addExpense } = this.props;
-    const { id, value, description, currency, method, tag } = this.state;
+    const { id, quotes, value, description, currency, method, tag } = this.state;
     const expenses = {
       id,
       value,
@@ -53,7 +54,7 @@ class ExpensesForm extends Component {
       currency: currency || 'USD',
       method: method || 'dinheiro',
       tag: tag || 'alimentação',
-      exchangeRates: await fetchQuotes(),
+      exchangeRates: quotes,
     };
     addExpense(expenses);
     this.resetInitialState();
