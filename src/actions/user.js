@@ -1,8 +1,6 @@
-export const TEST_EMAIL = 'TEST_EMAIL';
+export const ADD_DATA_LOGIN = 'ADD_DATA_LOGIN';
 
-export const testEmail = () => ({
-  type: TEST_EMAIL,
-  user: {
-    email: 'teste@trybe.com',
-  },
+export const addDataLogin = (dataLogin) => ({
+  type: ADD_DATA_LOGIN,
+  payload: dataLogin,
 });

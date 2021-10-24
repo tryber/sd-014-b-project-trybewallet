@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addDataLogin } from '../actions/user';
 
 const MIN_LENGTH_PASSWORDS = 6;
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -11,12 +15,19 @@ export default class LoginForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { setDataLoginStore } = this.props;
+    const { email } = this.state;
+    setDataLoginStore(email);
   }
 
   checkEmail() {
@@ -60,16 +71,26 @@ export default class LoginForm extends Component {
             onChange={ this.handleChange }
           />
         </label>
-        <a href="/carteira">
+        <Link to="/carteira">
           <button
             type="button"
-            // onClick={ () => this.handleClick() }
+            onClick={ this.handleClick }
             disabled={ !this.checkDataLogin() }
           >
             Entrar
           </button>
-        </a>
+        </Link>
       </form>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setDataLoginStore: (dataLogin) => dispatch(addDataLogin(dataLogin)),
+});
+
+LoginForm.propTypes = {
+  setDataLoginStore: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(LoginForm);
