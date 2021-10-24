@@ -16,6 +16,7 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { moedas } = this.props;
     return (
       <main>
         <Header />
@@ -31,8 +32,7 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>oi</option>
-
+              { moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
             </select>
           </label>
           <label htmlFor="metodoDePagamento">
@@ -59,12 +59,17 @@ class Wallet extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  moedas: state.wallet.moedas,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   salvaMoedas: (payload) => dispatch(requestMoedas(payload)),
 });
 
 Wallet.propTypes = {
   salvaMoedas: PropTypes.func.isRequired,
+  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
