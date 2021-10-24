@@ -37,6 +37,8 @@ const wallet = (state = initialState, action) => {
         },
       ],
     };
+    /* consultei o repositório do Vitor Lima para fazer o case do ADD_EXPENSE_BUTTON
+    link: https://github.com/tryber/sd-014-b-project-trybewallet/pull/63/commits/0ad32230773e9e8d020b1669e2279a1f3626b617 */
 
   default:
     return state;
