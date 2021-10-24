@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { saveUser as saveUserAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +13,8 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.inputsValidation = this.inputsValidation.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -18,9 +23,27 @@ class Login extends React.Component {
     });
   }
 
+  inputsValidation() {
+    const regex = /\S+@\S+\.\S+/;
+    const { emailValue, passwordValue } = this.state;
+    const MIN_LENGTH = 6;
+    if (regex.test(emailValue) && passwordValue.length >= MIN_LENGTH) {
+      return false;
+    }
+    return true;
+  }
+
+  handleClick() {
+    const { history, saveUser } = this.props;
+    const { emailValue } = this.state;
+
+    saveUser(emailValue);
+    history.push('/carteira');
+  }
+
   render() {
     const { emailValue, passwordValue } = this.state;
-    const { handleChange } = this;
+    const { handleChange, inputsValidation, handleClick } = this;
 
     return (
       <fieldset>
@@ -47,7 +70,11 @@ class Login extends React.Component {
             value={ passwordValue }
           />
         </label>
-        <button type="button">
+        <button
+          type="button"
+          disabled={ inputsValidation() }
+          onClick={ handleClick }
+        >
           Entrar
         </button>
       </fieldset>
@@ -55,4 +82,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveUser: (user) => dispatch(saveUserAction(user)),
+});
+
+Login.propTypes = {
+  saveUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
