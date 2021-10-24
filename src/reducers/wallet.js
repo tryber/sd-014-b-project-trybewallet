@@ -1,8 +1,10 @@
-import { SET_WALLET_VALUE, API_ERROR } from '../actions';
+import { SET_WALLET_VALUE, API_ERROR, ADD_EXPENSE_BUTTON } from '../actions/index';
 
 const initialState = {
 
   currencies: [],
+  expenses: [],
+  exchangeRates: {},
 
 };
 
@@ -18,6 +20,24 @@ const wallet = (state = initialState, action) => {
       ...state,
       error: action.payload,
     };
+  case ADD_EXPENSE_BUTTON:
+
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          id: state.expenses.length,
+          value: action.expenses.valor,
+          description: action.expenses.descricao,
+          currency: action.expenses.moeda,
+          method: action.expenses.metodo,
+          tag: action.expenses.tag,
+          exchangeRates: action.expenses.exchangeRates,
+        },
+      ],
+    };
+
   default:
     return state;
   }
