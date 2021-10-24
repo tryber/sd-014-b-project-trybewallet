@@ -14,7 +14,7 @@ const requestApiSuccess = (currencies) => ({
 });
 
 export const getCurrenciesApiThunk = () => async (dispatch) => {
-  dispatch(requestApiStart);
+  dispatch(requestApiStart());
   const currencies = await getCurrencies();
   dispatch(requestApiSuccess(currencies));
 };
