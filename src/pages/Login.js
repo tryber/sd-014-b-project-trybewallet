@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
-import { salvaEmailLogin, apiMoeda } from '../actions/index';
+import { salvaEmailLogin } from '../actions/index';
 // import requestMoedas from '../services/requestAPI';
 
 class Login extends React.Component {
@@ -38,14 +38,8 @@ class Login extends React.Component {
   handleSubmit() {
     const { saveUserInf } = this.props;
     const { email } = this.state;
-    apiMoeda('oaksdoas');
     saveUserInf(email);
     this.setState({ mudarRota: true });
-  }
-
-  apiMoeda() {
-    // const moedas = await requestMoedas();
-    apiMoeda('moedas');
   }
 
   render() {
@@ -97,7 +91,6 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   saveUserInf: (userInf) => (dispatch(salvaEmailLogin(userInf))),
-  apiMoeda: (e) => (dispatch(apiMoeda(e))),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
