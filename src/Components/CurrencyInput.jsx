@@ -5,11 +5,9 @@ class CurrencyInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiCurrencies: [],
       currencies: [],
     };
     this.getCurrenciesFromServices = this.getCurrenciesFromServices.bind(this);
-    this.getData = this.getData.bind(this);
   }
 
   componentDidMount() {
@@ -20,18 +18,8 @@ class CurrencyInput extends Component {
   async getCurrenciesFromServices() {
     const dataApi = await getCurrencies();
     this.setState({
-      apiCurrencies: [dataApi],
+      currencies: Object.keys(dataApi),
     });
-    this.getData();
-  }
-
-  getData() {
-    const { apiCurrencies } = this.state;
-    apiCurrencies.map((currencyKeys) => (
-      this.setState({
-        currencies: Object.keys(currencyKeys),
-      })
-    ));
   }
 
   render() {
