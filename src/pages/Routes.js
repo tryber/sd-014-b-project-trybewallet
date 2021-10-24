@@ -6,10 +6,7 @@ import Wallet from './Wallet';
 class Routes extends React.Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route path="/carteira" component={ Wallet } />
-      </Switch>
+      
     );
   }
 }

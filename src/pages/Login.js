@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { validUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -11,14 +14,18 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.inputValid = this.inputValid.bind(this);
+    this.getLogin = this.getLogin.bind(this);
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
+  getLogin() {
+    const { email } = this.state;
+    const { history, dispatchValue } = this.props;
+
+    dispatchValue(email);
+    history.push('/carteira');
   }
+  // Req. 03 com ajuda do colega Denis Espanhol
+  // https://github.com/tryber/sd-014-b-project-trybewallet/pull/81
 
   inputValid() {
     const { email, password } = this.state;
@@ -30,6 +37,13 @@ class Login extends React.Component {
     return !regex || !correctPassword;
     // usei esse Repo de referência para esta função
     // https://github.com/tryber/sd-014-b-project-trybewallet/pull/86/
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
@@ -45,6 +59,7 @@ class Login extends React.Component {
             data-testid="email-input"
             value={ email }
             onChange={ this.handleChange }
+            id="email"
           />
         </label>
         <label htmlFor="password">
@@ -55,12 +70,14 @@ class Login extends React.Component {
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChange }
+            id="password"
           />
         </label>
 
         <button
           type="button"
           disabled={ this.inputValid() }
+          onClick={ this.getLogin }
         >
           Entrar
         </button>
@@ -69,4 +86,14 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchValue: (email) => dispatch(validUser(email)),
+});
+
+Login.propTypes = {
+  dispatchValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+export default connect(null, mapDispatchToProps)(Login);
