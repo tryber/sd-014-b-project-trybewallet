@@ -9,7 +9,7 @@ function Header({ user }) {
       <span data-testid="total-field">0</span>
       <span data-testid="header-currency-field">BRL</span>
     </header>
-  );
+   );
 }
 
 Header.propTypes = {
@@ -18,4 +18,4 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({ user: state.user.email });
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
