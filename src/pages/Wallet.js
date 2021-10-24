@@ -1,31 +1,19 @@
 import React from 'react';
-import getCurrencies from '../service';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrenciesApiThunk } from '../state/actions/currencies';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currencies: '',
-      isLoading: true,
-    };
-  }
-
-  async componentDidMount() {
-    await this.setCurrencyInState();
-  }
-
-  async setCurrencyInState() {
-    const currencies = await getCurrencies();
-    this.setState((state) => ({
-      ...state,
-      currencies,
-      isLoading: false,
-    }));
+  componentDidMount() {
+    const { setCurrencies } = this.props;
+    setCurrencies();
   }
 
   render() {
-    const { currencies, isLoading } = this.state;
-    const arrCurrencies = Object.keys(currencies);
+    const { currencies, isLoading } = this.props;
+    console.log(isLoading);
+    console.log(currencies);
+    // const arrCurrencies = Object.values(currencies);
     return isLoading ? <p>Loading...</p>
       : (
         <div>
@@ -34,7 +22,10 @@ class Wallet extends React.Component {
             <label htmlFor="currencys">
               Moedas
               <select id="currencys">
-                {arrCurrencies.map((c) => c !== 'USDT' && <option key={ c }>{c}</option>)}
+                {currencies.map((c) => c !== 'USDT' && (
+                  <option key={ c[0] }>
+                    {c[0]}
+                  </option>))}
               </select>
             </label>
           </form>
@@ -44,4 +35,19 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  isLoading: state.wallet.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: (currency) => dispatch(getCurrenciesApiThunk(currency)),
+});
+
+Wallet.propTypes = {
+  currencies: PropTypes.array,
+  isLoading: PropTypes.bool,
+  setCurrencies: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
