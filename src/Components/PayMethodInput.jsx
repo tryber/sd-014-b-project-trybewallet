@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class PayMethodInput extends Component {
   render() {
     return (
-      <label htmlFor="paymethod">
+      <label htmlFor="payMethod">
         Método de pagamento
-        <select name="paymethod">
+        <select id="payMethod" name="pay-method-input">
           <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartao-de-credito">Cartão de crédito</option>
-          <option value="Cartao-de-debito">Cartão de débito</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );

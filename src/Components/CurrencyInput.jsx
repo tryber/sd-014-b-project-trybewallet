@@ -12,9 +12,8 @@ class CurrencyInput extends Component {
     const { currencies } = this.state;
     return (
       <label htmlFor="currency">
-        Moeda:
-        <select name="currency">
-          oi
+        Moeda
+        <select id="currency" name="currency-input">
           {currencies.map((currency) => (
             <option key={ currency.code }>{ currency.code }</option>
           ))}

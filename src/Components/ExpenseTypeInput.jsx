@@ -5,7 +5,7 @@ class ExpenseTypeInput extends Component {
     return (
       <label htmlFor="expense-type">
         Tag
-        <select name="expense-type">
+        <select id="expense-type" name="expese-type-input">
           <option value="Alimentacao">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>

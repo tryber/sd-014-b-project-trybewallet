@@ -4,8 +4,8 @@ class DescriptionInput extends Component {
   render() {
     return (
       <label htmlFor="description">
-        Descrição:
-        <input type="text" name="description" />
+        Descrição
+        <input type="text" id="description" name="description-input" />
       </label>
     );
   }
