@@ -1,62 +1,107 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAwesomeApi } from '../actions';
+import { fetchAwesomeApi, setExpenses, loading } from '../actions';
+import InputForm from './inputForm';
 
 class ExpenseForm extends React.Component {
-  componentDidMount() {
-    const { fetchcoin } = this.props;
+  constructor() {
+    super();
 
-    fetchcoin();
+    this.setandoEstado = this.setandoEstado.bind(this);
+    this.submit = this.submit.bind(this);
+
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      exchangeRates: '',
+    };
+  }
+
+  componentDidMount() {
+    const { fetchCoin } = this.props;
+    fetchCoin();
+  }
+
+  setandoEstado({ target }) {
+    const { value, id } = target;
+
+    this.setState({
+      [id]: value,
+    });
+  }
+
+  async submit() {
+    const { dispatchDespesas, funcLoading, fetchCoin } = this.props;
+    const { id } = this.state;
+
+    this.setState({
+      exchangeRates: await fetchCoin(),
+    });
+
+    dispatchDespesas(this.state);
+
+    this.setState({
+      id: id + 1,
+    });
+
+    funcLoading(true);
   }
 
   render() {
+    const { value, description, currency, method, tag } = this.state;
     const { arrayCoin } = this.props;
+    const response = Object.keys(arrayCoin).filter((coin) => coin !== 'USDT');
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
-          <input type="text" id="valor" />
+          <input
+            type="text"
+            id="value"
+            value={ value }
+            onChange={ this.setandoEstado }
+          />
         </label>
-
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição
-          <input type="text" id="descricao" />
+          <input
+            type="text"
+            id="description"
+            value={ description }
+            onChange={ this.setandoEstado }
+          />
         </label>
-
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda
-          <select id="moeda">
-            {arrayCoin.map((coin) => <option value={ coin } key={ coin }>{coin}</option>)}
+          <select id="currency" value={ currency } onChange={ this.setandoEstado }>
+            {response.map((coin) => <option value={ coin } key={ coin }>{coin}</option>)}
           </select>
         </label>
-
-        <label htmlFor="pagamento">
-          Método de Pagamento
-          <select id="pagamento">
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-
-        <label htmlFor="despesa">
-          Tag
-          <select id="despesa">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
-          </select>
-        </label>
+        <InputForm
+          method={ method }
+          tag={ tag }
+          func={ this.setandoEstado }
+        />
+        <button
+          type="button"
+          onClick={ () => this.submit() }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchcoin: () => dispatch(fetchAwesomeApi()),
+  fetchCoin: () => dispatch(fetchAwesomeApi()),
+  dispatchDespesas: (value) => dispatch(setExpenses(value)),
+  funcLoading: (value) => dispatch(loading(value)),
 });
 
 const mapStateToProps = (state) => ({
