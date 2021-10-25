@@ -1,5 +1,7 @@
 import React from 'react';
 import '../App.css';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { user } from '../redux/actions/index';
 
@@ -12,6 +14,12 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmitLogin = this.onSubmitLogin.bind(this);
+  }
+
+  onSubmitLogin() {
+    const { dispatchValue } = this.props;
+    dispatchValue(this.state);
   }
 
   handleChange({ target }) {
@@ -58,20 +66,27 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button
-            type="button"
-            disabled={ !valid }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ !valid }
+              onClick={ this.onSubmitLogin }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
+Login.propTypes = {
+  dispatchValue: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  email: (payload) => dispatch(user(payload)),
+  dispatchValue: (login) => dispatch(user(login)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
