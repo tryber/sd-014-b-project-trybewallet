@@ -46,11 +46,11 @@ class Login extends Component {
         <form className="Login-form">
           <label htmlFor="email">
             <input
+              data-testid="email-input"
               placeholder="Email"
               type="email"
               name="email"
               value={ email }
-              data-testid="email-input"
               onChange={ this.handleChange }
             />
           </label>

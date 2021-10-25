@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 
 class Select extends Component {
   render() {
-    const { label, name, value, dataArray, handleChange } = this.props;
+    const { label, name, value, dataArray, handleChange, id } = this.props;
     return (
-      <label className="form-label m-1" htmlFor={ name }>
+      <label htmlFor={ id }>
         { label }
         <select
-          id={ name }
           name={ name }
           value={ value }
           onChange={ handleChange }
           className="form-control"
+          id={ id }
         >
           { dataArray.map((data, index) => (
             <option key={ index } value={ data }>{data}</option>
@@ -29,6 +29,7 @@ Select.propTypes = {
   handleChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Select;

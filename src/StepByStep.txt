@@ -61,3 +61,7 @@ https://github.com/tryber/sd-014-b-project-trybewallet/blob/beatriz-ribeiro-proj
 3) Enviar os dados do formulario das despesas
   
 1)definir os dados de login (reducer/user)
+
+
+
+agora fala trocar o expensesform por insert form e o selectWallet por mapcurrencies

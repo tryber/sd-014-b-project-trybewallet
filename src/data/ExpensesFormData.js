@@ -1,4 +1,4 @@
-const methods = ['Dinheiro', 'cartão de crédito', 'Cartão de débito'];
+const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Transporte', 'Saúde', 'Trabalho'];
 
 export {

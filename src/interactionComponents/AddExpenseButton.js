@@ -8,9 +8,8 @@ class AddExpenseButton extends Component {
       <button
         type="button"
         onClick={ click }
-        className="btn btn-secondary m-1"
       >
-        <i className="bi bi-plus-circle"> Adicionar despesa</i>
+        <i> Adicionar despesa</i>
       </button>
     );
   }
