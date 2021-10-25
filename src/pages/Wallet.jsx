@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies, fetchExchangeRates, sendExpensesInfo } from '../actions';
 import Input from '../components/Input';
 import Select from '../components/Select';
 
@@ -10,9 +10,15 @@ class Wallet extends Component {
     super();
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
 
     this.state = {
-      expenses: 0,
+      // currentExpense: [],
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
       actualCurrency: 'BRL',
     };
   }
@@ -22,46 +28,63 @@ class Wallet extends Component {
     fetchCurrenciesToProps();
   }
 
-  handleInputChange() {
+  handleInputChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
 
+  handleButtonClick() {
+    const { fetchExchangeRatesToProps, sendExpansesToProps } = this.props;
+    fetchExchangeRatesToProps();
+    sendExpansesToProps(this.state);
   }
 
   render() {
-    const { userEmail, walletCurrencies } = this.props;
+    const { props: { userEmail, walletCurrencies }, state: {
+      totalExpenses, actualCurrency, value, description, currency, method, tag },
+    handleInputChange, handleButtonClick } = this;
     const payMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const { expenses, actualCurrency } = this.state;
     return (
       <section>
         <header>
           <span data-testid="email-field">{ userEmail }</span>
-          <span data-testid="total-field">{ expenses }</span>
+          <span data-testid="total-field">{ totalExpenses }</span>
           <span data-testid="header-currency-field">{ actualCurrency }</span>
         </header>
         <form>
           <Input
             type="text"
-            name="valor"
-            labelText="Valor"
+            name="value"
+            value={ value }
+            onChange={ handleInputChange }
           />
           <Input
             type="text"
             name="description"
-            labelText="Descrição"
+            value={ description }
+            onChange={ handleInputChange }
           />
           <Select
-            labelText="Moeda"
-            options={ walletCurrencies.filter((currency) => currency !== 'USDT') }
+            name="currency"
+            value={ currency }
+            options={ walletCurrencies.filter((optCurrency) => optCurrency !== 'USDT') }
+            onChange={ handleInputChange }
           />
           <Select
-            labelText="Método de pagamento"
+            name="method"
+            value={ method }
             options={ payMethods }
+            onChange={ handleInputChange }
           />
           <Select
-            labelText="Tag"
+            name="tag"
+            value={ tag }
             options={ tags }
+            onChange={ handleInputChange }
           />
-          <button type="button">Adicionar despesa</button>
+          <button name="adicionar despesa" type="button" onClick={ handleButtonClick }>Adicionar despesa</button>
         </form>
       </section>
     );
@@ -70,6 +93,8 @@ class Wallet extends Component {
 
 Wallet.propTypes = {
   fetchCurrenciesToProps: PropTypes.func.isRequired,
+  fetchExchangeRatesToProps: PropTypes.func.isRequired,
+  sendExpansesToProps: PropTypes.func.isRequired,
   userEmail: PropTypes.string.isRequired,
   walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -81,6 +106,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrenciesToProps: () => dispatch(fetchCurrencies()),
+  fetchExchangeRatesToProps: () => dispatch(fetchExchangeRates()),
+  sendExpansesToProps: (expenses) => dispatch(sendExpensesInfo(expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
