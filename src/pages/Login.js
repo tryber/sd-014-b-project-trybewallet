@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 import * as ActionsCreators from '../actions/index';
 
 // func retirada do slack, colaboracao do amigo michael turma 14b
-function isEmailValid(email) {
-  const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  return regexEmail.test(email);
-}
 
 const six = 6;
 
@@ -18,10 +14,14 @@ function Login({ setEmailGlobal }) {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  const button = useRef(null);
+  const button = useRef(true);
 
-  function isPasswordValid(pw) {
-    return pw.length > six;
+  function isEmailValid() {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (regexEmail.test(email) && password.length >= six) {
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -44,7 +44,7 @@ function Login({ setEmailGlobal }) {
       />
       <button
         ref={ button }
-        disabled={ !isEmailValid(email) || !isPasswordValid(password) }
+        disabled={ isEmailValid() }
         type="submit"
         onClick={ () => {
           setEmailGlobal(email);
