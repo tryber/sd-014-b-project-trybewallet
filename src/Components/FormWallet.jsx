@@ -67,12 +67,19 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" id="descricao" onChange={ ({ target }) => this.setState({ description: target.value }) } />
+          <input
+            type="text"
+            id="descricao"
+            onChange={ ({ target }) => this.setState({ description: target.value }) }
+          />
         </label>
         { this.selectCoins() }
         <label htmlFor="pagamento">
           Método de pagamento:
-          <select id="pagamento" onChange={ ({ target }) => this.setState({ method: target.value }) }>
+          <select
+            id="pagamento"
+            onChange={ ({ target }) => this.setState({ method: target.value }) }
+          >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -80,7 +87,10 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select id="tag" onChange={ ({ target }) => this.setState({ tag: target.value }) }>
+          <select
+            id="tag"
+            onChange={ ({ target }) => this.setState({ tag: target.value }) }
+          >
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
