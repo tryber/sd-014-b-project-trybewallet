@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCurrencies, fetchExchangeRates, sendExpensesInfo } from '../actions';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import { payMethods, tags } from '../helpers';
 
 class Wallet extends Component {
   constructor() {
@@ -40,13 +41,10 @@ class Wallet extends Component {
     sendExpansesToProps(this.state);
   }
 
-  // eslint-disable-next-line max-lines-per-function
   render() {
     const { props: { userEmail, walletCurrencies }, state: {
       totalExpenses, actualCurrency, value, description, currency, method, tag },
     handleInputChange, handleButtonClick } = this;
-    const payMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <section>
         <header>
@@ -85,13 +83,8 @@ class Wallet extends Component {
             options={ tags }
             onChange={ handleInputChange }
           />
-          <button
-            name="adicionar despesa"
-            type="button"
-            onClick={ handleButtonClick }
-          >
+          <button name="adicionar despesa" type="button" onClick={ handleButtonClick }>
             Adicionar despesa
-
           </button>
         </form>
       </section>
