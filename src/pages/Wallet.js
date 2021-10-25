@@ -5,14 +5,13 @@ import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import SelectMoedas from '../components/SelectMoedas';
-import { adicionarDespesa } from '../actions/index';
+import { adicionarDespesa, apiExchange, somarValor } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       id: 0,
@@ -33,8 +32,8 @@ class Wallet extends React.Component {
     console.log(value);
   }
 
-  clicou() {
-    const { adcDespesa } = this.props;
+  async clicou() {
+    const { adcDespesa, despesaTotal, somaTotal } = this.props;
     const { value, description, currency, method, tag, id } = this.state;
     this.setState((prevState) => ({
       id: prevState.id + 1,
@@ -46,8 +45,11 @@ class Wallet extends React.Component {
       currency,
       method,
       tag,
+      exchangeRates: await apiExchange(),
     }];
     adcDespesa(infDespesa);
+    const totalDespesas = parseFloat(despesaTotal) + parseFloat(value);
+    somaTotal(totalDespesas);
   }
 
   render() {
@@ -104,10 +106,18 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   adcDespesa: PropTypes.func.isRequired,
+  despesaTotal: PropTypes.string.isRequired,
+  somaTotal: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   adcDespesa: (userInf) => (dispatch(adicionarDespesa(userInf))),
+  somaTotal: (userInf) => (dispatch(somarValor(userInf))),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+const mapstateToProps = (state) => (
+  {
+    despesaTotal: state.wallet.despesaTotal,
+  });
+
+export default connect(mapstateToProps, mapDispatchToProps)(Wallet);

@@ -1,6 +1,7 @@
-import { REQUEST_MOEDAS, ADICIONAR_DESPESA } from '../actions';
+import { REQUEST_MOEDAS, ADICIONAR_DESPESA, SOMAR_VALOR } from '../actions';
 
 const INITIAL_STATE = {
+  despesaTotal: 0,
   currencies: [],
   expenses: [],
 };
@@ -20,6 +21,11 @@ const wallet = (state = INITIAL_STATE, action) => {
         {
           ...action.payload,
         }],
+    };
+  case SOMAR_VALOR:
+    return {
+      ...state,
+      despesaTotal: action.payload,
     };
   default:
     return state;
