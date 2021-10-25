@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveEmailInState } from '../redux/actions';
+import { saveEmailInState } from '../actions';
 
 class Login extends React.Component {
   constructor() {

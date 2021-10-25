@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveExpensesInState } from '../redux/actions';
+import { saveExpensesInState } from '../actions';
 import Inputs from './Inputs';
 import SelectCoin from './SelectCoin';
 
