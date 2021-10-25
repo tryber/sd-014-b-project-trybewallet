@@ -1,7 +1,3 @@
-export const LOGIN = 'LOGIN';
+export const GET_LOGIN = 'GET_LOGIN';
 
-export function loginAction() {
-    return (
-        type: LOGIN
-    )
-}
+export const loginAction = (payload) => ({ type: 'GET_LOGIN', payload });

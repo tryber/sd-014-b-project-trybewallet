@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,6 +21,14 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleSubmit() {
+    const { emailInput } = this.state;
+    const { submitEmail, history } = this.props;
+
+    submitEmail(emailInput);
+    history.push('/carteira');
   }
 
   render() {
@@ -51,6 +62,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !(validateEmail.test(emailInput) && passwordInput.length >= SIX) }
+            onClick={ () => this.handleSubmit() }
           >
             Entrar
           </button>
@@ -61,7 +73,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  submitEmail: (userEmail) => (dispatch()),
+  submitEmail: (userEmail) => dispatch(loginAction(userEmail)),
 });
 
-export default connect()(Login);
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  submitEmail: PropTypes.func,
+}.isRequired;
