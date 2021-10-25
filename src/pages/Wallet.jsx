@@ -40,6 +40,7 @@ class Wallet extends Component {
     sendExpansesToProps(this.state);
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render() {
     const { props: { userEmail, walletCurrencies }, state: {
       totalExpenses, actualCurrency, value, description, currency, method, tag },
@@ -84,7 +85,14 @@ class Wallet extends Component {
             options={ tags }
             onChange={ handleInputChange }
           />
-          <button name="adicionar despesa" type="button" onClick={ handleButtonClick }>Adicionar despesa</button>
+          <button
+            name="adicionar despesa"
+            type="button"
+            onClick={ handleButtonClick }
+          >
+            Adicionar despesa
+
+          </button>
         </form>
       </section>
     );

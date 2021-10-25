@@ -36,7 +36,7 @@ export const sendExpensesInfo = (payload) => ({
   payload,
 });
 
-export const fetchExchangeRates = () => (dispatch, payload) => {
+export const fetchExchangeRates = () => (dispatch) => {
   getCurrencyInfo()
     .then((exchangeRatesInfo) => {
       dispatch(receiveExchangeRatesInfo(exchangeRatesInfo));
