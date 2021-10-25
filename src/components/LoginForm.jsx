@@ -27,7 +27,7 @@ class LoginForm extends Component {
   handleClick() {
     const { setDataLoginStore } = this.props;
     const { email } = this.state;
-    setDataLoginStore(email);
+    setDataLoginStore({ email });
   }
 
   checkEmail() {

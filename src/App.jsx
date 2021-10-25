@@ -7,12 +7,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header>
-        <h1>Hello, TrybeWallet!</h1>
-        <nav>
-          <a href="/">Login</a>
-        </nav>
-      </header>
       <Switch>
         <Route path="/carteira" component={ Wallet } />
         <Route exat path="/" component={ Login } />
