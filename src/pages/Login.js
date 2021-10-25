@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { emailSubmit } from '../actions/submitEmail';
 
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -95,7 +96,6 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="password">
-
           <input
             id="password"
             type="password"
@@ -111,7 +111,6 @@ class Login extends React.Component {
           onClick={ this.handleSubmit }
         >
           Entrar
-
         </button>
       </form>
     );
