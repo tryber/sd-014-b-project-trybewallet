@@ -1,6 +1,6 @@
-export const SUBMIT_FORM = 'SUBMIT_FORM';
+export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 
 export const userEmail = (payload) => ({
-  type: SUBMIT_FORM,
+  type: SUBMIT_LOGIN,
   payload,
 });
