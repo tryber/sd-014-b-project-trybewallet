@@ -1,10 +1,10 @@
 .container-header {
-  display: flex;
-  background-color: #363a3f;
-  height: 150px;
-  width: 100%;
-  justify-content: space-around;
   align-items: center;
+  background-color: #363a3f;
+  display: flex;
+  height: 150px;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .header-title {
