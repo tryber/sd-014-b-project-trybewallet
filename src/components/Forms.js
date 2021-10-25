@@ -1,65 +1,95 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrenciesAPI } from '../actions';
+import { fetchCurrenciesAPI, sendWalletExpenses } from '../actions';
+import fetchCoins from '../api/coins';
+import Select from './Select';
 
 class Forms extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      id: 0,
+      exchangeRates: {},
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+  }
+
   componentDidMount() {
     const { getCoins } = this.props;
     getCoins();
   }
 
+  async onSubmitForm() {
+    const { dispatchSetValue } = this.props;
+    const coins = await fetchCoins();
+    this.setState({
+      exchangeRates: coins,
+    });
+    dispatchSetValue(this.state);
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const { coins } = this.props;
-    console.log(coins);
+    const { tag, method, description, currency, value } = this.state;
     return (
-      <form>
-        <label htmlFor="input-expense">
-          Valor
-          <input type="number" id="input-expense" name="expense" />
-        </label>
-        <label htmlFor="input-description">
-          Descrição
-          <input id="input-description" name="description" type="text" />
-        </label>
-        <label htmlFor="input-coin">
-          Moeda
-          <select id="input-coin" name="coin">
-            {coins.map((coin) => (
-              <option value={ coin } key={ coin }>
-                {coin}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="input-method">
-          Método de pagamento
-          <select name="method" id="input-method">
-            <option value="money">Dinheiro</option>
-            <option value="debit">Cartão de débito</option>
-            <option value="credit">Cartão de crédito</option>
-          </select>
-        </label>
-        <label htmlFor="input-tag">
-          Tag
-          <select name="tag" id="input-tag">
-            <option value="laze">Lazer</option>
-            <option value="food">Alimentação</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
-          </select>
-        </label>
-      </form>
+      <div>
+        <form>
+          <label htmlFor="input-expense">
+            Valor
+            <input
+              value={ value }
+              onChange={ this.handleChange }
+              type="number"
+              id="input-expense"
+              name="value"
+            />
+          </label>
+          <Select
+            tag={ tag }
+            method={ method }
+            currency={ currency }
+            coins={ coins }
+            onChange={ this.handleChange }
+          />
+
+          <label htmlFor="input-description">
+            Descrição
+            <input
+              value={ description }
+              id="input-description"
+              name="description"
+              type="text"
+              onChange={ this.handleChange }
+            />
+          </label>
+        </form>
+        <button onClick={ this.onSubmitForm } type="button">Adicionar despesas</button>
+      </div>
     );
   }
 }
 
 Forms.propTypes = {
   getCoins: PropTypes.func.isRequired,
-  coins: PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  }).isRequired,
+  coins: PropTypes.arrayOf(PropTypes.any).isRequired,
+  dispatchSetValue: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
@@ -67,6 +97,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(fetchCurrenciesAPI()),
+  dispatchSetValue: (payload) => dispatch(sendWalletExpenses(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
