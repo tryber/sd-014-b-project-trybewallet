@@ -5,7 +5,6 @@ import './css/header.css';
 class Header extends Component {
   render() {
     const { email, total } = this.props;
-
     return (
       <header className="header">
         <img
@@ -17,6 +16,7 @@ class Header extends Component {
             {`Email: ${email}`}
           </p>
           <p data-testid="total-field">
+            {/* O ternário abaixo evita o undefined quando o total é 0 */}
             {`Despesa total: ${total > 0 ? total.toFixed(2) : 0}`}
             <span data-testid="header-currency-field">
               {' BRL'}

@@ -152,8 +152,8 @@ class ExpensesForm extends Component {
           </select>
         </label>
         <button
+          className="add-btn"
           type="button"
-          id="add-btn"
           onClick={ async () => {
             await this.fetchExchangeRates();
             this.totalHeader();
