@@ -1,22 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { requestMoedas } from '../actions';
+import SelectMoedas from '../components/SelectMoedas';
 
 class Wallet extends React.Component {
-  async componentDidMount() {
-    const { salvaMoedas } = this.props;
-    const MoedasAPI = 'https://economia.awesomeapi.com.br/json/all';
-    const response = await fetch(MoedasAPI);
-    const responseJson = await response.json();
-    const moedas = await responseJson;
-    const filtrandoApi = Object.keys(moedas).filter((moeda) => moeda !== 'USDT');
-    salvaMoedas(filtrandoApi);
-  }
-
   render() {
-    const { moedas } = this.props;
     return (
       <main>
         <Header />
@@ -29,12 +16,6 @@ class Wallet extends React.Component {
             Descrição
             <input id="descricao" type="text" />
           </label>
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda">
-              { moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
-            </select>
-          </label>
           <label htmlFor="metodoDePagamento">
             Método de pagamento
             <select id="metodoDePagamento">
@@ -43,7 +24,8 @@ class Wallet extends React.Component {
               <option>Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="moeda">
+          <SelectMoedas />
+          <label htmlFor="categoria">
             Tag
             <select id="categoria">
               <option>Alimentação</option>
@@ -62,17 +44,4 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  moedas: state.wallet.moedas,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  salvaMoedas: (payload) => dispatch(requestMoedas(payload)),
-});
-
-Wallet.propTypes = {
-  salvaMoedas: PropTypes.func.isRequired,
-  moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default Wallet;
