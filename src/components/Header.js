@@ -9,8 +9,9 @@ class Header extends React.Component {
       <header>
         <h1>Projeto TrybeWallet</h1>
         <div>
-          <p>{ email }</p>
-          <p>{}</p>
+          <p data-testid="email-field">{ email }</p>
+          <p data-testid="total-field">0</p>
+          <p data-testid="header-currency-field">BRL</p>
         </div>
       </header>
     );
