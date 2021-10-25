@@ -1,0 +1,67 @@
+estado global:
+
+{
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: []
+  }
+}
+
+
+validação de email:
+https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
+https://ui.dev/validate-email-address-javascript/
+
+https://dirask.com/posts/React-how-to-pass-array-of-options-to-select-D9qW2D
+(map select)
+
+
+import React from 'react';
+import Input from '../interactionComponents/input';
+import TextArea from '../interactionComponents/textArea';
+import { paymentMethodData, tagData } from '../data/ExpensesFormData';
+
+class ExpensesForm extends React.Component() {
+
+
+As despesas salvas no Redux ficarão com um formato semelhante ao seguinte:
+
+Clique para expandir.
+  expenses: [{
+    "id": 0,
+    "value": "3",
+    "description": "Hot Dog",
+    "currency": "USD",
+    "method": "Dinheiro",
+    "tag": "Alimentação",
+    "exchangeRates": {
+      "USD": {
+        "code": "USD",
+        "name": "Dólar Comercial",
+        "ask": "5.6208",
+        ...
+      },
+      "CAD": {
+        "code": "CAD",
+        "name": "Dólar Canadense",
+        "ask": "4.2313",
+        ...
+
+
+https://github.com/tryber/sd-014-b-project-trybewallet/tree/ivanielson-project-trybeallet/src
+https://github.com/tryber/sd-014-b-project-trybewallet/blob/beatriz-ribeiro-project-trybewallet/src/components/InsertForm.js
+
+
+****Sao necessárias as açoes:
+1) Receber o email
+2) Receber a API + thunk (importa o thunk no Component e mas a ação vai Reducer)
+3) Enviar os dados do formulario das despesas
+  
+1)definir os dados de login (reducer/user)
+
+
+
+agora fala trocar o expensesform por insert form e o selectWallet por mapcurrencies
