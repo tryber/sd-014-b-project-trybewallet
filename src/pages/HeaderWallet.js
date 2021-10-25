@@ -10,6 +10,10 @@ class HeaderWallet extends Component {
 
   sumExpenses(expenses) {
     if (expenses.length < 1) return 0;
+    return expenses.reduce((acc, despesa) => {
+      const sumValue = (despesa.value * despesa.exchangeRates[despesa.currency].ask);
+      return acc + sumValue;
+    }, 0);
   }
 
   render() {

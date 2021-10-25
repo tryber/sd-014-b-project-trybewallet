@@ -6,6 +6,7 @@
 export const USER_ACTION = 'USER_ACTION';
 export const WALLET_ACTION = 'WALLET_ACTION';
 export const FECTH_ACTION = 'FECTH_ACTION';
+export const SAVE_STATE = 'SAVE_STATE';
 
 export const userAction = (payload) => ({ type: USER_ACTION, payload });
 
@@ -21,3 +22,5 @@ export function getFetch() {
       .then((json) => dispatch(walletAction(json)));
   };
 }
+
+export const saveState = (payload) => ({ type: SAVE_STATE, payload });
