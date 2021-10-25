@@ -15,11 +15,18 @@ class SelectMoedas extends React.Component {
   }
 
   render() {
-    const { moedas } = this.props;
+    const { moedas, value, onChange, name } = this.props;
     return (
-      <label htmlFor="moeda">
+      <label
+        htmlFor="moeda"
+      >
         Moeda
-        <select id="moeda">
+        <select
+          value={ value }
+          id="moedas"
+          name={ name }
+          onChange={ onChange }
+        >
           { moedas.map((moeda) => <option key={ moeda }>{ moeda }</option>)}
         </select>
       </label>
@@ -38,6 +45,9 @@ const mapDispatchToProps = (dispatch) => ({
 SelectMoedas.propTypes = {
   salvaMoedas: PropTypes.func.isRequired,
   moedas: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectMoedas);
