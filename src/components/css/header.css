@@ -1,0 +1,19 @@
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 10vh;
+  justify-content: space-between;
+}
+
+.header img {
+  height: inherit;
+  padding-left: 120px;
+}
+
+.user-info {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+}

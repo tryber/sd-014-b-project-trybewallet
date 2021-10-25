@@ -1,0 +1,33 @@
+.login-div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+}
+
+.form-login button {
+  align-items: center;
+  background-color: #036b52;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  margin: auto;
+  width: 80px;
+}
+
+.form-login a :disabled {
+  background-color: grey;
+}
+
+.form-login a {
+  text-decoration: none;
+}
+
+.App-logo {
+  width: 200px;
+}

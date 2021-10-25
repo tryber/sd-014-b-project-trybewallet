@@ -1,0 +1,19 @@
+.add-btn {
+  background-color: yellow;
+  border-color: yellow;
+  border-radius: 5px;
+  height: 60%;
+}
+
+.expensesForm {
+  align-items: center;
+  background-color: #036b52;
+  color: white;
+  display: flex;
+  height: 5vh;
+  justify-content: space-evenly;
+}
+
+.expensesForm input , select {
+  margin: 0 5px;
+}

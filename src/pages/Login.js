@@ -1,9 +1,101 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import { userAction } from '../actions';
+import './css/login.css';
+
+const PASS_LENGTH = 6;
+const REGEX_EMAIL = /\S+@\S+\.\S+/;
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+      disabled: true,
+    };
+
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  onSubmitForm() {
+    const { dispatchUser } = this.props;
+    dispatchUser(this.state);
+  }
+
+  isUserValid() {
+    const { email, password } = this.state;
+    const validEmail = REGEX_EMAIL.test(email);
+
+    if ((password.length >= PASS_LENGTH) && (validEmail === true)) {
+      this.setState({ disabled: false });
+    } else {
+      this.setState({ disabled: true });
+    }
+  }
+
+  handleChange({ target }) {
+    this.setState({
+      [target.id]: target.value,
+    }, this.isUserValid);
+  }
+
   render() {
-    return <div>Login</div>;
+    const { email, password, disabled } = this.state;
+    return (
+      <div className="login-div">
+        <img
+          className="App-logo"
+          src="https://www.acate.com.br/wp-content/uploads/2020/01/trybe.png"
+          alt="Logo da Trybe"
+        />
+        <form className="form-login">
+          <Input
+            testid="email-input"
+            id="email"
+            type="email"
+            value={ email }
+            placeholder="Digite seu email"
+            onChange={ this.handleChange }
+          />
+          <br />
+          <br />
+          <Input
+            testid="password-input"
+            id="password"
+            type="password"
+            value={ password }
+            placeholder="Digite sua senha"
+            onChange={ this.handleChange }
+          />
+          <br />
+          <br />
+          <Link to="/carteira">
+            <Button
+              testid="login-btn"
+              label="Entrar"
+              disabled={ disabled }
+              onClick={ this.onSubmitForm }
+            />
+          </Link>
+        </form>
+      </div>
+    );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchUser: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUser: (state) => dispatch(userAction(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
