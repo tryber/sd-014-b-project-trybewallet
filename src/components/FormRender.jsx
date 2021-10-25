@@ -69,10 +69,8 @@ const mapDispatchToProps = (dispatch) => ({
   saveExpenses: (payload) => dispatch(saveExpensesAction(payload)),
 });
 
-Description.propTypes = {
-  value: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+FormRender.propTypes = {
+  saveExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(FormRender);
