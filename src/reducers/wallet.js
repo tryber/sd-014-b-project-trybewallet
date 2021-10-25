@@ -4,7 +4,7 @@
 //   expenses: [],
 // };
 
-// const walletReducer = (state = INITIAL_STATE, action) {
+// const wallet = (state = INITIAL_STATE, action) {
 //     switch (acion.type) {
 //         case :
 //             break;

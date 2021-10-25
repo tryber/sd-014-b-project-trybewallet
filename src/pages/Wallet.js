@@ -1,10 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Wallet() {
   return (
-    <header>
-      <p data-testid="email-field">Um email qualquer</p>
-    </header>
+    <Header />
   );
 }
 
