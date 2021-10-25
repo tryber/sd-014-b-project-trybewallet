@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
-  currencies: [],
-  expenses: [],
+  total: 0,
+
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -8,7 +8,7 @@ function wallet(state = INITIAL_STATE, action) {
   case 'ADD_EXPENSE':
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      total: 0,
     };
   default:
     return state;
