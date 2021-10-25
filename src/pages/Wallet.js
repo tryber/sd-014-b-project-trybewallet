@@ -6,10 +6,10 @@ import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
     return (
       <div>
-        <Header email={ email } />
+        <Header email={ email } total={ total } />
         <ExpensesForm />
       </div>
 
@@ -19,10 +19,12 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  total: state.wallet.total,
 });
 
 export default connect(mapStateToProps, null)(Wallet);

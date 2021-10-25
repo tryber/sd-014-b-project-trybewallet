@@ -4,7 +4,7 @@ import './css/header.css';
 
 class Header extends Component {
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
     return (
       <header className="header">
         <img
@@ -16,7 +16,7 @@ class Header extends Component {
             {`Email: ${email}`}
           </p>
           <p data-testid="total-field">
-            Despesa Total: R$1.123,02
+            {`Despesa total: ${total}`}
             <span data-testid="header-currency-field">
               {' BRL'}
             </span>
@@ -29,6 +29,7 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default Header;

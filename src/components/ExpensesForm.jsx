@@ -14,17 +14,24 @@ class ExpensesForm extends Component {
       loading: true,
       currencyArray: [],
       expense: {
+        id: 0,
         value: '',
         description: '',
         currency: '',
         method: '',
         tag: '',
+        exchangeRates: {},
       },
+      total: 0,
     };
 
     this.fetchCurrency = this.fetchCurrency.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addExpense = this.addExpense.bind(this);
+    this.htmlFormOne = this.htmlFormOne.bind(this);
+    this.htmlFormTwo = this.htmlFormTwo.bind(this);
+    this.fetchExchangeRates = this.fetchExchangeRates.bind(this);
+    this.totalHeader = this.totalHeader.bind(this);
   }
 
   componentDidMount() {
@@ -32,16 +39,16 @@ class ExpensesForm extends Component {
   }
 
   handleChange({ target: { id, value } }) {
-    const { expense } = this.state;
-    this.setState({
+    // const { expense } = this.state;
+    this.setState((prevState) => ({
       expense: {
-        ...expense,
+        ...prevState.expense,
         [id]: value,
       },
-    });
+    }));
   }
 
-  async fetchCurrency() {
+  fetchCurrency() {
     fetch(API_URL)
       .then((response) => response.json())
       .then((item) => this.setState({
@@ -50,56 +57,122 @@ class ExpensesForm extends Component {
       }));
   }
 
+  async fetchExchangeRates() {
+    const response = await fetch(API_URL);
+    const json = await response.json();
+    this.setState((prevState) => ({
+      expense: {
+        ...prevState.expense,
+        exchangeRates: json,
+      },
+    }));
+  }
+
+  totalHeader() {
+    const { expense: { value, currency, exchangeRates } } = this.state;
+    // Multiplica o valor da despesa * cotação da moeda referente a despesa
+    const brlTotal = value * (parseFloat(exchangeRates[currency].ask));
+    this.setState((prevState) => ({
+      ...prevState,
+      total: prevState.total + brlTotal,
+    }));
+  }
+
   addExpense() {
     const { dispatchExpense } = this.props;
-    const { expense } = this.state;
-    console.log(this.state);
-    dispatchExpense(expense);
+    dispatchExpense(this.state);
+    this.setState((prev) => ({ // limpa o form após o dispatch
+      expense: {
+        id: prev.expense.id + 1,
+        value: '',
+        description: '',
+        currency: '',
+        method: '',
+        tag: '',
+        exchangeRates: {},
+      },
+    }));
+  }
+
+  htmlFormOne() {
+    const { currencyArray, expense:
+      { value, description } } = this.state;
+    return (
+      <div>
+        <label htmlFor="value">
+          Valor:
+          <input
+            type="number"
+            id="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            type="text"
+            id="description"
+            value={ description }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="currency">
+          Moeda:
+          <select id="currency" onChange={ this.handleChange }>
+            {(currencyArray.map((curr, index) => (
+              <option key={ index } value={ curr }>
+                {curr}
+              </option>)))}
+          </select>
+        </label>
+      </div>
+    );
+  }
+
+  htmlFormTwo() {
+    return (
+      <div>
+        <label htmlFor="method">
+          Método de pagamento:
+          <select id="method" onChange={ this.handleChange }>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag:
+          <select id="tag" onChange={ this.handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+        <button
+          type="button"
+          id="add-btn"
+          onClick={ async () => {
+            await this.fetchExchangeRates();
+            this.totalHeader();
+            this.addExpense();
+          } }
+        >
+          Adicionar Despesa
+        </button>
+      </div>
+    );
   }
 
   render() {
-    const { currencyArray, loading } = this.state;
+    const { loading } = this.state;
     if (!loading) {
       return (
         <form className="expensesForm">
-          <label htmlFor="value">
-            Valor:
-            <input type="number" id="value" onChange={ this.handleChange } />
-          </label>
-          <label htmlFor="description">
-            Descrição:
-            <input type="text" id="description" onChange={ this.handleChange } />
-          </label>
-          <label htmlFor="currency">
-            Moeda:
-            <select id="currency" onChange={ this.handleChange }>
-              {(currencyArray.map((curr, index) => (
-                <option key={ index } value={ curr }>
-                  {curr}
-                </option>)))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Método de pagamento:
-            <select id="method" onChange={ this.handleChange }>
-              <option value="money">Dinheiro</option>
-              <option value="credit">Cartão de Crédito</option>
-              <option value="debit">Cartão de Débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag:
-            <select id="tag" onChange={ this.handleChange }>
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
-            </select>
-          </label>
-          <button type="button" id="add-btn" onClick={ this.addExpense }>
-            Adicionar Despesa
-          </button>
+          {this.htmlFormOne()}
+          {this.htmlFormTwo()}
         </form>
       );
     }
@@ -118,4 +191,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(ExpensesForm);
-// export default ExpensesForm;

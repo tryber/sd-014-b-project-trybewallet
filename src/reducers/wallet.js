@@ -3,6 +3,7 @@ import { ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
+  total: 0,
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -10,7 +11,8 @@ function wallet(state = INITIAL_STATE, action) {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, action.state],
+      expenses: [...state.expenses, action.state.expense],
+      total: action.state.total,
     };
   default:
     return state;
