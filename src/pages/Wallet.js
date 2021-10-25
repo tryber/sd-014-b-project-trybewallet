@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 import '../styles/Header.css';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      total: 0,
+      moeda: 'BRL',
+    };
+  }
+
   render() {
-    const { email, total } = this.props;
+    const { email } = this.props;
+    const { total, moeda } = this.state;
     return (
       <div>
         <header className="header">
@@ -18,7 +27,7 @@ class Wallet extends React.Component {
             <div className="header-nav">
               <h4>Despesa Total:</h4>
               <p data-testid="total-field">{total}</p>
-              <p data-testid="header-currency-field">BRL</p>
+              <p data-testid="header-currency-field">{moeda}</p>
             </div>
           </section>
         </header>
@@ -32,12 +41,10 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  total: state.wallet.total,
 });
 
 export default connect(mapStateToProps, null)(Wallet);

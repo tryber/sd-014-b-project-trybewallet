@@ -1,6 +1,5 @@
 const INITIAL_STATE = {
   total: 0,
-
 };
 
 function wallet(state = INITIAL_STATE, action) {
