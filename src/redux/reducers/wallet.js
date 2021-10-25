@@ -1,5 +1,3 @@
-import { ADD_EXPENSE } from '../actions';
-
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -7,7 +5,7 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case ADD_EXPENSE:
+  case 'ADD_EXPENSE':
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
