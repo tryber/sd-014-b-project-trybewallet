@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Expenses extends React.Component {
+class Expenses extends Component {
   render() {
     return (
       <form>
 
         <label htmlFor="value">
-          Valor:
+          Valor
           <input type="text" name="value" id="value" />
         </label>
 
