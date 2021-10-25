@@ -1,7 +1,10 @@
 import React from 'react';
+import Switcher from './Components/Switcher';
 
 function App() {
-  return <div>Hello, TrybeWallet!</div>;
+  return (
+    <Switcher />
+  );
 }
 
 export default App;
