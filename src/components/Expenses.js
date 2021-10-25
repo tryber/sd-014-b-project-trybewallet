@@ -19,7 +19,7 @@ class Expenses extends Component {
         <label htmlFor="payment-method">
           Método de pagamento
           <select name="payment-method" id="payment-method">
-            <option value="dinheiro">Dinehiro</option>
+            <option value="dinheiro">Dinheiro</option>
             <option value="cartao-de-credito">Cartão de crédito</option>
             <option value="cartao-de-debito">Cartão de débito</option>
           </select>
