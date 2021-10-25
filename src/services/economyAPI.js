@@ -3,3 +3,5 @@ fetchAPI = async () => {
   const fetchData = request.json();
   console.log(fetchData);
 };
+
+export default fetchAPI;
