@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { CHECK_EMAIL } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +12,7 @@ class Login extends React.Component {
     };
     this.validateEmail = this.validateEmail.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.toLogin = this.toLogin.bind(this);
   }
 
   validateEmail() {
@@ -25,6 +29,13 @@ class Login extends React.Component {
       [name]: value,
     });
   } // referência: https://github.com/tryber/sd-014-b-project-trybewallet/pull/86/
+
+  toLogin() {
+    const { dispatchEmail, history } = this.props;
+    const { email } = this.state;
+    dispatchEmail(email);
+    history.push('/carteira');
+  }
 
   render() {
     const { email, password } = this.state;
@@ -48,6 +59,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.validateEmail() }
+          onClick={ this.toLogin }
         >
           Entrar
         </button>
@@ -56,4 +68,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (state) => dispatch(CHECK_EMAIL(state)),
+});
+
+Login.propTypes = {
+  dispatchEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
