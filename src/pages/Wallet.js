@@ -2,64 +2,43 @@ import React from 'react';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      expense: 0,
-      description: '',
-      currency: '',
-      method: '',
-      category: '',
-    };
-
-    this.handlerInput = this.handlerInput.bind(this);
-  }
-
-  handlerInput({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    });
-  }
-
   render() {
-    const { expense, description, currency, method, category } = this.state;
     const form = (
       <form>
-        Valor
-        <input
-          value={ expense }
-          onChange={ this.handlerInput }
-          type="number"
-          name="expense"
-        />
-        Descrição
-        <input
-          value={ description }
-          onChange={ this.handlerInput }
-          type="text"
-          name="description"
-        />
-        Moeda
-        <select value={ currency } onChange={ this.handlerInput } name="currency">
-          <option value="BRL">BRL</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-        Método de pagamento
-        <select value={ method } onChange={ this.handlerInput } name="method">
-          <option value="dinheiro">Dinheiro</option>
-          <option value="cartao-credito">Cartão de crédito</option>
-          <option value="cartao-debito">Cartão de débito</option>
-        </select>
-        Tag
-        <select value={ category } onChange={ this.handlerInput } name="category">
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
-        </select>
+        <label htmlFor="value">
+          Valor
+          <input type="number" name="value" id="value" />
+        </label>
+        <label htmlFor="description">
+          Descrição
+          <input type="text" name="description" id="description" />
+        </label>
+        <label htmlFor="currency">
+          Moeda
+          <select name="currency" id="currency">
+            <option value="BRL">BRL</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </label>
+        <label htmlFor="method">
+          Método de pagamento
+          <select name="method" id="method">
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao-credito">Cartão de crédito</option>
+            <option value="cartao-debito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select name="tag" id="tag">
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </select>
+        </label>
       </form>
     );
 
