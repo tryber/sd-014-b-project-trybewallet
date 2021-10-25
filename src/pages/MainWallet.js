@@ -1,7 +1,17 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getFetch } from '../actions';
 
 class MainWallet extends Component {
+  componentDidMount() {
+    const { getFetchCurrencie } = this.props;
+    getFetchCurrencie();
+  }
+
   render() {
+    const { currencies } = this.props;
+    console.log(currencies);
     return (
       <div>
         <label htmlFor="valor">
@@ -14,7 +24,10 @@ class MainWallet extends Component {
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select id="moeda">Moeda</select>
+          <select id="moeda">
+            { currencies.map((currencie) => (
+              <option key={ currencie } value={ currencie }>{ currencie }</option>))}
+          </select>
         </label>
         <label htmlFor="pagamento">
           Método de pagamento
@@ -39,4 +52,17 @@ class MainWallet extends Component {
   }
 }
 
-export default MainWallet;
+MainWallet.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.any).isRequired,
+  getFetchCurrencie: PropTypes.func.isRequired,
+};
+
+const mapState = ({ wallet }) => ({
+  currencies: wallet.currencies,
+});
+
+const mapDispatch = (dispatch) => ({
+  getFetchCurrencie: () => dispatch(getFetch()),
+});
+
+export default connect(mapState, mapDispatch)(MainWallet);
