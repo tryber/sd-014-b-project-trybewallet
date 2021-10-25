@@ -8,16 +8,17 @@ const initialState = {
 };
 
 const wallet = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
   case CURRENCIES:
-    return {
+    return ({
       ...state,
-      currencies: action.enter.currencies,
-    };
+      currencies: action.currencies,
+    });
   case EXPENSES:
     return {
       ...state,
-      expenses: action.enter.expenses,
+      expenses: [...state.expenses, action.expenses],
     };
   default:
     return state;

@@ -10,10 +10,12 @@ export const login = (enter) => (
 
 export const addCurrency = (enter) => (
   {
-    type: CURRENCIES, enter,
+    type: CURRENCIES,
+    currencies: enter,
   });
 
 export const expense = (enter) => (
   {
-    type: EXPENSES, enter,
+    type: EXPENSES,
+    expenses: enter,
   });
