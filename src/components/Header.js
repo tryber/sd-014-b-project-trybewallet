@@ -17,6 +17,9 @@ class Header extends Component {
         <div data-testid="header-currency-field">
           BRL
         </div>
+        <p>
+          Teste
+        </p>
       </header>
     );
   }
