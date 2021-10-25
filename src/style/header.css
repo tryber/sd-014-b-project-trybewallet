@@ -1,0 +1,25 @@
+.container-header {
+  align-items: center;
+  background-color: #363a3f;
+  display: flex;
+  height: 150px;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.header-title {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 3rem;
+  padding: 5%;
+}
+
+.header-title p {
+  color: #3174bc;
+}
+
+.div-total {
+  align-items: center;
+  display: flex;
+}
