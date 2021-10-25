@@ -197,9 +197,7 @@ Wallet.propTypes = {
   addExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
-  total: PropTypes.shape({
-    toFixed: PropTypes.func,
-  }).isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 const calculateTotal = (state) => {

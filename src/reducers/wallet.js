@@ -19,8 +19,7 @@ function wallet(state = initialState, action) {
         if (item.id === action.value.id) {
           item = { ...item, ...action.value };
           return item;
-        }
-        return item;
+        } return item;
       }),
     };
   default:

@@ -71,9 +71,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   editing: PropTypes.func.isRequired,
-  gastos: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
+  gastos: PropTypes.arrayOf(PropTypes.any).isRequired,
   removeExpense: PropTypes.func.isRequired,
 };
 
