@@ -24,8 +24,7 @@ class Login extends React.Component {
     return false;
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
+  handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
