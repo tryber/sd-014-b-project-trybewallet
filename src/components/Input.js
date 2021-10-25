@@ -4,18 +4,16 @@ import React, { Component } from 'react';
 export default class Input extends Component {
   render() {
     const { name, label, text } = this.props;
+    console.log(name, label, text);
     return (
-      <>
-        <h2>inputs</h2>
-        <label htmlFor={ name }>
-          { label }
-          <input
-            type={ text }
-            name={ name }
-            id={ name }
-          />
-        </label>
-      </>
+      <label htmlFor={ name }>
+        { label }
+        <input
+          type={ text }
+          name={ name }
+          id={ name }
+        />
+      </label>
     );
   }
 }
