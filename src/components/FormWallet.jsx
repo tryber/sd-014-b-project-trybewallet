@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { saveExpensesInState } from '../redux/actions';
 import Inputs from './Inputs';
 import SelectCoin from './SelectCoin';
 
-export default class FormWallet extends Component {
+class FormWallet extends Component {
   constructor() {
     super();
 
     this.state = {
-      id: 0,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'dinheiro',
+      tag: 'alimentacao',
     };
-    // this.handleSubmitForm = this.handleSubmitForm.bind(this);
+
+    this.handleClick = this.handleClick.bind(this);
     this.handleChangeInputs = this.handleChangeInputs.bind(this);
   }
 
@@ -23,9 +25,17 @@ export default class FormWallet extends Component {
     this.setState({ [name]: value });
   }
 
-  // handleSubmitForm() {
+  async requestCoins() {
+    const endPoint = 'https://economia.awesomeapi.com.br/json/all';
+    const jsonObj = await (await fetch(endPoint)).json();
+    return jsonObj;
+  }
 
-  // }
+  async handleClick() {
+    const { saveExpenses, expenses } = this.props;
+    const returnApi = await this.requestCoins();
+    saveExpenses({ ...this.state, id: expenses.length, exchangeRates: returnApi });
+  }
 
   render() {
     const { coins } = this.props;
@@ -48,31 +58,31 @@ export default class FormWallet extends Component {
           />
           <SelectCoin
             id="3"
-            textLabel="Currency: "
+            textLabel="Moeda:"
             handleChange={ this.handleChangeInputs }
             nameSelect="currency"
             coins={ coins }
           />
           <label htmlFor="input-method">
             Método de pagamento
-            <select id="input-method">
-              <option value="dinheiro">Dinheiro</option>
-              <option value="cartao-credito">Cartão de crédito</option>
-              <option value="cartao-debito">Cartão de débito</option>
+            <select id="input-method" name="method" onChange={ this.handleChangeInputs }>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="input-tag">
             Tag
-            <select id="input-tag">
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
+            <select id="input-tag" name="tag" onChange={ this.handleChangeInputs }>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saude">Saúde</option>
             </select>
           </label>
-          <button type="button">Adicionar dispesa</button>
         </form>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </div>
     );
   }
@@ -82,4 +92,16 @@ FormWallet.propTypes = {
   coins: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,
+  saveExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveExpenses: (state) => dispatch(saveExpensesInState(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
