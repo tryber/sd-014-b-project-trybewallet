@@ -21,6 +21,7 @@ class AddForm extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handlerSubmit = this.handlerSubmit.bind(this);
   }
 
   // Com apoio do Lucas
