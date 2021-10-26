@@ -8,7 +8,7 @@ class InputSelect extends React.Component {
       <label htmlFor={ name }>
         { label }
         :
-        <select name="payment" id="payment">
+        <select name={ name } id={ name }>
           { data.map((item) => (<option key={ item } value={ item }>{ item }</option>)) }
         </select>
       </label>
