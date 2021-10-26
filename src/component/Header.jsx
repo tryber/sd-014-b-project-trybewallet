@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -19,6 +20,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  email: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
