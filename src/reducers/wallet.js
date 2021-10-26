@@ -1,13 +1,26 @@
-const INITIAL_STATE = {
-  total: 0,
-};
+const initialState = { currencies: [], expenses: [] };
 
-function wallet(state = INITIAL_STATE, action) {
+function wallet(state = initialState, action) {
   switch (action.type) {
-  case 'ADD_EXPENSE':
+  case 'EXPENSE':
     return {
       ...state,
-      total: 0,
+      expenses: [...state.expenses, action.value],
+    };
+  case 'REMOVE':
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.value.id),
+    };
+  case 'EDIT':
+    return {
+      ...state,
+      expenses: state.expenses.map((item) => {
+        if (item.id === action.value.id) {
+          item = { ...item, ...action.value };
+          return item;
+        } return item;
+      }),
     };
   default:
     return state;
