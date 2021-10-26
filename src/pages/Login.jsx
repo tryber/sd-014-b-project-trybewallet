@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { submitForm } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
 
     this.state = {
       email: '',
@@ -19,7 +15,7 @@ class Login extends React.Component {
     };
   }
 
-  handleChange({ target }) {
+  handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -36,7 +32,7 @@ class Login extends React.Component {
     });
   }
 
-  handlePassword({ target }) {
+  handlePassword = ({ target }) => {
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -52,6 +48,12 @@ class Login extends React.Component {
         });
       }
     });
+  }
+
+  handleClick = (callback, email) => {
+    const { history } = this.props;
+    callback({ email });
+    history.push('/carteira');
   }
 
   /*
@@ -92,11 +94,9 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ disabled }
-            onClick={ () => submit(email) }
+            onClick={ () => this.handleClick(submit, email) }
           >
-            <Link to="/carteira">
-              Entrar
-            </Link>
+            Entrar
           </button>
         </form>
       </div>
@@ -105,11 +105,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   submit: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispathc) => ({
-  submit: (state) => dispathc(submitForm(state)),
+const mapDispatchToProps = (dispatch) => ({
+  submit: (state) => dispatch(submitForm(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'SUBMIT':
-    return { email: action.state };
+    return action.state;
   default:
     return state;
   }
