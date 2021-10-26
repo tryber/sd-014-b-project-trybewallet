@@ -1,19 +1,18 @@
 import { GET_CURRENCIES, FAILED_REQUEST } from '../actions/apiAction';
-import { SET_WALLET } from '../actions';
+import { SET_EXPENSE } from '../actions';
 
 const INICIAL_STATE = {
   currencies: [],
   expenses: [],
   loading: true,
-  error: '',
 };
 
 const wallet = (state = INICIAL_STATE, action) => {
   switch (action.type) {
-  case SET_WALLET:
+  case SET_EXPENSE:
     return {
       ...state,
-      expenses: action.payload.expenses,
+      expenses: [...state.expenses, action.payload],
     };
   case GET_CURRENCIES:
     return {

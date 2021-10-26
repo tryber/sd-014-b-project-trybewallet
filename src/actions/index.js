@@ -1,5 +1,6 @@
 export const SET_LOGIN = 'SET_LOGIN';
 export const SET_WALLET = 'SET_WALLET';
+export const SET_EXPENSE = 'SET_EXPENSE';
 
 export const setLogin = (payload) => (
   {
@@ -7,8 +8,8 @@ export const setLogin = (payload) => (
   }
 );
 
-export const setWallet = (payload) => (
+export const setExpense = (payload) => (
   {
-    type: SET_WALLET, payload,
+    type: SET_EXPENSE, payload,
   }
 );
