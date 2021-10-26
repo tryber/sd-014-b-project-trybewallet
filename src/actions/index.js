@@ -3,8 +3,8 @@ import getCurrencyInfo from '../services/currencyAPI';
 export const SET_USER_EMAIL = 'SET_USER_EMAIL';
 export const SET_USER_PASSWORD = 'SET_USER_PASSWORD';
 export const RECEIVE_CURRENCIES_INFO = 'RECEIVE_CURRENCIES_INFO';
-export const RECEIVE_EXCHANGE_RATES_INFO = 'RECEIVE_EXCHANGE_RATES_INFO';
 export const SEND_EXAPENSES_INFO = 'SEND_EXPENSES_INFO';
+export const SET_TOTAL_EXPENSES = 'SET_TOTAL_EXPENSES';
 
 export const setUserEmail = (payload) => ({
   type: SET_USER_EMAIL,
@@ -17,10 +17,6 @@ export const setUserPassword = (payload) => ({
 
 export const receiveCurrenciesInfo = (payload) => ({
   type: RECEIVE_CURRENCIES_INFO,
-  payload,
-});
-export const receiveExchangeRatesInfo = (payload) => ({
-  type: RECEIVE_EXCHANGE_RATES_INFO,
   payload,
 });
 
@@ -36,9 +32,7 @@ export const sendExpensesInfo = (payload) => ({
   payload,
 });
 
-export const fetchExchangeRates = () => (dispatch) => {
-  getCurrencyInfo()
-    .then((exchangeRatesInfo) => {
-      dispatch(receiveExchangeRatesInfo(exchangeRatesInfo));
-    });
-};
+export const setTotalExpenses = (payload) => ({
+  type: SET_TOTAL_EXPENSES,
+  payload,
+});

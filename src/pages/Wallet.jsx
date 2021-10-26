@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies, fetchExchangeRates, sendExpensesInfo } from '../actions';
+import { fetchCurrencies, sendExpensesInfo, setTotalExpenses } from '../actions';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import { payMethods, tags } from '../helpers';
+import getCurrencyInfo from '../services/currencyAPI';
 
 class Wallet extends Component {
   constructor() {
@@ -14,7 +15,6 @@ class Wallet extends Component {
     this.handleButtonClick = this.handleButtonClick.bind(this);
 
     this.state = {
-      // currentExpense: [],
       totalExpenses: 0,
       value: '',
       description: '',
@@ -36,15 +36,17 @@ class Wallet extends Component {
     });
   }
 
-  handleButtonClick() {
-    const { fetchExchangeRatesToProps, sendExpansesToProps } = this.props;
-    fetchExchangeRatesToProps();
-    sendExpansesToProps(this.state);
+  async handleButtonClick() {
+    const { expenses, sendExpensesToProps, addTotalExpenses } = this.props;
+    const { value } = this.state;
+    const response = await getCurrencyInfo();
+    sendExpensesToProps({ ...this.state, id: expenses.length, exchangeRates: response });
+    addTotalExpenses(value);
   }
 
   render() {
-    const { props: { userEmail, walletCurrencies }, state: {
-      totalExpenses, initialCurrency, value, description, currency, method, tag },
+    const { props: { userEmail, walletCurrencies, totalExpenses }, state: {
+      initialCurrency, value, description, currency, method, tag },
     handleInputChange, handleButtonClick } = this;
     return (
       <section>
@@ -94,22 +96,28 @@ class Wallet extends Component {
 }
 
 Wallet.propTypes = {
+  expenses: PropTypes.shape({
+    length: PropTypes.number,
+  }).isRequired,
   fetchCurrenciesToProps: PropTypes.func.isRequired,
-  fetchExchangeRatesToProps: PropTypes.func.isRequired,
-  sendExpansesToProps: PropTypes.func.isRequired,
+  sendExpensesToProps: PropTypes.func.isRequired,
+  addTotalExpenses: PropTypes.func.isRequired,
   userEmail: PropTypes.string.isRequired,
   walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  totalExpenses: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   walletCurrencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  totalExpenses: state.wallet.totalExpenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrenciesToProps: () => dispatch(fetchCurrencies()),
-  fetchExchangeRatesToProps: () => dispatch(fetchExchangeRates()),
-  sendExpansesToProps: (expenses) => dispatch(sendExpensesInfo(expenses)),
+  sendExpensesToProps: (expenses) => dispatch(sendExpensesInfo(expenses)),
+  addTotalExpenses: (totalExpenses) => dispatch(setTotalExpenses(totalExpenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
