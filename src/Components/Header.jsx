@@ -8,12 +8,11 @@ class Header extends React.Component {
     if (expenses.length === 0) {
       return 0;
     }
-    // usar o reduce foi dica Leomar
     const reducerExpences = expenses.reduce((acc, curr) => {
-      const { value } = curr.value;
+      const { value } = curr;
       const coin = curr.currency;
-      const { ask } = curr.exchangeRates[coin].ask;
-      const total = value * ask;
+      const takeAsk = curr.exchangeRates[coin].ask;
+      const total = value * takeAsk;
       acc += total;
       return acc;
     }, 0);

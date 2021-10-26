@@ -8,7 +8,6 @@ const initialState = {
 };
 
 const wallet = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
   case CURRENCIES:
     return ({
