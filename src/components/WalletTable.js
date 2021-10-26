@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { removeExpense } from '../actions';
 
 const tableHeader = ['Descrição',
   'Tag',
@@ -12,13 +13,12 @@ const tableHeader = ['Descrição',
   'Editar/Excluir',
 ];
 
-const handleClick = (id) => {
-  console.log(id);
-};
-
 class WalletTable extends Component {
   render() {
-    const { expensesFromGlobalState } = this.props;
+    const { expensesFromGlobalState, idToBeDispatched } = this.props;
+    const handleClick = (id) => {
+      idToBeDispatched(id);
+    };
     return ( // adaptado do site https://edrodrigues.com.br/blog/criando-tabelas-com-filtros-%E2%80%8B%E2%80%8Busando-react/
       <table border="1">
         { /* https://web.fe.up.pt/~goii2000/M7/T2_tabela.htm */ }
@@ -42,7 +42,11 @@ class WalletTable extends Component {
                 <td>{(expense.value * ask).toFixed(2)}</td>
                 <td>Real</td>
                 <td>
-                  <button type="button" onClick={ () => handleClick(expense.id) }>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => handleClick(expense.id) }
+                  >
                     Excluir
                   </button>
                 </td>
@@ -57,6 +61,7 @@ class WalletTable extends Component {
 
 WalletTable.propTypes = {
   expensesFromGlobalState: PropTypes.arrayOf(PropTypes.object).isRequired,
+  idToBeDispatched: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => (
@@ -65,4 +70,10 @@ const mapStateToProps = (state) => (
   }
 );
 
-export default connect(mapStateToProps)(WalletTable);
+const mapDispatchToProps = (dispatch) => (
+  {
+    idToBeDispatched: (id) => dispatch(removeExpense(id)),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);
