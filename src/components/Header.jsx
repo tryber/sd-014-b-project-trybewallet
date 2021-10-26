@@ -9,8 +9,8 @@ class Header extends React.Component {
       <hearder>
         <h4>TrybeWallet</h4>
         <p data-testid="email-field">{userEmail}</p>
-        <p data-testid="total-field">{userEmail}</p>
-        <p data-testid="header-currency-field">{userEmail}</p>
+        <p data-testid="total-field">0</p>
+        <p data-testid="header-currency-field">BRL</p>
       </hearder>
     );
   }
