@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import getTotalExpenses from '../wallet';
+import getArraySum from '../utils/arrays';
 
 class Header extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class Header extends React.Component {
         <div>
           Despesa Total:
           {' '}
-          <span data-testid="total-field">{ getTotalExpenses(expenses) }</span>
+          <span data-testid="total-field">{ getArraySum(expenses) }</span>
           {' '}
           <span data-testid="header-currency-field">BRL</span>
         </div>

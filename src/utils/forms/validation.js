@@ -1,6 +1,7 @@
 // Adapted from this Stack Overflow answer: https://stackoverflow.com/a/9204568
 export function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   return regex.test(String(email).toLowerCase());
 }
 

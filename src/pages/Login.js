@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../actions';
-import { isValidEmail, isValidPassword } from '../validation';
+import { isValidEmail, isValidPassword } from '../utils/forms/validation';
 
 class Login extends React.Component {
   constructor(props) {
