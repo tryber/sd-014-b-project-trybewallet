@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { exchangeCoins } from '../actions';
+import { exchangeCoins } from '../actions'; 
 import Select from '../components/Select';
 import Input from '../components/Input';
 
@@ -30,7 +30,7 @@ class AddExpensive extends Component {
     this.fetchCurrency();
   }
 
-  async handleClick() {
+    async handleClick() {
     const {
       value,
       description,
@@ -45,6 +45,7 @@ class AddExpensive extends Component {
     this.setState((prev) => ({
       id: prev.id + 1,
     }));
+
     const addExpense = {
       value, description, id, exchangeRates, currency, method, tag,
     };
