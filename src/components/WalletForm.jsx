@@ -34,12 +34,18 @@ class WalletForm extends React.Component {
 
   onSubmit() {
     const { dispatchExpense, valor } = this.props;
-    const { id, total } = this.state;
+    const { id,
+      total,
+      description,
+      exchangeRates,
+      value, method, tag, currency } = this.state;
     this.setState({
       id: id + 1,
       total: total + valor,
     });
-    dispatchExpense(this.state);
+    const ao = { id, description, value, method, tag, currency, exchangeRates };
+    console.log(ao);
+    dispatchExpense(ao);
   }
 
   async getcurrencies() {

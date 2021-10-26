@@ -2,6 +2,7 @@ import { SET_LOGIN } from '../actions';
 
 const INICIAL_STATE = {
   email: '',
+  total: 0,
 };
 
 const user = (state = INICIAL_STATE, action) => {
@@ -10,6 +11,7 @@ const user = (state = INICIAL_STATE, action) => {
     return {
       ...state,
       email: action.payload.email,
+      total: action.payload.total,
     };
   default:
     return state;
