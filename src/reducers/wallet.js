@@ -1,42 +1,55 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import {
-  EDIT_EXPENSE,
-  SUBMIT_CURRENCIES,
-  SUBMIT_EXPENSE,
-  UPDATE_EXPENSES,
-} from '../actions';
+import { ADD_EXPENSE, EDIT_EXPENSE, GET_CURRENCIES,
+  REMOVE_EXPENSE, REQUEST_ERROR, UPDATE_EDITED_EXPENSE } from '../actions';
 
-const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-    editor: false,
-  },
+const INITIAL_STATE = {
+  currencies: [],
+  expenses: [],
+  exchangeRates: {},
+  error: '',
+  isEditing: false,
+  expenseToBeEdited: {},
 };
 
-const wallet = (state = initialState, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SUBMIT_CURRENCIES:
+  case GET_CURRENCIES:
     return {
       ...state,
-      currencies: action.currencies,
+      currencies: Object.keys(action.payload)
+        .filter((currencyCode) => currencyCode !== 'USDT'),
+      exchangeRates: action.payload,
     };
-  case SUBMIT_EXPENSE:
+  case REQUEST_ERROR:
     return {
       ...state,
-      expenses: [...state.expenses, action.expense],
+      error: action.error,
     };
-  case UPDATE_EXPENSES:
+  case ADD_EXPENSE:
     return {
       ...state,
-      expenses: action.expenses,
-      editor: false,
+      expenses: [...state.expenses, action.payload],
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense.id !== action.payload)],
     };
   case EDIT_EXPENSE:
     return {
       ...state,
-      editor: true,
-      idToEdit: action.expenseId,
+      isEditing: true,
+      expenseToBeEdited: state.expenses.find((expense) => expense.id === action.payload),
+    };
+  case UPDATE_EDITED_EXPENSE:
+    return {
+      ...state,
+      isEditing: false,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === action.payload.id) {
+          return action.payload;
+        }
+        return expense;
+      }),
     };
   default:
     return state;
