@@ -1,41 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
+import { loadExpense, fetchCurrencies } from '../actions';
 // Formulario baseado em https://pt-br.reactjs.org/docs/forms.html
+// Formato de String
+const paymentMethodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
-const paymentMethodOptions = [
-  { money: 'Dinheiro' },
-  { credit: 'Cartão de crédito' },
-  { debit: 'Cartão de débito' },
-];
-
-const categoryOptions = [
-  { meals: 'Alimentação' },
-  { leisure: 'Lazer' },
-  { work: 'Trabalho' },
-  { transportation: 'Transporte' },
-  { health: 'Saúde' },
-];
+const categoryOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
+    const { currencies } = props;
+
     this.state = {
-      expenditure: 0,
-      description: '',
-      currency: '',
-      method: '',
-      category: '',
+      value: 2,
+      description: 'OMG',
+      currency: 'USD',
+      method: 'money',
+      tag: 'meals',
+      exchangeRates: currencies,
     };
 
     this.changeStateAndElementValue = this.changeStateAndElementValue.bind(this);
     this.createOptions = this.createOptions.bind(this);
+    this.stateToExpenses = this.stateToExpenses.bind(this);
   }
 
   componentDidMount() {
-    const { callFetchCurrencies } = this.props;
+    const {
+      props: { callFetchCurrencies },
+    } = this;
     callFetchCurrencies();
   }
 
@@ -55,18 +51,30 @@ class Form extends React.Component {
         >
           { source.map((option) => (
             <option
-              key={ Object.keys(option)[0] }
-              value={ Object.keys(option)[0] }
+              key={ option }
+              value={ option }
             >
-              { Object.values(option)[0] }
+              { option }
             </option>))}
         </select>
       </label>
     );
   }
 
+  async stateToExpenses() {
+    const {
+      props: { id, dispatchToExpenses, callFetchCurrencies },
+    } = this;
+
+    await callFetchCurrencies();
+    const { currencies } = this.props;
+    this.setState({ id: id(), exchangeRates: currencies }, () => {
+      dispatchToExpenses(this.state);
+    });
+  }
+
   render() {
-    const { createOptions, changeStateAndElementValue, state,
+    const { createOptions, changeStateAndElementValue, state, stateToExpenses,
       props: { currencies } } = this;
     const arrayKey = Object.keys(state);
     const arrayValue = Object.values(state);
@@ -74,9 +82,8 @@ class Form extends React.Component {
       .keys(currencies)
       .filter((currency) => currency !== 'USDT');
 
-    const currencyOptions = currenciesAPI.map((filteredCurrency) => (
-      { [filteredCurrency]: filteredCurrency }
-    ));
+    const currencyOptions = currenciesAPI
+      .map((filteredCurrency) => (filteredCurrency));
 
     return (
       <form>
@@ -100,22 +107,34 @@ class Form extends React.Component {
         { createOptions(arrayKey[2], 'Moeda', currencyOptions) }
         { createOptions(arrayKey[3], 'Método de pagamento', paymentMethodOptions) }
         { createOptions(arrayKey[4], 'Tag', categoryOptions) }
+        <button type="button" onClick={ stateToExpenses }>Adicionar despesa</button>
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  currencies: state.wallet.currencies,
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+  id: () => {
+    let output = 0;
+    if (wallet.expenses.length > 0) {
+      output = wallet.expenses.length;
+    }
+    return output;
+  },
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  callFetchCurrencies: () => dispatch(fetchCurrencies()),
-});
+function mapDispatchToProps(dispatch) {
+  return ({
+    callFetchCurrencies: () => dispatch(fetchCurrencies()),
+    dispatchToExpenses: (formState) => dispatch(loadExpense(formState)),
+  });
+}
 
 Form.propTypes = {
-  email: PropTypes.string,
+  callFetchCurrencies: PropTypes.func,
+  id: PropTypes.number,
+  currencies: PropTypes.object,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

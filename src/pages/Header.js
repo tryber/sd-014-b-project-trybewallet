@@ -7,13 +7,40 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      total: 0,
       currency: 'BRL',
     };
+    this.getTotal = this.getTotal.bind(this);
+  }
+
+  getTotal() {
+    const {
+      props: { expenses },
+    } = this;
+
+    let output = 0;
+    const INDEX = 3;
+
+    if (expenses.length > 0) {
+      output = expenses
+        .map(({ value, currency, exchangeRates }) => value * exchangeRates[currency].ask)
+        .reduce((amount, index) => amount + index);
+    }
+    output = new Intl
+      .NumberFormat([], { style: 'currency', currency: 'BRL' })
+      .format(output);
+    output = output.slice(INDEX).replace(',', '.');
+
+    return output;
   }
 
   render() {
-    const { state: { total, currency }, props: { email } } = this;
+    const {
+      getTotal,
+      state: { currency },
+      props: { email },
+    } = this;
+
+    const total = getTotal();
     return (
       <div>
         <p data-testid="email-field">{ email }</p>
@@ -24,12 +51,14 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
+const mapStateToProps = ({ user, wallet }) => ({
+  email: user.email,
+  expenses: wallet.expenses,
 });
 
 Header.propTypes = {
   email: PropTypes.string,
+  expenses: PropTypes.array,
 }.isRequired;
 
 export default connect(mapStateToProps, null)(Header);

@@ -8,6 +8,7 @@ export const getUserInfo = (userInfo) => ({
 
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVED_CURRENCIES = 'RECEIVED_CURRENCIES';
+export const LOAD_EXPENSE = 'LOAD_EXPENSE';
 
 export const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
@@ -24,3 +25,10 @@ export const fetchCurrencies = () => (dispatch) => {
     .then((response) => response.json())
     .then((currencies) => dispatch(receiveCurrencies(currencies)));
 };
+
+export const loadExpense = (
+  { id, value, description, currency, method, tag, exchangeRates },
+) => ({
+  type: LOAD_EXPENSE,
+  formState: { id, value, description, currency, method, tag, exchangeRates },
+});
