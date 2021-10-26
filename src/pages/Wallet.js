@@ -1,51 +1,113 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Form from '../components/Form';
+import Input from '../components/Input';
 import Header from '../components/Header';
-import { submitCurrencies } from '../actions';
+import TextArea from '../components/TextArea';
+import { resultAPI, currenciResult } from '../actions';
+import Select from '../components/Select';
+
+const metodoPagamento = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
+      id: 0,
+      value: '0',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
-    this.requestApiCurrencies = this.requestApiCurrencies.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.requestApiCurrencies();
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
-  async requestApiCurrencies() {
-    const { getCurrencies } = this.props;
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-    const result = await fetch(URL);
-    const data = await result.json();
-    getCurrencies(data);
-    delete data.USDT;
-    this.setState({ loading: false });
+  handleClick() {
+    const { setExpenses } = this.props;
+    this.setState((prev) => ({
+      id: prev.id + 1,
+    }));
+    setExpenses(this.state);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+    console.log(name, value);
   }
 
   render() {
-    const { loading } = this.state;
+    const { value, description, currency, method, tag } = this.state;
+    const { currencies } = this.props;
     return (
       <div>
         <Header />
-        {loading
-          ? <h1>Carregando...</h1>
-          : <Form />}
+        <form>
+          <Input
+            label="Valor"
+            id="Valor"
+            type="text"
+            name="value"
+            value={ value }
+            onChange={ this.handleChange }
+          />
+          <TextArea
+            label="Descrição"
+            id="description"
+            name="description"
+            value={ description }
+            onChange={ this.handleChange }
+          />
+          <Select
+            array={ currencies }
+            label="Moeda"
+            id="moeda"
+            name="currency"
+            value={ currency }
+            onChange={ this.handleChange }
+          />
+          <Select
+            array={ metodoPagamento }
+            label="Método de pagamento"
+            id="method"
+            name="method"
+            value={ method }
+            onChange={ this.handleChange }
+          />
+          <Select
+            array={ category }
+            label="Tag"
+            id="tag"
+            name="tag"
+            value={ tag }
+            onChange={ this.handleChange }
+          />
+        </form>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </div>);
   }
 }
 
 Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
+  currencies: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: (currencies) => dispatch(submitCurrencies(currencies)),
+  getCurrencies: () => dispatch(currenciResult()),
+  setExpenses: (state) => dispatch(resultAPI(state)),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

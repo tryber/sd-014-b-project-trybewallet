@@ -3,12 +3,12 @@ import React from 'react';
 
 class Input extends React.Component {
   render() {
-    const { type, name, label, value, onChange, className } = this.props;
+    const { id, type, name, label, value, onChange, className } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label htmlFor={ id }>
         {label}
         <input
-          id={ name }
+          id={ id }
           type={ type }
           name={ name }
           value={ value }
@@ -26,6 +26,7 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
+  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
