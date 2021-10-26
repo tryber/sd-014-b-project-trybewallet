@@ -1,10 +1,8 @@
 import { REQUEST_USER, SAVE_USER } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    senha: '',
-  },
+  email: '',
+  pass: '',
 };
 
 function user(state = INITIAL_STATE, action) {
@@ -12,7 +10,10 @@ function user(state = INITIAL_STATE, action) {
   case REQUEST_USER:
     return state;
   case SAVE_USER:
-    return action.value;
+    return {
+      email: action.value.email,
+      pass: action.value.pass,
+    };
   default:
     return state;
   }
