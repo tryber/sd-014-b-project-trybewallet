@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  width: 200px;
+}
+
+.form-login {
+  margin: auto;
+}
+
+.input {
+  display: inline-block;
+  margin: 10px;
+}
