@@ -35,8 +35,9 @@ class Login extends React.Component {
 
     return (
       <main>
-        <h2>Login</h2>
+        <h1>TrybeWallet</h1>
         <div>
+          <h2>Login</h2>
           <form onSubmit={ this.handleSubmit }>
             <input
               type="email"
@@ -60,13 +61,6 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  dispatchUpdateUserInfo: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
-
 function mapDispatchToProps(dispatch) {
   return {
     dispatchUpdateUserInfo: (userInfo) => dispatch(updateUserInfo(userInfo)),
@@ -74,3 +68,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  dispatchUpdateUserInfo: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
