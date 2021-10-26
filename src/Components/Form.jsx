@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Table from './Table';
 import { addExpense as addExpenseAction,
   editExpense as editExpenseAction } from '../actions';
-import Header from './Header';
 
 class Form extends React.Component {
   constructor(props) {
@@ -156,11 +155,9 @@ class Form extends React.Component {
   }
 
   render() {
-    const { email, total } = this.props;
     const { edit } = this.state;
     return (
       <div>
-        <Header email={ email } total={ total } />
         <form action="">
           { this.seila() }
           { this.moedas() }
@@ -190,8 +187,6 @@ class Form extends React.Component {
 Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 const calculateTotal = (state) => {
