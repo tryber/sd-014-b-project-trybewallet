@@ -23,7 +23,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [
         ...state.expenses,
-        { id: state.expenses.length, // refact para index(test)
+        { id: state.expenses.length,
           value: action.payload.valor,
           description: action.payload.descricao,
           currency: action.payload.moeda,

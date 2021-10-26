@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    // cria state com valor inicial
-    // percorrer expenses
-    // fazer a conta
-    // passa valor pelo setstate
-    // passar os dois strings para Number
+    const { user, expenses } = this.props;
 
-    const { user } = this.props;
+    const totalExpense = expenses
+      ? expenses
+        .reduce((acc, { value, currency, exchangeRates }) => acc + value
+          * exchangeRates[currency].ask, 0) : 0;
+
     return (
       <header>
         <p data-testid="email-field">
           { user }
         </p>
         <p data-testid="total-field">
-          0
+          { totalExpense.toFixed(2) }
         </p>
         <p data-testid="header-currency-field">
           BRL
@@ -29,6 +29,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   user: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

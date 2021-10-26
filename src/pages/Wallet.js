@@ -10,9 +10,9 @@ class Wallet extends React.Component {
     this.state = {
       valor: '',
       descricao: '',
-      moeda: 'USD',
-      pagamento: 'dinheiro',
-      tag: 'alimentação',
+      moeda: '',
+      method: '',
+      tag: '',
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -29,16 +29,15 @@ class Wallet extends React.Component {
   }
 
   async handleClick() {
-    const { valor, descricao, moeda, pagamento, tag } = this.state;
+    const { valor, descricao, moeda, method, tag } = this.state;
     const { saveMoney } = this.props;
-
     const requestAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await requestAPI.json();
     const expenseObj = {
       valor,
       descricao,
       moeda,
-      pagamento,
+      pagamento: method,
       tag,
       response,
     };
@@ -56,7 +55,8 @@ class Wallet extends React.Component {
   // eslint-disable-next-line max-lines-per-function
   render() {
     const { currencies } = this.props;
-    const { valor, descricao } = this.state;
+    const { valor, descricao, tag, method } = this.state;
+    console.log(method);
 
     return (
       <section>
@@ -93,22 +93,22 @@ class Wallet extends React.Component {
               ))}
             </select>
           </label>
-          <label htmlFor="pagamento">
-            Método de Pagamento
-            <select id="pagamento" onChange={ this.handleChange }>
-              <option value="dinheiro"> Dinheiro </option>
-              <option value="cartão de  crédito"> Cartão de Crédito </option>
-              <option value="cartão de débito"> Cartão de Débito </option>
+          <label htmlFor="method">
+            método de pagamento
+            <select id="method" value={ method } onChange={ this.handleChange }>
+              <option name="method" value="Dinheiro"> Dinheiro </option>
+              <option name="method" value="Cartão de crédito"> Cartão de crédito </option>
+              <option name="method" value="Cartão de débito"> Cartão de débito </option>
             </select>
           </label>
           <label htmlFor="tag">
-            Tag
-            <select id="tag" onChange={ this.handleChange }>
-              <option value="alimentação"> Alimentação </option>
-              <option value="lazer"> Lazer </option>
-              <option value="trabalho"> Trabalho </option>
-              <option value="transporte"> Transporte </option>
-              <option value="saúde"> Saúde </option>
+            tag
+            <select id="tag" value={ tag } onChange={ this.handleChange }>
+              <option> Alimentação </option>
+              <option> Lazer </option>
+              <option> Trabalho </option>
+              <option> Transporte </option>
+              <option> Saúde </option>
             </select>
           </label>
         </form>
