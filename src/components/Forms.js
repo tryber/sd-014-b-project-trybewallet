@@ -53,15 +53,15 @@ class Forms extends Component {
   }
 
   async handleClick() {
-    const { id, value } = this.state;
+    const { currency, value } = this.state;
     const { addExpense } = this.props;
-    console.log(id);
     const response = await currencyAPI();
-    console.log(response);
+    const calcCode = Object.values(response).find((coin) => coin.code === currency);
+    const expenses = parseFloat(value) * calcCode.ask;
     this.setState((prevState) => ({
       id: prevState.id + 1,
       exchangeRates: response,
-      totalExpenses: parseFloat(prevState.totalExpenses) + parseFloat(value),
+      totalExpenses: parseFloat(prevState.totalExpenses) + parseFloat(expenses),
     }));
     addExpense(this.state);
   }
