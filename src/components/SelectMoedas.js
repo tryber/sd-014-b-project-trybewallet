@@ -23,7 +23,7 @@ class SelectMoedas extends React.Component {
         Moeda
         <select
           value={ value }
-          id="moedas"
+          id="moeda"
           name={ name }
           onChange={ onChange }
         >

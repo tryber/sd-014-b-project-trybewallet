@@ -17,9 +17,9 @@ class Wallet extends React.Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
   }
@@ -33,7 +33,7 @@ class Wallet extends React.Component {
   }
 
   async clicou() {
-    const { adcDespesa, despesaTotal, somaTotal } = this.props;
+    const { adcDespesa } = this.props;
     const { value, description, currency, method, tag, id } = this.state;
     this.setState((prevState) => ({
       id: prevState.id + 1,
@@ -48,8 +48,6 @@ class Wallet extends React.Component {
       exchangeRates: await apiExchange(),
     }];
     adcDespesa(infDespesa);
-    const totalDespesas = parseFloat(despesaTotal) + parseFloat(value);
-    somaTotal(totalDespesas);
   }
 
   render() {
@@ -68,9 +66,9 @@ class Wallet extends React.Component {
             onChange={ this.handleTextAreaChange }
           />
           <Input
-            label="descricao"
+            label="descrição"
             value={ description }
-            id="descricao"
+            id="descrição"
             name="description"
             onChange={ this.handleTextAreaChange }
           />
@@ -88,7 +86,7 @@ class Wallet extends React.Component {
             options={ arrayMetodoDePagamento }
           />
           <Select
-            label="Tag"
+            label="tag"
             value={ tag }
             id="tag"
             name="tag"
@@ -106,8 +104,6 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   adcDespesa: PropTypes.func.isRequired,
-  despesaTotal: PropTypes.string.isRequired,
-  somaTotal: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
