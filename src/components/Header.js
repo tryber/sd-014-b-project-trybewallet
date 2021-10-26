@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
+    // cria state com valor inicial
+    // percorrer expenses
+    // fazer a conta
+    // passa valor pelo setstate
+    // passar os dois strings para Number
+
     const { user } = this.props;
     return (
       <header>
@@ -27,6 +33,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);
