@@ -6,14 +6,29 @@ import { getCurrenciesApiThunk } from '../actions/currencies';
 import Select from '../components/Select';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currency: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   componentDidMount() {
     const { setCurrencies } = this.props;
     setCurrencies();
   }
 
-  // c !== 'USDT'
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
 
   render() {
+    const { currency } = this.state;
     const { currencies, isLoading } = this.props;
     return isLoading ? <Header />
       : (
@@ -23,8 +38,11 @@ class Wallet extends React.Component {
             <Select
               nameLabel="Moedas"
               id="currencies"
+              name="currency"
+              value={ currency }
+              onChange={ this.handleChange }
               arrOptions={ currencies }
-              defaultOption="Selecione"
+              defaultOption="Moeda"
             />
           </form>
         </>
