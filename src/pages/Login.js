@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { saveUserData } from '../actions';
+import { user } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -21,8 +21,8 @@ class Login extends React.Component {
 
   handleClick() {
     const { history, saveLoginAndPassword } = this.props;
-    const { login, password } = this.state;
-    saveLoginAndPassword(login, password);
+    const { email } = this.state;
+    saveLoginAndPassword(email);
     history.push('/carteira');
   }
 
@@ -63,11 +63,9 @@ class Login extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    saveLoginAndPassword: (login, password) => dispatch(saveUserData(login, password)),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  saveLoginAndPassword: (payload) => dispatch(user(payload)),
+});
 
 Login.propTypes = {
   history: PropTypes.shape({
