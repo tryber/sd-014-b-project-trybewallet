@@ -1,6 +1,7 @@
 export const USER = 'USER';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const SEND_EXPENSES = 'SEND_EXPENSES';
 
 export const userAction = (payload) => ({
   type: USER,
@@ -28,3 +29,8 @@ export function fetchCurrency() {
     }
   };
 }
+
+export const saveExpenses = (payload) => ({
+  type: SEND_EXPENSES,
+  payload,
+});

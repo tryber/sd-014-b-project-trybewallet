@@ -1,21 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { saveExpenses } from '../actions/index';
 
 class Forms extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+    this.addMoeda = this.addMoeda.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   addMoeda() {
-    const { currency } = this.props;
-    console.log(currency);
-    if (currency === undefined) {
+    const { currencies } = this.props;
+    const { currency } = this.state;
+    if (currencies === undefined) {
       return 'nao retornou dados da API';
     }
-    const filterCurrency = Object.keys(currency)
+    const filterCurrency = Object.keys(currencies)
       .filter((filtered) => filtered !== 'USDT');
-    console.log(filterCurrency);
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda
-        <select id="moeda" value="moeda">
+        <select id="currency" value={ currency } onChange={ this.handleChange }>
           { filterCurrency.map((coin) => (
             <option
               key={ coin }
@@ -28,29 +43,50 @@ class Forms extends React.Component {
     );
   }
 
+  handleChange({ target: { id, value } }) {
+    this.setState({
+      [id]: value,
+    });
+  }
+
+  handleClick() {
+    const { id, value, description, currency, method, tag } = this.state;
+    const { currencies, sendExpenses } = this.props;
+    const allExpenses = {
+      id, value, description, currency, method, tag, exchangeRates: currencies,
+    };
+    sendExpenses(allExpenses);
+    this.setState((previousState) => ({
+      id: previousState.id + 1,
+    }));
+  }
+
   render() {
+    const { value, description, method, tag } = this.state;
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
           <input
             type="text"
-            id="valor"
-            name="valor"
+            id="value"
+            value={ value }
+            onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="descrição">
+        <label htmlFor="description">
           Descrição
           <input
             type="text"
-            id="descrição"
-            name="descrição"
+            id="description"
+            value={ description }
+            onChange={ this.handleChange }
           />
         </label>
         {this.addMoeda()}
-        <label htmlFor="pagamento">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="pagamento" name="pagamento">
+          <select id="method" value={ method } onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Credito">Cartão de crédito</option>
             <option value="Debito">Cartão de débito</option>
@@ -58,7 +94,7 @@ class Forms extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag" name="tag">
+          <select id="tag" value={ tag } onChange={ this.handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -66,19 +102,27 @@ class Forms extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <button type="button" onClick={ this.handleClick }>
+          Adicionar Despesas
+        </button>
       </form>
     );
   }
 }
 
 Forms.propTypes = {
-  currency: PropTypes.string.isRequired,
+  currencies: PropTypes.string.isRequired,
+  sendExpenses: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    currency: state.currencyReducer.currency,
+    currencies: state.currencyReducer.currencies,
   };
 }
 
-export default connect(mapStateToProps)(Forms);
+const mapDispatchToProps = (dispatch) => ({
+  sendExpenses: (rates) => dispatch(saveExpenses(rates)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

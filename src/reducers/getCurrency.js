@@ -1,7 +1,7 @@
 import { GET_CURRENCY, FAILED_REQUEST } from '../actions/index';
 
 const INITIAL_STATE = {
-  currency: {},
+  currencies: {},
   error: '',
 };
 
@@ -10,7 +10,7 @@ function currencyReducer(state = INITIAL_STATE, action) {
   case GET_CURRENCY:
     return {
       ...state,
-      currency: action.payload,
+      currencies: action.payload,
     };
   case FAILED_REQUEST:
     return {
