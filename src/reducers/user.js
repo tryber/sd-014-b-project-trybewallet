@@ -1,7 +1,13 @@
 import { SAVE_USER_DATA } from '../actions';
 
 const INICIAL_STATE = {
-  email: '',
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
 };
 
 function user(state = INICIAL_STATE, action) {
