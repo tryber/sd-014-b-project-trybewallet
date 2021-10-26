@@ -10,6 +10,7 @@ class Header extends Component {
         <span data-testid="email-field">{ email }</span>
         <p data-testid="total-field">0</p>
         <span data-testid="header-currency-field">BRL</span>
+        <p data-testid="total-field">xxx</p>
       </header>
     );
   }

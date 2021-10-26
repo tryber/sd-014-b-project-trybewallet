@@ -13,7 +13,7 @@
 @media ( prefers-reduced-motion : no-preference ) {
 
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin App-logo-scale 20s linear;
   }
 }
 
@@ -40,5 +40,16 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-scale {
+
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(100%);
   }
 }

@@ -19,13 +19,3 @@ const user = (state = INITIAL_STATE, action) => {
 };
 
 export default user;
-
-/* {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: []
-  }
-} */
