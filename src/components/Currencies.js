@@ -1,31 +1,37 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Currencies extends Component {
+class Currencies extends Component {
   render() {
-    const { value, handleChange, id, label, name, options } = this.props;
+    const { options, label, id, value, onChange: handleChange } = this.props;
     return (
-      <label htmlFor={ id }>
-        { label }
-        <select id={ id } onChange={ handleChange } name={ name } value={ value }>
-          {options.map((currency, i) => (
-            <option key={ i } value={ currency }>
-              {currency}
-            </option>
-          ))}
-        </select>
-      </label>
+      <form className="input-info">
+        <label htmlFor={ id }>
+          { label }
+          <select
+            name={ id }
+            id={ id }
+            value={ value }
+            onChange={ handleChange }
+          >
+            { options.map((item) => (
+              <option key={ item }>
+                {item}
+              </option>
+            )) }
+          </select>
+        </label>
+      </form>
     );
   }
 }
 
 Currencies.propTypes = {
-  options: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
-  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
+
+export default Currencies;

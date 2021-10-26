@@ -48,7 +48,7 @@ class Expenses extends Component {
     this.setState({
       value: '',
       description: '',
-      currency: ' ',
+      currency: '',
       method: '',
       tag: '',
     });
@@ -64,7 +64,7 @@ class Expenses extends Component {
       <form>
         <Input
           label="Valor:"
-          type="text"
+          type="number"
           id="input-value"
           name="value"
           value={ value }
@@ -80,10 +80,10 @@ class Expenses extends Component {
         />
         <Currencies
           label="Moeda:"
-          id="input-currency"
+          id="currency"
           value={ currency }
           options={ displayCurrencies }
-          handleChange={ handleChange }
+          onChange={ handleChange }
         />
         <Select
           label="Método de pagamento"
