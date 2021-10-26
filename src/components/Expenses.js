@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Expenses extends Component {
   render() {
+    const { xablau } = this.props;
+
     return (
       <form>
         <label htmlFor="value">
@@ -14,7 +17,9 @@ class Expenses extends Component {
         </label>
         <label htmlFor="currency">
           Moeda
-          <select name="currency" id="currency">{}</select>
+          <select name="currency" id="currency">
+            { xablau.map((xablaus, index) => <option key={ index }>{ xablaus }</option>)}
+          </select>
         </label>
         <label htmlFor="payment-method">
           Método de pagamento
@@ -38,5 +43,11 @@ class Expenses extends Component {
     );
   }
 }
+
+Expenses.propTypes = {
+  xablau: PropTypes.arrayOf(
+    PropTypes.string,
+  ).isRequired,
+};
 
 export default Expenses;
