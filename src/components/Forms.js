@@ -49,11 +49,13 @@ class Forms extends React.Component {
     });
   }
 
-  handleClick() {
+  async handleClick() {
     const { id, value, description, currency, method, tag } = this.state;
-    const { currencies, sendExpenses } = this.props;
+    const { sendExpenses } = this.props;
+    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const fetchApiJson = await fetchApi.json();
     const allExpenses = {
-      id, value, description, currency, method, tag, exchangeRates: currencies,
+      id, value, description, currency, method, tag, exchangeRates: fetchApiJson,
     };
     sendExpenses(allExpenses);
     this.setState((previousState) => ({
@@ -87,9 +89,9 @@ class Forms extends React.Component {
         <label htmlFor="method">
           Método de pagamento
           <select id="method" value={ method } onChange={ this.handleChange }>
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Credito">Cartão de crédito</option>
-            <option value="Debito">Cartão de débito</option>
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
