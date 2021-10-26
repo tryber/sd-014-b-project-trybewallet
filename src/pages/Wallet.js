@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchAPI } from '../actions';
 import AddForm from '../componets/AddForm';
 import HeaderWallet from '../componets/HeaderWallet';
+import DataTable from '../componets/DataTable';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class Wallet extends React.Component {
       <div>
         <HeaderWallet />
         <AddForm />
+        <DataTable />
       </div>
     );
   }
