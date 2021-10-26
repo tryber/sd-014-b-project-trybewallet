@@ -65,7 +65,7 @@ class Form extends React.Component {
     return (
       <>
         <label htmlFor="valor">
-          Valor:
+          Valor
           <input
             type="text"
             id="valor"
@@ -91,7 +91,7 @@ class Form extends React.Component {
     const { tag } = this.state;
     return (
       <label htmlFor="tag">
-        Tag:
+        Tag
         <select
           name="tag"
           id="tag"
@@ -112,7 +112,7 @@ class Form extends React.Component {
     const { method } = this.state;
     return (
       <label htmlFor="payment">
-        Método de Pagamento:
+        Método de Pagamento
         {' '}
         <select
           name="payment"
@@ -134,7 +134,7 @@ class Form extends React.Component {
       const keys = Object.keys(returnAPI).filter((item) => item !== 'USDT');
       return (
         <label htmlFor="currency">
-          Moeda:
+          Moeda
           {' '}
           <select
             name="currency"
