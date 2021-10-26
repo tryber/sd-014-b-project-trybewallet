@@ -72,6 +72,9 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   saveMoney: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.string,
+  ).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
