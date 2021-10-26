@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import labelTranslate from '../helpers/translate';
 
 export default class Select extends Component {
   constructor() {
@@ -17,7 +18,7 @@ export default class Select extends Component {
     const { name, options, onChange } = this.props;
     return (
       <label htmlFor={ name }>
-        { this.capitalize(name) }
+        { labelTranslate(name) }
         <select name={ name } id={ name } onChange={ onChange }>
           { options.map((oneOption, index) => (
             <option

@@ -15,12 +15,13 @@ class Wallet extends Component {
 
     this.state = {
       // currentExpense: [],
+      totalExpenses: 0,
       value: '',
       description: '',
       currency: '',
       method: '',
       tag: '',
-      actualCurrency: 'BRL',
+      initialCurrency: 'BRL',
     };
   }
 
@@ -43,14 +44,14 @@ class Wallet extends Component {
 
   render() {
     const { props: { userEmail, walletCurrencies }, state: {
-      totalExpenses, actualCurrency, value, description, currency, method, tag },
+      totalExpenses, initialCurrency, value, description, currency, method, tag },
     handleInputChange, handleButtonClick } = this;
     return (
       <section>
         <header>
           <span data-testid="email-field">{ userEmail }</span>
           <span data-testid="total-field">{ totalExpenses }</span>
-          <span data-testid="header-currency-field">{ actualCurrency }</span>
+          <span data-testid="header-currency-field">{ initialCurrency }</span>
         </header>
         <form>
           <Input

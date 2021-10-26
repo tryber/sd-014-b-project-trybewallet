@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import labelTranslate from '../helpers/translate';
 
 export default class Input extends Component {
   constructor() {
@@ -17,7 +18,7 @@ export default class Input extends Component {
     const { name, type, value, onChange } = this.props;
     return (
       <label htmlFor={ name }>
-        { this.capitalize(name) }
+        { labelTranslate(name) }
         <input
           type={ type }
           name={ name }
