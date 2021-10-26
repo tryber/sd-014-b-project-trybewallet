@@ -48,35 +48,37 @@ class Login extends React.Component {
     return (
       <fieldset>
         <legend>TrybeWallet</legend>
-        <label htmlFor="e-mail">
-          Email:
-          <input
-            type="email"
-            id="e-mail"
-            data-testid="email-input"
-            name="emailValue"
-            onChange={ (e) => handleChange(e) }
-            value={ emailValue }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            type="password"
-            id="password"
-            data-testid="password-input"
-            name="passwordValue"
-            onChange={ (e) => handleChange(e) }
-            value={ passwordValue }
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ inputsValidation() }
-          onClick={ handleClick }
-        >
-          Entrar
-        </button>
+        <form>
+          <label htmlFor="e-mail">
+            Email:
+            <input
+              type="email"
+              id="e-mail"
+              data-testid="email-input"
+              name="emailValue"
+              onChange={ (e) => handleChange(e) }
+              value={ emailValue }
+            />
+          </label>
+          <label htmlFor="password">
+            Senha:
+            <input
+              type="password"
+              id="password"
+              data-testid="password-input"
+              name="passwordValue"
+              onChange={ (e) => handleChange(e) }
+              value={ passwordValue }
+            />
+          </label>
+          <button
+            type="button"
+            disabled={ inputsValidation() }
+            onClick={ handleClick }
+          >
+            Entrar
+          </button>
+        </form>
       </fieldset>
     );
   }
