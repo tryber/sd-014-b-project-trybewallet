@@ -1,8 +1,8 @@
-const INITIAL_STATE = {
+const initialState = {
   email: '',
 };
 
-export default function user(state = INITIAL_STATE, action) {
+export default function user(state = initialState, action) {
   switch (action.payload) {
   default:
     return state;

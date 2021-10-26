@@ -1,9 +1,9 @@
-const INITIAL_STATE = {
+const initialState = {
   currencies: [],
   expenses: [],
 };
 
-export default function wallet(state = INITIAL_STATE, action) {
+export default function wallet(state = initialState, action) {
   switch (action.payload) {
   default:
     return state;
