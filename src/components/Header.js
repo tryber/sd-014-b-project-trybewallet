@@ -11,6 +11,7 @@ class Header extends React.Component {
       const askingPrice = Number(current.exchangeRates[current.currency].ask);
       return acc + (value * askingPrice);
     }, 0);
+    // https://github.com/tryber/sd-014-b-project-trybewallet/pull/47/files
 
     return (
       <header>
