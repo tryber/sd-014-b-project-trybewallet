@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-// import fetchCoinsApi from '../services/fetchCoinsApi';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { exchangeRating } from '../actions';
-import Input from './Input';
-import Select from './Select';
+import { exchangeCoins } from '../actions';
+import Select from '../components/Select';
+import Input from '../components/Input';
 
-const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const methodPay = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -40,9 +39,9 @@ class AddExpensive extends Component {
       method,
       tag,
     } = this.state;
-    // const { setExpenses } = this.props;
-    const getApi = await fetch(URL);
-    const exchangeRates = await getApi.json();
+    const { setExpenses } = this.props;
+    const getFetchApi = await fetch(URL);
+    const exchangeRates = await getFetchApi.json();
     this.setState((prev) => ({
       id: prev.id + 1,
     }));
@@ -57,8 +56,8 @@ class AddExpensive extends Component {
   }
 
   async fetchCurrency() {
-    const getApi = await fetch(URL);
-    const response = await getApi.json();
+    const getFetchApi = await fetch(URL);
+    const response = await getFetchApi.json();
     const coins = Object.keys(response).filter((currency) => currency !== 'USDT');
     this.setState({ allCoins: coins });
   }
@@ -96,7 +95,7 @@ class AddExpensive extends Component {
         <Select
           id="method"
           label="Método de pagamento:"
-          array={ paymentOptions }
+          array={ methodPay }
           value={ method }
           onChange={ this.handleChange }
         />
@@ -122,7 +121,7 @@ AddExpensive.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setExpenses: (rates) => dispatch(exchangeRating(rates)),
+  setExpenses: (rates) => dispatch(exchangeCoins(rates)),
 });
 
 export default connect(null, mapDispatchToProps)(AddExpensive);

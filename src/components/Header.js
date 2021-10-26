@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 function Header({ user, expenses }) {
   const totalValue = expenses.reduce((acc, curr) => {
     const value = Number(curr.value);
-    const quotation = Number(curr.exchangeRates[curr.currency].ask);
-    return acc + (value * quotation);
+    const currencyQuote = Number(curr.exchangeRates[curr.currency].ask);
+    return acc + (value * currencyQuote);
   }, 0);
 
   return (
