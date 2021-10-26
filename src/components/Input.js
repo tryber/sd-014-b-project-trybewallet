@@ -3,7 +3,7 @@ import React from 'react';
 
 class Input extends React.Component {
   render() {
-    const { type, name, label, value, onChange, className } = this.props;
+    const { type, name, label, onChange, className } = this.props;
     return (
       <label htmlFor={ name }>
         {label}
@@ -11,7 +11,6 @@ class Input extends React.Component {
           id={ name }
           type={ type }
           name={ name }
-          value={ value }
           onChange={ onChange }
           className={ className }
         />
@@ -30,7 +29,6 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
-  value: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 
