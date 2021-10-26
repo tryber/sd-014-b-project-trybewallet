@@ -15,7 +15,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case SEND_EXAPENSES_INFO:
     return { ...state, expenses: [...state.expenses, action.payload] };
   case SET_TOTAL_EXPENSES:
-    return { ...state, totalExpenses: state.totalExpenses + action.payload };
+    return { ...state, totalExpenses: action.payload };
   default:
     return state;
   }

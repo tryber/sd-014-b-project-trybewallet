@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import { payMethods, tags } from '../helpers';
 import getCurrencyInfo from '../services/currencyAPI';
+import Header from '../components/Header';
 
 class Wallet extends Component {
   constructor() {
@@ -21,7 +22,6 @@ class Wallet extends Component {
       currency: '',
       method: '',
       tag: '',
-      initialCurrency: 'BRL',
     };
   }
 
@@ -45,16 +45,12 @@ class Wallet extends Component {
   }
 
   render() {
-    const { props: { userEmail, walletCurrencies, totalExpenses }, state: {
-      initialCurrency, value, description, currency, method, tag },
+    const { props: { userEmail, walletCurrencies, expenses }, state: {
+      value, description, currency, method, tag },
     handleInputChange, handleButtonClick } = this;
     return (
       <section>
-        <header>
-          <span data-testid="email-field">{ userEmail }</span>
-          <span data-testid="total-field">{ totalExpenses }</span>
-          <span data-testid="header-currency-field">{ initialCurrency }</span>
-        </header>
+        <Header userEmail={ userEmail } expenses={ expenses } />
         <form>
           <Input
             type="text"
@@ -96,15 +92,12 @@ class Wallet extends Component {
 }
 
 Wallet.propTypes = {
-  expenses: PropTypes.shape({
-    length: PropTypes.number,
-  }).isRequired,
+  addTotalExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fetchCurrenciesToProps: PropTypes.func.isRequired,
   sendExpensesToProps: PropTypes.func.isRequired,
-  addTotalExpenses: PropTypes.func.isRequired,
   userEmail: PropTypes.string.isRequired,
   walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  totalExpenses: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
