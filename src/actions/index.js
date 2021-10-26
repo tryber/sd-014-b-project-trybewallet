@@ -3,4 +3,3 @@ export const CHECK_EMAIL = (email) => ({
   email,
 });
 export default CHECK_EMAIL;
-// Coloque aqui suas actions
