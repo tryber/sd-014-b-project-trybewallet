@@ -15,6 +15,8 @@ const requestApiSuccess = (currencies) => ({
 
 export const getCurrenciesApiThunk = () => async (dispatch) => {
   dispatch(requestApiStart());
-  const currencies = await getCurrencies();
-  dispatch(requestApiSuccess(currencies));
+  const allCurrencies = await getCurrencies();
+  const FilteredCurrencies = allCurrencies
+    .filter((currency) => (currency !== 'USDT' && currency));
+  dispatch(requestApiSuccess(FilteredCurrencies));
 };
