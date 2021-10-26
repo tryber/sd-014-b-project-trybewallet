@@ -26,7 +26,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   case ADD_DATA_EXPENSES: {
     return {
       ...state,
-      expenses: action.payload,
+      // inspirado em https://github.com/tryber/sd-014-b-project-trybewallet/blob/thomas-trybewallet/src/reducers/wallet.js
+      expenses: [...state.expenses, action.payload.expenses],
     };
   }
   default:
