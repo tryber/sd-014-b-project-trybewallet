@@ -5,8 +5,10 @@ import Header from '../components/Header';
 import { getCurrenciesApiThunk } from '../actions/currencies';
 import Select from '../components/form/Select';
 import Input from '../components/form/Input';
+import Button from '../components/form/Button';
+import { getExpensesApiThunk } from '../actions/expenses';
 
-const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Wallet extends React.Component {
@@ -14,14 +16,17 @@ class Wallet extends React.Component {
     super();
 
     this.state = {
-      currency: '',
-      expense: '',
+      id: 0,
+      value: '',
       description: '',
-      payment: '',
+      currency: '',
+      method: '',
       tag: '',
+      // exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -30,21 +35,31 @@ class Wallet extends React.Component {
   }
 
   handleChange({ target: { name, value } }) {
-    this.setState({
+    this.setState((state) => ({
+      ...state,
       [name]: value,
-    });
+    }));
+  }
+
+  handleClick() {
+    const { setExpenses } = this.props;
+    setExpenses([this.state]);
+    this.setState((state) => ({
+      ...state,
+      id: state.id + 1,
+    }));
   }
 
   renderInputs() {
-    const { expense, description } = this.state;
+    const { value, description } = this.state;
     return (
       <>
         <Input
           nameLabel="Valor"
           type="number"
-          id="expense"
-          name="expense"
-          value={ expense }
+          id="value"
+          name="value"
+          value={ value }
           onChange={ this.handleChange }
           placeholder="Valor da despesa"
         />
@@ -62,7 +77,7 @@ class Wallet extends React.Component {
   }
 
   renderSelects() {
-    const { currency, tag, payment } = this.state;
+    const { currency, tag, method } = this.state;
     const { currencies } = this.props;
     return (
       <>
@@ -77,12 +92,12 @@ class Wallet extends React.Component {
         />
         <Select
           nameLabel="Método de pagamento"
-          id="payment"
-          name="payment"
-          value={ payment }
+          id="method"
+          name="method"
+          value={ method }
           onChange={ this.handleChange }
-          arrOptions={ payments }
-          defaultOption="Pagamento"
+          arrOptions={ methods }
+          defaultOption=""
         />
         <Select
           nameLabel="Tag"
@@ -91,7 +106,7 @@ class Wallet extends React.Component {
           value={ tag }
           onChange={ this.handleChange }
           arrOptions={ tags }
-          defaultOption="Tag"
+          defaultOption=""
         />
       </>
     );
@@ -107,6 +122,10 @@ class Wallet extends React.Component {
             <form>
               {this.renderInputs()}
               {this.renderSelects()}
+              <Button
+                nameLabel="Adicionar despesa"
+                onClick={ this.handleClick }
+              />
             </form>
           </main>
         </>
@@ -121,6 +140,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesApiThunk()),
+  setExpenses: (dataExpenses) => dispatch(getExpensesApiThunk(dataExpenses)),
 });
 
 Wallet.propTypes = {

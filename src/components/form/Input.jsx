@@ -11,13 +11,13 @@ export default class Input extends Component {
       value,
       id,
       placeholder,
-      dataTestid,
+      dataTestId,
     } = this.props;
     return (
       <label htmlFor={ id }>
         {nameLabel}
         <input
-          data-testid={ dataTestid }
+          data-testid={ dataTestId }
           type={ type }
           id={ id }
           onChange={ onChange }
@@ -38,11 +38,11 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  dataTestid: PropTypes.string,
+  dataTestId: PropTypes.string,
 };
 
 Input.defaultProps = {
   nameLabel: '',
   placeholder: '',
-  dataTestid: '',
+  dataTestId: '',
 };

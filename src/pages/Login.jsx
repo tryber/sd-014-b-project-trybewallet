@@ -54,7 +54,7 @@ class Login extends Component {
         <Input
           nameLabel=""
           id="email-input"
-          data-testid="email-input"
+          dataTestId="email-input"
           type="email"
           placeholder="Email"
           name="email"
@@ -64,7 +64,7 @@ class Login extends Component {
         <Input
           nameLabel=""
           id="password-input"
-          data-testid="password-input"
+          dataTestId="password-input"
           type="password"
           placeholder="Senha"
           name="password"

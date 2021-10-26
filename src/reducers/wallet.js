@@ -1,10 +1,11 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { REQUEST_API_START, REQUEST_API_SUCCESS } from '../actions/currencies';
+import { ADD_DATA_EXPENSES } from '../actions/expenses';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,12 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.payload.currencies,
       isLoading: action.payload.isLoading,
+    };
+  }
+  case ADD_DATA_EXPENSES: {
+    return {
+      ...state,
+      expenses: action.payload,
     };
   }
   default:

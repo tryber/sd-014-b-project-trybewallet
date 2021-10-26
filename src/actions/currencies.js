@@ -1,4 +1,4 @@
-import getCurrencies from '../service';
+import { getCurrencies } from '../services';
 
 export const REQUEST_API_START = 'REQUEST_API_START ';
 export const REQUEST_API_SUCCESS = 'REQUEST_API_SUCESS';
