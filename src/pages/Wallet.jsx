@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getCurrenciesApiThunk } from '../actions/currencies';
-import Select from '../components/Select';
-import Input from '../components/Input';
+import Select from '../components/form/Select';
+import Input from '../components/form/Input';
 
 const payments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -46,6 +46,7 @@ class Wallet extends React.Component {
           name="expense"
           value={ expense }
           onChange={ this.handleChange }
+          placeholder="Valor da despesa"
         />
         <Input
           nameLabel="Descrição"
@@ -60,43 +61,54 @@ class Wallet extends React.Component {
     );
   }
 
-  render() {
+  renderSelects() {
     const { currency, tag, payment } = this.state;
-    const { currencies, isLoading } = this.props;
+    const { currencies } = this.props;
+    return (
+      <>
+        <Select
+          nameLabel="Moedas"
+          id="currencies"
+          name="currency"
+          value={ currency }
+          onChange={ this.handleChange }
+          arrOptions={ currencies }
+          defaultOption=""
+        />
+        <Select
+          nameLabel="Método de pagamento"
+          id="payment"
+          name="payment"
+          value={ payment }
+          onChange={ this.handleChange }
+          arrOptions={ payments }
+          defaultOption="Pagamento"
+        />
+        <Select
+          nameLabel="Tag"
+          id="tag"
+          name="tag"
+          value={ tag }
+          onChange={ this.handleChange }
+          arrOptions={ tags }
+          defaultOption="Tag"
+        />
+      </>
+    );
+  }
+
+  render() {
+    const { isLoading } = this.props;
     return isLoading ? <Header />
       : (
         <>
           <Header />
-          <form>
-            {this.renderInputs()}
-            <Select
-              nameLabel="Moedas"
-              id="currencies"
-              name="currency"
-              value={ currency }
-              onChange={ this.handleChange }
-              arrOptions={ currencies }
-              defaultOption=""
-            />
-            <Select
-              nameLabel="Método de pagamento"
-              id="payment"
-              name="payment"
-              value={ payment }
-              onChange={ this.handleChange }
-              arrOptions={ payments }
-              defaultOption="Pagamento"
-            />
-            <Select
-              nameLabel="Tag"
-              id="tag"
-              name="tag"
-              value={ tag }
-              onChange={ this.handleChange }
-              arrOptions={ tags }
-              defaultOption="Tag"
-            />
-          </form>
+          <main>
+            <form>
+              {this.renderInputs()}
+              {this.renderSelects()}
+            </form>
+          </main>
         </>
       );
   }

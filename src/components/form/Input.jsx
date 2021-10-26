@@ -3,11 +3,21 @@ import PropTypes from 'prop-types';
 
 export default class Input extends Component {
   render() {
-    const { type, name, nameLabel, onChange, value, id, placeholder } = this.props;
+    const {
+      type,
+      name,
+      nameLabel,
+      onChange,
+      value,
+      id,
+      placeholder,
+      dataTestid,
+    } = this.props;
     return (
       <label htmlFor={ id }>
         {nameLabel}
         <input
+          data-testid={ dataTestid }
           type={ type }
           id={ id }
           onChange={ onChange }
@@ -23,18 +33,16 @@ export default class Input extends Component {
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   nameLabel: PropTypes.string,
-  value: PropTypes.string,
-  name: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  id: PropTypes.string,
-  onChange: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  dataTestid: PropTypes.string,
 };
 
 Input.defaultProps = {
   nameLabel: '',
-  value: '',
-  name: '',
   placeholder: '',
-  id: '',
-  onChange: null,
+  dataTestid: '',
 };
