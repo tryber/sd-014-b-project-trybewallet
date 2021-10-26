@@ -1,4 +1,5 @@
 import React from 'react';
+import { isValidEmail, isValidPassword } from '../validation';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const allFormInputsAreValid = isValidEmail(email) && isValidPassword(password);
 
     return (
       <main>
@@ -37,7 +39,7 @@ class Login extends React.Component {
               onChange={ this.handleChange }
               data-testid="password-input"
             />
-            <button type="submit">Entrar</button>
+            <button type="submit" disabled={ !allFormInputsAreValid }>Entrar</button>
           </form>
         </div>
       </main>
