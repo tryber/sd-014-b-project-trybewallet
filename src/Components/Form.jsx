@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Table from './Table';
 import { addExpense as addExpenseAction,
   editExpense as editExpenseAction } from '../actions';
+import Header from './Header';
 
 class Form extends React.Component {
   constructor(props) {
@@ -159,12 +160,7 @@ class Form extends React.Component {
     const { edit } = this.state;
     return (
       <div>
-        <div data-testid="email-field">{email}</div>
-        <div data-testid="header-currency-field">BRL</div>
-        <div>
-          Total:
-          <span data-testid="total-field">{ total.toFixed(2) }</span>
-        </div>
+        <Header email={ email } total={ total } />
         <form action="">
           { this.seila() }
           { this.moedas() }

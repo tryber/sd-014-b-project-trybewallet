@@ -4,7 +4,7 @@ import '../styles/Header.css';
 
 class Header extends React.Component {
   render() {
-    const { email, total, moeda } = this.props;
+    const { email, total } = this.props;
     return (
       <header className="header">
         <h1>Trybe</h1>
@@ -16,7 +16,7 @@ class Header extends React.Component {
           <div className="header-nav">
             <h4>Despesa Total:</h4>
             <p data-testid="total-field">{total}</p>
-            <p data-testid="header-currency-field">{moeda}</p>
+            <p data-testid="header-currency-field">BRL</p>
           </div>
         </section>
       </header>
@@ -27,7 +27,6 @@ class Header extends React.Component {
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
-  moeda: PropTypes.string.isRequired,
 };
 
 export default Header;
