@@ -12,6 +12,10 @@ const tableHeader = ['Descrição',
   'Editar/Excluir',
 ];
 
+const handleClick = (id) => {
+  console.log(id);
+};
+
 class WalletTable extends Component {
   render() {
     const { expensesFromGlobalState } = this.props;
@@ -37,6 +41,11 @@ class WalletTable extends Component {
                 <td>{ask.toFixed(2)}</td>
                 <td>{(expense.value * ask).toFixed(2)}</td>
                 <td>Real</td>
+                <td>
+                  <button type="button" onClick={ () => handleClick(expense.id) }>
+                    Excluir
+                  </button>
+                </td>
               </tr>
             );
           })}
