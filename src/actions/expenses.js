@@ -1,4 +1,4 @@
-import { getExpenses } from '../services';
+// import { getExpenses } from '../services';
 
 export const ADD_DATA_EXPENSES = 'ADD_DATA_EXPENSES';
 
@@ -14,7 +14,7 @@ export const addDataExchangeRates = (dataExchangeRates) => ({
 
 export const getExpensesApiThunk = (dataExpenses) => async (dispatch) => {
   dispatch(addDataExpenses(dataExpenses));
-  const allCurrencies = await getExpenses();
+  // const allCurrencies = await getExpenses();
   // const FilteredCurrencies = allCurrencies
   //   .filter((currency) => {
   //     console.log(FilteredCurrencies);
