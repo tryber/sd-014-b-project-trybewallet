@@ -1,15 +1,31 @@
 // Coloque aqui suas actions
-export const SET_USER_VALUE = 'SET_USER_VALUE';
-export const SET_WALLET_VALUE = 'SET_WALLET_VALUE';
+export const LOGIN = 'LOGIN';
+export const SUBMIT_CURRENCIES = 'SUBMIT_CURRENCIES';
+export const SUBMIT_EXPENSE = 'SUBMIT_EXPENSE';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
-export const setUserValue = (load) => (
-  {
-    type: SET_USER_VALUE, load,
-  }
-);
+export const login = (email) => ({
+  type: LOGIN,
+  email,
+});
 
-export const setWalletValue = (load) => (
-  {
-    type: SET_WALLET_VALUE, load,
-  }
-);
+export const submitCurrencies = (currencies) => ({
+  type: SUBMIT_CURRENCIES,
+  currencies,
+});
+
+export const submitExpense = (expense) => ({
+  type: SUBMIT_EXPENSE,
+  expense,
+});
+
+export const updateExpenses = (expenses) => ({
+  type: UPDATE_EXPENSES,
+  expenses,
+});
+
+export const editExpense = (expenseId) => ({
+  type: EDIT_EXPENSE,
+  expenseId,
+});
