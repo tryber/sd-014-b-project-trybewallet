@@ -1,74 +1,130 @@
 import React, { Component } from 'react';
-import fetchCoinsApi from '../services/fetchCoinsApi';
+// import fetchCoinsApi from '../services/fetchCoinsApi';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { exchangeRating } from '../actions';
+import Input from './Input';
+import Select from './Select';
+
+const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 class AddExpensive extends Component {
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
-      currency: [],
+      allCoins: [],
+      id: 0,
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
-
-    this.updateState = this.updateState.bind(this);
+    this.fetchCurrency = this.fetchCurrency.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    const response = await fetchCoinsApi();
-    const arrayOfCurrency = [];
-    Object.keys(response).map((currency) => {
-      if (currency !== 'USDT') {
-        arrayOfCurrency.push(currency);
-      }
-      return arrayOfCurrency;
-    });
-    // console.log(arrayOfCurrency);
-    this.updateState(arrayOfCurrency);
+  componentDidMount() {
+    this.fetchCurrency();
   }
 
-  updateState(arrayOfCurrency) {
-    this.setState({
-      currency: arrayOfCurrency,
-    });
+  async handleClick() {
+    const {
+      value,
+      description,
+      currency,
+      id,
+      method,
+      tag,
+    } = this.state;
+    const { setExpenses } = this.props;
+    const getApi = await fetch(URL);
+    const exchangeRates = await getApi.json();
+    this.setState((prev) => ({
+      id: prev.id + 1,
+    }));
+    const addExpense = {
+      value, description, id, exchangeRates, currency, method, tag,
+    };
+    setExpenses(addExpense);
+  }
+
+  handleChange({ target: { id, value } }) {
+    this.setState({ [id]: value });
+  }
+
+  async fetchCurrency() {
+    const getApi = await fetch(URL);
+    const response = await getApi.json();
+    const coins = Object.keys(response).filter((currency) => currency !== 'USDT');
+    this.setState({ allCoins: coins });
   }
 
   render() {
-    const { currency } = this.state;
+    const {
+      allCoins,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    } = this.state;
     return (
       <form>
-        <label htmlFor="value">
-          Valor:
-          <input id="value" type="text" name="value" />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input id="description" type="text" name="description" />
-        </label>
-        <label htmlFor="currency">
-          Moeda:
-          <select id="currency" name="currency">
-            { currency.map((coin, index) => <option key={ index }>{ coin }</option>) }
-          </select>
-        </label>
-        <label htmlFor="payment-method">
-          Método de pagamento:
-          <select id="payment-method" name="payment-method">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select id="tag" name="tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        <Input
+          inputValue={ value }
+          onChange={ this.handleChange }
+          label="Valor:"
+          id="value"
+        />
+        <Input
+          inputValue={ description }
+          onChange={ this.handleChange }
+          label="Descrição:"
+          id="description"
+        />
+        <Select
+          id="currency"
+          label="Moeda:"
+          array={ allCoins }
+          value={ currency }
+          onChange={ this.handleChange }
+        />
+        <Select
+          id="method"
+          label="Método de pagamento:"
+          array={ paymentOptions }
+          value={ method }
+          onChange={ this.handleChange }
+        />
+        <Select
+          id="tag"
+          label="Tag:"
+          array={ expenseOptions }
+          value={ tag }
+          onChange={ this.handleChange }
+        />
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
+
     );
   }
 }
-export default AddExpensive;
+
+AddExpensive.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  wallet: PropTypes.shape({
+    length: PropTypes.number,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setExpenses: (rates) => dispatch(exchangeRating(rates)),
+});
+
+const mapStateToProps = (state) => ({ wallet: state.wallet.expenses });
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpensive);
