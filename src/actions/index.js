@@ -3,6 +3,7 @@ export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const endpoint = 'https://economia.awesomeapi.com.br/json/all';
 
@@ -42,4 +43,9 @@ export const fetchCurrencies = () => async (dispatch) => { // adaptado do course
 export const addExpense = (expenses) => ({
   type: ADD_EXPENSE,
   payload: expenses,
+});
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
 });
