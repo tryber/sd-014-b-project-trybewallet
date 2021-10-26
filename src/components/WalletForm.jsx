@@ -74,13 +74,14 @@ class WalletForm extends React.Component {
   renderForm() {
     const { description, value, currency, currencies } = this.state;
     return (
-      <form>
+      <div>
         <label
           htmlFor="value"
         >
-          Valor:
+          Valor
           <input
             name="value"
+            id="value"
             value={ value }
             onChange={ this.handleChange }
             type="number"
@@ -89,7 +90,7 @@ class WalletForm extends React.Component {
         <label
           htmlFor="description"
         >
-          Descrição:
+          Descrição
           <input
             name="description"
             id="description"
@@ -99,7 +100,7 @@ class WalletForm extends React.Component {
           />
         </label>
         <label htmlFor="currency">
-          Moeda:
+          Moeda
           <select
             id="currency"
             value={ currency }
@@ -111,16 +112,16 @@ class WalletForm extends React.Component {
             ))}
           </select>
         </label>
-      </form>
+      </div>
     );
   }
 
   renderForm2() {
     const { method, tag } = this.state;
     return (
-      <form>
+      <div>
         <label htmlFor="method">
-          Método de Pagamento:
+          Método de Pagamento
           <select
             id="method"
             value={ method }
@@ -144,15 +145,17 @@ class WalletForm extends React.Component {
           </select>
           <button type="button" onClick={ this.onSubmit }>Adicionar despesa</button>
         </label>
-      </form>
+      </div>
     );
   }
 
   render() {
     return (
       <div>
-        {this.renderForm()}
-        {this.renderForm2()}
+        <form>
+          {this.renderForm()}
+          {this.renderForm2()}
+        </form>
       </div>
     );
   }
