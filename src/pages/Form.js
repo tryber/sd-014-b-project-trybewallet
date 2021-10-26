@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 // Formulario baseado em https://pt-br.reactjs.org/docs/forms.html
-const currencyOptions = [
-  { brl: 'BRL' },
-];
 
 const paymentMethodOptions = [
   { money: 'Dinheiro' },
@@ -34,6 +34,11 @@ class Form extends React.Component {
     this.createOptions = this.createOptions.bind(this);
   }
 
+  componentDidMount() {
+    const { callFetchCurrencies } = this.props;
+    callFetchCurrencies();
+  }
+
   changeStateAndElementValue({ target: { value } }, key) {
     this.setState({ [key]: value });
   }
@@ -61,9 +66,17 @@ class Form extends React.Component {
   }
 
   render() {
-    const { createOptions, changeStateAndElementValue, state } = this;
+    const { createOptions, changeStateAndElementValue, state,
+      props: { currencies } } = this;
     const arrayKey = Object.keys(state);
     const arrayValue = Object.values(state);
+    const currenciesAPI = Object
+      .keys(currencies)
+      .filter((currency) => currency !== 'USDT');
+
+    const currencyOptions = currenciesAPI.map((filteredCurrency) => (
+      { [filteredCurrency]: filteredCurrency }
+    ));
 
     return (
       <form>
@@ -92,4 +105,17 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  callFetchCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+Form.propTypes = {
+  email: PropTypes.string,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
