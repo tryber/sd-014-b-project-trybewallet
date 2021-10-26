@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 export default class Input extends Component {
   render() {
     const { name, label, text } = this.props;
-    console.log(name, label, text);
     return (
       <label htmlFor={ name }>
         { label }
