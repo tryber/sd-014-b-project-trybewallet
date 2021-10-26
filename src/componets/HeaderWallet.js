@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class HeaderWallet extends React.Component {
-
   getTotalExpenses() {
     const { expenses } = this.props;
 
@@ -36,6 +35,9 @@ class HeaderWallet extends React.Component {
 
 HeaderWallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({

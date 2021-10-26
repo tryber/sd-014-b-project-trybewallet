@@ -8,7 +8,13 @@ class InputValue extends React.Component {
       <label htmlFor={ name }>
         { label }
         :
-        <input type={ type } name={ name } id={ name } value={ value } onChange={ handleChange } />
+        <input
+          type={ type }
+          name={ name }
+          id={ name }
+          value={ value }
+          onChange={ handleChange }
+        />
       </label>
     );
   }

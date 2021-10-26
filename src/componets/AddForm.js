@@ -7,8 +7,8 @@ import InputSelect from './InputSelect';
 import SelectCurrency from './SelectCurrency';
 
 class AddForm extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       id: 0,
@@ -17,13 +17,13 @@ class AddForm extends React.Component {
       currency: 'USD',
       method: 'money',
       tag: 'food',
-      exchangeRates: '',  
+      exchangeRates: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // Com apoio do Lucas 
+  // Com apoio do Lucas
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
@@ -31,12 +31,12 @@ class AddForm extends React.Component {
     });
   }
 
-  handlerSubmit = () => {    
+  handlerSubmit() {
     const { id } = this.state;
     const { requestApi, currencies } = this.props;
-    requestApi();   
+    requestApi();
     const { saveExpenseData } = this.props;
-    saveExpenseData({...this.state, exchangeRates: currencies});
+    saveExpenseData({ ...this.state, exchangeRates: currencies });
     this.setState({ id: id + 1 });
   }
 
@@ -49,32 +49,32 @@ class AddForm extends React.Component {
             label="Valor"
             type="text"
             name="value"
-            handleChange= { this.handleChange }
+            handleChange={ this.handleChange }
             value={ value }
-          />        
+          />
           <SelectCurrency
-           handleChange= { this.handleChange }
-           value={ currency }
-          />     
+            handleChange={ this.handleChange }
+            value={ currency }
+          />
           <InputSelect
             label="Método de pagamento"
             name="method"
             data={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
-            handleChange= { this.handleChange }
+            handleChange={ this.handleChange }
             value={ method }
           />
           <InputSelect
             label="Tag"
             name="tag"
             data={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
-            handleChange= { this.handleChange }
+            handleChange={ this.handleChange }
             value={ tag }
           />
           <InputValue
             label="Descrição"
             name="description"
             type="text"
-            handleChange= { this.handleChange }
+            handleChange={ this.handleChange }
             value={ description }
           />
           <button type="button" onClick={ this.handlerSubmit }>Adicionar despesa</button>
@@ -86,12 +86,17 @@ class AddForm extends React.Component {
 
 AddForm.propTypes = {
   saveExpenseData: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
+  requestApi: PropTypes.func.isRequired,
 };
+
 const mapDispatchToProps = (dispatch) => ({
   saveExpenseData: (values) => dispatch(saveExpenses(values)),
   requestApi: () => dispatch(fetchAPI()),
 });
-  
+
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
