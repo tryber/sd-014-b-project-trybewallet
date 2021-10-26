@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { emailSubmit } from '../actions/submitEmail';
 
-
 class Login extends React.Component {
   constructor() {
     super();

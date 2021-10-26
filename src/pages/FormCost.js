@@ -1,16 +1,47 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ButtonAdd from './buttonAdd';
+import SelectCoin from './selectCoin';
+import { totalSubmit } from '../actions/submitTottal';
+import { coinSubmit } from '../actions/submitCoin';
+import Header from './Header';
 
 class FormCost extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
+      value: 0,
+      currency: 'BRL',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+      exchangeRates: {},
       moeda: [],
+      totalValue: 0,
     };
     this.requestCoin = this.requestCoin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.attCoin = this.attCoin.bind(this);
   }
 
   componentDidMount() {
     this.requestCoin();
+  }
+
+  attCoin() {
+    const { currency, exchangeRates, value, totalValue } = this.state;
+    if (currency === 'BRL') {
+      const cambio = 1;
+      const valueatt = parseFloat(cambio * value);
+      this.setState((prev) => ({ totalValue: prev.totalValue + valueatt }));
+    } else {
+      const cambio = exchangeRates[currency].ask;
+      const valueatt = parseFloat(cambio * value);
+      this.setState((prev) => ({ totalValue: prev.totalValue + valueatt }));
+    }
+    console.log(totalValue);
   }
 
   async requestCoin() {
@@ -21,57 +52,67 @@ class FormCost extends Component {
     const coin = result.filter((element) => element !== 'USDT');
     this.setState({
       moeda: coin,
+      exchangeRates: data,
+    });
+  }
+
+  handleChange({ target }) {
+    const { id, value } = target;
+    this.setState({
+      [id]: value,
     });
   }
 
   render() {
-    const { moeda } = this.state;
-    console.log(moeda);
-    if (moeda.length === 0) return <p>Carregando...</p>;
+    const { moeda,
+      id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates,
+      totalValue,
+    } = this.state;
+
+    // if (moeda.length === 0) return <p>Carregando...</p>;
     return (
       <form>
-        <label htmlFor="valor">
+        <Header total={ totalValue } currency={ currency } />
+        <label htmlFor="value">
           Valor:
-          <input id="valor" type="text" />
+          <input id="value" type="text" onChangeCapture={ this.handleChange } />
         </label>
         <label htmlFor="description">
           Descrição:
-          <input type="text" id="description" />
+          <input type="text" id="description" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="moeda">
-          Moeda:
-          <select name="moeda" id="moeda">
-
-            { moeda.map((coin, index) => (
-              <option
-                key={ index }
-              >
-                {coin }
-
-              </option>))}
-          </select>
-        </label>
-        <label htmlFor="metod">
-          Método de pagamento:
-          <select name="metod" id="metod">
-            <option value="cash">Dinheiro</option>
-            <option value="creditCard">Cartão de crédito</option>
-            <option value="debitCard">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select name="tag" id="tag">
-            <option value="food">Alimentação</option>
-            <option value="fun">Lazer</option>
-            <option value="job">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
-          </select>
-        </label>
+        <SelectCoin
+          moeda={ moeda }
+          handleChange={ this.handleChange }
+        />
+        <ButtonAdd
+          id={ id }
+          value={ value }
+          currency={ currency }
+          method={ method }
+          tag={ tag }
+          description={ description }
+          exchangeRates={ exchangeRates }
+          requestCoin={ this.requestCoin }
+          attCoin={ this.attCoin }
+        />
       </form>
     );
   }
 }
 
-export default FormCost;
+FormCost.propTypes = {
+  SubmitTotal: PropTypes.func,
+}.isRequired;
+const mapDispatchToProps = (dispatch) => ({
+  SubmitTotal: (total) => (dispatch(totalSubmit(total))),
+  SubmitCoin: (coin) => (dispatch(coinSubmit(coin))),
+});
+
+export default connect(null, mapDispatchToProps)(FormCost);
