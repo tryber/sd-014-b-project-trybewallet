@@ -96,6 +96,7 @@ class Login extends React.Component {
             type="button"
             disabled={ validButton }
             onClick={ this.handleClick }
+            className="loginButton"
           >
             Entrar
           </button>

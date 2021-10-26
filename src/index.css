@@ -36,7 +36,7 @@ input::placeholder {
   text-align: center;
 }
 
-button {
+.loginButton {
   width: 270px;
   height: 30px;
   padding: 3px;

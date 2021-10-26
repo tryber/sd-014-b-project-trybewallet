@@ -5,6 +5,7 @@ import { WALLET_SET_INFO } from '../actions/index';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  totalExpenses: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -13,7 +14,16 @@ const wallet = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       currencies: action.object.currencies,
-      expenses: action.object.expenses,
+      expenses: [...state.expenses,
+        { id: action.object.id,
+          value: action.object.value,
+          description: action.object.description,
+          currency: action.object.currency,
+          method: action.object.method,
+          tag: action.object.tag,
+          exchangeRates: action.object.exchangeRates,
+        }],
+      totalExpenses: action.object.totalExpenses,
     });
   default:
     return state;
