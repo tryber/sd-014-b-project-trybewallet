@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import getArraySum from '../utils/arrays';
+import { getArraySum } from '../utils/arrays';
 
 class Header extends React.Component {
   render() {

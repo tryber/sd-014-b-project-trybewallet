@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUserInfo } from '../actions';
 import { isValidEmail, isValidPassword } from '../utils/forms/validation';
+import Input from '../components/Input';
 
 class Login extends React.Component {
   constructor(props) {
@@ -39,18 +40,34 @@ class Login extends React.Component {
         <div>
           <h2>Login</h2>
           <form onSubmit={ this.handleSubmit }>
-            <input
+            {/* <input
               type="email"
               name="email"
               placeholder="Email"
               value={ email }
               onChange={ this.handleChange }
               data-testid="email-input"
+            /> */}
+            <Input
+              type="email"
+              label="Email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              data-testid="email-input"
             />
-            <input
+            {/* <input
               type="password"
               name="password"
               placeholder="Senha"
+              value={ password }
+              onChange={ this.handleChange }
+              data-testid="password-input"
+            /> */}
+            <Input
+              type="password"
+              label="Senha"
+              name="password"
               value={ password }
               onChange={ this.handleChange }
               data-testid="password-input"

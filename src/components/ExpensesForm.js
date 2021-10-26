@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Input from './Input';
+import SelectInput from './SelectInput';
 import fetchCurrencies from '../services';
-import generateSelectOptionsFromArray from '../utils/forms/generation';
 
 const paymentMethods = [
   'Dinheiro',
@@ -22,15 +23,39 @@ class ExpensesForm extends React.Component {
 
     this.state = {
       currencies: [],
+      formData: {
+        currencyValue: '',
+        description: '',
+        currency: '',
+        paymentMethod: paymentMethods[0],
+        tag: tags[0],
+      },
     };
     this.filterAPIData = this.filterAPIData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     const dataParsers = [this.filterAPIData];
     fetchCurrencies(dataParsers).then(
-      (data) => this.setState({ currencies: Object.keys(data) }),
+      (data) => this.setState(() => {
+        const { formData } = this.state;
+        const newCurrencies = Object.keys(data);
+
+        return {
+          currencies: newCurrencies,
+          formData: {
+            ...formData,
+            currency: newCurrencies[0],
+          },
+        };
+      }),
     );
+  }
+
+  handleChange({ target: { name, value } }) {
+    const { formData } = this.state;
+    this.setState({ formData: { ...formData, [name]: value } });
   }
 
   filterAPIData(data) {
@@ -50,41 +75,44 @@ class ExpensesForm extends React.Component {
   }
 
   render() {
-    const { currencies } = this.state;
+    const { currencies, formData } = this.state;
+    const { currencyValue, description, currency, paymentMethod, tag } = formData;
 
     return (
       <form>
-        <label htmlFor="value">
-          {'Valor: '}
-          <input type="text" name="value" id="value" />
-          {' '}
-        </label>
-        <label htmlFor="description">
-          {'Descrição: '}
-          <input type="text" name="description" id="description" />
-          {' '}
-        </label>
-        <label htmlFor="currency">
-          {'Moeda: '}
-          <select id="currency">
-            { generateSelectOptionsFromArray(currencies) }
-          </select>
-          {' '}
-        </label>
-        <label htmlFor="paymentMethod">
-          {'Método de pagamento: '}
-          <select id="paymentMethod">
-            { generateSelectOptionsFromArray(paymentMethods) }
-          </select>
-          {' '}
-        </label>
-        <label htmlFor="tag">
-          {'Tag: '}
-          <select id="tag">
-            { generateSelectOptionsFromArray(tags) }
-          </select>
-          {' '}
-        </label>
+        <Input
+          label="Valor"
+          name="currencyValue"
+          value={ currencyValue }
+          onChange={ this.handleChange }
+        />
+        <Input
+          label="Descrição"
+          name="description"
+          value={ description }
+          onChange={ this.handleChange }
+        />
+        <SelectInput
+          label="Moeda"
+          name="currency"
+          value={ currency }
+          options={ currencies }
+          onChange={ this.handleChange }
+        />
+        <SelectInput
+          label="Método de pagamento"
+          name="paymentMethod"
+          value={ paymentMethod }
+          options={ paymentMethods }
+          onChange={ this.handleChange }
+        />
+        <SelectInput
+          label="Tag"
+          name="tag"
+          value={ tag }
+          options={ tags }
+          onChange={ this.handleChange }
+        />
       </form>
     );
   }
