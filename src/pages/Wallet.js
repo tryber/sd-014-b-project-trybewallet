@@ -1,8 +1,36 @@
 import React from 'react';
 import Header from '../components/Header';
+import fetchAPI from '../services/API';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { currency: [] };
+
+    this.pushOptions = this.pushOptions.bind(this);
+  }
+
+  async componentDidMount() {
+    const resolve = await fetchAPI();
+    const coinsOption = [];
+    Object.keys(resolve).map((option) => {
+      if (option !== 'USDT') {
+        coinsOption.push(option);
+      }
+      return coinsOption;
+    });
+    this.pushOptions(coinsOption);
+  }
+
+  pushOptions(coinsOption) {
+    this.setState({
+      currency: coinsOption,
+    });
+  }
+
   render() {
+    const { currency } = this.state;
     const form = (
       <form>
         <label htmlFor="value">
@@ -16,9 +44,7 @@ class Wallet extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select name="currency" id="currency">
-            <option value="BRL">BRL</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
+            { currency.map((option, index) => <option key={ index }>{ option }</option>) }
           </select>
         </label>
         <label htmlFor="method">
