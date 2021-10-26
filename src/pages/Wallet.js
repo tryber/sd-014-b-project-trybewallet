@@ -22,9 +22,9 @@ class Wallet extends React.Component {
     const { getCurrencies } = this.props;
     const URL = 'https://economia.awesomeapi.com.br/json/all';
     const result = await fetch(URL);
-    const response = await result.json();
-    console.log(response);
-    getCurrencies(response);
+    const data = await result.json();
+    getCurrencies(data);
+    delete data.USDT;
     this.setState({ loading: false });
   }
 

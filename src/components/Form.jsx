@@ -6,13 +6,6 @@ import Input from './Input';
 class Form extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    // value: 0,
-    // description: '',
-    // currency: '',
-    // paymenyMethod: '',
-    // category: '',
-    // };
     this.handleChange = this.handleChange.bind(this);
   }
 
