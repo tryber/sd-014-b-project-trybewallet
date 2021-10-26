@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getCurrenciesApiThunk } from '../actions/currencies';
+import Select from '../components/Select';
 
 class Wallet extends React.Component {
   componentDidMount() {
     const { setCurrencies } = this.props;
     setCurrencies();
   }
+
+  // c !== 'USDT'
 
   render() {
     const { currencies, isLoading } = this.props;
@@ -17,17 +20,13 @@ class Wallet extends React.Component {
         <>
           <Header />
           <form>
-            <label htmlFor="currencys">
-              Moedas
-              <select id="currencys">
-                {currencies.map((c) => c !== 'USDT' && (
-                  <option key={ c }>
-                    {c}
-                  </option>))}
-              </select>
-            </label>
+            <Select
+              nameLabel="Moedas"
+              id="currencies"
+              arrOptions={ currencies }
+              defaultOption="Selecione"
+            />
           </form>
-
         </>
       );
   }
