@@ -1,4 +1,4 @@
-import { GET_API_DATA } from '../actions';
+import { GET_API_DATA, SET_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,7 +11,13 @@ function wallet(state = INITIAL_STATE, action) {
     return state; */
   case GET_API_DATA:
     return {
-      currencies: Object.keys(action.data),
+      ...state,
+      currencies: action.data,
+    };
+  case SET_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.data],
     };
   default:
     return state;
