@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { exchangeCoins } from '../actions'; 
-import Select from '../components/Select';
-import Input from '../components/Input';
+import { exchangeCoins } from '../actions';
+import Select from '../components';
+import Input from '../components';
 
 const methodPay = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -30,7 +30,7 @@ class AddExpensive extends Component {
     this.fetchCurrency();
   }
 
-    async handleClick() {
+  async handleClick() {
     const {
       value,
       description,
