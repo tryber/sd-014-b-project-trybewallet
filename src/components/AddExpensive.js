@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { exchangeCoins } from '../actions';
-import Select from '../components';
-import Input from '../components';
+import Select from './Select';
+import Input from './Input';
 
 const methodPay = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expenseOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -115,11 +115,17 @@ class AddExpensive extends Component {
 }
 
 AddExpensive.propTypes = {
-  // dispatchSetValue: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
   }).isRequired,
 };
+
+// AddExpensive.propTypes = {
+//   wallet: PropTypes.shape({
+//     length: PropTypes.number,
+//   }).isRequired,
+// };
 
 const mapDispatchToProps = (dispatch) => ({
   setExpenses: (rates) => dispatch(exchangeCoins(rates)),
