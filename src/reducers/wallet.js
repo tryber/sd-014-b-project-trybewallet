@@ -1,32 +1,22 @@
-import { WALLET_EXPENSES } from '../actions/index';
+import { GET_CURRENCIES, ADD_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
-  totalValue: 0,
+  currencies: [],
   expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case WALLET_EXPENSES:
-    return {
-      totalValue: state.totalValue + (Number(action.object.value)
-      * action.object.exchangeRates[action.object.currency].ask),
-      expenses: [...state.expenses, {
-        id: state.expenses.length,
-
-        value: action.object.value,
-
-        description: action.object.description,
-
-        method: action.object.method,
-
-        tag: action.object.tag,
-
-        currency: action.object.currency,
-
-        exchangeRates: action.object.exchangeRates,
-      }],
-    };
+  case (GET_CURRENCIES):
+    return ({
+      ...state,
+      currencies: Object.keys(action.payload),
+    });
+  case (ADD_EXPENSE):
+    return ({
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    });
   default:
     return state;
   }

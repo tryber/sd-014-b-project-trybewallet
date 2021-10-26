@@ -1,11 +1,11 @@
-import { LOGIN } from '../actions';
+import { LOGIN } from '../actions/index';
 
 const INITIAL_STATE = {
   email: '',
   password: '',
 };
 
-function formReducer(state = INITIAL_STATE, action) {
+function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN:
     return {
@@ -19,4 +19,4 @@ function formReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default formReducer;
+export default user;

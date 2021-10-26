@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../component/Header';
 import InputForm from '../component/InputForm';
 import SelectForm from '../component/SelectForm';
+import { addExpense, fetchCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -10,6 +12,7 @@ class Wallet extends React.Component {
 
     this.state = {
       coins: [],
+      id: 0,
       value: '',
       description: '',
       currency: 'USD',
@@ -19,6 +22,7 @@ class Wallet extends React.Component {
 
     this.fetchCoins = this.fetchCoins.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +35,25 @@ class Wallet extends React.Component {
     const coinsArray = Object.keys(coins);
     this.setState({
       coins: coinsArray.filter((item) => item !== 'USDT'),
+    });
+  }
+
+  async handleClick(event) {
+    event.preventDefault();
+    const { id, currency, method, tag, description, value } = this.state;
+    const { onSubmit } = this.props;
+
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const exchangeRates = await api.json();
+
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
+    onSubmit({ value, description, exchangeRates, id, currency, method, tag });
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     });
   }
 
@@ -59,18 +82,31 @@ class Wallet extends React.Component {
             tag={ tag }
             coins={ coins }
           />
+
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  objExpense: (expense) => dispatch(handleWalletExpenses(expense)),
+Wallet.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ user, wallet }) => ({
+  email: user.email,
+  currencies: wallet.currencies,
 });
 
-const mapStateToProps = (state) => ({
-  listOfExpenses: state.wallet.expenses,
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+  onSubmit: (expense) => dispatch(addExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
