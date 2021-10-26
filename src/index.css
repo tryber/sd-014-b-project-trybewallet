@@ -11,3 +11,64 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.login {
+  height: 250px;
+  width: 350px;
+  margin: auto;
+  margin-top: 140px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+input {
+  width: 260px;
+  height: 15px;
+  padding: 3px;
+  margin: 1px;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+.loginButton {
+  width: 270px;
+  height: 30px;
+  padding: 3px;
+  margin: 1px;
+  margin-top: 10px;
+  background-color: lightgreen;
+  font-size: 15px;
+}
+
+header {
+  height: 50px;
+  /* background-color: lightblue; */
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  /* background-color: lightseagreen; */
+  margin: 0;
+  padding: 2%;
+}
+
+.header-info {
+  width: 50%;
+  font-size: 18px;
+  /* background-color: lightcoral; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.currency-info {
+  display: flex;
+};
