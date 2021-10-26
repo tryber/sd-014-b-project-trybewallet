@@ -4,7 +4,6 @@ export const SET_USER_EMAIL = 'SET_USER_EMAIL';
 export const SET_USER_PASSWORD = 'SET_USER_PASSWORD';
 export const RECEIVE_CURRENCIES_INFO = 'RECEIVE_CURRENCIES_INFO';
 export const SEND_EXAPENSES_INFO = 'SEND_EXPENSES_INFO';
-export const SET_TOTAL_EXPENSES = 'SET_TOTAL_EXPENSES';
 
 export const setUserEmail = (payload) => ({
   type: SET_USER_EMAIL,
@@ -29,10 +28,5 @@ export const fetchCurrencies = () => (dispatch) => {
 
 export const sendExpensesInfo = (payload) => ({
   type: SEND_EXAPENSES_INFO,
-  payload,
-});
-
-export const setTotalExpenses = (payload) => ({
-  type: SET_TOTAL_EXPENSES,
   payload,
 });
