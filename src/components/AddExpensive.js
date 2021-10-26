@@ -40,7 +40,7 @@ class AddExpensive extends Component {
       method,
       tag,
     } = this.state;
-    const { setExpenses } = this.props;
+    // const { setExpenses } = this.props;
     const getApi = await fetch(URL);
     const exchangeRates = await getApi.json();
     this.setState((prev) => ({
@@ -115,7 +115,7 @@ class AddExpensive extends Component {
 }
 
 AddExpensive.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
+  // dispatchSetValue: PropTypes.func.isRequired,
   wallet: PropTypes.shape({
     length: PropTypes.number,
   }).isRequired,
