@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Input from './Input';
 import SelectInput from './SelectInput';
 import fetchCurrencies from '../services';
+import { addExpense } from '../actions';
 
 const paymentMethods = [
   'Dinheiro',
@@ -24,15 +26,16 @@ class ExpensesForm extends React.Component {
     this.state = {
       currencies: [],
       formData: {
-        currencyValue: '',
+        value: '',
         description: '',
         currency: '',
-        paymentMethod: paymentMethods[0],
+        method: paymentMethods[0],
         tag: tags[0],
       },
     };
     this.filterAPIData = this.filterAPIData.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -40,22 +43,17 @@ class ExpensesForm extends React.Component {
     fetchCurrencies(dataParsers).then(
       (data) => this.setState(() => {
         const { formData } = this.state;
-        const newCurrencies = Object.keys(data);
+        const currenciesNames = Object.keys(data);
 
         return {
-          currencies: newCurrencies,
+          currencies: currenciesNames,
           formData: {
             ...formData,
-            currency: newCurrencies[0],
+            currency: currenciesNames[0],
           },
         };
       }),
     );
-  }
-
-  handleChange({ target: { name, value } }) {
-    const { formData } = this.state;
-    this.setState({ formData: { ...formData, [name]: value } });
   }
 
   filterAPIData(data) {
@@ -74,16 +72,29 @@ class ExpensesForm extends React.Component {
     return finalFilteredData;
   }
 
+  handleChange({ target: { name, value } }) {
+    const { formData } = this.state;
+    this.setState({ formData: { ...formData, [name]: value } });
+  }
+
+  handleSubmit(event) {
+    const { dispatchAddExpense } = this.props;
+    const { formData } = this.state;
+
+    event.preventDefault();
+    dispatchAddExpense(formData);
+  }
+
   render() {
     const { currencies, formData } = this.state;
-    const { currencyValue, description, currency, paymentMethod, tag } = formData;
+    const { value, description, currency, method, tag } = formData;
 
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <Input
           label="Valor"
-          name="currencyValue"
-          value={ currencyValue }
+          name="value"
+          value={ value }
           onChange={ this.handleChange }
         />
         <Input
@@ -101,8 +112,8 @@ class ExpensesForm extends React.Component {
         />
         <SelectInput
           label="Método de pagamento"
-          name="paymentMethod"
-          value={ paymentMethod }
+          name="method"
+          value={ method }
           options={ paymentMethods }
           onChange={ this.handleChange }
         />
@@ -113,9 +124,20 @@ class ExpensesForm extends React.Component {
           options={ tags }
           onChange={ this.handleChange }
         />
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }
 }
 
-export default connect(null, null)(ExpensesForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchAddExpense: (payload) => dispatch(addExpense(payload)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(ExpensesForm);
+
+ExpensesForm.propTypes = {
+  dispatchAddExpense: PropTypes.func.isRequired,
+};

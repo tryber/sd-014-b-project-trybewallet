@@ -1,11 +1,29 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getArraySum } from '../utils/arrays';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getTotalExpenses = this.getTotalExpenses.bind(this);
+  }
+
+  getTotalExpenses() {
+    const { expenses } = this.props;
+
+    return expenses.reduce(
+      (total, expense) => total + this.convertExpense(expense),
+      0,
+    );
+  }
+
+  convertExpense({ value, currency, exchangeRates }) {
+    return Number(value) * Number(exchangeRates[currency].ask);
+  }
+
   render() {
-    const { userEmail, expenses } = this.props;
+    const { userEmail } = this.props;
 
     return (
       <header>
@@ -18,7 +36,7 @@ class Header extends React.Component {
         <div>
           Despesa Total:
           {' '}
-          <span data-testid="total-field">{ getArraySum(expenses) }</span>
+          <span data-testid="total-field">{ this.getTotalExpenses() }</span>
           {' '}
           <span data-testid="header-currency-field">BRL</span>
         </div>
