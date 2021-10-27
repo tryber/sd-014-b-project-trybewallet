@@ -1,28 +1,80 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { sendLoginInfo } from '../redux/actions';
 
-class Login extends React.Component {
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.verifyLogin = this.verifyLogin.bind(this);
+  }
+
+  handleChange({ target: { value, name } }) {
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  verifyLogin() {
+    const SIX = 6;
+    const { email, password } = this.state;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) && password.length >= SIX;
+  }
+
   render() {
+    const { email, password } = this.state;
+    const { sendInfo } = this.props;
+    const { handleChange, verifyLogin, state } = this;
     return (
-      <form>
-        <label htmlFor="email">
+      <header className="App-header">
+        <form action="">
           <input
+            type="email"
+            placeholder="Email"
             data-testid="email-input"
             name="email"
-            type="email"
-            placeholder="insira seu e-mail"
+            value={ email }
+            onChange={ (e) => handleChange(e) }
           />
-        </label>
-        <label htmlFor="password">
           <input
-            data-testid="password-input"
             type="password"
-            placeholder="insira sua senha"
+            placeholder="Senha"
+            data-testid="password-input"
+            name="password"
+            value={ password }
+            onChange={ (e) => handleChange(e) }
           />
-        </label>
-        <button type="button">Entrar</button>
-      </form>
+          <Link to="/carteira">
+            <button
+              type="button"
+              data-testid="btn-play"
+              onClick={ () => {
+                sendInfo(state);
+              } }
+              disabled={ !verifyLogin() }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
+      </header>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendInfo: (loginInfo) => dispatch(sendLoginInfo(loginInfo)),
+});
+
+Login.propTypes = {
+  sendInfo: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
