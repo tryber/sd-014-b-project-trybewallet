@@ -14,8 +14,8 @@ class Table extends Component {
       'Moeda de conversão',
       'Editar/Excluir',
     ];
-    const { expenses } = this.props;
-    console.log(expenses);
+    // const { expenses } = this.props;
+    // console.log(expenses);
     return (
       <table>
         <thead>
