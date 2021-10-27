@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sendLoginInfo } from '../redux/actions';
+import { sendLoginInfo } from '../actions';
 
 class Login extends Component {
   constructor(props) {
@@ -21,6 +21,8 @@ class Login extends Component {
     });
   }
 
+  // função feita de acordo com o projeto em grupo Trivia
+  // link do repositorio: https://github.com/tryber/sd-014-b-project-trivia-react-redux/pull/466
   verifyLogin() {
     const SIX = 6;
     const { email, password } = this.state;
