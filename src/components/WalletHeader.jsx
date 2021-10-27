@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 class WalletHeader extends React.Component {
   render() {
-    const { login, total } = this.props;
-    const { email } = login;
+    const { email, total } = this.props;
+    console.log(total);
     return (
       <div>
         <header>
@@ -24,16 +24,19 @@ class WalletHeader extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  login: state.user,
-  total: state.wallet.expenses,
-});
-
 WalletHeader.propTypes = {
-  login: PropTypes.func.isRequired,
+  email: PropTypes.func.isRequired,
   total: PropTypes.shape({
     reduce: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+function mapStateToProps(state) {
+  console.log(state.wallet.expenses);
+  return {
+    email: state.user.email,
+    total: state.wallet.expenses,
+  };
+}
 
 export default connect(mapStateToProps)(WalletHeader);

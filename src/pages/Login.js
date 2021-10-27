@@ -45,35 +45,36 @@ class Login extends React.Component {
       <div>
         <h2>Login</h2>
         <fieldset>
-          <Input
-            label="Email: "
-            type="text"
-            name="email"
-            datatestid="email-input"
-            onChange={ this.handleChange }
-            value={ email }
-            id="seuEmail"
-            placeholder="Seu Email"
-          />
-          <Input
-            label="Senha: "
-            type="password"
-            name="senha"
-            value={ senha }
-            onChange={ this.handleChange }
-            datatestid="password-input"
-            id="seuEmail"
-            placeholder="Sua senha"
-          />
-          <button
-            type="button"
-            name="enviar"
-            onClick={ this.onSubmit }
-            disabled={ disabled }
-          >
-            Entrar
-          </button>
-
+          <form>
+            <Input
+              label="Email: "
+              type="text"
+              name="email"
+              datatestid="email-input"
+              onChange={ this.handleChange }
+              value={ email }
+              id="seuEmail"
+              placeholder="Seu Email"
+            />
+            <Input
+              label="Senha: "
+              type="password"
+              name="senha"
+              value={ senha }
+              onChange={ this.handleChange }
+              datatestid="password-input"
+              id="suaSenha"
+              placeholder="Sua senha"
+            />
+            <button
+              type="button"
+              name="enviar"
+              onClick={ this.onSubmit }
+              disabled={ disabled }
+            >
+              Entrar
+            </button>
+          </form>
         </fieldset>
       </div>
     );

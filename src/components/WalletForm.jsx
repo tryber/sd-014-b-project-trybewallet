@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { expenseAPI, fullExpenseAPI } from '../services/ExpenseAPI';
-import { setExpense } from '../actions/index';
+import { resultApi, resultApiExpenses } from '../actions';
+
+//  feito com ajuda do Vitor Silva
 
 class WalletForm extends React.Component {
   constructor() {
@@ -15,61 +16,20 @@ class WalletForm extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      currencies: [],
-      exchangeRates: [],
-      total: 0,
     };
-
-    this.getcurrencies = this.getcurrencies.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.addTotal = this.addTotal.bind(this);
-    this.getFullCurrencies = this.getFullCurrencies.bind(this);
   }
 
   componentDidMount() {
-    this.getcurrencies();
-    this.getFullCurrencies();
+    const { armazenaApiEstadoGLobal } = this.props;
+    armazenaApiEstadoGLobal();
   }
 
   onSubmit() {
-    const { dispatchExpense, valor } = this.props;
-    const { id,
-      total,
-      description,
-      exchangeRates,
-      value, method, tag, currency } = this.state;
-    this.setState({
-      id: id + 1,
-      total: total + valor,
-    });
-    const ao = { id, description, value, method, tag, currency, exchangeRates };
-    console.log(ao);
-    dispatchExpense(ao);
-  }
-
-  async getcurrencies() {
-    const result = await expenseAPI();
-    console.log(result);
-    this.setState({
-      currencies: result.filter((currency) => currency !== 'USDT'),
-    });
-  }
-
-  async getFullCurrencies() {
-    const resultado = await fullExpenseAPI();
-    console.log(resultado);
-    this.setState({
-      exchangeRates: resultado,
-    });
-  }
-
-  addTotal() {
-    const { valor } = this.props;
-    const { total } = this.state;
-    this.setState({
-      total: total + valor,
-    });
+    const { armazenaApiExpense } = this.props;
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
+    armazenaApiExpense(this.state);
   }
 
   handleChange({ target }) {
@@ -78,7 +38,8 @@ class WalletForm extends React.Component {
   }
 
   renderForm() {
-    const { description, value, currency, currencies } = this.state;
+    const { description, value, currency } = this.state;
+    const { currencies } = this.props;
     return (
       <div>
         <label
@@ -168,20 +129,20 @@ class WalletForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchExpense: (expensex) => dispatch(setExpense(expensex)),
+  armazenaApiEstadoGLobal: () => dispatch(resultApi()),
+  armazenaApiExpense: (state) => dispatch(resultApiExpenses(state)),
 }
 );
 
 const mapStateToProps = (state) => ({
-  valor: state.wallet.expenses.value,
+  currencies: state.wallet.currencies,
+  exchange: state.wallet.exchange,
 });
 
 WalletForm.propTypes = {
-  valor: PropTypes.string.isRequired,
-  dispatchExpense: PropTypes.func.isRequired,
-  total: PropTypes.shape({
-    reduce: PropTypes.func.isRequired,
-  }).isRequired,
+  currencies: PropTypes.func.isRequired,
+  armazenaApiEstadoGLobal: PropTypes.func.isRequired,
+  armazenaApiExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
