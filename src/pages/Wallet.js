@@ -5,10 +5,11 @@ import Header from '../Components/Header';
 class Wallet extends React.Component {
   render() {
     return (
-      <>
+      <section>
+        TrybeWallet
         <Header />
         <Form />
-      </>
+      </section>
     );
   }
 }
