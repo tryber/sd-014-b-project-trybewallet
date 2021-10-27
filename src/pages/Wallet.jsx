@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getCurrenciesApiThunk } from '../actions/currencies';
-import { addDataExpenses } from '../actions/expenses';
+import { getExpensesApiThunk } from '../actions/expenses';
 import Select from '../components/form/Select';
 import Input from '../components/form/Input';
 import Button from '../components/form/Button';
-import { getExpenses } from '../services';
 
 const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -20,9 +19,9 @@ class Wallet extends React.Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: {},
     };
 
@@ -44,12 +43,6 @@ class Wallet extends React.Component {
 
   async handleClick() {
     const { setExpenses } = this.props;
-    const exchangeRates = await getExpenses();
-    this.setState((state) => ({
-      ...state,
-      exchangeRates,
-      // id: state.id + 1,
-    }));
     setExpenses(this.state);
     this.setState((state) => ({
       ...state,
@@ -134,6 +127,17 @@ class Wallet extends React.Component {
                 onClick={ this.handleClick }
               />
             </form>
+            <table>
+
+              <tr>
+                <td>Despesa</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+              </tr>
+            </table>
           </main>
         </>
       );
@@ -143,11 +147,12 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isLoading: state.wallet.isLoading,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesApiThunk()),
-  setExpenses: (expenses) => dispatch(addDataExpenses(expenses)),
+  setExpenses: (state) => dispatch(getExpensesApiThunk(state)),
 });
 
 Wallet.propTypes = {
