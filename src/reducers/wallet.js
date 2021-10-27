@@ -1,11 +1,26 @@
-// const INITIAL_STATE = {
-//   user: {
-//     email: '',
-//   },
-//   wallet: {
-//     currencies: [],
-//     expenses: [],
-//   },
-// };
+import { WALLET } from '../actions';
 
-// export default walletReducer;
+const INITIAL_STATE = {
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
+};
+
+function walletInformation(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case WALLET:
+    return ({
+      ...state,
+      email: action.wallet.currencies,
+      password: action.wallet.expenses,
+    });
+  default:
+    return state;
+  }
+}
+
+export default walletInformation;

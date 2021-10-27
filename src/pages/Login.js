@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sendLoginInfo } from '../actions';
+import { userInformation } from '../actions';
 
 class Login extends Component {
   constructor(props) {
@@ -21,8 +21,7 @@ class Login extends Component {
     });
   }
 
-  // função feita de acordo com o projeto em grupo Trivia
-  // link do repositorio: https://github.com/tryber/sd-014-b-project-trivia-react-redux/pull/466
+  // função feita de acordo com o projeto em grupo Trivia. Grupo 4
   verifyLogin() {
     const SIX = 6;
     const { email, password } = this.state;
@@ -43,7 +42,7 @@ class Login extends Component {
             data-testid="email-input"
             name="email"
             value={ email }
-            onChange={ (e) => handleChange(e) }
+            onChange={ (value) => handleChange(value) }
           />
           <input
             type="password"
@@ -51,12 +50,11 @@ class Login extends Component {
             data-testid="password-input"
             name="password"
             value={ password }
-            onChange={ (e) => handleChange(e) }
+            onChange={ (value) => handleChange(value) }
           />
           <Link to="/carteira">
             <button
               type="button"
-              data-testid="btn-play"
               onClick={ () => {
                 sendInfo(state);
               } }
@@ -72,7 +70,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  sendInfo: (loginInfo) => dispatch(sendLoginInfo(loginInfo)),
+  sendInfo: (loginInfo) => dispatch(userInformation(loginInfo)),
 });
 
 Login.propTypes = {
