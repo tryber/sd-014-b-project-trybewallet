@@ -16,7 +16,6 @@ export const getExpenses = async () => {
   try {
     const response = await fetch(END_POINT);
     const currencies = await response.json();
-    console.log(currencies);
     return currencies;
   } catch (erro) {
     console.error(erro);

@@ -7,6 +7,7 @@ import { getExpensesApiThunk } from '../actions/expenses';
 import Select from '../components/form/Select';
 import Input from '../components/form/Input';
 import Button from '../components/form/Button';
+import Table from '../components/form/Table';
 
 const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -113,40 +114,27 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { isLoading } = this.props;
-    return isLoading ? <Header />
-      : (
-        <>
-          <Header />
-          <main>
-            <form>
-              {this.renderInputs()}
-              {this.renderSelects()}
-              <Button
-                nameLabel="Adicionar despesa"
-                onClick={ this.handleClick }
-              />
-            </form>
-            <table>
-
-              <tr>
-                <td>Despesa</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-              </tr>
-            </table>
-          </main>
-        </>
-      );
+    return (
+      <>
+        <Header />
+        <main>
+          <form>
+            {this.renderInputs()}
+            {this.renderSelects()}
+            <Button
+              nameLabel="Adicionar despesa"
+              onClick={ this.handleClick }
+            />
+          </form>
+          <Table />
+        </main>
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  isLoading: state.wallet.isLoading,
   expenses: state.wallet.expenses,
 });
 
@@ -157,7 +145,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   currencies: PropTypes.array,
-  isLoading: PropTypes.bool,
   setCurrencies: PropTypes.func,
 }.isRequired;
 
