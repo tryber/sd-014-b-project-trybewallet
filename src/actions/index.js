@@ -4,6 +4,8 @@ export const SET_EXPENSE = 'SET_EXPENSE';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const API_EXPENSES = 'API_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 export const setLogin = (payload) => (
@@ -39,3 +41,12 @@ export const resultApi = () => async (dispatch) => {
   delete result.USDT;
   dispatch(guardarResultadoApi(result));
 };
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});
+
+export const updateTotal = () => ({
+  type: UPDATE_TOTAL,
+});

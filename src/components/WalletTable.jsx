@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense, updateTotal } from '../actions';
 
 class ExpensesTable extends Component {
-  renderExpenses(exp) {
+  delExpense({ target }, expenses, delExp, updtTotal) {
+    const expenseId = parseFloat(target.id.split('-')[0]);
+    const filteredExpenses = expenses.filter((e) => e.id !== expenseId);
+    delExp(filteredExpenses);
+    updtTotal();
+  }
+
+  renderExpenses(exp, delExp, updtTotal) {
     return exp.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
       const val = parseFloat(value);
       const ask = parseFloat(exchangeRates[currency].ask);
@@ -17,14 +25,23 @@ class ExpensesTable extends Component {
           <td>{`${ask.toFixed(2)}`}</td>
           <td>{`${(val * ask).toFixed(2)}`}</td>
           <td>Real</td>
-          <td>Edit/Del</td>
+          <td>
+            <button
+              type="button"
+              id={ `${id}-delete-btn` }
+              data-testid="delete-btn"
+              onClick={ (evt) => this.delExpense(evt, exp, delExp, updtTotal) }
+            >
+              Excluir
+            </button>
+          </td>
         </tr>
       );
     });
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, delExp, updtTotal } = this.props;
     return (
       <table className="wallet-table">
         <tbody>
@@ -39,7 +56,7 @@ class ExpensesTable extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          { this.renderExpenses(expenses) }
+          { this.renderExpenses(expenses, delExp, updtTotal) }
         </tbody>
       </table>
     );
@@ -51,7 +68,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
+  delExp: (payload) => dispatch(deleteExpense(payload)),
+  updtTotal: () => dispatch(updateTotal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
@@ -61,4 +79,6 @@ ExpensesTable.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.arrayOf(PropTypes.string),
   ]).isRequired,
+  delExp: PropTypes.func.isRequired,
+  updtTotal: PropTypes.func.isRequired,
 };
