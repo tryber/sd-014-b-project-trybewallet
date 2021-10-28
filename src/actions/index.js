@@ -1,6 +1,12 @@
 export const SAVE_USER_DATA = 'SAVE_USER_DATA';
 export const SUBMIT_CURRENCIES = 'SUBMIT_CURRENCIES';
 export const EXPENSES_API = 'EXPENSES_API';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
+});
 
 export const user = (payload) => ({
   type: SAVE_USER_DATA,

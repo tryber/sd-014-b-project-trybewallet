@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../actions';
+import TableButton from './TableButton';
 
 class DataTable extends React.Component {
   constructor() {
@@ -26,7 +28,7 @@ class DataTable extends React.Component {
   }
 
   render() {
-    const { toRecoverExpenses } = this.props;
+    const { toRecoverExpenses, expenseDelete } = this.props;
     return (
       <table className="table table-striped table-hover mt-4">
         <thead>
@@ -44,8 +46,8 @@ class DataTable extends React.Component {
         </thead>
         <tbody>
           {toRecoverExpenses
-            .map(({ description, value, currency, method, tag, exchangeRates }, ind) => (
-              <tr key={ ind }>
+            .map(({ id, description, value, currency, method, tag, exchangeRates }) => (
+              <tr key={ id }>
                 <td>{ description }</td>
                 <td>{ tag }</td>
                 <td>{ method }</td>
@@ -60,12 +62,7 @@ class DataTable extends React.Component {
                 <td>Real</td>
                 <td>
                   <section>
-                    <button className="btn btn-warning m-1" type="button">
-                      <i className="bi bi-pencil-square">Editar</i>
-                    </button>
-                    <button className="btn btn-danger m-1" type="button">
-                      <i className="bi bi-trash">Excluir</i>
-                    </button>
+                    <TableButton click={ () => expenseDelete(id) } />
                   </section>
                 </td>
               </tr>
@@ -78,10 +75,14 @@ class DataTable extends React.Component {
 
 DataTable.propTypes = {
   toRecoverExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenseDelete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   toRecoverExpenses: state.wallet.expenses,
 });
+const mapDispatchToProps = (dispatch) => ({
+  expenseDelete: (id) => dispatch(deleteExpense(id)),
+});
 
-export default connect(mapStateToProps)(DataTable);
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);
