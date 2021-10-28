@@ -24,11 +24,11 @@ class Header extends Component {
             <h3 data-testid="total-field">
               Despesa total:
               <span>
-                {' '}
+                {' R$ '}
                 {totalField}
               </span>
             </h3>
-            <h3 data-testid="header-currency-field"> BRL </h3>
+            <h3 data-testid="header-currency-field">BRL</h3>
           </div>
         </div>
       </header>
@@ -46,4 +46,4 @@ const mapStateToProps = (state) => ({
   totalField: state.wallet.totalExpenses,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, null)(Header);
