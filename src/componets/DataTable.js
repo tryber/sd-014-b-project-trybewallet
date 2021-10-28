@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { delPurchase } from '../actions';
+import HeadTable from './HeadTable';
 
 class DataTable extends React.Component {
+  handleClick(id) {
+    const { purchases, delItem } = this.props;
+    const item = purchases.filter((purchase) => purchase.id !== id);
+    delItem(item);
+  }
+
   render() {
     const { purchases } = this.props;
-    let setItensArray = false;
-    setItensArray = purchases.length !== 0;
-
     const renderPurchase = (
       purchases.map((purchase) => {
         const currency = purchase.exchangeRates[purchase.currency].name;
@@ -26,29 +31,20 @@ class DataTable extends React.Component {
             <td>Real</td>
             <td>
               <button type="button" data-testid="edit-btn">edita</button>
-              <button type="button" data-testid="delete-btn" onClick="">apaga</button>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => this.handleClick(purchase.id) }
+              >
+                apaga
+              </button>
             </td>
           </tr>
         );
       })
     );
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-          {setItensArray && renderPurchase}
-        </thead>
-      </table>
+      <HeadTable renderPurchase={ renderPurchase } />
     );
   }
 }
@@ -57,10 +53,15 @@ DataTable.propTypes = {
   purchases: PropTypes.arrayOf(
     PropTypes.shape.isRequired,
   ).isRequired,
+  delItem: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   purchases: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(DataTable);
+const mapDispatchToProps = (dispatch) => ({
+  delItem: (array) => dispatch(delPurchase(array)),
+});
+// Com apoio do Michael Caxias e Lucas Accurcio
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);
