@@ -8,7 +8,7 @@ class Header extends React.Component {
     console.log(total);
     return (
       <hearder>
-        <h4>TrybeWallet</h4>
+        <h4>Descrição</h4>
         <p data-testid="email-field">{userEmail}</p>
         <p data-testid="total-field">
           { total.reduce((acc, {
