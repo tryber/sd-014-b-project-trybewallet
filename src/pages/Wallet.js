@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import TextArea from '../components/TextArea';
 import { resultAPI, currenciResult } from '../actions';
 import Select from '../components/Select';
+import DataTable from '../components/DataTable';
 
 const metodoPagamento = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -23,6 +24,7 @@ class Wallet extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.renderInput = this.renderInput.bind(this);
   }
 
   componentDidMount() {
@@ -43,28 +45,36 @@ class Wallet extends React.Component {
     console.log(name, value);
   }
 
+  renderInput() {
+    const { value, description } = this.state;
+    return (
+      <>
+        <Input
+          label="Valor"
+          id="Valor"
+          type="text"
+          name="value"
+          value={ value }
+          onChange={ this.handleChange }
+        />
+        <TextArea
+          label="Descrição"
+          id="description"
+          name="description"
+          value={ description }
+          onChange={ this.handleChange }
+        />
+      </>);
+  }
+
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { currency, method, tag } = this.state;
     const { currencies } = this.props;
     return (
       <div>
         <Header />
         <form>
-          <Input
-            label="Valor"
-            id="Valor"
-            type="text"
-            name="value"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-          <TextArea
-            label="Descrição"
-            id="description"
-            name="description"
-            value={ description }
-            onChange={ this.handleChange }
-          />
+          {this.renderInput()}
           <Select
             array={ currencies }
             label="Moeda"
@@ -91,6 +101,7 @@ class Wallet extends React.Component {
           />
         </form>
         <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <DataTable />
       </div>);
   }
 }
