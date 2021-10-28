@@ -1,9 +1,77 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { user } from '../actions';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  handleClick() {
+    const { history, saveLoginAndPassword } = this.props;
+    const { email } = this.state;
+    saveLoginAndPassword(email);
+    history.push('/carteira');
+  }
+
   render() {
-    return <div>Login</div>;
+    const { email, password } = this.state;
+    const isValidEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/);
+    const minLength = 6;
+    return (
+      <div>
+        <input
+          name="email"
+          value={ email }
+          data-testid="email-input"
+          type="email"
+          placeholder="Digite seu email"
+          onChange={ this.handleChange }
+          required
+        />
+        <input
+          name="password"
+          value={ password }
+          data-testid="password-input"
+          type="password"
+          placeholder="Digite sua senha"
+          onChange={ this.handleChange }
+          required
+        />
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          disabled={ password.length < minLength || !isValidEmail }
+        >
+          Entrar
+
+        </button>
+      </div>
+    );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveLoginAndPassword: (payload) => dispatch(user(payload)),
+});
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  saveLoginAndPassword: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
