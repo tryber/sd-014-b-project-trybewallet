@@ -1,17 +1,25 @@
+import { WALLET_EXPENSES, GET_COINS } from '../actions';
+
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  totalExpenses: 0,
+  currencies: [],
+  expenses: [],
 };
 
-function walletReducer(state = INITIAL_STATE, action) {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'NEW_ACTION':
-    return { state: action.state };
+  case WALLET_EXPENSES:
+    return {
+      ...state,
+    };
+  case GET_COINS:
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
   default:
     return state;
   }
 }
 
-export default walletReducer;
+export default wallet;

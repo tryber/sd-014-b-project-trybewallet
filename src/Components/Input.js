@@ -31,7 +31,7 @@ export default class Input extends Component {
 }
 
 Input.propTypes = {
-  dataTestid: PropTypes.string.isRequired,
+  dataTestid: PropTypes.string,
   type: PropTypes.string.isRequired,
   labelName: PropTypes.string,
   value: PropTypes.string,
@@ -48,6 +48,7 @@ Input.defaultProps = {
   id: '',
   placeholder: '',
   onChange: null,
+  dataTestid: '',
 };
 
 // Referencia: exercício de forms redux (https://github.com/tryber/exercise-forms-redux/blob/gabarito/src/components/Input.jsx)
