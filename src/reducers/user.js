@@ -1,12 +1,10 @@
-import { EMAIL_USER } from '../actions';
+import { EMAIL_USER } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case EMAIL_USER:
     return {
@@ -16,6 +14,6 @@ function user(state = INITIAL_STATE, action) {
   default:
     return state;
   }
-}
+};
 
 export default user;

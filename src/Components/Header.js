@@ -21,11 +21,11 @@ class Header extends Component {
             </h3>
           </div>
           <div className="field">
-            <h3 data-testid="total-field">
+            <h3>
               Despesa total:
-              <span>
+              <span data-testid="total-field">
                 {' R$ '}
-                {totalField}
+                {totalField.toFixed(2)}
               </span>
             </h3>
             <h3 data-testid="header-currency-field">BRL</h3>

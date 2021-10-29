@@ -1,6 +1,6 @@
 export const EMAIL_USER = 'EMAIL_USER';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
-export const GET_COINS = 'GET_COINS';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
 export const getEmailUser = (email) => ({
   type: EMAIL_USER,
@@ -12,7 +12,7 @@ export const getWallet = (objInfo) => ({
   objInfo,
 });
 
-export const getCurrency = (currencies) => ({
-  type: GET_COINS,
-  currencies,
+export const saveExpense = (expense) => ({
+  type: SAVE_EXPENSE,
+  expense,
 });

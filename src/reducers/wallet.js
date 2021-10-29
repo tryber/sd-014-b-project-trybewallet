@@ -1,4 +1,4 @@
-import { WALLET_EXPENSES, GET_COINS } from '../actions';
+import { WALLET_EXPENSES, SAVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   totalExpenses: 0,
@@ -6,20 +6,20 @@ const INITIAL_STATE = {
   expenses: [],
 };
 
-function wallet(state = INITIAL_STATE, action) {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case WALLET_EXPENSES:
     return {
       ...state,
     };
-  case GET_COINS:
+  case SAVE_EXPENSE:
     return {
       ...state,
-      currencies: action.currencies,
+      expenses: [...state.expenses, action.expenses],
     };
   default:
     return state;
   }
-}
+};
 
 export default wallet;

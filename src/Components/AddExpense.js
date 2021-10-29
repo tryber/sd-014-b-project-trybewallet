@@ -4,16 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import { getCurrency } from '../actions';
 
 import { tags, payment } from '../services/data';
 import fetchApiCoins from '../services/requestApi';
+import Button from './Button';
+import { saveExpense } from '../actions/index';
 
 class AddExpense extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      arrayCoins: [],
       value: '',
       currency: '',
       method: '',
@@ -23,8 +25,8 @@ class AddExpense extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.getCoins = this.getCoins.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.takeNewExpenseToAdd = this.takeNewExpenseToAdd.bind(this);
+    this.resetState = this.resetState.bind(this);
     // this.handleChange = this.handleChange.bind(this);
   }
 
@@ -33,18 +35,46 @@ class AddExpense extends React.Component {
   }
 
   async getCoins() {
-    const { getCoinsApi } = this.props;
-    const coins = await fetchApiCoins();
-    getCoinsApi(coins);
+    const response = await fetchApiCoins();
+    const coins = Object.keys(response)
+      .filter((currency) => currency !== 'USDT' && currency !== 'DOGE');
+    this.setState({
+      arrayCoins: coins,
+    });
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
-  render() {
+  async takeNewExpenseToAdd() {
+    const { takeExpenses } = this.props;
     const { value, currency, method, tag, description } = this.state;
-    const { currencies } = this.props;
+
+    const getGeneratedExpense = {
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: await fetchApiCoins(),
+    };
+    takeExpenses(getGeneratedExpense);
+    this.resetState();
+  }
+
+  resetState() {
+    this.setState({
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+    });
+  }
+
+  render() {
+    const { arrayCoins, value, currency, method, tag, description } = this.state;
     return (
       <form>
         <Input
@@ -58,12 +88,12 @@ class AddExpense extends React.Component {
           label="Moeda"
           name="currency"
           value={ currency }
-          options={ currencies }
+          options={ arrayCoins }
           onChange={ this.handleChange }
         />
         <Select
           label="Método de pagamento"
-          name="paymentMethod"
+          name="method"
           value={ method }
           options={ payment }
           onChange={ this.handleChange }
@@ -82,18 +112,21 @@ class AddExpense extends React.Component {
           value={ description }
           onChange={ this.handleChange }
         />
+        <Button
+          text="Adicionar despesa"
+          onClick={ this.takeNewExpenseToAdd }
+        />
       </form>
     );
   }
 }
 
 AddExpense.propTypes = {
-  getCoinsApi: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  takeExpenses: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getCoinsApi: (currencies) => dispatch(getCurrency(currencies)),
+  takeExpenses: (expense) => dispatch(saveExpense(expense)),
 });
 
 const mapStateToProps = (state) => ({
