@@ -9,8 +9,6 @@ export default class Select extends Component {
       onChange,
       value,
       id,
-      defaultOption,
-      defaultValue,
       options,
     } = this.props;
     return (
@@ -23,7 +21,6 @@ export default class Select extends Component {
           onChange={ onChange }
           value={ value }
         >
-          <option value={ defaultValue }>{ defaultOption }</option>
           {
             options.map((element, index) => (
               <option key={ index } value={ element }>{ element }</option>
@@ -41,13 +38,9 @@ Select.propTypes = {
   id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
-  defaultOption: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Select.defaultProps = {
-  defaultOption: '',
-  defaultValue: '',
   id: '',
 };

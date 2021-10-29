@@ -80,12 +80,22 @@ class AddExpense extends React.Component {
         <Input
           labelName="Valor"
           type="number"
+          id="value"
           name="value"
           value={ value }
           onChange={ this.handleChange }
         />
+        <Input
+          labelName="Descrição"
+          type="text"
+          id="description"
+          name="description"
+          value={ description }
+          onChange={ this.handleChange }
+        />
         <Select
           label="Moeda"
+          id="currency"
           name="currency"
           value={ currency }
           options={ arrayCoins }
@@ -93,6 +103,7 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Método de pagamento"
+          id="method"
           name="method"
           value={ method }
           options={ payment }
@@ -100,22 +111,13 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Tag"
+          id="tag"
           name="tag"
           value={ tag }
           options={ tags }
           onChange={ this.handleChange }
         />
-        <Input
-          labelName="Descrição"
-          type="text"
-          name="description"
-          value={ description }
-          onChange={ this.handleChange }
-        />
-        <Button
-          text="Adicionar despesa"
-          onClick={ this.takeNewExpenseToAdd }
-        />
+        <Button text="Adicionar despesa" onClick={ this.takeNewExpenseToAdd } />
       </form>
     );
   }
