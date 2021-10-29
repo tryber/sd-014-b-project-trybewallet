@@ -25,7 +25,7 @@ class Header extends Component {
               Despesa total:
               <span data-testid="total-field">
                 {' R$ '}
-                { totalField === 0 ? 0 : totalField.toFixed(2) }
+                {totalField}
               </span>
             </h3>
             <h3 data-testid="header-currency-field">BRL</h3>
