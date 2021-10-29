@@ -17,17 +17,18 @@ class AddExpense extends React.Component {
     this.state = {
       arrayCoins: [],
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
+      id: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.getCoins = this.getCoins.bind(this);
     this.takeNewExpenseToAdd = this.takeNewExpenseToAdd.bind(this);
     this.resetState = this.resetState.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.insertId = this.insertId.bind(this);
   }
 
   componentDidMount() {
@@ -49,9 +50,9 @@ class AddExpense extends React.Component {
 
   async takeNewExpenseToAdd() {
     const { takeExpenses } = this.props;
-    const { value, currency, method, tag, description } = this.state;
-
+    const { id, value, currency, method, tag, description } = this.state;
     const getGeneratedExpense = {
+      id,
       value,
       description,
       currency,
@@ -60,15 +61,23 @@ class AddExpense extends React.Component {
       exchangeRates: await fetchApiCoins(),
     };
     takeExpenses(getGeneratedExpense);
+    this.insertId();
     this.resetState();
+  }
+
+  insertId() {
+    const { idInExpenses } = this.props;
+    const idLength = idInExpenses.length;
+
+    this.setState({ id: idLength });
   }
 
   resetState() {
     this.setState({
       value: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       description: '',
     });
   }
@@ -95,7 +104,7 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Moeda"
-          id="currency"
+          // id="currency"
           name="currency"
           value={ currency }
           options={ arrayCoins }
@@ -103,7 +112,7 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Método de pagamento"
-          id="method"
+          // id="method"
           name="method"
           value={ method }
           options={ payment }
@@ -125,6 +134,7 @@ class AddExpense extends React.Component {
 
 AddExpense.propTypes = {
   takeExpenses: PropTypes.func.isRequired,
+  idInExpenses: PropTypes.arrayOf.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,7 +142,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+  idInExpenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);

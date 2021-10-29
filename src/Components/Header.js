@@ -5,8 +5,24 @@ import { connect } from 'react-redux';
 import './header.css';
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.takeStateExpenses = this.takeStateExpenses.bind(this);
+  }
+
+  // Referência: https://github.com/tryber/sd-014-b-project-trybewallet/blob/lucas-accurcio-project-trybewallet/src/components/Header.js
+
+  takeStateExpenses() {
+    const { arrayExpenses } = this.props;
+    const totalField = arrayExpenses.reduce((acc, { value, exchangeRates, currency }) => {
+      const result = acc + (value * exchangeRates[currency].ask);
+      return result;
+    }, 0);
+    return totalField !== 0 ? totalField.toFixed(2) : 0;
+  }
+
   render() {
-    const { emailUser, totalField } = this.props;
+    const { emailUser } = this.props;
     return (
       <header className="header">
         <div className="title">
@@ -17,7 +33,7 @@ class Header extends Component {
             <h3 data-testid="email-field">
               Email:
               {' '}
-              {emailUser}
+              { emailUser }
             </h3>
           </div>
           <div className="field">
@@ -25,7 +41,7 @@ class Header extends Component {
               Despesa total:
               <span data-testid="total-field">
                 {' R$ '}
-                {totalField}
+                { this.takeStateExpenses() }
               </span>
             </h3>
             <h3 data-testid="header-currency-field">BRL</h3>
@@ -38,12 +54,12 @@ class Header extends Component {
 
 Header.propTypes = {
   emailUser: PropTypes.func.isRequired,
-  totalField: PropTypes.func.isRequired,
+  arrayExpenses: PropTypes.shape({ reduce: PropTypes.func }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   emailUser: state.user.email,
-  totalField: state.wallet.totalExpenses,
+  arrayExpenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, null)(Header);
