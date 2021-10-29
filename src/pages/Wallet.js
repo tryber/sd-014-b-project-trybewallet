@@ -16,7 +16,7 @@ class Wallet extends React.Component {
       currency: '',
       method: '',
       tag: '',
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,7 @@ class Wallet extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value
-    })
+    });
   }
 
   handleSubmit(event) {
@@ -44,7 +44,7 @@ class Wallet extends React.Component {
     event.preventDefault();
     this.setState((prevState) => ({
       id: prevState.id + 1,
-    }))
+    }));
     getExpensives(this.state);
 
     this.setState({ 
@@ -52,7 +52,7 @@ class Wallet extends React.Component {
       description: '', 
       currency: '', 
       method: '', 
-      tag: '' })
+      tag: '' });
   }
 
   getTotalExpensives() {
@@ -72,7 +72,7 @@ class Wallet extends React.Component {
 
   getConversion(obj) {
     return parseFloat(obj.value) * 
-      parseFloat(obj.exchangeRates[obj.currency].ask)
+      parseFloat(obj.exchangeRates[obj.currency].ask);
   }
 
   render() {
@@ -87,99 +87,100 @@ class Wallet extends React.Component {
           <p data-testid="total-field">{ this.getTotalExpensives() }</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
-       <form>
-         <Input_Text
-           label="Valor" 
-           value={ value }
-           id="value"
-           name="value"
-           onChange={ this.handleChange } 
-         />
-         <Input_Text
-           label="Descrição" 
-           value={ description }
-           id="description"
-           name="description"
-           onChange={ this.handleChange } 
-         />
-         <Select_Component
-           label="Moeda"
-           value={ currency } 
-           id="currency"
-           name="currency"
-           onChange={ this.handleChange }
-           options={ currenciesOptions }
-         />
-         <Select_Component
-           label="Método de pagamento"
-           value={ method } 
-           id="method"
-           name="method"
-           onChange={ this.handleChange }
-           options={ paymentsOptions }
-         />
-         <Select_Component
-           label="Tag"
-           value={ tag } 
-           id="tag"
-           name="tag"
-           onChange={ this.handleChange }
-           options={ tagsOptions }
-         />
-         <button 
-           type="button"
-           onClick={ this.handleSubmit }
-         > 
-           Adicionar despesa
-         </button>
-       </form>
-       <table>
-         <thead>
-           <tr>
-             <th>Descrição</th>
-             <th>Tag</th>
-             <th>Método de pagamento</th>
-             <th>Valor</th>
-             <th>Moeda</th>
-             <th>Câmbio utilizado</th>
-             <th>Valor convertido</th>
-             <th>Moeda de conversão</th>
-             <th>Editar/Excluir</th>
-           </tr>
-         </thead>
-         <tbody>
-           {expensives.map((expensive, index) => {
-             const exchangeValue = this.getExchangeValue(expensive);
-             const convertedValue = this.getConversion(expensive);
-             return(
-              <tr key={ index }>
-                <td>{ expensive.description }</td>
-                <td>{ expensive.tag }</td>
-                <td>{ expensive.method }</td>
-                <td>{ expensive.value }</td>
-                <td>{ expensive.exchangeRates[expensive.currency].
-                  name.split('/')[0] }</td>
-                <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
-                <td>{ convertedValue.toFixed(2) }</td>
-                <td>Real</td>
-                <td>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={() => delSpent(expensive.id)}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            )
-           }  
-           )}
-         </tbody>  
-       </table>
+        <form>
+          <Input_Text
+            label="Valor" 
+            value={ value }
+            id="value"
+            name="value"
+            onChange={ this.handleChange } 
+          />
+          <Input_Text
+            label="Descrição" 
+            value={ description }
+            id="description"
+            name="description"
+            onChange={ this.handleChange } 
+          />
+          <Select_Component
+            label="Moeda"
+            value={ currency } 
+            id="currency"
+            name="currency"
+            onChange={ this.handleChange }
+            options={ currenciesOptions }
+          />
+          <Select_Component
+            label="Método de pagamento"
+            value={ method } 
+            id="method"
+            name="method"
+            onChange={ this.handleChange }
+            options={ paymentsOptions }
+          />
+          <Select_Component
+            label="Tag"
+            value={ tag } 
+            id="tag"
+            name="tag"
+            onChange={ this.handleChange }
+            options={ tagsOptions }
+          />
+          <button 
+            type="button"
+            onClick={ this.handleSubmit }
+          > 
+            Adicionar despesa
+          </button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            {expensives.map((expensive, index) => {
+              const exchangeValue = this.getExchangeValue(expensive);
+              const convertedValue = this.getConversion(expensive);
+              return(
+                <tr key={ index }>
+                  <td>{ expensive.description }</td>
+                  <td>{ expensive.tag }</td>
+                  <td>{ expensive.method }</td>
+                  <td>{ expensive.value }</td>
+                  <td>{ expensive.exchangeRates[expensive.currency].
+                    name.split('/')[0] }
+                  </td>
+                  <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
+                  <td>{ convertedValue.toFixed(2) }</td>
+                  <td>Real</td>
+                  <td>
+                    <button
+                      type="button"
+                      data-testid="delete-btn"
+                      onClick={ () => delSpent(expensive.id) }
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              );
+            }  
+            )}
+          </tbody>  
+        </table>
       </>
       
-    )
+    );
   }
 }
 
@@ -188,13 +189,13 @@ const mapStateToProps = (state) => ({
   getEmail: state.user.email,
   currenciesOptions: state.wallet.currencies,
   expensives: state.wallet.expenses,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: (payload) => dispatch(requestCurrencies(payload)),
   getExpensives: (state) => dispatch(fetchApiExchange(state)),
   delSpent: (value) => dispatch(delExpensive(value)),
-})
+});
 
 Wallet.propTypes = {
   getEmail: PropTypes.string.isRequired,
@@ -203,6 +204,6 @@ Wallet.propTypes = {
   getExpensives: PropTypes.func.isRequired,
   expensives: PropTypes.array.isRequired,
   delSpent: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

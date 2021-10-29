@@ -14,8 +14,8 @@ export const delExpensive = (value) => ({ type: DEL_SPENT, value });
 export function fetchApiExchange(state) {
   return (dispatch) => {
     return fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((response) => response.json())
-      .then((response) => dispatch(getSpent(state, response)))
-  }
+      .then((response) => response.json())
+      .then((response) => dispatch(getSpent(state, response)));
+  };
 }
 

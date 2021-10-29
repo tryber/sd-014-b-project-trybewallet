@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEmail } from '../actions';
 
-  class Login extends React.Component {
-    constructor() {
-      super();
+class Login extends React.Component {
+  constructor() {
+    super();
 
-      this.state = {
-        email: '',
-        password: '',
-      }
+    this.state = {
+      email: '',
+      password: '',
+    };
 
-      this.handleChange = this.handleChange.bind(this);
-      this.handleClick = this.handleClick.bind(this);
-    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   isEmailValid(email) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -25,14 +25,14 @@ import { saveEmail } from '../actions';
     const { name, value } = target;
     this.setState({
       [name]: value
-    })
+    });
   }
 
   handleClick () {
     const { history, saveEmail } = this.props;
     const { email } = this.state;
     saveEmail(email);
-    history.push('/carteira')
+    history.push('/carteira');
   }
 
   render() {
@@ -69,7 +69,7 @@ import { saveEmail } from '../actions';
           Entrar
         </button>
       </section>
-    ) 
+    ); 
   }
 }
 
@@ -82,6 +82,6 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-}
+};
 
 export default connect(null, mapDispatchToProps)(Login);
