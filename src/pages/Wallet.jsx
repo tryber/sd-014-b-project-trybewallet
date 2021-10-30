@@ -18,12 +18,11 @@ class Wallet extends React.Component {
 
     this.state = {
       id: 0,
-      value: '',
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,10 +34,10 @@ class Wallet extends React.Component {
     setCurrencies();
   }
 
-  handleChange({ target: { name, value } }) {
+  handleChange({ target: { id, value } }) {
     this.setState((state) => ({
       ...state,
-      [name]: value,
+      [id]: value,
     }));
   }
 
@@ -48,6 +47,8 @@ class Wallet extends React.Component {
     this.setState((state) => ({
       ...state,
       id: state.id + 1,
+      value: 0,
+      description: '',
     }));
   }
 
@@ -56,20 +57,15 @@ class Wallet extends React.Component {
     return (
       <>
         <Input
-          nameLabel="Valor"
+          label="Valor"
           type="number"
           id="value"
-          name="value"
           value={ value }
           onChange={ this.handleChange }
-          placeholder="Valor da despesa"
         />
         <Input
-          nameLabel="Descrição"
-          type="text"
+          label="Descrição"
           id="description"
-          name="description"
-          placeholder="Descrição da despesa"
           value={ description }
           onChange={ this.handleChange }
         />
@@ -84,7 +80,7 @@ class Wallet extends React.Component {
       <>
         <Select
           nameLabel="Moedas"
-          id="currencies"
+          id="currency"
           name="currency"
           value={ currency }
           onChange={ this.handleChange }

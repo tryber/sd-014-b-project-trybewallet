@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addDataLogin } from '../actions/user';
-import Input from '../components/form/Input';
 import Button from '../components/form/Button';
 
 const MIN_LENGTH_PASSWORDS = 6;
@@ -51,26 +50,28 @@ class Login extends Component {
     const { email, password } = this.state;
     return (
       <form>
-        <Input
-          nameLabel=""
-          id="email-input"
-          dataTestId="email-input"
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <Input
-          nameLabel=""
-          id="password-input"
-          dataTestId="password-input"
-          type="password"
-          placeholder="Senha"
-          name="password"
-          value={ password }
-          onChange={ this.handleChange }
-        />
+        <label htmlFor="email-input">
+          <input
+            id="email-input"
+            data-testid="email-input"
+            type="email"
+            placeholder="email@email.com"
+            name="email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="password-input">
+          <input
+            id="password-input"
+            data-testid="password-input"
+            type="password"
+            placeholder="Senha"
+            name="password"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+        </label>
         <Link to="/carteira">
           <Button
             type="submit"

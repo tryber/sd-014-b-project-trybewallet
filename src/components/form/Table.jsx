@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+const tableHeader = [
+  'Descrição',
+  'Tag',
+  'Método de pagamento',
+  'Valor',
+  'Moeda',
+  'Câmbio utilizado',
+  'Valor convertido',
+  'Moeda de conversão',
+  'Editar/Excluir',
+];
+
 class Table extends Component {
   logProps() {
     const { expenses } = this.props;
@@ -23,53 +35,57 @@ class Table extends Component {
     // console.log(totalExpense);
   }
 
-  render() {
-    const tableHeader = [
-      'Descrição',
-      'Tag',
-      'Método de Pagamento',
-      'Valor',
-      'Moeda',
-      'Câmbio utilizado',
-      'Valor convertido',
-      'Moeda de conversão',
-      'Editar/Excluir',
-    ];
+  btnDel() {
+    alert('Deletei');
+  }
+
+  btnEdit() {
+    alert('Editei');
+  }
+
+  renderTableExpenses() {
     const { expenses } = this.props;
-    console.log(expenses[0]);
     return (
-      <>
-        <button type="button" onClick={ () => this.logProps() }>
-          Teste
-        </button>
-        <table>
+      expenses.map((expense, index) => {
+        const { currency, exchangeRates } = expense;
+        const { [currency]: { name: currencyName, ask } } = exchangeRates;
+        const value = +expense.value;
+        const rate = +ask;
+        return (
+          <tr key={ index }>
+            <td>{expense.description}</td>
+            <td>{expense.tag}</td>
+            <td>{expense.method}</td>
+            {/* <td>{`${currency} ${value.toFixed(2)}`}</td> */}
+            <td>{value}</td>
+            <td>{currencyName}</td>
+            {/* <td>{`R$ ${rate.toFixed(2)}`}</td> */}
+            <td>{rate.toFixed(2)}</td>
+            {/* <td>{`R$ ${(expense.value * rate).toFixed(2)}`}</td> */}
+            <td>{(expense.value * rate).toFixed(2)}</td>
+            <td>Real</td>
+            <td>
+              <button type="button" onClick={ this.btnEdit }>Edit</button>
+              <button type="button" onClick={ this.btnDel }>Del</button>
+            </td>
+          </tr>
+        );
+      })
+    );
+  }
 
-          <thead>
-            <tr>
-              {tableHeader.map((header, index) => (
-                <th key={ index }>{header}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {/* tenho que fazer um map para renderizar de uma vez só o conteúdo de toda a linha */}
-            {/* Mas primeiro devo conseguir fazer isso com um linha só... */}
-            {/* 1 Passo: Pegar o array */}
-            {/* Fazer o map */}
-            {/* para cada posição [0, 1] no array... fazer o que? */}
-
-            {expenses && expenses.map((element) => {
-              console.log(`currency ${element.id}`);
-              console.log(`value ${element.value}`);
-              console.log(`exchangeRates ${element.exchangeRates[element.currency].ask}`);
-            })}
-            <tr>
-              <td>teste</td>
-              <td>teste 2</td>
-            </tr>
-          </tbody>
-        </table>
-      </>
+  render() {
+    return (
+      <table>
+        <thead>
+          <tr>
+            {tableHeader.map((header) => <th key={ header }>{header}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderTableExpenses()}
+        </tbody>
+      </table>
     );
   }
 }
@@ -86,3 +102,11 @@ export default connect(mapStateToProps)(Table);
 // cada <th> é um célula de cabeçalho
 // <tbody> é o elemento pai de todas as outras linhas de conteúdo da tabela
 // <td> é um célula individual simples
+
+// tenho que fazer um map para renderizar de uma vez só o conteúdo de toda a linha
+// Mas primeiro devo conseguir fazer isso com um linha só...
+// 1 Passo: Pegar o array
+// Fazer o map
+// para cada posição [0, 1] no array...
+// 1 - Desetruturar
+// 2 - retornar a linha da tabela com a célua correspondente a cada valor;
