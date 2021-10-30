@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
-import HeaderTable from './HeaderTable';
 
 import './table.css';
 
@@ -12,50 +11,67 @@ class TableExpenses extends Component {
     super();
 
     this.mapExpenses = this.mapExpenses.bind(this);
+    this.headerTable = this.headerTable.bind(this);
+  }
+
+  headerTable() {
+    return (
+      <thead>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </thead>
+    );
   }
 
   mapExpenses() {
     const { arrayExpenses } = this.props;
-    const renderExpenses = arrayExpenses
-      .map(({ id, value, description, tag, method, currency, exchangeRates }) => {
-        const exchangeUsed = exchangeRates[currency].name.split('/');
-        const finalValue = value * exchangeRates[currency].ask;
-        const formatedValue = finalValue.toFixed(2);
-        // .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const formatedCoins = exchangeRates[currency].ask;
-        const valueCoins = parseFloat(formatedCoins).toFixed(2);
-        return (
-          <tr key={ id }>
-            <td>{ description }</td>
-            <td>{ tag }</td>
-            <td>{ method }</td>
-            <td>{ `${currency} ${value}` }</td>
-            <td>{ exchangeUsed[0] }</td>
-            <td>{ valueCoins }</td>
-            <td>{ formatedValue }</td>
-            <td>{ exchangeUsed[1] }</td>
-            <td>
-              <Button
-                text="Edit"
-                data-testid="edit-btn"
-                onClick={ () => {} }
-              />
-              /
-              <Button
-                text="Trash"
-                data-testid="delete-btn"
-                onClick={ () => {} }
-              />
-            </td>
-          </tr>);
-      });
+    const renderExpenses = arrayExpenses.map(({
+      id, value, description, tag, method, currency, exchangeRates }) => {
+      const exchangeUsed = exchangeRates[currency].name.split('/');
+      const finalValue = value * exchangeRates[currency].ask;
+      const formatedValue = finalValue.toFixed(2);
+      const formatedCoins = exchangeRates[currency].ask;
+      const valueCoins = parseFloat(formatedCoins).toFixed(2);
+
+      return (
+        <tr key={ id }>
+          <td>{ description }</td>
+          <td>{ tag }</td>
+          <td>{ method }</td>
+          <td>{ value }</td>
+          <td>{ exchangeUsed[0] }</td>
+          <td>{ valueCoins }</td>
+          <td>{ formatedValue }</td>
+          <td>{ exchangeUsed[1] }</td>
+          <td>
+            <Button
+              text="Edit"
+              data-testid="edit-btn"
+              onClick={ () => {} }
+            />
+            /
+            <Button
+              text="Trash"
+              data-testid="delete-btn"
+              onClick={ () => {} }
+            />
+          </td>
+        </tr>);
+    });
     return renderExpenses;
   }
 
   render() {
     return (
       <table>
-        <HeaderTable />
+        { this.headerTable() }
         <tbody>
           { this.mapExpenses() }
         </tbody>
