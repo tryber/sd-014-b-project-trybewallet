@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpenses } from '../../actions/expenses';
 
 const tableHeader = [
   'Descrição',
@@ -15,8 +16,9 @@ const tableHeader = [
 ];
 
 class Table extends Component {
-  btnDel() {
-    console.log('Deletei');
+  btnDel(id) {
+    const { deleteExpense } = this.props;
+    deleteExpense(id);
   }
 
   btnEdit() {
@@ -26,19 +28,19 @@ class Table extends Component {
   renderTableExpenses() {
     const { expenses } = this.props;
     return (
-      expenses.map((expense, index) => {
+      expenses.map((expense) => {
         const { currency, exchangeRates } = expense;
         const { [currency]: { name: currencyName, ask } } = exchangeRates;
         const value = +expense.value;
         const rate = +ask;
         return (
-          <tr key={ index }>
+          <tr key={ expense.id }>
             <td>{expense.description}</td>
             <td>{expense.tag}</td>
             <td>{expense.method}</td>
             {/* <td>{`${currency} ${value.toFixed(2)}`}</td> */}
             <td>{value}</td>
-            <td>{currencyName}</td>
+            <td>{currencyName.split('/')[0]}</td>
             {/* <td>{`R$ ${rate.toFixed(2)}`}</td> */}
             <td>{rate.toFixed(2)}</td>
             {/* <td>{`R$ ${(expense.value * rate).toFixed(2)}`}</td> */}
@@ -46,7 +48,13 @@ class Table extends Component {
             <td>Real</td>
             <td>
               <button type="button" onClick={ this.btnEdit }>Edit</button>
-              <button type="button" onClick={ this.btnDel }>Del</button>
+              <button
+                type="button"
+                onClick={ () => this.btnDel(expense.id) }
+                data-testid="delete-btn"
+              >
+                Del
+              </button>
             </td>
           </tr>
         );
@@ -74,8 +82,15 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (state) => dispatch(deleteExpenses(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
 Table.propTypes = {
   map: PropTypes.func,
+  deleteExpense: PropTypes.func,
   expenses: PropTypes.arrayOf(
     PropTypes.shape(
       {
@@ -118,6 +133,5 @@ Table.propTypes = {
 
 Table.defaultProps = {
   map: null,
+  deleteExpense: null,
 };
-
-export default connect(mapStateToProps)(Table);

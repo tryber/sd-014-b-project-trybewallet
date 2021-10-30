@@ -18,7 +18,7 @@ class Wallet extends React.Component {
 
     this.state = {
       id: 0,
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -27,11 +27,32 @@ class Wallet extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.capitalFirstLetter = this.capitalFirstLetter.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
     const { setCurrencies } = this.props;
     setCurrencies();
+  }
+
+  capitalFirstLetter({ target: { id, value } }) {
+    // https://attacomsian.com/blog/string-capitalize-javascript
+    const newValue = (
+      value.toLowerCase().charAt(0)
+        .toUpperCase() + value.toLowerCase().slice(1)
+    );
+    this.setState((state) => ({
+      ...state,
+      [id]: newValue,
+    }));
+  }
+
+  handleKeyPress({ key }) {
+    const { value, description } = this.state;
+    if (key === 'Enter' && value && description) {
+      return this.handleClick();
+    }
   }
 
   handleChange({ target: { id, value } }) {
@@ -47,7 +68,7 @@ class Wallet extends React.Component {
     this.setState((state) => ({
       ...state,
       id: state.id + 1,
-      value: 0,
+      value: '',
       description: '',
     }));
   }
@@ -67,7 +88,8 @@ class Wallet extends React.Component {
           label="Descrição"
           id="description"
           value={ description }
-          onChange={ this.handleChange }
+          onChange={ this.capitalFirstLetter }
+          onKeyPress={ this.handleKeyPress }
         />
       </>
     );
@@ -120,6 +142,7 @@ class Wallet extends React.Component {
             <Button
               nameLabel="Adicionar despesa"
               onClick={ this.handleClick }
+              onKeyPress={ this.handleKeyPress }
             />
           </form>
           <Table />
@@ -137,6 +160,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesApiThunk()),
   setExpenses: (state) => dispatch(getExpensesApiThunk(state)),
+
 });
 
 Wallet.propTypes = {

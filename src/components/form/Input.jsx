@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class Input extends Component {
   render() {
-    const { label, onChange, value, id, type = 'text' } = this.props;
+    const { label, onChange, onKeyPress, value, id, type = 'text' } = this.props;
     return (
       <label htmlFor={ id }>
         {label}
@@ -12,6 +12,7 @@ export default class Input extends Component {
           id={ id }
           onChange={ onChange }
           value={ value }
+          onKeyPress={ onKeyPress }
         />
       </label>
     );
@@ -27,8 +28,10 @@ Input.propTypes = {
   ]).isRequired,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func,
 };
 
 Input.defaultProps = {
   type: 'text',
+  onKeyPress: null,
 };
