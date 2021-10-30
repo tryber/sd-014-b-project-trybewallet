@@ -5,8 +5,8 @@ import TableRow from './TableRow';
 
 class ExpensesTable extends Component {
   render() {
-    const { expenses } = this.props;
-    console.log(expenses);
+    const { expenses, handleEditing } = this.props;
+
     return (
       <table>
         <thead>
@@ -23,7 +23,11 @@ class ExpensesTable extends Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.map((exp) => <TableRow key={ exp.id } expenseObj={ exp } />)}
+          { expenses.map((exp) => (<TableRow
+            key={ exp.id }
+            expenseObj={ exp }
+            handleEditing={ handleEditing }
+          />))}
         </tbody>
       </table>
     );
@@ -32,6 +36,7 @@ class ExpensesTable extends Component {
 
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleEditing: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

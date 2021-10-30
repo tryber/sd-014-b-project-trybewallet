@@ -20,6 +20,13 @@ function expenses(state = INITIAL_STATE, action) {
       ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.id),
     };
+  case 'EDIT_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses
+        .splice(state.expenses
+          .findIndex(({ id }) => id === action.expense.id), 1, action.expense),
+    };
   case 'UPDATE_CURRENCIES':
     return {
       ...state,

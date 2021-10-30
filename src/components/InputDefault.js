@@ -3,15 +3,16 @@ import React, { Component } from 'react';
 
 class InputDefault extends Component {
   render() {
-    const { name, onChange, children } = this.props;
+    const { name, onChange, label, value } = this.props;
     return (
       <label htmlFor={ `${name}-input` }>
-        { children }
+        { label }
         <input
           type="text"
           name={ name }
           id={ `${name}-input` }
           onChange={ onChange }
+          value={ value }
         />
       </label>
     );
@@ -21,7 +22,7 @@ class InputDefault extends Component {
 InputDefault.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default InputDefault;

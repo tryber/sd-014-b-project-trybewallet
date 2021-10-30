@@ -9,6 +9,7 @@ class TableRow extends Component {
       expenseObj: { id, description, tag, method, value, currency, exchangeRates },
       deleteExp,
       updateTotal,
+      handleEditing,
     } = this.props;
     return (
       <tr>
@@ -36,6 +37,7 @@ class TableRow extends Component {
             id="edit-btn"
             type="button"
             data-testid="edit-btn"
+            onClick={ () => { handleEditing(id); } }
           >
             Edit
           </button>
@@ -57,6 +59,7 @@ TableRow.propTypes = {
   }).isRequired,
   deleteExp: PropTypes.func.isRequired,
   updateTotal: PropTypes.func.isRequired,
+  handleEditing: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

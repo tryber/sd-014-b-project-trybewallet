@@ -6,6 +6,8 @@ export const addExpense = (expense) => ({ type: 'ADD_EXPENSE', expense });
 
 export const deleteExpense = (id) => ({ type: 'DELETE_EXPENSE', id });
 
+export const editExpenseAction = (expense) => ({ type: 'EDIT_EXPENSE', expense });
+
 export const sumTotalExpenses = (value) => ({
   type: 'SUM_TO_TOTAL_EXPENSES', value });
 
