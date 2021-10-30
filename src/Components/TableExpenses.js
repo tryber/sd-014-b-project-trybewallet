@@ -18,24 +18,32 @@ class TableExpenses extends Component {
     const { arrayExpenses } = this.props;
     const renderExpenses = arrayExpenses
       .map(({ id, value, description, tag, method, currency, exchangeRates }) => {
-        const valueCoins = parseFloat(value);
+        const valueCoins = value;
+        const exchangeUsed = exchangeRates[currency].name.split('/');
+        const finalValue = value * exchangeRates[currency].ask;
+        const formatedValue = finalValue
+          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const formatedCoins = parseFloat(valueCoins).toFixed(2);
         return (
           <tr key={ id }>
             <td>{ description }</td>
             <td>{ tag }</td>
             <td>{ method }</td>
-            <td>{ valueCoins }</td>
-            <td>{ currency }</td>
+            <td>{ `${currency} ${formatedCoins}` }</td>
+            <td>{ exchangeUsed[0] }</td>
             <td>{ exchangeRates.ask }</td>
-            <td>{ (value * exchangeRates[currency].ask) }</td>
-            <td>Real Brasileiro</td>
+            <td>{ formatedValue }</td>
+            <td>{ exchangeUsed[1] }</td>
             <td>
               <Button
                 text="Edit"
+                data-testid="edit-btn"
                 onClick={ () => {} }
               />
+              /
               <Button
                 text="Trash"
+                data-testid="delete-btn"
                 onClick={ () => {} }
               />
             </td>
