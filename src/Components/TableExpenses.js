@@ -18,20 +18,20 @@ class TableExpenses extends Component {
     const { arrayExpenses } = this.props;
     const renderExpenses = arrayExpenses
       .map(({ id, value, description, tag, method, currency, exchangeRates }) => {
-        const valueCoins = value;
         const exchangeUsed = exchangeRates[currency].name.split('/');
         const finalValue = value * exchangeRates[currency].ask;
-        const formatedValue = finalValue
-          .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const formatedCoins = parseFloat(valueCoins).toFixed(2);
+        const formatedValue = finalValue.toFixed(2);
+        // .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const formatedCoins = exchangeRates[currency].ask;
+        const valueCoins = parseFloat(formatedCoins).toFixed(2);
         return (
           <tr key={ id }>
             <td>{ description }</td>
             <td>{ tag }</td>
             <td>{ method }</td>
-            <td>{ `${currency} ${formatedCoins}` }</td>
+            <td>{ `${currency} ${value}` }</td>
             <td>{ exchangeUsed[0] }</td>
-            <td>{ exchangeRates.ask }</td>
+            <td>{ valueCoins }</td>
             <td>{ formatedValue }</td>
             <td>{ exchangeUsed[1] }</td>
             <td>

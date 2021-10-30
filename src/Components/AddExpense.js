@@ -104,7 +104,7 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Moeda"
-          // id="currency"
+          id="currency"
           name="currency"
           value={ currency }
           options={ arrayCoins }
@@ -112,7 +112,7 @@ class AddExpense extends React.Component {
         />
         <Select
           label="Método de pagamento"
-          // id="method"
+          id="method"
           name="method"
           value={ method }
           options={ payment }
