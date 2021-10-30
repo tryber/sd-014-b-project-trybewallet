@@ -61,13 +61,13 @@ class TableExpenses extends Component {
             <td>
               <Button
                 text="Edit"
-                data-testid="edit-btn"
+                dataTestid="edit-btn"
                 onClick={ () => {} }
               />
               /
               <Button
                 text="Trash"
-                data-testid="delete-btn"
+                dataTestid="delete-btn"
                 onClick={ () => this.deleteExpense(id) }
               />
             </td>
