@@ -4,8 +4,13 @@ export const addUser = (info) => ({ type: 'SAVE_USER_INFO', user: info });
 
 export const addExpense = (expense) => ({ type: 'ADD_EXPENSE', expense });
 
+export const deleteExpense = (id) => ({ type: 'DELETE_EXPENSE', id });
+
 export const sumTotalExpenses = (value) => ({
   type: 'SUM_TO_TOTAL_EXPENSES', value });
+
+export const updateTotalExpenses = () => ({
+  type: 'UPDATE_TOTAL_EXPENSES' });
 
 export const updateCurrencies = (currencies) => ({
   type: 'UPDATE_CURRENCIES', currencies });

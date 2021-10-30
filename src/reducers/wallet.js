@@ -15,10 +15,26 @@ function expenses(state = INITIAL_STATE, action) {
         action.expense,
       ],
     };
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
+    };
   case 'UPDATE_CURRENCIES':
     return {
       ...state,
       currencies: action.currencies,
+    };
+  case 'UPDATE_TOTAL_EXPENSES':
+    return {
+      ...state,
+      totalExpenses: state.expenses.length
+        ? state.expenses.reduce((sum, { value, currency, exchangeRates }) => {
+          const { ask } = Object.values(exchangeRates)
+            .find(({ code }) => code === currency);
+          return sum + (+value * +ask);
+        }, 0)
+        : 0,
     };
   case 'SUM_TO_TOTAL_EXPENSES':
     return {

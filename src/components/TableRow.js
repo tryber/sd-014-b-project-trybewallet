@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteExpense, updateTotalExpenses } from '../actions';
 
-export default class TableRow extends Component {
+class TableRow extends Component {
   render() {
     const {
-      expenseObj: { description, tag, method, value, currency, exchangeRates },
+      expenseObj: { id, description, tag, method, value, currency, exchangeRates },
+      deleteExp,
+      updateTotal,
     } = this.props;
     return (
       <tr>
@@ -17,8 +21,24 @@ export default class TableRow extends Component {
         <td>{ Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
         <td>Real</td>
         <td>
-          <button id="delete-btn" type="button">Delete</button>
-          <button id="edit-btn" type="button">Edit</button>
+          <button
+            id="delete-btn"
+            data-testid="delete-btn"
+            type="button"
+            onClick={ () => {
+              deleteExp(id);
+              updateTotal();
+            } }
+          >
+            Deletes
+          </button>
+          <button
+            id="edit-btn"
+            type="button"
+            data-testid="edit-btn"
+          >
+            Edit
+          </button>
         </td>
       </tr>
     );
@@ -27,6 +47,7 @@ export default class TableRow extends Component {
 
 TableRow.propTypes = {
   expenseObj: PropTypes.shape({
+    id: PropTypes.number,
     description: PropTypes.string,
     tag: PropTypes.string,
     method: PropTypes.string,
@@ -34,4 +55,13 @@ TableRow.propTypes = {
     currency: PropTypes.string,
     exchangeRates: PropTypes.objectOf(PropTypes.object),
   }).isRequired,
+  deleteExp: PropTypes.func.isRequired,
+  updateTotal: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpense(id)),
+  updateTotal: () => dispatch(updateTotalExpenses()),
+});
+
+export default connect(null, mapDispatchToProps)(TableRow);
