@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { addDataLogin } from '../actions/user';
 import Button from '../components/form/Button';
 
@@ -13,6 +13,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      logged: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +30,10 @@ class Login extends Component {
     const { setDataLoginStore } = this.props;
     const { email } = this.state;
     setDataLoginStore({ email });
+    this.setState((state) => ({
+      ...state,
+      logged: true,
+    }));
   }
 
   checkEmail() {
@@ -47,40 +52,41 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, logged } = this.state;
     return (
-      <form>
-        <label htmlFor="email-input">
-          <input
-            id="email-input"
-            data-testid="email-input"
-            type="email"
-            placeholder="email@email.com"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          <input
-            id="password-input"
-            data-testid="password-input"
-            type="password"
-            placeholder="Senha"
-            name="password"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <Link to="/carteira">
-          <Button
-            type="submit"
-            nameLabel="Entrar"
-            onClick={ this.handleClick }
-            disabled={ !this.checkDataLogin() }
-          />
-        </Link>
-      </form>
+      logged ? <Redirect to="/carteira" />
+        : (
+          <form>
+            <label htmlFor="email-input">
+              <input
+                id="email-input"
+                data-testid="email-input"
+                type="email"
+                placeholder="email@email.com"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="password-input">
+              <input
+                id="password-input"
+                data-testid="password-input"
+                type="password"
+                placeholder="Senha"
+                name="password"
+                value={ password }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <Button
+              type="submit"
+              nameLabel="Entrar"
+              onClick={ this.handleClick }
+              disabled={ !this.checkDataLogin() }
+            />
+          </form>
+        )
     );
   }
 }
