@@ -11,9 +11,13 @@ class EditExpense extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(expense) {
-    const { editExpense, id } = this.props;
-    editExpense({ id, ...expense });
+  onSubmit(newExpense) {
+    const { editExpense, id, expense } = this.props;
+    editExpense({
+      id,
+      ...newExpense,
+      exchangeRates: expense.exchangeRates,
+    });
   }
 
   render() {

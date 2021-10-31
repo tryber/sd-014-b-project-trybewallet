@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import AddExpense from '../components/AddExpense';
 import ExpensesTable from '../components/ExpensesTable';
 import EditExpense from '../components/EditExpense';
+import { updateCurrencies } from '../actions';
+import { fetchCurrenciesList } from '../services/currencyQuotesApi';
 
 class Wallet extends React.Component {
   constructor() {
@@ -17,6 +19,16 @@ class Wallet extends React.Component {
     };
 
     this.handleEditing = this.handleEditing.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCurrenciesList();
+  }
+
+  async getCurrenciesList() {
+    const { setCurrencies } = this.props;
+    const currencies = await fetchCurrenciesList();
+    setCurrencies(currencies);
   }
 
   handleEditing(id) {
@@ -34,8 +46,8 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        { isEditing 
-          ? <EditExpense id={ id } expense={ currentlyEditing } /> 
+        { isEditing
+          ? <EditExpense id={ id } expense={ currentlyEditing } />
           : <AddExpense /> }
         <ExpensesTable handleEditing={ this.handleEditing } />
       </>
@@ -47,12 +59,17 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: (currencies) => dispatch(updateCurrencies(currencies)),
+});
+
 Wallet.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
+  setCurrencies: PropTypes.func.isRequired,
 };
 
 Wallet.defaultProps = {
   expenses: [],
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

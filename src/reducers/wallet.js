@@ -5,6 +5,12 @@ const INITIAL_STATE = {
   totalExpenses: 0,
 };
 
+function spliceExpense(expensesArr, action) {
+  const index = expensesArr.findIndex(({ id }) => id === action.expense.id);
+  expensesArr.splice(index, 1, action.expense);
+  return expensesArr;
+}
+
 function expenses(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'ADD_EXPENSE':
@@ -23,9 +29,7 @@ function expenses(state = INITIAL_STATE, action) {
   case 'EDIT_EXPENSE':
     return {
       ...state,
-      expenses: state.expenses
-        .splice(state.expenses
-          .findIndex(({ id }) => id === action.expense.id), 1, action.expense),
+      expenses: spliceExpense([...state.expenses], action),
     };
   case 'UPDATE_CURRENCIES':
     return {

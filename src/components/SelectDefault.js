@@ -13,7 +13,7 @@ export default class SelectDefault extends Component {
           onChange={ onChange }
           value={ value }
         >
-          { options.map((option) => (
+          { options && options.map((option) => (
             <option
               key={ option }
               value={ option }
@@ -31,4 +31,5 @@ SelectDefault.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import InputDefault from './InputDefault';
 import SelectDefault from './SelectDefault';
-import { fetchCurrenciesList } from '../services/currencyQuotesApi';
 
-export default class ExpenseForm extends Component {
+class ExpenseForm extends Component {
   constructor(props) {
     super(props);
 
@@ -15,20 +15,9 @@ export default class ExpenseForm extends Component {
       currency,
       method,
       tag,
-      currencies: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.getCurrenciesList = this.getCurrenciesList.bind(this);
-  }
-
-  componentDidMount() {
-    this.getCurrenciesList();
-  }
-
-  async getCurrenciesList() {
-    const currencies = await fetchCurrenciesList();
-    this.setState({ currencies });
   }
 
   handleChange({ target }) {
@@ -37,8 +26,8 @@ export default class ExpenseForm extends Component {
   }
 
   render() {
-    const { onSubmit, isEditing } = this.props;
-    const { currencies, value, description, method, tag, currency } = this.state;
+    const { currencies, onSubmit, isEditing } = this.props;
+    const { value, description, method, tag, currency } = this.state;
     return (
       <form>
         <InputDefault
@@ -81,16 +70,20 @@ export default class ExpenseForm extends Component {
             onSubmit({ value, description, currency, method, tag });
           } }
         >
-          { isEditing ? 'Editar Gasto' : 'Adicionar Despesa' }
+          { isEditing ? 'Editar Despesa' : 'Adicionar Despesa' }
         </button>
       </form>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
 ExpenseForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   values: PropTypes.shape({
-    currencies: PropTypes.arrayOf(PropTypes.string),
     value: PropTypes.string,
     description: PropTypes.string,
     currency: PropTypes.string,
@@ -109,6 +102,7 @@ ExpenseForm.defaultProps = {
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    currencies: [],
   },
 };
+
+export default connect(mapStateToProps, null)(ExpenseForm);

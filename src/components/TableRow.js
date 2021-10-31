@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { deleteExpense, updateTotalExpenses } from '../actions';
 
 class TableRow extends Component {
+  componentDidUpdate() {
+    const { updateTotal } = this.props;
+    updateTotal();
+  }
+
   render() {
     const {
       expenseObj: { id, description, tag, method, value, currency, exchangeRates },
@@ -31,7 +36,7 @@ class TableRow extends Component {
               updateTotal();
             } }
           >
-            Deletes
+            Delete
           </button>
           <button
             id="edit-btn"
