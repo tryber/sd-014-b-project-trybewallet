@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { userAction } from '../actions';
+import { user } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -11,72 +10,80 @@ class Login extends React.Component {
     this.state = {
       email: 'alguem@email.com',
       password: '',
-      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
-    const { email, password } = target;
-    const validHandleChange = this.handleEmail(email) && this.handlePass(password);
-    this.setState({ disabled: !validHandleChange });
+    this.setState({
+      [target.name]: target.value,
+    });
   }
 
-  handleEmail(email) {
-    const regexEmail = /\S+@\S+\.\S+/;
-    return regexEmail.test(email);
-  }
-
-  handlePass(password) {
-    const caracterPass = 6;
-    return password.length >= caracterPass;
+  handleClick() {
+    const { history, userEmailLogin } = this.props;
+    const { email } = this.state;
+    history.push('/carteira');
+    userEmailLogin(email);
   }
 
   render() {
-    const { email, password, disabled } = this.state;
-    const { stateEmail } = this.props;
+    const { email, password } = this.state;
+    const { handleChange, handleClick } = this;
+
+    const validationEmailLogin = () => {
+      const reg = /\S+@\S+\.\S+/;
+      return reg.test(email);
+    };
+
+    const caracterPass = 6;
+    const validationPassWord = password.length >= caracterPass;
+
     return (
-      <form>
-        <input
-          type="email"
-          data-testid="email-input"
-          name="email"
-          id="email-input"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          type="text"
-          data-testid="password-input"
-          name="password"
-          id="password-input"
-          value={ password }
-          onChange={ this.handleChange }
-        />
+      <div>
+        <label htmlFor="input-email">
+          Email:
+          <input
+            id="input-email"
+            name="email"
+            type="email"
+            data-testid="email-input"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="input-password">
+          Password:
+          <input
+            id="input-password"
+            name="password"
+            type="password"
+            data-testid="password-input"
+            onChange={ handleChange }
+          />
+        </label>
         <button
           type="button"
-          onClick={ () => stateEmail(email && password) }
-          disabled={ disabled }
+          disabled={ !(validationEmailLogin() && validationPassWord) }
+          onClick={ handleClick }
         >
-          <Link to="/carteira">
-            Entrar
-          </Link>
+          Entrar
         </button>
-      </form>
+      </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispathParam) => ({
-  stateEmail: (state) => dispathParam(userAction(state)),
-});
-
 Login.propTypes = {
-  handleEmail: PropTypes.func,
-  handlePass: PropTypes.func,
-  handleChange: PropTypes.func,
-  stateEmail: PropTypes.func,
-}.isRequired;
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  userEmailLogin: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  userEmailLogin: (email) => dispatch(user(email)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
