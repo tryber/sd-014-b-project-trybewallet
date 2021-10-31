@@ -8,7 +8,7 @@ class Login extends React.Component {
     super();
 
     this.state = {
-      email: 'alguem@email.com',
+      email: '',
       password: '',
     };
 
@@ -31,11 +31,10 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { handleChange, handleClick } = this;
 
     const validationEmailLogin = () => {
-      const reg = /\S+@\S+\.\S+/;
-      return reg.test(email);
+      const regexEmail = /\S+@\S+\.\S+/;
+      return regexEmail.test(email);
     };
 
     const caracterPass = 6;
@@ -50,7 +49,7 @@ class Login extends React.Component {
             name="email"
             type="email"
             data-testid="email-input"
-            onChange={ handleChange }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="input-password">
@@ -60,13 +59,13 @@ class Login extends React.Component {
             name="password"
             type="password"
             data-testid="password-input"
-            onChange={ handleChange }
+            onChange={ this.handleChange }
           />
         </label>
         <button
           type="button"
           disabled={ !(validationEmailLogin() && validationPassWord) }
-          onClick={ handleClick }
+          onClick={ this.handleClick }
         >
           Entrar
         </button>

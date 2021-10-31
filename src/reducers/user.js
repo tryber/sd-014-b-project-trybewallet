@@ -1,7 +1,7 @@
 import { user } from '../actions/index';
 
 const INITAL_STATE = ({
-  email: '',
+  email: 'alguem@email.com',
 });
 
 export default function reduceUser(state = INITAL_STATE, action) {
