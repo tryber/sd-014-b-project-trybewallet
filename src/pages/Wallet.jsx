@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Header } from '../components';
 import TableExpenses from '../components/wallet_components/TableExpenses';
 import Form from '../components/wallet_components/Form';
-import { getFecthAPI } from '../actions';
+import { getFetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -13,13 +13,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
     return (
       <div>
         <Header />
         Wallet
         <section>
-          <Form currencies={ currencies } />
+          <Form />
         </section>
         <section>
           <TableExpenses />
@@ -30,16 +29,11 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  prepareFetchData: () => dispatch(getFecthAPI()),
-});
-
-const mapStateToProps = ({ wallet: { currencies } }) => ({
-  currencies,
+  prepareFetchData: () => dispatch(getFetchAPI()),
 });
 
 Wallet.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   prepareFetchData: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(null, mapDispatchToProps)(Wallet);

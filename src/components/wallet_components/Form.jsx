@@ -32,6 +32,7 @@ class Form extends Component {
     const { updateRates, saveUserData } = this.props;
     await updateRates();
     saveUserData(this.state);
+
     this.setState((prevState) => ({
       id: prevState.id + 1,
     }));
@@ -92,9 +93,13 @@ Form.propTypes = {
   updateRates: PropTypes.func,
 }.isRequired;
 
+const mapStateToProps = ({ wallet: { currencies } }) => ({
+  currencies,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   updateRates: () => dispatch(getUpdataAPI()),
   saveUserData: (expense) => dispatch(saveExpenses(expense)),
 });
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
