@@ -3,6 +3,7 @@
 import { FAILED_REQUEST, GET_COINS } from '../actions/coinsAction';
 import { GET_EXCHANGE_RATE } from '../actions/currentExchangeRateAction';
 import { ADD_EXPENSE } from '../actions/addExpensesAction';
+import { DELETE_ESPENSE } from '../actions/deleteEspenseAction';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -38,6 +39,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isLoading: true,
       error: action.payload,
+    };
+  case DELETE_ESPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload),
+      ],
     };
   default:
     return state;

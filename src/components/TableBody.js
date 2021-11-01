@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions/deleteEspenseAction';
 
 /**
  * Converte 'string' numérica em números com Number
@@ -8,6 +9,11 @@ import { connect } from 'react-redux';
  */
 
 class TableBody extends Component {
+  handleClick(id) {
+    const { deleteExpenses } = this.props;
+    deleteExpenses(id);
+  }
+
   render() {
     const { getExpensesArray } = this.props;
     return (
@@ -22,9 +28,18 @@ class TableBody extends Component {
               <td>{ exchangeRates[currency].name.split('/')[0] }</td>
               <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
               <td>
-                { (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2) }
+                { Number(value * exchangeRates[currency].ask).toFixed(2) }
               </td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.handleClick(id) }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           ))}
       </tbody>
@@ -36,8 +51,13 @@ const mapStateToProps = (state) => ({
   getExpensesArray: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpenses: (id) => dispatch(deleteExpense(id)),
+});
+
 TableBody.propTypes = {
   getExpensesArray: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteExpenses: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(TableBody);
+export default connect(mapStateToProps, mapDispatchToProps)(TableBody);
