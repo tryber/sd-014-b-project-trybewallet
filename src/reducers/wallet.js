@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   exchageRates: {},
 };
 
-export const wallet = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SUBMIT_CURRENCIES:
     return { ...state, currencies: action.payload };
