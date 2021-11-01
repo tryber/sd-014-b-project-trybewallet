@@ -49,11 +49,11 @@ class WalletForm extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="payment-method">
+        <label htmlFor="method">
           Método de pagamento
           <select
             name="method"
-            id="payment-method"
+            id="method"
             onChange={ (e) => this.handleChange(e) }
           >
             <option>Dinheiro</option>
@@ -62,9 +62,9 @@ class WalletForm extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="category">
+        <label htmlFor="tag">
           Tag
-          <select name="tag" onChange={ (e) => this.handleChange(e) }>
+          <select name="tag" id="tag" onChange={ (e) => this.handleChange(e) }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
