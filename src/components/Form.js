@@ -7,8 +7,9 @@ import Input from './Input';
 import Select from './Select';
 import Button from './Button';
 
+const ALIMENTACAO = 'Alimentação';
 const paymentArray = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-const tagArray = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const tagArray = [ALIMENTACAO, 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Form extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class Form extends Component {
       value: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: ALIMENTACAO,
       description: '',
       id: 0,
     };
@@ -37,6 +38,13 @@ class Form extends Component {
     await fetchCurrentExchangeRate();
     addCurrentExpence(this.state);
     this.setState((prevState) => ({ id: prevState.id + 1 }));
+    this.setState({
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: ALIMENTACAO,
+      description: '',
+    });
   }
 
   render() {
