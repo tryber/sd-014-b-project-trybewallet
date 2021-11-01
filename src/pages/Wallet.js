@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Input from '../components/Input';
+import Select from '../components/Select';
+
 import { validWallet, saveExpenses } from '../actions/index';
 
 class Wallet extends React.Component {
@@ -52,65 +55,43 @@ class Wallet extends React.Component {
     });
   }
 
-  // eslint-disable-next-line max-lines-per-function
   render() {
     const { currencies } = this.props;
-    const { valor, descricao, tag, method } = this.state;
-    console.log(method);
-
+    const { valor, descricao } = this.state;
     return (
       <section>
         <Header />
         <form>
-          <label htmlFor="valor">
-            Valor
-            <input
-              type="text"
-              id="valor"
-              value={ valor }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="descricao">
-            Descrição
-            <input
-              type="text"
-              id="descricao"
-              value={ descricao }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="moeda">
-            Moeda
-            <select id="moeda" onChange={ this.handleChange }>
-              { currencies.map((expense) => (
-                <option
-                  key={ expense }
-                  value={ expense }
-                >
-                  { expense }
-                </option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            método de pagamento
-            <select id="method" value={ method } onChange={ this.handleChange }>
-              <option name="method" value="Dinheiro"> Dinheiro </option>
-              <option name="method" value="Cartão de crédito"> Cartão de crédito </option>
-              <option name="method" value="Cartão de débito"> Cartão de débito </option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            tag
-            <select id="tag" value={ tag } onChange={ this.handleChange }>
-              <option> Alimentação </option>
-              <option> Lazer </option>
-              <option> Trabalho </option>
-              <option> Transporte </option>
-              <option> Saúde </option>
-            </select>
-          </label>
+          <Input
+            valor={ valor }
+            title="Valor"
+            id="valor"
+            onChange={ this.handleChange }
+          />
+          <Input
+            valor={ descricao }
+            title="Descrição"
+            id="descricao"
+            onChange={ this.handleChange }
+          />
+          <Select
+            title="Moeda"
+            id="moeda"
+            onChange={ this.handleChange }
+            values={ currencies }
+          />
+          <Select
+            title="método de pagamento"
+            id="method"
+            onChange={ this.handleChange }
+            values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          />
+          <Select
+            title="tag"
+            id="tag"
+            onChange={ this.handleChange }
+            values={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          />
         </form>
         <button
           type="button"
@@ -122,7 +103,7 @@ class Wallet extends React.Component {
     );
   }
 }
-
+// Ajuste no render com ajuda do Riba Jr. em call
 const mapDispatchToProps = (dispatch) => ({
   saveMoney: (payload) => dispatch(saveExpenses(payload)),
   saveCurrencies: (payload) => dispatch(validWallet(payload)),

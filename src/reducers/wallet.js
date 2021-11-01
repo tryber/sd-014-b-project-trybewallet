@@ -13,11 +13,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.payload,
     };
-  // case VALID_WALLET_EXPENSES:
-  //   return {
-  //     ...state,
-  //     currencies: action.payload,
-  //   };
+
   case SAVE_EXPENSES:
     return {
       ...state,
