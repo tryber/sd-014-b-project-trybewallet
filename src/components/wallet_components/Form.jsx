@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import { Select, ButtonForm, Input } from '../index';
 import { getUpdataAPI, saveExpenses } from '../../actions';
 
@@ -24,7 +23,6 @@ class Form extends Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    // console.log(name, value);
     this.setState({
       [name]: value,
     });
@@ -63,7 +61,7 @@ class Form extends Component {
           onChange={ this.handleChange }
         />
         <Select
-          name="payment-method"
+          name="method"
           title="Método de pagamento"
           values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           onChange={ this.handleChange }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, TableExpenses } from '../components';
+import { Header } from '../components';
+import TableExpenses from '../components/wallet_components/TableExpenses';
 import Form from '../components/wallet_components/Form';
 import { getFecthAPI } from '../actions';
 

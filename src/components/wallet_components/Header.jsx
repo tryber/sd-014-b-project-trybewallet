@@ -9,11 +9,9 @@ class Header extends Component {
     const sumTotalExpenses = arrayExpenses ? arrayExpenses
       .reduce((initialValue, { value, currency, exchangeRates }) => initialValue
       + value * exchangeRates[currency].ask, 0) : 0;
-    console.log(arrayExpenses);
     return (
       <header>
         <span data-testid="email-field">{ email }</span>
-        <p data-testid="total-field">0</p>
         <span data-testid="header-currency-field">BRL</span>
         <p data-testid="total-field">{ `Total: ${sumTotalExpenses.toFixed(2)}` }</p>
       </header>
@@ -27,10 +25,8 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  arrayExpenses: PropTypes.shape({
-    reduce: PropTypes.func,
-  }).isRequired,
-  emailData: PropTypes.func.isRequired,
+  arrayExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emailData: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

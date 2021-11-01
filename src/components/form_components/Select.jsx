@@ -22,13 +22,10 @@ class Select extends Component {
   }
 }
 
-/* /* <option>Dinheiro</option>
-<option>Cartão de Crédito</option>
-<option>Cartão de débito</option> */
 Select.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  values: PropTypes.string.isRequired,
+  values: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

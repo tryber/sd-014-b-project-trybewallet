@@ -1,4 +1,4 @@
-import { LOAD_API, SAVE_EXPENSES, UPDATE_RATES } from '../actions';
+import { LOAD_API, SAVE_EXPENSES, UPDATE_RATES, DELETE_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -15,18 +15,26 @@ function walletReducer(state = INITIAL_STATE, action) {
       currencies: Object.keys(action.payload).filter((currency) => currency !== 'USDT'),
     };
 
-  case UPDATE_RATES:
-    return {
-      ...state,
-      currenciesApi: action.payload,
-    };
-
   case SAVE_EXPENSES:
     return {
       ...state,
       expenses: [
         ...state.expenses,
         { ...action.payload, exchangeRates: state.currenciesApi },
+      ],
+    };
+
+  case UPDATE_RATES:
+    return {
+      ...state,
+      currenciesApi: action.payload,
+    };
+
+  case DELETE_EXPENSES:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload),
       ],
     };
 

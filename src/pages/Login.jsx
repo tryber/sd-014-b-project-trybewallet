@@ -90,9 +90,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   loginUserEmail: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
