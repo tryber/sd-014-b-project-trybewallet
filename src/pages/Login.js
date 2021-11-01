@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sendUserInfo } from '../actions';
-
-/* O email está no formato válido, como 'alguem@alguem.com'.
-
-A senha possui 6 ou mais caracteres.
-
-Salve o email no estado da aplicação, com a chave email, assim que a pessoa usuária logar.
-
-A rota deve ser mudada para '/carteira' após o clique no botão 'Entrar'. */
+import { sendUserInfo } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -82,7 +74,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (payload) => dispatch(sendUserInfo(payload)),
+  dispatchSetValue: (email) => dispatch(sendUserInfo(email)),
 });
 
 Login.propTypes = {

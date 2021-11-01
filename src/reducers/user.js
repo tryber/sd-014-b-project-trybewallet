@@ -10,7 +10,7 @@ function user(state = INITIAL_STATE, action) {
   case SEND_USER_INFO:
     return ({
       ...state,
-      email: action.payload,
+      email: action.email,
     });
   default:
     return state;
