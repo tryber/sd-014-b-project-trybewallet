@@ -63,38 +63,36 @@ class Wallet extends React.Component {
     return (
       <section>
         <Header />
-        <form>
-          <Input
-            valor={ valor }
-            title="Valor"
-            id="valor"
-            onChange={ this.handleChange }
-          />
-          <Input
-            valor={ descricao }
-            title="Descrição"
-            id="descricao"
-            onChange={ this.handleChange }
-          />
-          <Select
-            title="Moeda"
-            id="moeda"
-            onChange={ this.handleChange }
-            values={ currencies }
-          />
-          <Select
-            title="método de pagamento"
-            id="method"
-            onChange={ this.handleChange }
-            values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
-          />
-          <Select
-            title="tag"
-            id="tag"
-            onChange={ this.handleChange }
-            values={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
-          />
-        </form>
+        <Input
+          valor={ valor }
+          title="Valor"
+          id="valor"
+          onChange={ this.handleChange }
+        />
+        <Input
+          valor={ descricao }
+          title="Descrição"
+          id="descricao"
+          onChange={ this.handleChange }
+        />
+        <Select
+          title="Moeda"
+          id="moeda"
+          onChange={ this.handleChange }
+          values={ currencies }
+        />
+        <Select
+          title="método de pagamento"
+          id="method"
+          onChange={ this.handleChange }
+          values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+        />
+        <Select
+          title="tag"
+          id="tag"
+          onChange={ this.handleChange }
+          values={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+        />
         <button
           type="button"
           onClick={ this.handleClick }
