@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { sendUserInfo } from '../actions';
 
 /* O email está no formato válido, como 'alguem@alguem.com'.
 
@@ -17,6 +20,7 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.allowSubmit = this.allowSubmit.bind(this);
   }
 
@@ -25,6 +29,13 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { history, dispatchSetValue } = this.props;
+    const { email } = this.state;
+    dispatchSetValue(email);
+    history.push('/carteira');
   }
 
   allowSubmit() {
@@ -61,6 +72,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.allowSubmit() }
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -69,4 +81,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (payload) => dispatch(sendUserInfo(payload)),
+});
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  dispatchSetValue: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

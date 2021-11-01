@@ -2,9 +2,7 @@
 import { SEND_USER_INFO } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 function user(state = INITIAL_STATE, action) {
@@ -12,7 +10,7 @@ function user(state = INITIAL_STATE, action) {
   case SEND_USER_INFO:
     return ({
       ...state,
-      user: action.payload,
+      email: action.payload,
     });
   default:
     return state;
