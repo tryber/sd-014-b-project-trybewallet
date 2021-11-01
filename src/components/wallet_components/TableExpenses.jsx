@@ -9,9 +9,9 @@ class TableExpenses extends Component {
   //
   // }
 
-  deleteEachExpense(id) {
-    const { deleteExpense } = this.props;
-    deleteExpense(id);
+  deleteExpenses(id) {
+    const { deleteEachExpense } = this.props;
+    deleteEachExpense(id);
   }
 
   render() {
@@ -49,7 +49,7 @@ class TableExpenses extends Component {
                   type="button"
                   value="Excluir"
                   data-testid="delete-btn"
-                  onClick={ () => this.deleteExpense(id) }
+                  onClick={ () => this.deleteExpenses(id) }
                 />
               </td>
             </tr>
@@ -62,6 +62,7 @@ class TableExpenses extends Component {
 
 TableExpenses.propTypes = {
   expensesValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteEachExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
