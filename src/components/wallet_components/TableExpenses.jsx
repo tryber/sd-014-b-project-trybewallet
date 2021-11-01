@@ -5,12 +5,11 @@ import { HeaderTable } from '../index';
 import { deleteExpense } from '../../actions';
 
 class TableExpenses extends Component {
+  // editExpense() {
+  //
+  // }
 
-  editExpense() {
-    //
-  }
-
-  deleteExpense(id) {
+  deleteEachExpense(id) {
     const { deleteExpense } = this.props;
     deleteExpense(id);
   }
@@ -70,7 +69,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteExpense: (id) => dispatch(deleteExpense(id)),
+  deleteEachExpense: (id) => dispatch(deleteExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableExpenses);
