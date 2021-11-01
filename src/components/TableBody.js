@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpenses } from '../actions';
 
 class TableBody extends Component {
+  deleteExpenses(id) {
+    const { deleteExp } = this.props;
+    deleteExp(id);
+  }
+
   render() {
     const { arrayExpenses } = this.props;
 
@@ -19,7 +25,15 @@ class TableBody extends Component {
               <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
               <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
               <td>Real</td>
-              <td>Editar/Excluir</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.deleteExpenses(id) }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           ))}
       </tbody>
@@ -30,9 +44,13 @@ class TableBody extends Component {
 const mapStateToProps = (state) => ({
   arrayExpenses: state.wallet.expenses,
 });
-
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpenses(id)),
+});
+// Requisito 10 completo com ajuda do Grupo Online Store :D
 TableBody.propTypes = {
   arrayExpenses: PropTypes.arrayOf(PropTypes.Object).isRequired,
+  deleteExp: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(TableBody);
+export default connect(mapStateToProps, mapDispatchToProps)(TableBody);
