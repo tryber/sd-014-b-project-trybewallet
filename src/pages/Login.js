@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { saveUserEmail } from '../actions/userActions';
@@ -58,6 +59,13 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  saveEmail: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   saveEmail: (email) => dispatch(saveUserEmail(email)),
