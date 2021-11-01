@@ -60,7 +60,7 @@ class AddExpense extends React.Component {
   }
 
   renderForm() {
-    const { allCurrencies, method, tag, currency } = this.state;
+    const { allCurrencies, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -81,9 +81,9 @@ class AddExpense extends React.Component {
         </label>
         <label htmlFor="currency">
           Moeda
-          <select id="currency" value={ currency } onChange={ this.handleChange }>
+          <select id="currency" onChange={ this.handleChange }>
             { allCurrencies.map(
-              (moeda) => (<option key={ moeda }>{currency}</option>),
+              (moeda) => (<option key={ moeda }>{moeda}</option>),
             ) }
           </select>
         </label>
