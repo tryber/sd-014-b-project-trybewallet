@@ -2,7 +2,31 @@ import React from 'react';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      allCurrencies: [],
+    };
+
+    this.fetchCurrencies = this.fetchCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCurrencies();
+  }
+
+  async fetchCurrencies() {
+    const data = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const result = await data.json();
+    const currencies = Object.keys(result).filter((currency) => currency !== 'USDT');
+    this.setState({
+      allCurrencies: currencies,
+    });
+  } // Referência do método para remover o USDT do array: https://github.com/tryber/sd-014-b-project-trybewallet/pull/47/files
+
   render() {
+    const { allCurrencies } = this.state;
     return (
       <div>
         <Header />
@@ -18,7 +42,9 @@ class Wallet extends React.Component {
           <label htmlFor="currency">
             Moeda
             <select id="currency">
-              <option>BRL</option>
+              { allCurrencies.map(
+                (currency) => (<option key={ currency }>{currency}</option>),
+              ) }
             </select>
           </label>
           <label htmlFor="payment">
