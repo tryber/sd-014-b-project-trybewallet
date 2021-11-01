@@ -9,4 +9,7 @@ export const FETCH_CURRENCY = 'FETCH_CURRENCY';
 
 export const setEmailGlobal = (email) => ({ type: SET_EMAIL, email });
 
-export default setEmailGlobal;
+export const setExpenseGlobal = (expense) => ({
+  type: ADD_EXPENSE,
+  expense,
+});

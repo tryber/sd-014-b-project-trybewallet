@@ -1,16 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function PaymentMethodLabel() {
+function PaymentMethodLabel({ method, setMethod }) {
   return (
     <label htmlFor="paymentMethod">
-      <select id="paymentMethod">
-        <option value="dinheiro">Dinheiro</option>
-        <option value="debitCard">Cartão de débito</option>
-        <option value="creditCard">Cartão de crédito</option>
+      <select
+        onChange={ ({ target }) => setMethod(target.value) }
+        value={ method }
+        id="paymentMethod"
+      >
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de débito">Cartão de débito</option>
+        <option value="Cartão de crédito">Cartão de crédito</option>
       </select>
       Método de pagamento
     </label>
   );
 }
+
+PaymentMethodLabel.propTypes = {
+  method: PropTypes.string.isRequired,
+  setMethod: PropTypes.func.isRequired,
+};
 
 export default PaymentMethodLabel;
