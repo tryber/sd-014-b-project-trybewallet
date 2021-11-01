@@ -1,52 +1,92 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import { Select } from '.';
+import { getUpdataAPI, saveExpenses } from '../actions';
 
 class Form extends Component {
+  constructor() {
+    super();
+
+    this.handleChange = this.handleChange.bind(this);
+    this.addExpenses = this.addExpenses.bind(this);
+
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    console.log(name, value);
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  async addExpenses() {
+    const { updateRates, saveUserData } = this.props;
+    await updateRates();
+    saveUserData(this.state);
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
+  }
+
   render() {
-    const { currency } = this.props;
+    const { id, value, description, currency, method, tag } = this.state;
+    const { currencies } = this.props;
     return (
       <section>
         <form>
           <label htmlFor="value">
             Valor
-            <input type="text" name="value" />
+            <input
+              type="text"
+              name="value"
+              value={ value }
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="description">
             Descrição
-            <input type="text" name="description" />
+            <input
+              type="text"
+              name="description"
+              onChange={ this.handleChange }
+              />
           </label>
-          <label htmlFor="currency">
-            Moeda
-            <select name="currency" id="currency">
-              { currency
-                .map((currentCoin, i) => <option key={ i } value={ currentCoin }>{ currentCoin }</option>) }
-            </select>
-          </label>
-          <label htmlFor="payment-method">
-            Método de Pagamento
-            <select name="payment-method" id="payment-method">
-              <option>Dinheiro</option>
-              <option>Cartão de Crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select name="tag" id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <Select
+            name="currency"
+            values={ currencies }
+            onChange={ this.handleChange }
+          />
+          <Select
+            name="payment-method"
+            values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+            onChange={ this.handleChange }
+          />
+          <Select
+            name="tag"
+            values={ ['Alimentação',
+              'Lazer',
+              'Trabalho',
+              'Transporte',
+              'Saúde'] }
+            onChange={ this.handleChange }
+          />
           <label htmlFor="btnAddExpenses">
             <input
               className=""
               type="button"
               name="btnAddExpenses"
               value="Adicionar despesa"
-              // onClick={}
+              onClick={ this.addExpenses }
             />
           </label>
         </form>
@@ -56,7 +96,13 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  currency: PropTypes.object.isRequired,
+  // currencies: PropTypes.object.isRequired,
+  // updateRates: PropTypes.object.isRequired,
 };
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  updateRates: () => dispatch(getUpdataAPI()),
+  saveUserData: (expense) => dispatch(saveExpenses(expense)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);

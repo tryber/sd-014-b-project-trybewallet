@@ -5,9 +5,11 @@ export const LOAD_API = 'RECEIVE_LOAD_API';
 
 export const GET_DATA = 'GET_DATA';
 
-// addnewtransaction = 'addnew';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+
+export const UPDATE_RATES = 'UPDATE_RATES';
 
 export const user = (payload) => ({
   type: LOGIN_USER,
@@ -21,6 +23,7 @@ export function getData(payload) {
   };
 }
 
+// função da aula do Vitu
 export function failedRequest(payload) {
   return {
     type: FAILED_REQUEST,
@@ -33,6 +36,11 @@ export const ApiRequest = (payload) => ({
   payload,
 });
 
+export const updateRates = (payload) => ({
+  type: UPDATE_RATES,
+  payload,
+});
+
 export function getFecthAPI() {
   return async (dispatch) => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -40,3 +48,16 @@ export function getFecthAPI() {
     return dispatch(ApiRequest(data));
   };
 }
+
+export function getUpdataAPI() {
+  return async (dispatch) => {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    return dispatch(updateRates(data));
+  };
+}
+
+export const saveExpenses = (payload) => ({
+  type: SAVE_EXPENSES,
+  payload,
+});
