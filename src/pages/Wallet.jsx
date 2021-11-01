@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Header, Form, TableExpenses } from '../components';
+import { Header, TableExpenses } from '../components';
+import Form from '../components/wallet_components/Form';
 import { getFecthAPI } from '../actions';
 
 class Wallet extends React.Component {
@@ -16,8 +17,12 @@ class Wallet extends React.Component {
       <div>
         <Header />
         Wallet
-        <Form currencies={ currencies } />
-        <TableExpenses />
+        <section>
+          <Form currencies={ currencies } />
+        </section>
+        <section>
+          <TableExpenses />
+        </section>
       </div>
     );
   }

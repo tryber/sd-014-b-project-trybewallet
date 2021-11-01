@@ -27,6 +27,9 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
+  arrayExpenses: PropTypes.shape({
+    reduce: PropTypes.func,
+  }).isRequired,
   emailData: PropTypes.func.isRequired,
 };
 

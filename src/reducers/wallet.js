@@ -26,7 +26,6 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: [
         ...state.expenses,
-        // { ...action.payload, exchangeRates: action.payload.currenciesApi },
         { ...action.payload, exchangeRates: state.currenciesApi },
       ],
     };

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { name, values, onChange } = this.props;
+    const { name, title, values, onChange } = this.props;
     return (
       <label htmlFor={ name }>
-        Método de Pagamento
+        {title}
         <select name={ name } id={ name } onChange={ onChange }>
           {values
             .map((eachValue, i) => (

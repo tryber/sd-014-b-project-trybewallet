@@ -45,14 +45,25 @@ export function getFecthAPI() {
   return async (dispatch) => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
+    console.log('getFetchAPI');
     return dispatch(ApiRequest(data));
   };
 }
+
+// export function getUpdataAPI() {
+//   return async (dispatch) => {
+//     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+//     const data = await response.json();
+//     console.log('getUpdataAPI');
+//     return dispatch(ApiRequest(data));
+//   };
+// }
 
 export function getUpdataAPI() {
   return async (dispatch) => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
+    console.log('getUpdataAPI');
     return dispatch(updateRates(data));
   };
 }
