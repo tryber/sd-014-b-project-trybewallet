@@ -82,6 +82,7 @@ class WalletForm extends React.Component {
         <Input
           label="Valor"
           name="value"
+          type="number"
           onChange={ (e) => this.handleChange(e) }
         />
         <Input

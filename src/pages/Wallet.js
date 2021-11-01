@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
 import { submitCurrencies } from '../actions';
+import WalletTable from '../components/WalletTable';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
+      // loading: true,
     };
   }
 
@@ -25,17 +26,14 @@ class Wallet extends React.Component {
     // Descobri o "delete" com a ajuda da Renata Teixeira
     delete response.USDT;
     getCurrencies(response);
-    this.setState({ loading: false });
   }
 
   render() {
-    const { loading } = this.state;
     return (
       <div>
         <Header />
-        {loading
-          ? <h1>Carregando...</h1>
-          : <WalletForm />}
+        <WalletForm />
+        <WalletTable />
       </div>
     );
   }
