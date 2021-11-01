@@ -37,8 +37,8 @@ const mapStateToProps = ({ wallet: { currencies } }) => ({
 });
 
 Wallet.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   prepareFetchData: PropTypes.func.isRequired,
-  // currencies: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

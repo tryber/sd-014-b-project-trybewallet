@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React, { Component } from 'react';
 
 export default class Input extends Component {
@@ -17,3 +18,10 @@ export default class Input extends Component {
     );
   }
 }
+
+Input.propTypes = {
+  idAndFor: PropTypes.any,
+  onChange: PropTypes.any,
+  title: PropTypes.any,
+  value: PropTypes.any,
+}.isRequired;

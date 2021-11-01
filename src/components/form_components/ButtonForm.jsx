@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React, { Component } from 'react';
 
 export default class ButtonForm extends Component {
@@ -17,3 +18,9 @@ export default class ButtonForm extends Component {
     );
   }
 }
+
+ButtonForm.propTypes = {
+  componentName: PropTypes.any,
+  onClick: PropTypes.any,
+  value: PropTypes.any,
+}.isRequired;

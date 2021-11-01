@@ -27,7 +27,9 @@ class Select extends Component {
 <option>Cartão de débito</option> */
 Select.propTypes = {
   name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   values: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Select;
