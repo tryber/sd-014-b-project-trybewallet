@@ -10,3 +10,8 @@ export const userAction = (payload) => ({
   type: USER,
   payload,
 });
+
+// export const addExpense = (payload) => ({
+//   type: ADD_EXPENSE,
+//   payload,
+// });

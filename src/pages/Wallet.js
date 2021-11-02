@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Form from '../components/Form';
 
 class Wallet extends React.Component {
   render() {
     const { email } = this.props;
     return (
       <header>
+        <Form />
         <div data-testid="email-field">
           { email }
         </div>
