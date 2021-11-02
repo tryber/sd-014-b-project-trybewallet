@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 class Button extends Component {
   render() {
-    const { onChange, textButton } = this.props;
+    const { onClick, textButton } = this.props;
     return (
-      <button type="button" onChange={ onChange }>
+      <button type="button" onClick={ onClick }>
         { textButton }
       </button>
     );
@@ -13,7 +13,7 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   textButton: PropTypes.string.isRequired,
 };
 

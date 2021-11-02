@@ -1,20 +1,26 @@
 // Coloque aqui suas actions
+// ref:https://github.com/tryber/sd-014-b-project-trybewallet/pull/106/commits/38b0703ddbeea742823f5ddc503a4daf020d83c8
+import fetchCurrencyAPI from '../services/currencyApi';
+
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const GET_COINS = 'GET_COINS';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
+export const GET_CURRENCIES = 'GET_CURRENCIES';
 
 export const submitLogin = (email) => ({ type: SUBMIT_LOGIN, email });
 
 export const getCoins = (payload) => ({ type: GET_COINS, payload });
 
-// Ref: https://github.com/tryber/sd-014-b-project-trybewallet/pull/41/files
-export const fetchCoins = () => async (dispatch) => {
-  try {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    const coins = Object.keys(data)
-      .filter((coin) => (coin !== 'USDT' && coin !== 'DOGE'));
-    return dispatch(getCoins(coins));
-  } catch (error) {
-    console.log(error);
-  }
+export const addExpenses = (payload) => ({ type: ADD_EXPENSES, payload });
+
+export const requestCurrencies = () => ({ type: REQUEST_CURRENCIES });
+
+export const getCurrencies = (payload) => ({ type: GET_CURRENCIES, payload });
+
+export const fetchCurrencies = () => (dispatch) => {
+  dispatch(requestCurrencies());
+
+  fetchCurrencyAPI()
+    .then((response) => dispatch(getCurrencies(response)));
 };
