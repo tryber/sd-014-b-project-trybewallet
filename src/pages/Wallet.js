@@ -56,7 +56,7 @@ class Wallet extends React.Component {
         />
         <Select
           labelText="Método de pagamento"
-          name="payment"
+          name="method"
           id="payment"
           options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           value={ method }
