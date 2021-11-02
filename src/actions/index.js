@@ -7,6 +7,7 @@ export const GET_COINS = 'GET_COINS';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
 
 export const submitLogin = (email) => ({ type: SUBMIT_LOGIN, email });
 
@@ -24,3 +25,5 @@ export const fetchCurrencies = () => (dispatch) => {
   fetchCurrencyAPI()
     .then((response) => dispatch(getCurrencies(response)));
 };
+
+export const removeExpenses = (payload) => ({ type: REMOVE_EXPENSES, payload });

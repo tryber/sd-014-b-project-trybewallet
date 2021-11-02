@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpenses, fetchCurrencies } from '../actions';
+import { addExpenses, fetchCurrencies, removeExpenses } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
@@ -74,43 +74,67 @@ class Wallet extends React.Component {
     );
   }
 
+  // ref: https://github.com/tryber/sd-014-b-project-trybewallet/pull/106/commits/006aa854f5e4e18c58e59dbac93604b51572efbc
+  renderHeadTable() {
+    return (
+      <tr>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </tr>
+    );
+  }
+
   renderTable() {
-    const { expenseTable } = this.props;
+    const { expenseTable, removeExpense } = this.props;
     return (
       <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
+        <thead>{this.renderHeadTable()}</thead>
         <tbody>
           {
-            expenseTable.length === 0
-              ? (<tr><td>Adicione uma despesa</td></tr>) : expenseTable
-                .map(({ id, value, description, currency, method, tag, exchangeRates,
-                }) => (
-                  <tr key={ id }>
-                    <td>{description}</td>
-                    <td>{tag}</td>
-                    <td>{ method }</td>
-                    <td>{ value}</td>
-                    <td>{exchangeRates[currency].name.split('/')[0]}</td>
-                    <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                    <td>
-                      {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
-                    </td>
-                    <td>Real</td>
-                    <td>Editar/Excluir</td>
-                  </tr>
-                ))
+            expenseTable.length === 0 ? (<tr><td>Adicione uma despesa</td></tr>)
+              : expenseTable
+                .map((expense) => {
+                  const {
+                    id,
+                    value,
+                    description,
+                    currency,
+                    method,
+                    tag,
+                    exchangeRates } = expense;
+                  return (
+                    <tr key={ id }>
+                      <td>{description}</td>
+                      <td>{tag}</td>
+                      <td>{ method }</td>
+                      <td>{ value}</td>
+                      <td>
+                        {exchangeRates[currency].name.split('/')[0]}
+                      </td>
+                      <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                      <td>
+                        {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
+                      </td>
+                      <td>Real</td>
+                      <td>
+                        <button
+                          data-testid="delete-btn"
+                          onClick={ () => removeExpense(expense) }
+                          type="button"
+                        >
+                          Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
           }
         </tbody>
       </table>
@@ -158,6 +182,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchCoinsApi: () => dispatch(fetchCurrencies()),
   expense: (state) => dispatch(addExpenses(state)),
+  removeExpense: (state) => dispatch(removeExpenses(state)),
 });
 
 Wallet.propTypes = {
@@ -166,6 +191,7 @@ Wallet.propTypes = {
   fetchCoinsApi: PropTypes.func.isRequired,
   expense: PropTypes.func.isRequired,
   expenseTable: PropTypes.arrayOf(PropTypes.any).isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
