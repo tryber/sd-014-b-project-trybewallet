@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { sendUserInfo } from '../actions/index';
+import DeleteButton from './DeleteButton';
 
 class ExpensesTable extends React.Component {
   render() {
@@ -31,6 +31,7 @@ class ExpensesTable extends React.Component {
                 <td>{ask.toFixed(2)}</td>
                 <td>{(expense.value * ask).toFixed(2)}</td>
                 <td>Real</td>
+                <DeleteButton id={ expense.id } />
               </tr>
             );
           })}
