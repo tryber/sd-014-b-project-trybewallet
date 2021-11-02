@@ -7,11 +7,11 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
-      senha:'',
+      senha: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
-    this.isPassValid = this.isPassValid.bind(this);
+    // this.isPassValid = this.isPassValid.bind(this);
   }
 
   isEmailValid(email) {
@@ -20,10 +20,10 @@ class Login extends React.Component {
   }
 
   // https://stackoverflow.com/questions/19605150
-  isPassValid(pass) {
-    const regexEmail = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    return regexEmail.test(pass)
-  }
+  // isPassValid(pass) {
+  //   const regexEmail = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+  //   return regexEmail.test(pass)
+  // }
 
   handleChange({ target }) {
     const { name } = target;
@@ -35,15 +35,15 @@ class Login extends React.Component {
 
   render() {
     const { email, senha } = this.state;
-    const validEmailAndPass = this.isEmailValid(email) && this.isPassValid(senha);
+    const validLength = 6;
+    const validEmailAndPass = this.isEmailValid(email) && senha.length >= validLength;
     // const validPass = this.isPassValid(senha);
     return (
       <div className="login-field">
         Login
-       <InputEmail onChange={ this.handleChange } />
-       <InputPass onChange={ this.handleChange } />
+        <InputEmail onChange={ this.handleChange } />
+        <InputPass onChange={ this.handleChange } />
         <button disabled={ !validEmailAndPass } type="button">Entrar</button>
-        <span style={{visibility: validEmailAndPass ?'hidden':'visible' }}>Creat a valid pass</span>
       </div>);
   }
 }
