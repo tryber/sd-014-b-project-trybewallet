@@ -5,7 +5,7 @@ class Form extends React.Component {
   async requestCoins() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
-    delete data.USDT;
+    delete data.USD;
   }
 
   async handleClick() {
@@ -33,12 +33,12 @@ class Form extends React.Component {
             type="text"
             id="input-description"
             name="description"
-            textLabel="Descrição"
           />
         </label>
         <label htmlFor="select-currency">
           Moeda
           <select id="select-currency" name="currency" onChange={ this.requestCoins }>
+            {/* <option>Moeda</option> */}
           </select>
         </label>
         <label htmlFor="input-method">
