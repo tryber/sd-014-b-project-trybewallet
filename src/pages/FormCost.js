@@ -6,6 +6,7 @@ import SelectCoin from './selectCoin';
 import { totalSubmit } from '../actions/submitTottal';
 import { coinSubmit } from '../actions/submitCoin';
 import Header from './Header';
+import TableCost from './tableCost';
 
 class FormCost extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class FormCost extends Component {
   }
 
   attCoin() {
-    const { currency, exchangeRates, value, totalValue } = this.state;
+    const { currency, exchangeRates, value } = this.state;
     if (currency === 'BRL') {
       const cambio = 1;
       const valueatt = parseFloat(cambio * value);
@@ -41,7 +42,6 @@ class FormCost extends Component {
       const valueatt = parseFloat(cambio * value);
       this.setState((prev) => ({ totalValue: prev.totalValue + valueatt }));
     }
-    console.log(totalValue);
   }
 
   async requestCoin() {
@@ -77,32 +77,35 @@ class FormCost extends Component {
 
     // if (moeda.length === 0) return <p>Carregando...</p>;
     return (
-      <form>
-        <Header total={ totalValue } currency={ currency } />
-        <label htmlFor="value">
-          Valor:
-          <input id="value" type="text" onChangeCapture={ this.handleChange } />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input type="text" id="description" onChange={ this.handleChange } />
-        </label>
-        <SelectCoin
-          moeda={ moeda }
-          handleChange={ this.handleChange }
-        />
-        <ButtonAdd
-          id={ id }
-          value={ value }
-          currency={ currency }
-          method={ method }
-          tag={ tag }
-          description={ description }
-          exchangeRates={ exchangeRates }
-          requestCoin={ this.requestCoin }
-          attCoin={ this.attCoin }
-        />
-      </form>
+      <div>
+        <form>
+          <Header total={ totalValue } currency={ currency } />
+          <label htmlFor="value">
+            Valor:
+            <input id="value" type="text" onChangeCapture={ this.handleChange } />
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input type="text" id="description" onChange={ this.handleChange } />
+          </label>
+          <SelectCoin
+            moeda={ moeda }
+            handleChange={ this.handleChange }
+          />
+          <ButtonAdd
+            id={ id }
+            value={ value }
+            currency={ currency }
+            method={ method }
+            tag={ tag }
+            description={ description }
+            exchangeRates={ exchangeRates }
+            requestCoin={ this.requestCoin }
+            attCoin={ this.attCoin }
+          />
+        </form>
+        <TableCost />
+      </div>
     );
   }
 }
