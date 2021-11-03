@@ -52,7 +52,7 @@ class Login extends React.Component {
         </label>
         <Link to="/carteira">
           <button
-            onClick={ () => getEmailToState({ email, password }) }
+            onClick={ () => getEmailToState({ email }) }
             type="button"
             data-testid="login-submit-button"
             disabled={ !showButton }
