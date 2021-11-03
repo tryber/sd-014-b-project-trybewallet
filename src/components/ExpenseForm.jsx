@@ -9,6 +9,7 @@ import * as ActionsCreators from '../actions/index';
 import DescriptionLabel from './DescriptionLabel';
 import ValueLabel from './ValueLabel';
 import CurrencyLabel from './CurrencyLabel';
+import ExpenseTable from './ExpenseTable';
 
 function ExpenseForm({ setExpenseGlobal }) {
   const [id, setId] = useState(0);
@@ -32,18 +33,25 @@ function ExpenseForm({ setExpenseGlobal }) {
   };
 
   return (
-    <form>
-      <ValueLabel value={ value } setValue={ setValue } />
-      <CurrencyLabel currency={ currency } setCurrency={ setCurrency } />
-      <DescriptionLabel description={ description } setDescription={ setDescription } />
-      <PaymentMethodLabel method={ method } setMethod={ setMethod } />
-      <TagLabel tag={ tag } setTag={ setTag } />
-      <button type="button" onClick={ handleClick }>
-        Adicionar despesa
-      </button>
-    </form>
+    <>
+      <form>
+        <ValueLabel value={ value } setValue={ setValue } />
+        <CurrencyLabel currency={ currency } setCurrency={ setCurrency } />
+        <DescriptionLabel description={ description } setDescription={ setDescription } />
+        <PaymentMethodLabel method={ method } setMethod={ setMethod } />
+        <TagLabel tag={ tag } setTag={ setTag } />
+        <button type="button" onClick={ handleClick }>
+          Adicionar despesa
+        </button>
+      </form>
+      <ExpenseTable />
+    </>
   );
 }
+
+const mapStateToProps = ({ wallet: { expenses } }) => ({
+  expenses,
+});
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(ActionsCreators, dispatch);
 
@@ -51,4 +59,4 @@ ExpenseForm.propTypes = {
   setExpenseGlobal: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

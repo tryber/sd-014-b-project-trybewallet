@@ -13,3 +13,13 @@ export const setExpenseGlobal = (expense) => ({
   type: ADD_EXPENSE,
   expense,
 });
+
+export const editExpenses = (id) => ({
+  type: EDIT_EXPENSE,
+  id,
+});
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  id,
+});
