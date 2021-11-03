@@ -1,11 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import ButtonAdd from './buttonAdd';
 import SelectCoin from './selectCoin';
-import { totalSubmit } from '../actions/submitTottal';
-import { coinSubmit } from '../actions/submitCoin';
-import Header from './Header';
+import Header from '../pages/Header';
 import TableCost from './tableCost';
 
 class FormCost extends Component {
@@ -74,8 +70,6 @@ class FormCost extends Component {
       exchangeRates,
       totalValue,
     } = this.state;
-
-    // if (moeda.length === 0) return <p>Carregando...</p>;
     return (
       <div>
         <form>
@@ -110,12 +104,4 @@ class FormCost extends Component {
   }
 }
 
-FormCost.propTypes = {
-  SubmitTotal: PropTypes.func,
-}.isRequired;
-const mapDispatchToProps = (dispatch) => ({
-  SubmitTotal: (total) => (dispatch(totalSubmit(total))),
-  SubmitCoin: (coin) => (dispatch(coinSubmit(coin))),
-});
-
-export default connect(null, mapDispatchToProps)(FormCost);
+export default FormCost;

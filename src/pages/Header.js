@@ -3,27 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
-  /* constructor() {
-    super();
-    this.state = {
-      coinCurrency: '',
-    };
-    // this.expansesInfo = this.expansesInfo.bind(this);
-  }
-
-   expansesInfo() {
-    const { expenses } = this.props;
-    if (expenses.length === 0) {
-      this.setState({
-        coinCurrency: 'BRL',
-      });
-    } else {
-      this.setState({
-        coinCurrency: expenses.currency,
-      });
-    }
-  } */
-
   render() {
     const { email, total, currency } = this.props;
     return (

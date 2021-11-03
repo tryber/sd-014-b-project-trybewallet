@@ -7,8 +7,6 @@
 import { combineReducers } from 'redux';
 import user from './emailReducer';
 import wallet from './wallet';
-import totalValueR from './totalValueReducer';
-import coin from './coinReducer';
 
-const rootReducer = combineReducers({ user, wallet, totalValueR, coin });
+const rootReducer = combineReducers({ user, wallet });
 export default rootReducer;
