@@ -13,7 +13,7 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
-    this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    // this.onSubmitLogin = this.onSubmitLogin.bind(this);
     // this.isPassValid = this.isPassValid.bind(this);
   }
 
