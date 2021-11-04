@@ -36,7 +36,9 @@ class FormCost extends Component {
     } else {
       const cambio = exchangeRates[currency].ask;
       const valueatt = parseFloat(cambio * value);
-      this.setState((prev) => ({ totalValue: prev.totalValue + valueatt }));
+      this.setState((prev) => ({
+        totalValue: (prev.totalValue + valueatt),
+      }));
     }
   }
 
@@ -98,7 +100,7 @@ class FormCost extends Component {
             attCoin={ this.attCoin }
           />
         </form>
-        <TableCost />
+        <TableCost decreacseTotal={ this.decreacseTotal } />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteExpenses } from '../actions/deleteExpenses';
 import CABECALHO from './cabeçalho';
 
 class TableCost extends Component {
@@ -28,16 +29,16 @@ class TableCost extends Component {
   }
 
   render() {
-    const { costInfo } = this.props;
+    const { costInfo, deleteRE } = this.props;
     return (
       <table>
         <CABECALHO />
         {costInfo.map(
           (
             (
-              { description, value, currency, method, tag, exchangeRates }, ind,
+              { id, description, value, currency, method, tag, exchangeRates },
             ) => (
-              <tr key={ ind }>
+              <tr key={ id }>
                 <td>{ description }</td>
                 <td>{ tag }</td>
                 <td>{ method }</td>
@@ -58,11 +59,15 @@ class TableCost extends Component {
                 <td>Real</td>
                 <td>
                   <section>
-                    <button className="btn btn-warning m-1" type="button">
-                      <i className="bi bi-pencil-square">Editar</i>
+                    <button type="button">
+                      Editar
                     </button>
-                    <button className="btn btn-danger m-1" type="button">
-                      <i className="bi bi-trash">Excluir</i>
+                    <button
+                      type="button"
+                      onClick={ () => deleteRE(id) }
+                      data-testid="delete-btn"
+                    >
+                      Excluir
                     </button>
                   </section>
                 </td>
@@ -83,5 +88,8 @@ TableCost.propTypes = {
 const mapStateToProps = (state) => ({
   costInfo: state.wallet.expenses,
 });
+const mapDispatchToProps = (dispatch) => ({
+  deleteRE: (id) => dispatch(deleteExpenses(id)),
+});
 
-export default connect(mapStateToProps, null)(TableCost);
+export default connect(mapStateToProps, mapDispatchToProps)(TableCost);
