@@ -10,7 +10,6 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      // loading: true,
     };
   }
 

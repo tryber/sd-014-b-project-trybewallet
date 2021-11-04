@@ -106,7 +106,6 @@ WalletForm.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  // expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
