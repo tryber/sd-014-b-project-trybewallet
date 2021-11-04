@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchCurrencies } from '../actions/index';
 
 class SelectCurrency extends React.Component {
@@ -37,5 +38,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
+
+SelectCurrency.propTypes = {
+  fetchCurrenciesApi: PropTypes.objectOf(PropTypes.any).isRequired,
+  currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectCurrency);
