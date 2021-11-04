@@ -34,17 +34,13 @@ class Login extends React.Component {
     this.ValidarEmail(email);
   }
 
-  validaSenha(senha) {
-    const senhaRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,8}$/;
-    return senhaRegex.test(String(senha));
-  }
-
   handlePassword({ target }) {
     this.setState({
       password: target.value,
     });
     const { password, email } = this.state;
-    if (this.ValidarEmail(email) && this.validaSenha(password)) {
+    const six = 6;
+    if (password >= six && this.ValidarEmail(email)) {
       this.setState({
         disabled: false,
       });
@@ -64,29 +60,31 @@ class Login extends React.Component {
     const { disabled, email, password } = this.state;
     return (
       <section className="login-page">
-        <input
-          type="email"
-          data-testid="email-input"
-          placeholder="Digite seu email"
-          value={ email }
-          onChange={ this.handleEmail }
-          name="email"
-        />
-        <input
-          type="text"
-          data-testid="password-input"
-          name="password"
-          placeholder="Digite sua senha"
-          value={ password }
-          onChange={ this.handlePassword }
-        />
-        <button
-          type="button"
-          disabled={ disabled }
-          onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
+        <form>
+          <input
+            type="email"
+            data-testid="email-input"
+            placeholder="Digite seu email"
+            value={ email }
+            onChange={ this.handleEmail }
+            name="email"
+          />
+          <input
+            type="text"
+            data-testid="password-input"
+            name="password"
+            placeholder="Digite sua senha"
+            value={ password }
+            onChange={ this.handlePassword }
+          />
+          <button
+            type="button"
+            disabled={ disabled }
+            onClick={ this.handleClick }
+          >
+            Entrar
+          </button>
+        </form>
       </section>
     );
   }

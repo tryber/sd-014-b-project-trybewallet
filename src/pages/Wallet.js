@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Select from '../components/Select';
+
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -9,6 +11,11 @@ class Wallet extends React.Component {
     this.state = {
       spent: 0,
     };
+  }
+
+  async apiCoins() {
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    return api;
   }
 
   render() {
@@ -40,20 +47,12 @@ class Wallet extends React.Component {
               <option>Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <Select />
           <label htmlFor="descrição">
             Descrição:
             <input type="text" id="descrição" />
           </label>
+          <button type="button">Adicionar despesas</button>
         </form>
       </header>
     );
