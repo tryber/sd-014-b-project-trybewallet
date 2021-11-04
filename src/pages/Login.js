@@ -14,6 +14,19 @@ class Login extends React.Component {
     };
   }
 
+  // saveStateCoins = (dataCoins) => {
+  //   const newArray = dataCoins.map((element) => {
+  //     if (element.codein !== 'BRLT') {
+  //       return element;
+  //     } return '';
+  //   });
+  //   console.log(newArray);
+  //   // this.setState({
+  //   //   coinsTypes: newArray,
+  //   // });
+  // }
+
+  // Validacao retirada do site:
   validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
