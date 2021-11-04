@@ -2,22 +2,16 @@
 import { SUBMIT_USER_INFO } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SUBMIT_USER_INFO:
-    return { ...state, user: action.email };
+    return action.payload;
   default:
     return state;
   }
-};
+}
 
-export default { userReducer };
+export default userReducer;

@@ -1,18 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 
-function App() {
-  return (
-    <>
-      <div>
-        Hello, TrybeWallet!
-      </div>
-      <BrowserRouter>
+class App extends React.Component {
+  render() {
+    return (
+      <Switch>
+        <Route path="/carteira" component={ Wallet } />
         <Route path="/" component={ Login } />
-      </BrowserRouter>
-    </>
-  );
+      </Switch>
+    );
+  }
 }
 
 export default App;

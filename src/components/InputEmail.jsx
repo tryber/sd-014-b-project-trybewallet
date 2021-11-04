@@ -7,11 +7,11 @@ class InputEmail extends Component {
     return (
       <div>
         <input
-        name="email" 
-        type="text"
-        data-testid="email-input" 
-        placeholder="email"
-        onChange={ onChange }
+          name="email"
+          type="email"
+          data-testid="email-input"
+          placeholder="email"
+          onChange={ onChange }
          />
       </div>
     );
