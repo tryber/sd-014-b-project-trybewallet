@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import InputEmail from '../components/InputEmail';
-import InputPass from '../components/InputPass';
 import submitUser from '../actions/index';
 
 class Login extends React.Component {
@@ -52,11 +50,26 @@ class Login extends React.Component {
     const validLength = 6;
     const validEmailAndPass = this.isEmailValid(email) && senha.length >= validLength;
     // const validPass = this.isPassValid(senha);
+    // test
     return (
       <div className="login-field">
         Login
-        <InputEmail onChange={ this.handleChange } />
-        <InputPass onChange={ this.handleChange } />
+        <input
+          name="email"
+          value={ email }
+          type="email"
+          data-testid="email-input"
+          placeholder="email"
+          onChange={ this.handleChange }
+        />
+        <input
+          name="senha"
+          value={ senha }
+          type="text"
+          data-testid="password-input"
+          placeholder="password"
+          onChange={ this.handleChange }
+        />
         <Link to="/carteira">
           <button
             disabled={ !validEmailAndPass }
