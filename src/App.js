@@ -6,7 +6,7 @@ import Wallet from './pages/Wallet';
 export default class App extends Component {
   render() {
     return (
-      <main>
+      <main className="w-screen h-screen">
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route path="/carteira" component={ Wallet } />

@@ -1,0 +1,23 @@
+.log-container input {
+  background-color: rgb(249, 250, 251);
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 1em;
+  padding: 2px 4px;
+}
+
+.log-container button:disabled {
+  cursor: not-allowed;
+}
+
+.log-container {
+  animation: appear 1s ease;
+}
+
+@keyframes appear {
+
+  0% { opacity: 0%; }
+
+  100% { opacity: 100%; }
+
+}

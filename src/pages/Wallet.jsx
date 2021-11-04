@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,6 +8,7 @@ import Select from '../components/Select';
 import { payMethods, tags } from '../helpers';
 import getCurrencyInfo from '../services/currencyAPI';
 import Header from '../components/Header';
+import '../styles/wallet.css';
 
 class Wallet extends Component {
   constructor() {
@@ -46,9 +48,13 @@ class Wallet extends Component {
       value, description, currency, method, tag },
     handleInputChange, handleButtonClick } = this;
     return (
-      <section>
+      <section
+        className="w-full h-full bg-gray-800"
+      >
         <Header userEmail={ userEmail } expenses={ expenses } />
-        <form>
+        <form
+          className="w-full h-12 flex justify-between items-center px-4 py-4 bg-blue-200"
+        >
           <Input
             type="text"
             name="value"
