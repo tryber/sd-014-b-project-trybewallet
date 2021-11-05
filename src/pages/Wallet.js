@@ -6,17 +6,31 @@ import { fetchCurrency } from '../actions';
 import Form from '../components/Form';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      loading: true,
+    };
+  }
+
   componentDidMount = async () => {
     const { getCurrency } = this.props;
     await getCurrency();
+    this.loadingFalse();
+  }
+
+  loadingFalse = () => {
+    this.setState({ loading: false });
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <>
         <Header />
         <h1>carteira</h1>
-        <Form />
+        { !loading && <Form />}
       </>
     );
   }

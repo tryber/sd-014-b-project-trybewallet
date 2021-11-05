@@ -20,10 +20,14 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  /* expenses: PropTypes.objectOf((
+    PropTypes.any
+  )).isRequired, */
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet,
 });
 
 export default connect(mapStateToProps, null)(Header);

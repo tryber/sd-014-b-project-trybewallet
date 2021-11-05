@@ -12,11 +12,20 @@ class Form extends Component {
     this.state = {
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: '',
     };
+  }
+
+  componentDidMount = () => {
+    this.exchangeRatesUpdate();
+  }
+
+  exchangeRatesUpdate = () => {
+    const { currency } = this.props;
+    this.setState({ exchangeRates: currency });
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -26,8 +35,7 @@ class Form extends Component {
   }
 
   handleClick = () => {
-    const { currencyCurrent, submitExpensesForm } = this.props;
-    this.setState({ exchangeRates: currencyCurrent });
+    const { submitExpensesForm } = this.props;
     submitExpensesForm(this.state);
   }
 
@@ -39,21 +47,26 @@ class Form extends Component {
           <Input
             label="Valor"
             type="text"
-            name="valor"
+            name="value"
             value={ value }
             onChange={ this.handleChange }
           />
           <Input
             label="Descrição"
             type="text"
-            name="descricao"
+            name="description"
             value={ description }
             onChange={ this.handleChange }
           />
-          <SelectCurrency value={ method } onChange={ this.handleChange } />
+          <SelectCurrency value={ currency } onChange={ this.handleChange } />
           <label htmlFor="pagamento">
             Método de pagamento
-            <select id="pagamento" value={ currency } onChange={ this.handleChange }>
+            <select
+              id="pagamento"
+              name="method"
+              value={ method }
+              onChange={ this.handleChange }
+            >
               <option value="Dinheiro">Dinheiro</option>
               <option value="cartao-de-credito">Cartão de crédito</option>
               <option value="cartao-de-debito">Cartão de débito</option>
@@ -61,7 +74,7 @@ class Form extends Component {
           </label>
           <label htmlFor="tag">
             Tag
-            <select id="tag" value={ tag } onChange={ this.handleChange }>
+            <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
               <option value="alimentacao">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -78,17 +91,17 @@ class Form extends Component {
 
 Form.propTypes = {
   submitExpensesForm: PropTypes.func.isRequired,
-  currencyCurrent: PropTypes.objectOf((
+  currency: PropTypes.objectOf((
     PropTypes.any
   )).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  submitExpensesForm: dispatch(submitExpenses(dispatch)),
+  submitExpensesForm: (state) => dispatch(submitExpenses(state)),
 });
 
 const mapStateToProps = (state) => ({
-  currencyCurrent: state.currency,
+  currency: state.currency,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

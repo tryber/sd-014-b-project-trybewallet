@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 class SelectCurrency extends Component {
   render() {
-    const { currency } = this.props;
+    const { currency, value, onChange } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda
-        <select id="moeda">
+        <select id="moeda" name="currency" value={ value } onChange={ onChange }>
           <option value={ currency.USD.code }>{ currency.USD.code }</option>
           <option value={ currency.CAD.code }>{ currency.CAD.code }</option>
           <option value={ currency.EUR.code }>{ currency.EUR.code }</option>
@@ -33,6 +33,8 @@ SelectCurrency.propTypes = {
   currency: PropTypes.objectOf((
     PropTypes.any
   )).isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
