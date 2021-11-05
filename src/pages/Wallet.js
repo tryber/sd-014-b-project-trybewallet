@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Select from '../components/Select';
+import { requestAPIMoney } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -13,11 +14,9 @@ class Wallet extends React.Component {
     };
   }
 
-  async apiCoins() {
-    const URL_API_MONEY = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const response = await URL_API_MONEY.json();
-    console.log(response);
-    return response;
+  async componentDidMount() {
+    const { fetchMoney } = this.props;
+    await fetchMoney();
   }
 
   render() {
@@ -35,20 +34,18 @@ class Wallet extends React.Component {
             />
             { spent }
           </label>
-          <label htmlFor="moeda">
-            Moeda
-            <select data-testid="header-currency-field" id="moeda">
-              <option>BRL</option>
-            </select>
-          </label>
-          <label htmlFor="pagamento">
-            Método de pagamento
-            <select id="pagamento">
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
+          <SelectCoins
+            labelhtmlfor="moeda"
+            description="Moeda"
+            optionone="BRL"
+          />
+          <Select
+            labelhtmlfor="pagamento"
+            description="Método de pagamento"
+            optionone="Dinheiro"
+            optiontwo="Cartão de crédito"
+            optionthree="Cartão de débito"
+          />
           <Select
             labelhtmlfor="tag"
             description="Tag"
@@ -64,17 +61,23 @@ class Wallet extends React.Component {
           </label>
           <button type="button">Adicionar despesas</button>
         </form>
+        {/* { console.log(fetchMoney()) } */}
       </header>
     );
   }
 }
 
+Wallet.propTypes = {
+  email: PropTypes.string,
+  fetchMoney: PropTypes.func,
+}.isRequired;
+
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
 });
 
-Wallet.propTypes = {
-  email: PropTypes.string,
-}.isRequired;
+const mapDispatchToProps = (dispatch) => ({
+  fetchMoney: () => dispatch(requestAPIMoney()),
+});
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
