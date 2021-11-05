@@ -14,6 +14,7 @@ function DeleteButton({ id, deleteExpense }) {
       <label htmlFor="myinput"></label>
 
       <button
+        id="myinput"
         type="button"
         onClick={ handleDelete }
         className="btn btn-danger"
