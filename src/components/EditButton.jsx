@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Button from './Button';
 import { editExpenses } from '../actions';
 
 function EditButton({ id, editExpense }) {
@@ -14,7 +15,10 @@ function EditButton({ id, editExpense }) {
       onClick={ handleEdit }
       className="btn btn-warning"
       data-testid="edit-btn"
-    />
+    >
+      <Button />
+
+    </button>
   );
 }
 

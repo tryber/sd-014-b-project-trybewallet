@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { BsFillTrashFill } from 'react-icons/bs';
+import Button from './Button';
 import { connect } from 'react-redux';
 import { deleteExpenses } from '../actions';
 
@@ -16,7 +16,7 @@ function DeleteButton({ id, deleteExpense }) {
       className="btn btn-danger"
       data-testid="delete-btn"
     >
-      <BsFillTrashFill />
+      <Button />
 
     </button>
   );
