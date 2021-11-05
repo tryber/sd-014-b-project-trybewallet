@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import { render } from '@testing-library/react';
 
-import reducer from '../redux/reducers';
+import reducer from '../reducers';
 
 export const getStore = (initialState) => {
   if (!initialState) return createStore(reducer, applyMiddleware(thunk));

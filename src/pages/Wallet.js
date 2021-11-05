@@ -14,8 +14,10 @@ class Wallet extends React.Component {
   }
 
   async apiCoins() {
-    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-    return api;
+    const URL_API_MONEY = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await URL_API_MONEY.json();
+    console.log(response);
+    return response;
   }
 
   render() {
@@ -47,7 +49,15 @@ class Wallet extends React.Component {
               <option>Cartão de débito</option>
             </select>
           </label>
-          <Select />
+          <Select
+            labelhtmlfor="tag"
+            description="Tag"
+            optionone="Alimentação"
+            optiontwo="Lazer"
+            optionthree="Trabalho"
+            optionfour="Transporte"
+            optionfive="Saúde"
+          />
           <label htmlFor="descrição">
             Descrição:
             <input type="text" id="descrição" />
