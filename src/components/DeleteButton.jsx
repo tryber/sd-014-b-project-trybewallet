@@ -10,9 +10,7 @@ function DeleteButton({ id, deleteExpense }) {
 
   return (
     <div>
-      <input type="text" id="myinput" />
-      <label htmlFor="myinput"></label>
-
+      <label id="myinput"></label>
       <button
         id="myinput"
         type="button"
