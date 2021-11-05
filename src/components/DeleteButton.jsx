@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Button from './Button';
 import { connect } from 'react-redux';
 import { deleteExpenses } from '../actions';
+import Button from './Button';
 
 function DeleteButton({ id, deleteExpense }) {
   const handleDelete = () => {
