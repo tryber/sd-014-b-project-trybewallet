@@ -9,16 +9,14 @@ function DeleteButton({ id, deleteExpense }) {
   };
 
   return (
-    <div>
-      <label id="myinput"></label>
+    <form>
       <button
-        id="myinput"
         type="button"
         onClick={ handleDelete }
         className="btn btn-danger"
         data-testid="delete-btn"
       />
-    </div>
+    </form>
   );
 }
 
