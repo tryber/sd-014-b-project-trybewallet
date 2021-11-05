@@ -30,18 +30,19 @@ class Login extends React.Component {
     this.setState({
       email: target.value,
     });
-    const { email } = this.state;
-    if (this.ValidarEmail(email)) {
-      this.setState({
-        disabled: false,
-      });
-    }
   }
 
   handlePassword({ target }) {
     this.setState({
       password: target.value,
     });
+    const { password, email } = this.state;
+    const NUMBER_FIVE = 5;
+    if (password.length >= NUMBER_FIVE && this.ValidarEmail(email)) {
+      this.setState({
+        disabled: false,
+      });
+    }
   }
 
   // https://irias.com.br/blog/como-validar-email-e-senha-em-javascript/
