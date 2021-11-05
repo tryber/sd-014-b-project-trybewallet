@@ -1,9 +1,14 @@
 import React from 'react';
+import ControlOfExpenses from '../components/ControlOfExpenses';
+import Header from '../components/Header';
+import TableExpense from '../components/TableExpense';
 
-class Wallet extends React.Component {
-  render() {
-    return <div>TrybeWallet</div>;
-  }
+export default function Wallet() {
+  return (
+    <section>
+      <Header />
+      <ControlOfExpenses />
+      <TableExpense />
+    </section>
+  );
 }
-
-export default Wallet;
