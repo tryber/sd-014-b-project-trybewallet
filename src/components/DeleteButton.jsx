@@ -13,7 +13,8 @@ function DeleteButton({ id, deleteExpense }) {
       type="button"
       onClick={ handleDelete }
       className="btn btn-danger"
-      data-testid="delete-btn" />
+      data-testid="delete-btn"
+    />
   );
 }
 
