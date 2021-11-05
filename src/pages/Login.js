@@ -1,60 +1,61 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { checkLogin } from '../actions';
+import { sendAcess } from '../actions';
 
 const isEmailValid = (email) => {
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  if (regexEmail.test(email)) return true;
-  return false;
+  return regexEmail.test(email) === true;
 };
-// Função de validação extraída do slack postagem do nosso amigo Michael Caxias
 
-function Login({ history, dispatchLogin }) {
-  const [email, newEmail] = useState('');
-  const [password, newPassword] = useState('');
+function Login({ history, dispatchAcess }) {
+  const [email, changeEmail] = useState('');
+  const [password, changePassword] = useState('');
 
   const handleClick = () => {
-    dispatchLogin(email);
+    dispatchAcess(email);
     history.push('/carteira');
   };
 
-  const minLength = 6;
-  const disabled = password.length >= minLength && isEmailValid(email);
+  const maxNumber = 6;
+  const disabled = password.length >= maxNumber && isEmailValid(email);
 
   return (
     <form>
       <label htmlFor="email">
         <input
           type="email"
+          placeholder="Email"
           id="email"
           value={ email }
           required
-          onChange={ ({ target: { value } }) => newEmail(value) }
+          onChange={ ({ target: { value } }) => changeEmail(value) }
           data-testid="email-input"
         />
-
       </label>
       <input
         type="password"
+        placeholder="Senha"
         value={ password }
         required
-        onChange={ ({ target: { value } }) => newPassword(value) }
+        onChange={ ({ target: { value } }) => changePassword(value) }
         data-testid="password-input"
       />
       <button
         type="button"
         onClick={ handleClick }
+        className="btn btn-primary"
         disabled={ !disabled }
       >
         Entrar
+
       </button>
     </form>
   );
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchLogin: (email) => dispatch(checkLogin(email)),
+  dispatchAcess: (email) => dispatch(sendAcess(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
@@ -63,5 +64,5 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  dispatchLogin: PropTypes.func.isRequired,
+  dispatchAcess: PropTypes.func.isRequired,
 };
