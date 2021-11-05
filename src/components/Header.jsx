@@ -22,7 +22,7 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.objectOf(PropTypes.any).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 function mapStateToProps(state) {

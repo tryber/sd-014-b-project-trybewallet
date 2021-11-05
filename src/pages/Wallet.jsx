@@ -12,11 +12,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { loading, expenses } = this.props;
+    const { /* loading, */ expenses } = this.props;
     return (
       <section>
         <div>TrybeWallet</div>
-        { !loading ? <Header expenses={ expenses } /> : null }
+        <Header expenses={ expenses } />
+        {/* { !loading ? <Header expenses={ expenses } /> : null } */}
         <WalletForm />
       </section>
     );
@@ -25,7 +26,7 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   fetchCurrency: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  /* loading: PropTypes.bool.isRequired, */
   expenses: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
