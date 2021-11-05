@@ -13,8 +13,7 @@ function EditButton({ id, editExpense }) {
       type="button"
       onClick={ handleEdit }
       className="btn btn-warning"
-      data-testid="edit-btn"
-    ></button>
+      data-testid="edit-btn" />
   );
 }
 
