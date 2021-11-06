@@ -28,14 +28,15 @@ class Wallet extends React.Component {
       <header>
         <h3 data-testid="email-field">{ userEmail }</h3>
         <form>
-          <label htmlFor="money-by" data-testid="total-field">
+          <label htmlFor="money-by">
             Valor:
             <input
               type="number"
               id="money-by"
             />
-            { spent }
+            <span data-testid="total-field">{ spent }</span>
           </label>
+          <span data-testid="header-currency-field">BRL</span>
           <SelectCoins
             labelhtmlfor="moeda"
             description="Moeda"
@@ -62,7 +63,8 @@ class Wallet extends React.Component {
             Descrição:
             <input type="text" id="descrição" />
           </label>
-          <button type="button" data-testid="total-field">Adicionar despesas</button>
+          {/* <button
+          type="button" data-testid="total-field">Adicionar despesas</button> */}
         </form>
       </header>
     );
