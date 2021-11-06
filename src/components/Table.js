@@ -27,36 +27,34 @@ class Table extends Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-        <tbody>
-          {
-            expenses.map((expense) => (
-              <tr key={ expense.id }>
-                <td>{ expense.description }</td>
-                <td>{ expense.tag }</td>
-                <td>{ expense.method }</td>
-                <td>{ expense.value }</td>
-                <td>{ expense.exchangeRates[expense.currency].name.split('/')[0] }</td>
-                <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
-                <td>
-                  {
-                    Number(expense.value * expense.exchangeRates[expense.currency]
-                      .ask).toFixed(2)
-                  }
-                </td>
-                <td>Real</td>
-                <td>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ () => this.deleteExpense(expense.id) }
-                  >
-                    <img src={ deleteSvg } alt="Delete" height="15" width="15" />
-                  </button>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
+        {
+          expenses.map((expense) => (
+            <tr key={ expense.id }>
+              <td>{ expense.description }</td>
+              <td>{ expense.tag }</td>
+              <td>{ expense.method }</td>
+              <td>{ expense.value }</td>
+              <td>{ expense.exchangeRates[expense.currency].name.split('/')[0] }</td>
+              <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
+              <td>
+                {
+                  Number(expense.value * expense.exchangeRates[expense.currency]
+                    .ask).toFixed(2)
+                }
+              </td>
+              <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.deleteExpense(expense.id) }
+                >
+                  <img src={ deleteSvg } alt="Delete" height="15" width="15" />
+                </button>
+              </td>
+            </tr>
+          ))
+        }
       </table>
     );
   }
