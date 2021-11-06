@@ -10,7 +10,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   const array = [...state.expenses, action.state];
   switch (action.type) {
   case 'SUBMIT_EXPENSES':
-    newObj.id = allExpenses + 1;
+    newObj.id = allExpenses;
     return { ...state, expenses: array };
   default:
     return state;

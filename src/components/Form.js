@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Input from './Input';
 import SelectCurrency from './SelectCurrency';
-import { submitExpenses } from '../actions';
+import { submitExpenses, fetchCurrency } from '../actions';
 
 class Form extends Component {
   constructor() {
@@ -19,14 +19,14 @@ class Form extends Component {
     };
   }
 
-  componentDidMount = () => {
+  /* componentDidMount = () => {
     this.exchangeRatesUpdate();
   }
 
   exchangeRatesUpdate = () => {
     const { currency } = this.props;
     this.setState({ exchangeRates: currency });
-  }
+  } */
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({
@@ -34,8 +34,10 @@ class Form extends Component {
     });
   }
 
-  handleClick = () => {
-    const { submitExpensesForm } = this.props;
+  handleClick = async () => {
+    const { submitExpensesForm, getCurrency, currency } = this.props;
+    await getCurrency();
+    this.setState({ exchangeRates: currency });
     submitExpensesForm(this.state);
   }
 
@@ -67,19 +69,19 @@ class Form extends Component {
               value={ method }
               onChange={ this.handleChange }
             >
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="cartao-de-credito">Cartão de crédito</option>
-              <option value="cartao-de-debito">Cartão de débito</option>
+              <option>Dinheiro</option>
+              <option>Cartão de crédito</option>
+              <option>Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
             Tag
             <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="dinheiro">Saúde</option>
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
             </select>
           </label>
           <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
@@ -94,10 +96,12 @@ Form.propTypes = {
   currency: PropTypes.objectOf((
     PropTypes.any
   )).isRequired,
+  getCurrency: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   submitExpensesForm: (state) => dispatch(submitExpenses(state)),
+  getCurrency: (state) => dispatch(fetchCurrency(state)),
 });
 
 const mapStateToProps = (state) => ({
