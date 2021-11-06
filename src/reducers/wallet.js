@@ -5,13 +5,19 @@ const INITIAL_STATE = {
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-  const allExpenses = state.expenses.length;
-  const newObj = action.state;
-  const array = [...state.expenses, action.state];
   switch (action.type) {
-  case 'SUBMIT_EXPENSES':
+  case 'SUBMIT_EXPENSES': {
+    const allExpenses = state.expenses.length;
+    const newObj = action.state;
+    const array = [...state.expenses, action.state];
     newObj.id = allExpenses;
     return { ...state, expenses: array };
+  }
+  case 'DELETE_EXPENSE': {
+    const allExpenses = state.expenses;
+    const expenseReturn = allExpenses.filter((expense) => expense.id !== action.state);
+    return { ...state, expenses: expenseReturn };
+  }
   default:
     return state;
   }

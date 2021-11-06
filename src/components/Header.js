@@ -22,6 +22,9 @@ class Header extends React.Component {
     if (expenses.length > expenseTotalLength) {
       this.totalExpenses();
     }
+    if (expenses.length < expenseTotalLength) {
+      this.totalExpenses();
+    }
   };
 
   totalExpenses = () => {
