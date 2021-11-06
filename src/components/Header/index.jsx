@@ -6,7 +6,7 @@ import './style.css';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, spentTotal } = this.props;
     return (
       <header className="header">
         <h1 className="logo">Trybe</h1>
@@ -15,10 +15,9 @@ class Header extends React.Component {
         >
           {`Email: ${email}`}
         </span>
-        <span
-          data-testid="total-field"
-        >
-          Despesa Total: 0
+        <span>
+          Despesa Total: R$
+          <span data-testid="total-field">{ spentTotal }</span>
         </span>
         <span
           data-testid="header-currency-field"
@@ -32,10 +31,14 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  spentTotal: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
-  return { email: state.user.email };
+  return {
+    email: state.user.email,
+    spentTotal: state.wallet.spentTotal,
+  };
 }
 
 export default connect(mapStateToProps)(Header);
