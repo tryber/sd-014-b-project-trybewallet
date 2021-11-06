@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { fetchCurrency } from '../actions';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -31,6 +32,7 @@ class Wallet extends React.Component {
         <Header />
         <h1>carteira</h1>
         { !loading && <Form />}
+        <Table />
       </>
     );
   }
