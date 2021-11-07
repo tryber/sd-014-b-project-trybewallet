@@ -22,6 +22,7 @@ class Login extends React.Component {
     this.verify();
   }
 
+  // https://cursos.alura.com.br/forum/topico-como-validar-email-e-senha-em-javascript-80469
   checkEmail(email) {
     const check = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     return check.test(email);
