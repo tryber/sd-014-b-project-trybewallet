@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
+import TableOfExpenses from '../components/TableOfExpenses';
 import * as walletActions from '../actions/walletActions';
 
 class Wallet extends React.Component {
@@ -12,13 +13,13 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { /* loading, */ expenses } = this.props;
+    const { loading, expenses } = this.props;
     return (
       <section>
         <div>TrybeWallet</div>
         <Header expenses={ expenses } />
-        {/* { !loading ? <Header expenses={ expenses } /> : null } */}
-        <WalletForm />
+        { !loading ? <WalletForm /> : null }
+        <TableOfExpenses />
       </section>
     );
   }
@@ -26,7 +27,7 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   fetchCurrency: PropTypes.func.isRequired,
-  /* loading: PropTypes.bool.isRequired, */
+  loading: PropTypes.bool.isRequired,
   expenses: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
