@@ -1,4 +1,3 @@
-// Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const savingEmail = (payload) => ({
   type: SAVE_EMAIL,
