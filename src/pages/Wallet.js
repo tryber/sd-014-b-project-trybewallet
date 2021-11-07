@@ -4,7 +4,28 @@ import PropTypes from 'prop-types';
 import Form from '../components/forms';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      moedas: [],
+    };
+    this.getCurrencies = this.getCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCurrencies();
+  }
+
+  async getCurrencies() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    const result = Object.keys(data).filter((coin) => coin !== 'USDT');
+    console.log(result);
+    this.setState({ moedas: result });
+  }
+
   render() {
+    const { moedas } = this.state;
     const { currencies, expenses, email } = this.props;
     return (
       <div>
@@ -13,7 +34,7 @@ class Wallet extends React.Component {
           <h2 data-testid="total-field">0</h2>
           <h2 data-testid="header-currency-field">{currencies}</h2>
         </header>
-        <Form />
+        <Form moedas={ moedas } />
       </div>
     );
   }
