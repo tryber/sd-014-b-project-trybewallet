@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DeleteExpenseButton from './DeleteExpenseButton';
 
 class TableOfExpenses extends Component {
   render() {
@@ -33,7 +34,7 @@ class TableOfExpenses extends Component {
                     { Number(value * exchangeRates[currency].ask).toFixed(2) }
                   </td>
                   <td>Real</td>
-                  <td>Botão Editar/Excluir</td>
+                  <td><DeleteExpenseButton id={ id } /></td>
                 </tr>
               ))}
           </tbody>

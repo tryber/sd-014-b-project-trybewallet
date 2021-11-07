@@ -98,7 +98,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  AddExpenseToState: (state) => dispatch(walletActions.addExpense(state)),
+  AddExpenseToState: (expenseState) => dispatch(walletActions.addExpense(expenseState)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

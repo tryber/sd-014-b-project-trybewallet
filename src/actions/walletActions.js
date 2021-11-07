@@ -1,10 +1,18 @@
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export function addExpense(payload) {
   return {
     type: ADD_EXPENSE,
+    payload,
+  };
+}
+
+export function deleteExpense(payload) {
+  return {
+    type: DELETE_EXPENSE,
     payload,
   };
 }
