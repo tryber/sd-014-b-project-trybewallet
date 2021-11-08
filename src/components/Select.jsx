@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 
 class Select extends Component {
   render() {
-    const { field, array, label } = this.props;
+    const { field, array, label, value, onChange } = this.props;
     return (
       <label htmlFor={ field }>
         { label }
-        <select name={ field } id={ field }>
+        <select value={ value } name={ field } onChange={ onChange } id={ field }>
           {array.map((element, index) => (
             <option
               value={ element }
@@ -27,6 +27,8 @@ Select.propTypes = {
   array: PropTypes.arrayOf(PropTypes.string).isRequired,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
 };
 
 export default Select;

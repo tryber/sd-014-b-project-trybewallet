@@ -1,4 +1,6 @@
 // Coloque aqui suas actions
+import fetchCurrencyAPI from '../services/currencyAPI';
+
 export const SUBMIT_USER_INFO = 'SUBMIT_USER_INFO';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
@@ -16,6 +18,11 @@ export const requestCurrencies = () => ({
 
 export const getCurrencies = (payload) => ({
   type: GET_CURRENCIES,
+  payload,
+});
+
+export const addExpenses = (payload) => ({
+  type: ADD_EXPENSES,
   payload,
 });
 
