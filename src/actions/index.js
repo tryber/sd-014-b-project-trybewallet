@@ -7,6 +7,8 @@
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_WALLET_DATA = 'SET_WALLET_DATA';
 export const SET_SPENT_TOTAL = 'SET_SPENT_TOTAL';
+export const UPDATE_SPENT_TOTAL = 'UPDATE_TOTAL';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
 
 export const setUserData = (payload) => (
   {
@@ -22,3 +24,11 @@ export const setSpentTotal = (payload) => (
   {
     type: SET_SPENT_TOTAL, payload,
   });
+
+export const updateSpentTotal = () => ({
+  type: UPDATE_SPENT_TOTAL,
+});
+
+export const updateExpenses = (payload) => ({
+  type: UPDATE_EXPENSES, payload,
+});
