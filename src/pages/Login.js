@@ -1,15 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { saveEmailAction } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchCurrencies, addExpense, updateTotal } from '../actions';
 
 class WalletForm extends Component {
@@ -95,13 +95,13 @@ class WalletForm extends Component {
         <label htmlFor="input-value">
           Valor:
           { this.renderInput('number', 'value', 'input-value', value) }
-          <input type="text" name="value" />
         </label>
+
         <label htmlFor="input-description">
           Descrição:
           { this.renderInput('text', 'description', 'input-description', description) }
-          <input type="text" name="description" />
         </label>
+
         <label htmlFor="select-currency">
           Moeda:
           <select
@@ -113,6 +113,7 @@ class WalletForm extends Component {
             { this.renderCurrencyOptions() }
           </select>
         </label>
+
         <label htmlFor="select-payment">
           Método de pagamento:
           <select
@@ -124,12 +125,14 @@ class WalletForm extends Component {
             { this.renderMethodOptions() }
           </select>
         </label>
+
         <label htmlFor="select-tag">
           Tag:
           <select name="tag" id="select-tag" value={ tag } onChange={ handleChange }>
             { this.renderTagOptions() }
           </select>
         </label>
+
         <button type="submit">Adicionar Despesas</button>
       </form>
     );
@@ -155,5 +158,4 @@ WalletForm.propTypes = {
   addExpenseProp: PropTypes.func.isRequired,
   updateTotalProp: PropTypes.func.isRequired,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

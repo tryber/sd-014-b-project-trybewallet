@@ -29,6 +29,10 @@ export const updateTotal = () => ({
   type: UPDATE_TOTAL,
 });
 
+export const deleteExpense = () => ({
+  type: DELETE_EXPENSE,
+});
+
 export const fetchCurrencies = () => (
   async (dispatch) => {
     dispatch(isFetching(true));
