@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-class Header extends Component {
+class Headertable extends Component {
   render() {
     return (
       <thead className="header-table">
@@ -21,4 +21,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default Headertable;

@@ -1,7 +1,7 @@
 import { CURRENCIES_ACTION, EXPENSES_ACTION, CLEAR_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: ['BRL'],
+  currencies: [],
   expenses: [],
 };
 

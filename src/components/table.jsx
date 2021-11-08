@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from './headerExpenses';
+import { connect } from 'react-redux';
 import { clearAction } from '../actions';
+import Headertable from './headerExpenses';
 
 class Table extends React.Component {
-  delete(id) {
+  deleteExpenses(id) {
     const { clearExpense } = this.props;
     clearExpense(id);
   }
@@ -14,7 +14,7 @@ class Table extends React.Component {
     const { allExpenses } = this.props;
     return (
       <table>
-        <Header />
+        <Headertable />
         <tbody>
           { allExpenses.map(({ id, value, description,
             currency, method, tag, exchangeRates,
@@ -39,7 +39,7 @@ class Table extends React.Component {
                   type="button"
                   value="Excluir"
                   data-testid="delete-btn"
-                  onClick={ this.delete(id) }
+                  onClick={ () => this.deleteExpenses(id) }
                 />
               </td>
             </tr>
@@ -49,14 +49,13 @@ class Table extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
-  allExpenses: state.wallet.expenses,
-});
+
 const mapDispatchToProps = (dispatch) => ({
   clearExpense: (id) => dispatch(clearAction(id)),
 });
+
 Table.propTypes = {
-  clearExpense: PropTypes.func.isRequired,
   allExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  clearExpense: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+export default connect(null, mapDispatchToProps)(Table);

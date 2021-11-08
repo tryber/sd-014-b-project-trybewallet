@@ -22,3 +22,8 @@ export const clearAction = (payload) => ({
   type: CLEAR_EXPENSE,
   payload,
 });
+
+export const fetchExpenses = (payload) => async (dispatch) => {
+  const rates = await fetch('https://economia.awesomeapi.com.br/json/all').then((response) => response.json());
+  dispatch(expensesAction({ ...payload, exchangeRates: rates }));
+};
