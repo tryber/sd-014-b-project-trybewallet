@@ -26,6 +26,11 @@ export const addExpenses = (payload) => ({
   payload,
 });
 
+export const removeExpenses = (payload) => ({
+  type: REMOVE_EXPENSES,
+  payload,
+});
+
 export const fetchCurrencies = () => (dispatch) => {
   dispatch(requestCurrencies());
 

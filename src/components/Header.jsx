@@ -24,7 +24,6 @@ class Header extends React.Component {
       <header>
         <Link to="/"><h4>TrybeWallet</h4></Link>
         <p data-testid="email-field">{ email }</p>
-        <p data-testid="header-currency-field">BRL</p>
         <p data-testid="total-field">  
           {despesas.length === 0 ? 'R$ 0.00' : `R$ ${this.totalExpense().toFixed(2)}`}
         </p>
