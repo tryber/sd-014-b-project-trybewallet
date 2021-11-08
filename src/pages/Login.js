@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CHECK_EMAIL } from '../actions';
+import { Redirect } from 'react-router';
+import { saveEmailAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -10,18 +11,9 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
-    this.validateEmail = this.validateEmail.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toLogin = this.toLogin.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  validateEmail() {
-    const { email, password } = this.state;
-    const regex = /\S+@\S+\.\S+/.test(email);
-    const seis = 6;
-    const correctPassword = password.length >= seis;
-    return !regex || !correctPassword;
-  } // referência: https://trybecourse.slack.com/archives/C023YHXAEGM/p1634586091402700
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -30,53 +22,55 @@ class Login extends React.Component {
     });
   } // referência: https://github.com/tryber/sd-014-b-project-trybewallet/pull/86/
 
-  toLogin() {
-    const { dispatchEmail, history } = this.props;
+  handleSubmit(event) {
+    event.preventDefault();
+    const { saveEmail, history } = this.props;
     const { email } = this.state;
-    dispatchEmail(email);
+    saveEmail(email);
     history.push('/carteira');
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, redirect } = this.state;
+    const REGEX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
+    const minPassLength = 6;
+    if (redirect) { return <Redirect to="/carteira" />; }
+    // referência: https://trybecourse.slack.com/archives/C023YHXAEGM/p1634586091402700}
 
     return (
-      <section>
+      <form onSubmit={ this.handleSubmit }>
         <input
           name="email"
-          type="email"
+          type="text"
           data-testid="email-input"
-          onChange={ this.handleChange }
           value={ email }
+          onChange={ this.handleChange }
         />
         <input
           name="password"
           type="password"
           data-testid="password-input"
-          onChange={ this.handleChange }
           value={ password }
+          onChange={ this.handleChange }
         />
         <button
-          type="button"
-          disabled={ this.validateEmail() }
-          onClick={ this.toLogin }
+          type="submit"
+          disable={ !REGEX_EMAIL.test(email) || password.length < minPassLength }
         >
           Entrar
         </button>
-      </section>
+      </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchEmail: (state) => dispatch(CHECK_EMAIL(state)),
+  saveEmail: (email) => dispatch(saveEmailAction(email)),
 });
 
 Login.propTypes = {
-  dispatchEmail: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
+  saveEmail: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
