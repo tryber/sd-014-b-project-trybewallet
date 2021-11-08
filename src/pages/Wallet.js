@@ -1,5 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { submitExpenses } from '../actions';
 import Header from '../components/Header';
+import Input from '../components/Input';
+import Options from '../components/Option';
 import Select from '../components/Select';
 
 class Wallet extends React.Component {
@@ -8,6 +13,11 @@ class Wallet extends React.Component {
 
     this.state = {
       coins: [],
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -18,45 +28,59 @@ class Wallet extends React.Component {
   requestMoedas = async () => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const dataCoins = await response.json();
+    delete dataCoins.USDT;
     const arrayFinal = Object.keys(dataCoins);
-    arrayFinal.splice(1, 1);
+    // arrayFinal.splice(1, 1);
     this.setState({
       coins: arrayFinal,
     });
   }
 
-  //  {
-  //    usd:
-  //    usdt:
-  //    cad:
-  //    gbp:
-  //    ars:
-  //    btc:
-  //    ltc:
-  //    eur:
-  //    jpy:
-  //    chf:
-  //    aud:
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
+    });
+  }
 
-  //  }
+  submit = async () => {
+    const { expensesF } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const dataCoins = await response.json();
+
+    expensesF({ value, description, currency, method, tag, exchangeRates: dataCoins });
+
+    // this.setState({
+    //   value: '',
+    //   description: '',
+    //   currency: 'USD',
+    //   method: 'Dinheiro',
+    //   tag: 'Alimentação',
+    //   exchangeRates: [],
+    // });
+  }
 
   render() {
-    const { coins } = this.state;
+    const { coins, value } = this.state;
     return (
       <div>
         <Header />
         <form>
           <label htmlFor="Valor">
             Valor
-            <input type="text" id="Valor" />
+            <input
+              type="text"
+              value={ value }
+              onChange={ this.handleChange }
+              name="value"
+              id="Valor"
+            />
           </label>
-          <label htmlFor="Descricao">
-            Descrição
-            <input type="text" id="Descricao" />
-          </label>
+          <Input onChange={ this.handleChange } />
           <label htmlFor="Coins">
             Moeda
-            <select id="Coins">
+            <select onChange={ this.handleChange } name="currency" id="Coins">
               { coins.map((element, index) => (<Select
                 key={ index }
                 Coin={ element }
@@ -65,7 +89,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="payment">
             Método de pagamento
-            <select id="payment">
+            <select onChange={ this.handleChange } name="method" id="payment">
               <option type="combobox">Dinheiro</option>
               <option type="combobox">Cartão de crédito</option>
               <option type="combobox">Cartão de débito</option>
@@ -73,18 +97,21 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="tags">
             Tag
-            <select id="tags">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
+            <select onChange={ this.handleChange } name="tag" id="tags">
+              <Options />
             </select>
           </label>
         </form>
+        <button onClick={ this.submit } type="button">Adicionar despesa</button>
       </div>
     );
   }
 }
 
-export default Wallet;
+const mapDispatchToProps = () => (dispatch) => ({
+  expensesF: (state) => dispatch(submitExpenses(state)),
+});
+Wallet.propTypes = {
+  expensesF: PropTypes.func.isRequired,
+};
+export default connect(null, mapDispatchToProps)(Wallet);

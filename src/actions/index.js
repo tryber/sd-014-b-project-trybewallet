@@ -8,3 +8,10 @@ export const saveEmail = (email) => ({
     email,
   },
 });
+
+export const SUBMIT_EXPENSES = 'SUBMIT_EXPENSES';
+
+export const submitExpenses = (expenses) => ({
+  type: SUBMIT_EXPENSES,
+  payload: expenses,
+});
