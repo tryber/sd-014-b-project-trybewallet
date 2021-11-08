@@ -1,4 +1,9 @@
-import { SET_WALLET_DATA, SET_SPENT_TOTAL } from '../actions';
+import {
+  SET_WALLET_DATA,
+  SET_SPENT_TOTAL,
+  UPDATE_SPENT_TOTAL,
+  UPDATE_EXPENSES,
+} from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 /**
@@ -13,6 +18,14 @@ const INITIAL_STATE = {
   spentTotal: 0,
 };
 
+const updateSpentTotal = (state) => {
+  const { expenses } = state;
+  // ref: https://www.treinaweb.com.br/blog/javascript-metodos-de-arrays-que-voce-precisa-conhecer
+  return expenses.reduce((total, { value, exchangeRates, currency }) => (
+    total + (value * exchangeRates[currency].ask)
+  ), 0);
+};
+
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_WALLET_DATA:
@@ -24,6 +37,16 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       spentTotal: action.payload.spentTotal,
+    };
+  case UPDATE_SPENT_TOTAL:
+    return {
+      ...state,
+      spentTotal: updateSpentTotal(state),
+    };
+  case UPDATE_EXPENSES:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return state;
