@@ -7,12 +7,12 @@ export const userAction = (email) => ({
   email,
 });
 
-export const currenciesAction = (currencies) => ({
+export const currenciesAction = (payload) => ({
   type: CURRENCIES_ACTION,
-  currencies,
+  payload,
 });
 
-export const expensesAction = (expenses) => ({
+export const expensesAction = (payload) => ({
   type: EXPENSES_ACTION,
-  expenses,
+  payload,
 });

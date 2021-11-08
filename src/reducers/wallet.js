@@ -2,7 +2,7 @@ import { CURRENCIES_ACTION, EXPENSES_ACTION } from '../actions';
 
 const INITIAL_STATE = {
   currencies: ['BRL'],
-  expenses: [0],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -15,7 +15,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case EXPENSES_ACTION:
     return {
       ...state,
-      expenses: action.expenses,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;
