@@ -18,10 +18,8 @@ class Login extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  } // referência: https://github.com/tryber/sd-014-b-project-trybewallet/pull/86/
+    this.setState({ [name]: value });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -36,27 +34,26 @@ class Login extends React.Component {
     const REGEX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
     const minPassLength = 6;
     if (redirect) { return <Redirect to="/carteira" />; }
-    // referência: https://trybecourse.slack.com/archives/C023YHXAEGM/p1634586091402700}
 
     return (
       <form onSubmit={ this.handleSubmit }>
         <input
-          name="email"
-          type="text"
           data-testid="email-input"
+          type="text"
+          name="email"
           value={ email }
           onChange={ this.handleChange }
         />
         <input
-          name="password"
-          type="password"
           data-testid="password-input"
+          type="password"
+          name="password"
           value={ password }
           onChange={ this.handleChange }
         />
         <button
           type="submit"
-          disable={ !REGEX_EMAIL.test(email) || password.length < minPassLength }
+          disabled={ !REGEX_EMAIL.test(email) || password.length < minPassLength }
         >
           Entrar
         </button>
