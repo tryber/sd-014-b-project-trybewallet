@@ -8,8 +8,17 @@ function Header({ email, expenses }) {
       <p data-testid="email-field">{email}</p>
       <p data-testid="total-field">
         {expenses.reduce(
-          (total, expense) => total + (Number(expense.value)
-          * Number(expense.exchangeRates[expense.currency].ask)), 0,
+          (total, expense) => {
+            if (expense
+              && expense.exchangeRates
+              && expense.currency
+              && expense.exchangeRates[expense.currency]) {
+              return total + (Number(expense.value)
+            * Number(expense.exchangeRates[expense.currency].ask));
+            }
+            return 0;
+          }, 0,
+
         )}
 
       </p>

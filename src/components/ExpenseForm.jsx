@@ -15,7 +15,7 @@ function ExpenseForm({ setExpenseGlobal }) {
   const [id, setId] = useState(0);
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
-  const [currency, setCurrency] = useState('');
+  const [currency, setCurrency] = useState('USD');
   const [method, setMethod] = useState('');
   const [tag, setTag] = useState('');
 

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionsCreators from '../actions/index';
 
-function DeleteButton({ id }) {
+function DeleteButton({ id, removeExpense }) {
   const handleDelete = () => {
-    ActionsCreators.removeExpense(id);
+    removeExpense(id);
   };
   return (
     <button type="button" onClick={ handleDelete } data-testid="delete-btn">
@@ -17,6 +17,7 @@ function DeleteButton({ id }) {
 
 DeleteButton.propTypes = {
   id: PropTypes.number.isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ expenses }) => ({ expenses });
