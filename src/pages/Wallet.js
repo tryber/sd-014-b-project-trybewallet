@@ -1,14 +1,30 @@
 import React from 'react';
 import Header from '../components/Header';
+import Select from '../components/Select';
 
 class Wallet extends React.Component {
   render() {
+    const moedas = ['AUD', 'USD', 'EURO'];
+    const payments = ['Cartão de crédito', 'Cartão de débito', 'Dinheiro'];
+    const tag = ['Lazer', 'Trabalho', 'Alimentação', 'Transporte', 'Saúde'];
     return (
-      <div>
+      <>
         <Header />
-      </div>
+        <form>
+          <label htmlFor="expense">
+            Valor:
+            <input type="text" name="expense" id="expense" />
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input type="text" name="description" id="description" />
+          </label>
+          <Select field="currency" label="Moeda:" array={ moedas } />
+          <Select field="payment" label="Método de pagamento:" array={ payments } />
+          <Select field="tag" label="Tag:" array={ tag } />
+        </form>
+      </>
     );
   }
 }
-
 export default Wallet;

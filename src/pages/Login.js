@@ -19,8 +19,8 @@ class Login extends React.Component {
 
   // https://stackoverflow.com/questions/19605150
   // isPassValid(pass) {
-  //   const regexEmail = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
-  //   return regexEmail.test(pass)
+  //   const regexPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+  //   return regexPass.test(pass)
   // }
 
   // onSubmitLogin() {
