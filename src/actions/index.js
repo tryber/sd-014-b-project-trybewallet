@@ -9,3 +9,19 @@ export const submitUser = (payload) => ({
   type: SUBMIT_USER_INFO,
   payload,
 });
+
+export const requestCurrencies = () => ({
+  type: REQUEST_CURRENCIES,
+});
+
+export const getCurrencies = (payload) => ({
+  type: GET_CURRENCIES,
+  payload,
+});
+
+export const fetchCurrencies = () => (dispatch) => {
+  dispatch(requestCurrencies());
+
+  fetchCurrencyAPI()
+    .then((response) => dispatch(getCurrencies(response)));
+};
