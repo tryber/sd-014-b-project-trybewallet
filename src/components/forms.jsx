@@ -81,7 +81,7 @@ class Form extends React.Component {
         <label htmlFor="method">
           Método de pagamento:
           <select id="method" value={ method } onChange={ this.handleChange }>
-            <option value="Dinheiro" selected>Dinheiro</option>
+            <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
@@ -104,7 +104,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   moedas: PropTypes.arrayOf(PropTypes.any).isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   sendExpenses: PropTypes.func.isRequired,
 };
 
