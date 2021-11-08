@@ -27,7 +27,7 @@ Select.propTypes = {
   array: PropTypes.arrayOf(PropTypes.string).isRequired,
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 

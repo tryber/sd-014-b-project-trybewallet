@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
-
   constructor() {
     super();
     this.totalExpense = this.totalExpense.bind(this);
@@ -24,7 +23,7 @@ class Header extends React.Component {
       <header>
         <Link to="/"><h4>TrybeWallet</h4></Link>
         <p data-testid="email-field">{ email }</p>
-        <p data-testid="total-field">  
+        <p data-testid="total-field">
           {despesas.length === 0 ? 'R$ 0.00' : `R$ ${this.totalExpense().toFixed(2)}`}
         </p>
         <p data-testid="header-currency-field">BRL</p>
@@ -34,6 +33,10 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  despesas: PropTypes.shape({
+    length: PropTypes.number,
+    reduce: PropTypes.func,
+  }).isRequired,
   email: PropTypes.string.isRequired,
 };
 
@@ -43,4 +46,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Header);
-
