@@ -9,28 +9,25 @@ export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
   payload: email,
 });
-
 export const getCurrencies = (payload) => ({
   type: UPDATE_CURRENCIES,
   payload,
 });
-
 export const isFetching = (status) => ({
   type: IS_FETCHING,
   payload: status,
 });
-
 export const addExpense = (payload) => ({
   type: ADD_EXPENSE,
   payload,
 });
-
 export const updateTotal = () => ({
   type: UPDATE_TOTAL,
 });
 
-export const deleteExpense = () => ({
+export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
+  payload: id,
 });
 
 export const fetchCurrencies = () => (
