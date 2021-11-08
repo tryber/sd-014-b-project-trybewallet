@@ -17,7 +17,7 @@ class Header extends React.Component {
         </span>
         <span>
           Despesa Total: R$
-          <span data-testid="total-field">{ spentTotal }</span>
+          <span data-testid="total-field">{ !spentTotal ? 0 : spentTotal }</span>
         </span>
         <span
           data-testid="header-currency-field"
