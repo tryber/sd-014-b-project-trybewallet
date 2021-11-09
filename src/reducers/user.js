@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const user = (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_EMAIL:
     return { ...state, email: action.payload };
@@ -13,4 +13,4 @@ const user = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
-export default user;
+export default reducer;
