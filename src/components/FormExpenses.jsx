@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendCurrencies } from '../actions';
 import Select from './Select';
-import PropTypes from 'prop-types';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expensesOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -13,7 +13,7 @@ class FormExpenses extends Component {
     super();
 
     this.state = {
-      id: 0,
+      // id: 0,
       value: 0,
       description: '',
       currency: 'USD',

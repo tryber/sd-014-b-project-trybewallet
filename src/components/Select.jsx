@@ -11,8 +11,8 @@ function Select(props) {
         value={ value }
         onChange={ onChange }
       >
-        { info.map((element) => 
-          <option key={ element } value={ element }>{ element }</option>)}
+        { info.map((element) => (
+          <option key={ element } value={ element }>{ element }</option>))}
       </select>
     </label>
   );
