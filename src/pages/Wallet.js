@@ -1,9 +1,13 @@
 import React from 'react';
+import FormExpenses from '../components/FormExpenses';
 import Header from '../components/Header';
 
 function Wallet() {
   return (
-    <Header />
+    <section>
+      <Header />
+      <FormExpenses />
+    </section>
   );
 }
 

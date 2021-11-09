@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 function Header({ user }) {
   // const totalField =
@@ -15,5 +16,9 @@ function Header({ user }) {
 const mapStateToProps = (state) => ({
   user: state.user.email,
 });
+
+Header.propTypes = {
+  user: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, null)(Header);
