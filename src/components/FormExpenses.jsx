@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sendCurrencies } from '../actions';
+import { sendCurrencies, exchangeRating, addExpense } from '../actions';
 import Select from './Select';
 import Button from './Button';
 
@@ -124,11 +124,14 @@ FormExpenses.propTypes = {
   addExpenses: PropTypes.func.isRequired,
   setExpenses: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
+  wallet: PropTypes.shape({
+    length: PropTypes.number,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: (currencies) => dispatch(sendCurrencies(currencies)),
-  addExpenses: (expenseID) => dispatch(addExpenses(expenseID)),
+  addExpenses: (expenseID) => dispatch(addExpense(expenseID)),
   setExpenses: (rates) => dispatch(exchangeRating(rates)),
 });
 
