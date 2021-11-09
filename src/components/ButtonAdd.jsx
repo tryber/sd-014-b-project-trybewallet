@@ -8,7 +8,6 @@ class ButtonAdd extends Component {
       <section>
         <button
           type="button"
-          data-testid="total-field"
           onClick={ onClick }
         >
           Adicionar despesas

@@ -50,7 +50,7 @@ class Wallet extends React.Component {
     inputForm({ id, value, description, currency, method, tag, exchangeRates });
 
     this.setState({
-      value: '',
+      value: 0,
       description: '',
       currency: '',
       method: '',
@@ -73,9 +73,9 @@ class Wallet extends React.Component {
               name="value"
               value={ value }
               onChange={ this.handleChange }
-              data-testid="total-field"
             />
           </label>
+          <span data-testid="total-field">0</span>
           <span data-testid="header-currency-field">BRL</span>
           <SelectCoins
             labelhtmlfor="moeda"
