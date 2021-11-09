@@ -12,6 +12,7 @@ const apiResponse = Promise.resolve({
   ok: true,
 });
 
+
 const mockedExchange = jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
 
 afterEach(() => jest.clearAllMocks());
@@ -71,7 +72,6 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
     });
-
     expect(currencyInput).toBeInTheDocument();
   });
 
@@ -143,7 +143,7 @@ describe('7 - Implemente a lógica para preencher as opções do campo "Moedas",
   });
 });
 
-describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
+  describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gastos', () => {
   test('Crie um botão com o texto \'Adicionar despesa\' que salva as informações da despesa no estado global e atualiza a soma de despesas no header', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira');
 
