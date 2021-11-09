@@ -14,8 +14,8 @@ class FormExpenses extends Component {
     super();
 
     this.state = {
-      // id: 0,
-      value: 0,
+      id: 0,
+      value: '0',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -97,8 +97,8 @@ class FormExpenses extends Component {
         <label htmlFor="value">
           Valor
           <input
-            inputValue={ value }
-            type="textbox"
+            value={ value }
+            type="number"
             id="value"
             onChange={ this.handleChange }
           />

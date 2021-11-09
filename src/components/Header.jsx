@@ -11,7 +11,7 @@ function Header({ user, expenses }) {
   return (
     <header>
       <span data-testid="email-field">{ `E-mail: ${user}` }</span>
-      <span data-testid="total-field">{ totalField }</span>
+      <span data-testid="total-field">{ `R$ ${totalField}` }</span>
       <span data-testid="header-currency-field">BRL</span>
     </header>
   );
