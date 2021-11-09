@@ -52,12 +52,11 @@ class Login extends Component {
     const { email, password } = this.state;
 
     submitUserInfo({ email, password });
+    history.push('/carteira');
 
     this.setState({
       disabled: true,
     });
-
-    history.push('/carteira');
   }
 
   render() {
