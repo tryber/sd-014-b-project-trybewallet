@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-// eslint-disable-next-line import/named
-import { Wallet } from './pages/Wallet';
+import Wallet from './pages/Wallet';
 
 class App extends Component {
   render() {
