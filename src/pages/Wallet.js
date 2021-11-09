@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Input from '../components/InputForm';
 import Select from '../components/SelectForm';
 import { salvaWallet, salvaGasto } from '../actions/index';
+import TableHead from '../components/TableHeader';
 
 class Wallet extends React.Component {
   constructor() {
@@ -95,6 +96,7 @@ class Wallet extends React.Component {
         >
           Adicionar despesa
         </button>
+        <TableHead />
       </section>
     );
   }
