@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Input from '../components/InputForm';
 import Select from '../components/SelectForm';
-import TableBody from '../components/Table';
-import TableHead from '../components/TableHeader';
 import { salvaWallet, salvaGasto } from '../actions/index';
 
 class Wallet extends React.Component {
@@ -47,7 +45,6 @@ class Wallet extends React.Component {
     };
     saveMoney(expenseObj);
   }
-  // Req. 8: Consegui resolver com a ajuda da Bel Albuquerque
 
   handleChange({ target }) {
     const { id, value } = target;
@@ -98,15 +95,10 @@ class Wallet extends React.Component {
         >
           Adicionar despesa
         </button>
-        <table>
-          <TableHead />
-          <TableBody />
-        </table>
       </section>
     );
   }
 }
-// Ajuste no render com ajuda do Riba Jr. em call
 const mapDispatchToProps = (dispatch) => ({
   saveMoney: (payload) => dispatch(salvaGasto(payload)),
   saveCurrencies: (payload) => dispatch(salvaWallet(payload)),
