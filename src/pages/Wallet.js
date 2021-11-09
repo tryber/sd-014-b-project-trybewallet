@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Input from '../components/InputForm';
 import Select from '../components/SelectForm';
-
-import { salvaWallet, salvaGasto } from '../actions/index';
 import TableBody from '../components/Table';
 import TableHead from '../components/TableHeader';
+import { salvaWallet, salvaGasto } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
