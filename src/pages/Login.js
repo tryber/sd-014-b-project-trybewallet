@@ -10,41 +10,27 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      verify: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);
-    this.verify = this.verify.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
+  handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
-    this.verify();
   }
 
-  verifyEmail(email) {
-    const check = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-    return check.test(email);
-  }
-
-  verify() {
-    const { email, password } = this.state;
-    const MINIMUM = 6;
-    if (this.verifyEmail(email) && password.length >= MINIMUM) {
-      this.setState({ verify: false });
-    } else { this.setState({ verify: true }); }
-  }
-
-  submit() {
-    const { email } = this.state;
+  handleSubmit(event) {
+    event.preventDefault();
     const { history, setEmail } = this.props;
+    const { email } = this.state;
     setEmail(email);
     history.push('/carteira');
   }
 
   render() {
-    const { email, password, verify } = this.state;
+    const MINLENGTH = 5;
+    const reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const { email, password } = this.state;
     return (
       <form>
         <input
@@ -63,8 +49,8 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          disabled={ verify }
-          onClick={ this.submit }
+          disabled={ !(reg.test(email)) || (password.length <= MINLENGTH) }
+          onClick={ this.handleSubmit }
         >
           Entrar
         </button>
@@ -74,12 +60,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape().isRequired,
   setEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setEmail: (email) => dispatch(userAction(email)),
+  userAction: (email) => dispatch(userAction(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
