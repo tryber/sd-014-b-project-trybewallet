@@ -4,11 +4,9 @@ export const REQUEST_API = 'REQUEST_API';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const SUBMIT_USER = 'SUBMIT_USER';
 
-export const saveEmail = (email) => ({
+export const saveEmail = (payload) => ({
   type: SUBMIT_USER,
-  payload: {
-    email,
-  },
+  payload,
 });
 export const loginAction = (payload) => ({
   type: LOGIN,

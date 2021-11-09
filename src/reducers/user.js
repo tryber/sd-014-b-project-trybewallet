@@ -1,17 +1,15 @@
-import { LOGIN } from '../actions/index';
+import { SUBMIT_USER } from '../actions';
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
+  email: ' ',
 };
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case LOGIN:
+  case SUBMIT_USER:
     return {
       ...state,
-      email: action.payload.email,
-      password: action.payload.password,
+      email: action.payload,
     };
 
   default:
