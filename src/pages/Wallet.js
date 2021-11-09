@@ -42,7 +42,8 @@ class Wallet extends React.Component {
     const { id, value, description, currency, method, tag } = this.state;
 
     const { inputForm, fetchMoney } = this.props;
-    const exchangeRates = await fetchMoney();
+    const response = await fetchMoney();
+    const exchangeRates = await response.payload;
 
     this.setState((prevState) => ({ id: prevState.id + 1 }));
 
@@ -87,16 +88,16 @@ class Wallet extends React.Component {
           <Select
             value={ tag }
             onChange={ this.handleChange }
-            description="Tag"
-            optionone="Alimentação"
-            optiontwo="Lazer"
-            optionthree="Trabalho"
-            optionfour="Transporte"
-            optionfive="Saúde"
           />
           <label htmlFor="descrição">
             Descrição:
-            <input type="text" id="descrição" name="description" value={ description } onChange={ this.handleChange } />
+            <input
+              type="text"
+              id="descrição"
+              name="description"
+              value={ description }
+              onChange={ this.handleChange }
+            />
           </label>
           <ButtonAdd onClick={ this.handleClick } />
         </form>

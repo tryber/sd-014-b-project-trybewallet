@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { description, optionone, optiontwo,
-      optionthree, optionfour, optionfive, value, onChange } = this.props;
+    const { value, onChange } = this.props;
     return (
       <section>
-        <label htmlFor={ description }>
-          { description }
-          <select id={ description } name="description" value={ value } onChange={ onChange }>
-            <option>{ optionone }</option>
-            <option>{ optiontwo }</option>
-            <option>{ optionthree }</option>
-            <option>{ optionfour }</option>
-            <option>{ optionfive }</option>
+        <label htmlFor="tag">
+          Tag
+          <select id="tag" name="description" value={ value } onChange={ onChange }>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
           </select>
         </label>
       </section>

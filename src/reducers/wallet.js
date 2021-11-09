@@ -32,7 +32,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: action.payload,
       exchangeRates: action.payload,
-    }
+    };
   default:
     return state;
   }

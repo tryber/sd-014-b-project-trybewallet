@@ -58,4 +58,4 @@ export function salveFormSpent(payload) {
         ),
       (error) => dispatch(failedRequest(error)));
   };
-};
+}
