@@ -1,17 +1,18 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Login from './Pages/Login';
-import Wallet from './Pages/Wallet';
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
+// eslint-disable-next-line import/named
+import { Wallet } from './pages/Wallet';
 
-function App() {
-  return (
-    <main>
+class App extends Component {
+  render() {
+    return (
       <Switch>
-        <Route path="/" component={ Login } />
+        <Route exact path="/" component={ Login } />
         <Route path="/carteira" component={ Wallet } />
       </Switch>
-    </main>
-  );
+    );
+  }
 }
 
 export default App;
