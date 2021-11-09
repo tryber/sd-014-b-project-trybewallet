@@ -1,20 +1,45 @@
-import { SAVE_WALLET } from '../actions';
+import { SALVA_WALLET, SALVA_GASTOS, APAGA_GASTO } from '../actions/index';
 
-const initialState = {
+const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
 
-function wallet(state = initialState, action) {
+const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_WALLET:
+  case SALVA_WALLET:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      currencies: action.payload,
     };
+
+  case SALVA_GASTOS:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        { id: state.expenses.length,
+          value: action.payload.valor,
+          description: action.payload.descricao,
+          currency: action.payload.moeda,
+          method: action.payload.pagamento,
+          tag: action.payload.tag,
+          exchangeRates: action.payload.response,
+        },
+      ],
+    };
+
+  case APAGA_GASTO:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload),
+      ],
+    };
+
   default:
     return state;
   }
-}
+};
 
-export default wallet;
+export default walletReducer;

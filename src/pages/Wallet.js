@@ -1,112 +1,129 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import InputForm from '../components/InputForm';
-import SelectForm from '../components/SelectForm';
-import { addExpense, fetchCurrencies } from '../actions/index';
+import Input from '../components/InputForm';
+import Select from '../components/SelectForm';
+
+import { salvaWallet, salvaGasto } from '../actions/index';
+import TableBody from '../components/Table';
+import TableHead from '../components/TableHeader';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-
     this.state = {
-      coins: [],
-      id: 0,
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      valor: '',
+      descricao: '',
+      moeda: '',
+      method: '',
+      tag: '',
     };
 
-    this.fetchCoins = this.fetchCoins.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchCoins();
+  async componentDidMount() {
+    const { saveCurrencies } = this.props;
+
+    const requestAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await requestAPI.json();
+    const expenses = Object.keys(response).filter((expense) => expense !== 'USDT');
+    saveCurrencies(expenses);
   }
 
-  async fetchCoins() {
-    const fetchedCoins = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const coins = await fetchedCoins.json();
-    const coinsArray = Object.keys(coins);
-    this.setState({
-      coins: coinsArray.filter((item) => item !== 'USDT'),
-    });
+  async handleClick() {
+    const { valor, descricao, moeda, method, tag } = this.state;
+    const { saveMoney } = this.props;
+    const requestAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await requestAPI.json();
+    const expenseObj = {
+      valor,
+      descricao,
+      moeda,
+      pagamento: method,
+      tag,
+      response,
+    };
+    saveMoney(expenseObj);
   }
-
-  async handleClick(event) {
-    event.preventDefault();
-    const { id, currency, method, tag, description, value } = this.state;
-    const { onSubmit } = this.props;
-
-    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const exchangeRates = await api.json();
-
-    this.setState((prevState) => ({ id: prevState.id + 1 }));
-    onSubmit({ value, description, exchangeRates, id, currency, method, tag });
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
-  }
+  // Req. 8: Consegui resolver com a ajuda da Bel Albuquerque
 
   handleChange({ target }) {
-    const { name, value } = target;
+    const { id, value } = target;
     this.setState({
-      [name]: value,
+      [id]: value,
     });
   }
 
   render() {
-    const { coins, value, description, currency, method, tag } = this.state;
+    const { currencies } = this.props;
+    const { valor, descricao } = this.state;
     return (
-      <div>
+      <section>
         <Header />
-        <form>
-          <InputForm
-            handleChange={ this.handleChange }
-            value={ value }
-            description={ description }
-          />
-          <SelectForm
-            handleChange={ this.handleChange }
-            currency={ currency }
-            method={ method }
-            tag={ tag }
-            coins={ coins }
-          />
-
-          <button
-            type="submit"
-            onClick={ this.handleClick }
-          >
-            Adicionar despesa
-          </button>
-        </form>
-      </div>
+        <Input
+          valor={ valor }
+          title="Valor"
+          id="valor"
+          onChange={ this.handleChange }
+        />
+        <Input
+          valor={ descricao }
+          title="Descrição"
+          id="descricao"
+          onChange={ this.handleChange }
+        />
+        <Select
+          title="Moeda"
+          id="moeda"
+          onChange={ this.handleChange }
+          values={ currencies }
+        />
+        <Select
+          title="método de pagamento"
+          id="method"
+          onChange={ this.handleChange }
+          values={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+        />
+        <Select
+          title="tag"
+          id="tag"
+          onChange={ this.handleChange }
+          values={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+        />
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+        </button>
+        <table>
+          <TableHead />
+          <TableBody />
+        </table>
+      </section>
     );
   }
 }
+// Ajuste no render com ajuda do Riba Jr. em call
+const mapDispatchToProps = (dispatch) => ({
+  saveMoney: (payload) => dispatch(salvaGasto(payload)),
+  saveCurrencies: (payload) => dispatch(salvaWallet(payload)),
+});
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
+});
 
 Wallet.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  saveMoney: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(
+    PropTypes.string,
+  ).isRequired,
+  saveCurrencies: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = ({ user, wallet }) => ({
-  email: user.email,
-  currencies: wallet.currencies,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
-  onSubmit: (expense) => dispatch(addExpense(expense)),
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

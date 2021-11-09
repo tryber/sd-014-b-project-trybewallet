@@ -1,74 +1,83 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginAction } from '../actions';
+import PropTypes from 'prop-types';
+import { salvaUsuario } from '../actions';
+
+// referênicas
+// https://trybecourse.slack.com/archives/C023YHXAEGM/p1634586091402700
+// https://github.com/tryber/sd-014-b-project-trybewallet/pull/86/
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      statusButton: true,
       email: '',
       password: '',
     };
-    this.statusButton = this.statusButton.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleLogin = this.handleLogin(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.inputValid = this.inputValid.bind(this);
+    this.getLogin = this.getLogin.bind(this);
   }
 
-  handleLogin() {
-    const { login, history } = this.props;
+  getLogin() {
     const { email } = this.state;
-    login(email);
+    const { history, dispatchValue } = this.props;
+
+    dispatchValue(email);
     history.push('/carteira');
   }
 
-  handleClick({ target }) {
+  inputValid() {
+    const { email, password } = this.state;
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+
+    const SEIS = 6;
+    const correctPassword = password.length >= SEIS;
+
+    return !regex || !correctPassword;
+  }
+
+  handleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
     });
   }
 
-  statusButton(event) {
-    const minNumber = 5;
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-    const { email, password } = this.state;
-    // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
-    const regexEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
-    const passwordValid = password.length >= minNumber;
-    if (regexEmail && passwordValid) {
-      this.setState({ statusButton: false });
-    }
-  }
-
   render() {
-    const { statusButton, email, password } = this.state;
+    const { email, password } = this.state;
+
     return (
-      <section>
-        <input
-          type="email"
-          name="email"
-          placeholder="Digite seu e-mail"
-          data-testid="email-input"
-          value={ email }
-          onChange={ this.handleClick }
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Digite sua senha"
-          data-testid="password-input"
-          value={ password }
-          onChange={ this.handleClick }
-        />
+      <section className="login">
+        <label htmlFor="email">
+          Email:
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+            id="email"
+          />
+        </label>
+        <label htmlFor="password">
+          Senha:
+          <input
+            type="password"
+            name="password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ this.handleChange }
+            id="password"
+          />
+        </label>
+
         <button
           type="button"
-          disabled={ statusButton }
-          onClick={ this.handleLogin }
+          disabled={ this.inputValid() }
+          onClick={ this.getLogin }
         >
           Entrar
         </button>
@@ -78,12 +87,13 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (value) => dispatch(loginAction(value)),
+  dispatchValue: (email) => dispatch(salvaUsuario(email)),
 });
 
 Login.propTypes = {
-  login: PropTypes.func,
-  history: PropTypes.func,
-}.isRequired;
-
+  dispatchValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 export default connect(null, mapDispatchToProps)(Login);

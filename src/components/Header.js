@@ -1,54 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// https://github.com/tryber/sd-014-b-project-trybewallet/blob/bruno-faria-trybewallet/src/components/Header.js
-// código do Bruno Farias
-
-class Header extends Component {
-  constructor() {
-    super();
-
-    this.totalValue = this.totalValue.bind(this);
-  }
-
-  totalValue() {
-    const { expenses } = this.props;
-    const totalValue = expenses.reduce((acc, expense) => {
-      const currencyValue = Number(expense.exchangeRates[expense.currency].ask);
-      acc += Number(expense.value) * currencyValue;
-      return acc;
-    }, 0);
-    return totalValue;
-  }
-
+class Header extends React.Component {
   render() {
-    const { email } = this.props;
-    const { totalValue } = this;
+    const { usuario, gastos } = this.props;
+
+    const totalGasto = gastos
+      ? gastos
+        .reduce((acc, { value, currency, exchangeRates }) => acc + value
+          * exchangeRates[currency].ask, 0) : 0;
 
     return (
       <header>
-        <h1 data-testid="email-field">{email}</h1>
-        <p>
-          Despesa Total
-          {' '}
-          <span data-testid="total-field">{totalValue().toFixed(2)}</span>
-          {' '}
-          <span data-testid="header-currency-field">BRL</span>
+        <p data-testid="email-field">
+          { usuario }
+        </p>
+        <p data-testid="total-field">
+          { totalGasto.toFixed(2) }
+        </p>
+        <p data-testid="header-currency-field">
+          BRL
         </p>
       </header>
     );
   }
 }
 
-const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
-  email,
-  expenses,
-});
-
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  usuario: PropTypes.string.isRequired,
+  gastos: PropTypes.arrayOf(PropTypes.Object).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  usuario: state.usuario.email,
+  gastos: state.carteira.expenses,
+});
 
 export default connect(mapStateToProps)(Header);

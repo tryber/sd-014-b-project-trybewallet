@@ -1,41 +1,26 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-class InputForm extends Component {
+export default class Input extends Component {
   render() {
-    const { value, description, handleChange } = this.props;
+    const { title, id, valor, onChange } = this.props;
     return (
-      <div>
-        <label htmlFor="value">
-          Valor:
-          <input
-            type="text"
-            name="value"
-            id="value"
-            value={ value }
-            onChange={ handleChange }
-          />
-        </label>
-
-        <label htmlFor="description">
-          Descrição:
-          <input
-            type="text"
-            name="description"
-            id="description"
-            value={ description }
-            onChange={ handleChange }
-          />
-        </label>
-      </div>
+      <label htmlFor={ id }>
+        { title }
+        <input
+          type="text"
+          id={ id }
+          value={ valor }
+          onChange={ onChange }
+        />
+      </label>
     );
   }
 }
 
-InputForm.propTypes = {
-  description: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-};
-
-export default InputForm;
+Input.propTypes = {
+  id: PropTypes.any,
+  onChange: PropTypes.any,
+  title: PropTypes.any,
+  valor: PropTypes.any,
+}.isRequired;

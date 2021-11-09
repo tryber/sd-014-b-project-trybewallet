@@ -1,66 +1,35 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-class SelectForm extends Component {
+export default class Select extends Component {
   render() {
-    const { currency, method, tag, handleChange, coins } = this.props;
-    const coinsArray = coins.map((coin, index) => (
-      <option key={ index }>{coin}</option>
-    ));
+    const { title, id, onChange, values } = this.props;
     return (
-      <div>
-        <label htmlFor="currency">
-          Moeda:
-          <select
-            name="currency"
-            id="currency"
-            value={ currency }
-            onChange={ handleChange }
-          >
-            { coinsArray }
-          </select>
-        </label>
-        <label htmlFor="method">
-          Método de pagamento:
-          <select
-            name="method"
-            id="method"
-            value={ method }
-            onChange={ handleChange }
-          >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select
-            id="tag"
-            name="tag"
-            value={ tag }
-            onChange={ handleChange }
-          >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
-      </div>
+      <label htmlFor={ id }>
+        { title }
+        <select
+          id={ id }
+          onChange={ onChange }
+        >
+          { values.map((value, index) => (
+            <option
+              key={ index }
+              value={ value }
+            >
+              { value }
+            </option>
+          ))}
+        </select>
+      </label>
     );
   }
 }
 
-SelectForm.propTypes = {
-  coins: PropTypes.shape({
+Select.propTypes = {
+  values: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,
-  currency: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  method: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
-
-export default SelectForm;

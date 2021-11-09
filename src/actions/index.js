@@ -1,30 +1,28 @@
-export const LOGIN = 'LOGIN';
-export const GET_CURRENCIES = 'GET_CURRENCIES';
-export const REQUEST_API = 'REQUEST_API';
-export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const SALVA_USUARIO = 'SALVA_USUARIO';
+export const SALVA_WALLET = 'SALVA_WALLET';
+export const SALVA_GASTOS = 'SALVA_GASTOS';
+export const APAGA_GASTO = 'APAGA_GASTO';
 
-export const loginAction = (payload) => ({
-  type: LOGIN,
+export const salvaUsuario = (payload) => ({
+  type: SALVA_USUARIO,
   payload,
 });
 
-export const requestApi = () => ({
-  type: REQUEST_API,
-});
-
-export const getCurrencies = (payload) => ({
-  type: GET_CURRENCIES,
+export const salvaWallet = (payload) => ({
+  type: SALVA_WALLET,
   payload,
 });
 
-export const fetchCurrencies = () => async (dispatch) => {
-  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const result = await response.json();
-  delete result.USDT;
-  dispatch(getCurrencies(result));
-};
+export const salvaGasto = (payload) => (
+  {
+    type: SALVA_GASTOS,
+    payload,
+  }
+);
 
-export const addExpense = (payload) => ({
-  type: ADD_EXPENSE,
-  payload,
-});
+export const apagaGasto = (payload) => (
+  {
+    type: APAGA_GASTO,
+    payload,
+  }
+);
