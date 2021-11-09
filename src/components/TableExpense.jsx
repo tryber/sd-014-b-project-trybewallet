@@ -3,12 +3,22 @@ import { connect } from 'react-redux';
 import DeleteBtn from './DeleteBtn';
 import ButtonAddExpense from './ButtonAddExpense';
 
+const tableHeader = [
+  'Descrição', 'Tag',
+  'Método de pagamento',
+  'Valor', 'Moeda',
+  'Câmbio utilizado',
+  'Valor convertido',
+  'Moeda de conversão',
+  'Editar/Excluir',
+];
+
 function TableExpense({ expenses }) {
   return (
     <table border="1">
       <thead>
         <tr>
-
+          {tableHeader.map((item) => <th key={ item }>{item}</th>)}
         </tr>
       </thead>
       <tbody>
