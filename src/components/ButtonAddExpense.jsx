@@ -11,7 +11,7 @@ function ButtonAddExpense({ id, editExpense }) {
   return (
     <button
       data-testid="edit-btn"
-      type="button" 
+      type="button"
       onClick={ handleEdit }
       label="edit-btn"
     >
@@ -27,7 +27,7 @@ ButtonAddExpense.propTypes = {
 
 const mapStateToProps = (state) => ({ expenses: state.wallet.expenses });
 
-const mapDispatchToProps = (dispatch) => ({ 
+const mapDispatchToProps = (dispatch) => ({
   editExpense: (id) => dispatch(editExpenses(id)),
 });
 

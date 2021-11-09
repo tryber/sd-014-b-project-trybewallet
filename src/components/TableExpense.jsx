@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DeleteBtn from './DeleteBtn';
 import ButtonAddExpense from './ButtonAddExpense';
@@ -44,6 +45,12 @@ function TableExpense({ expenses }) {
     </table>
   );
 }
+
+TableExpense.propTypes = {
+  expenses: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+};
 
 const mapStateToProps = (state) => ({ expenses: state.wallet.expenses });
 

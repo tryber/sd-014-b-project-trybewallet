@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Header({ user, expenses }) {
-  const totalField = expenses.reduce((acc, { value, exchangeRates, currency}) => {
+  const totalField = expenses.reduce((acc, { value, exchangeRates, currency }) => {
     const expenseValue = Number(value);
     const quotation = Number(exchangeRates[currency].ask);
     return acc + (expenseValue * quotation);
