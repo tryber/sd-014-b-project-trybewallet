@@ -14,13 +14,21 @@ class Login extends React.Component {
     };
     this.statusButton = this.statusButton.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleLogin = this.handleLogin(this);
   }
 
-  handleClick() {
+  handleLogin() {
     const { login, history } = this.props;
     const { email } = this.state;
     login(email);
     history.push('/carteira');
+  }
+
+  handleClick({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   statusButton(event) {
@@ -47,7 +55,7 @@ class Login extends React.Component {
           placeholder="Digite seu e-mail"
           data-testid="email-input"
           value={ email }
-          onChange={ this.statusButton }
+          onChange={ this.handleClick }
         />
         <input
           type="password"
@@ -55,12 +63,12 @@ class Login extends React.Component {
           placeholder="Digite sua senha"
           data-testid="password-input"
           value={ password }
-          onChange={ this.statusButton }
+          onChange={ this.handleClick }
         />
         <button
           type="button"
           disabled={ statusButton }
-          onClick={ this.handleClick }
+          onClick={ this.handleLogin }
         >
           Entrar
         </button>
