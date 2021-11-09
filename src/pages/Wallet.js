@@ -1,9 +1,16 @@
 import React from 'react';
+import FormExpenses from '../components/FormExpenses';
+import Header from '../components/Header';
+import TableExpense from '../components/TableExpense';
 
-class Wallet extends React.Component {
-  render() {
-    return <div>TrybeWallet</div>;
-  }
+function Wallet() {
+  return (
+    <section>
+      <Header />
+      <FormExpenses />
+      <TableExpense />
+    </section>
+  );
 }
 
 export default Wallet;
