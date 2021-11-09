@@ -1,24 +1,30 @@
-import { GET_CURRENCIES } from '../actions/index';
+import { IS_FETCHING, GET_CURRENCIES, GET_EXPENSES_INFO } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'ADD_EXPENSES':
+  case IS_FETCHING:
     return {
-      expenses: action.value,
+      ...state,
+      isFetching: true,
     };
   case GET_CURRENCIES:
     return {
       ...state,
       currencies: action.payload,
     };
+  case GET_EXPENSES_INFO:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
   default:
     return state;
   }
-};
+}
 
 export default wallet;

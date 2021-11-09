@@ -1,12 +1,12 @@
-import { GET_LOGIN } from '../actions/index';
+import { GET_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case GET_LOGIN:
+  case GET_EMAIL:
     return {
       ...state,
       email: action.payload,
@@ -14,6 +14,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
   default:
     return state;
   }
-};
+}
 
-export default userReducer;
+export default user;

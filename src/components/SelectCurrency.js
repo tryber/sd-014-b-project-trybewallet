@@ -1,47 +1,51 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions/index';
+import { fetchCurrencies } from '../actions';
 
-class SelectCurrency extends React.Component {
+class SelectCurrencyForm extends React.Component {
   componentDidMount() {
-    const { fetchCurrenciesApi } = this.props;
-    fetchCurrenciesApi();
+    const { dispatch } = this.props;
+    dispatch(fetchCurrencies());
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange, value, name } = this.props;
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency-form-label">
         Moeda
-        <select id="currency">
+        <select
+          id="currency-form-label"
+          onChange={ onChange }
+          value={ value }
+          name={ name }
+        >
           {
             Object.keys(currencies)
-              .filter((currency) => currency !== 'USDT')
+              .filter((eachCoin) => eachCoin !== 'USDT')
               .map((eachCurrency) => (
                 <option value={ eachCurrency } key={ eachCurrency }>
+                  {' '}
                   {eachCurrency}
-                </option>
-              ))
+                  {' '}
+                </option>))
           }
         </select>
       </label>
-
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchCurrenciesApi: () => dispatch(fetchCurrencies()),
-});
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-SelectCurrency.propTypes = {
-  fetchCurrenciesApi: PropTypes.objectOf(PropTypes.any).isRequired,
+SelectCurrencyForm.propTypes = {
+  dispatch: PropTypes.objectOf(PropTypes.any).isRequired,
   currencies: PropTypes.objectOf(PropTypes.any).isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectCurrency);
+export default connect(mapStateToProps, null)(SelectCurrencyForm);
