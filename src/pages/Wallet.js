@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
+import Header from '../components/header';
 import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
 import { currenciesAction, expensesAction, editedExpensesAction } from '../actions';
