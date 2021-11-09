@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-function Header(user) {
-  const totalField = 
+function Header({ user }) {
+  // const totalField =
   return (
     <header>
       <span data-testid="email-field">{ `E-mail: ${user}` }</span>
