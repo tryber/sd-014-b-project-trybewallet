@@ -1,21 +1,20 @@
-import { LOGIN_ACTION } from '../actions';
+import { SAVE_LOGIN_INFO } from '../actions';
 
+// Esse reducer será responsável por tratar as informações da pessoa usuária
 const INITIAL_STATE = {
   email: '',
-  password: '',
 };
 
-const loginUserReducer = (state = INITIAL_STATE, action) => {
+function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case LOGIN_ACTION:
+  case SAVE_LOGIN_INFO:
     return {
       ...state,
-      email: action.payload.email,
-      password: action.payload.password,
+      email: action.state,
     };
   default:
     return state;
   }
-};
+}
 
-export default loginUserReducer;
+export default user;

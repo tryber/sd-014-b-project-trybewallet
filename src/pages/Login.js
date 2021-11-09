@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginAction } from '../actions';
+import { Redirect } from 'react-router';
+import { loginInfoAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -9,82 +10,89 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disabled: true,
+      redirect: false,
     };
-    this.inputValidation = this.inputValidation.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.onSumbmit = this.onSumbmit.bind(this);
+    this.emailAndPasswordVerify = this.emailAndPasswordVerify.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  onSumbmit(event, userInfo) {
-    event.preventDefault();
-    const { submitDispatch, history } = this.props;
-    submitDispatch(userInfo);
-    history.push('/carteira');
-  }
-
-  // Inicio da Referência
-  // Função abaixo criada a partir do artigo lido no site https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
-  inputValidation() {
-    const { email, password } = this.state;
-    const emailInputValidation = /\S+@\S+\.\S+/;
-    const passwordInputMinLenght = 6;
-    const passwordInputValidation = password.length >= passwordInputMinLenght;
-    return !emailInputValidation.test(email) || !passwordInputValidation;
-  }
-  // Fim da Referência
-
-  handleChange({ target }) {
+  emailAndPasswordVerify({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    const { email, password } = this.state;
+    this.setState({
+      [name]: value,
+    });
+    // Expressao Regular para Validacao de Email retirado do site Stackoverflow//
+    // Source: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail//
+    const mailformat = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    const passwordLength = 5;
+    if (email.match(mailformat) && password.length >= passwordLength) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
+    }
+  }
+
+  handleLogin() {
+    const { dispatchEmailToState } = this.props;
+    dispatchEmailToState(this.state);
+    this.setState({
+      redirect: true,
+    });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { disabled, email, password, redirect } = this.state;
+    if (redirect) {
+      return (
+        <Redirect to="/carteira" />
+      );
+    }
     return (
-      <section>
-        <form>
-          <label htmlFor="email">
-            <input
-              data-testid="email-input"
-              placeholder="Email"
-              name="email"
-              type="email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="password">
-            <input
-              data-testid="password-input"
-              placeholder="Senha"
-              name="password"
-              type="password"
-              value={ password }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            disabled={ this.inputValidation() }
-            type="button"
-            onClick={ (event) => this.onSumbmit(event, { email, password }) }
-          >
-            Entrar
-          </button>
-        </form>
-      </section>
+      <div>
+        <label htmlFor="inputEmail">
+          Email:
+          <input
+            value={ email }
+            onChange={ this.emailAndPasswordVerify }
+            data-testid="email-input"
+            name="email"
+            type="text"
+          />
+        </label>
+        <label htmlFor="inputPassword">
+          Password:
+          <input
+            value={ password }
+            onChange={ this.emailAndPasswordVerify }
+            data-testid="password-input"
+            name="password"
+            type="password"
+          />
+        </label>
+        <button
+          disabled={ disabled }
+          onClick={ this.handleLogin }
+          type="button"
+        >
+          Entrar
+        </button>
+      </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  submitDispatch: (userInfo) => dispatch(loginAction(userInfo)),
-});
-
 Login.propTypes = {
-  submitDispatch: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  dispatchEmailToState: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmailToState: ({ email }) => dispatch(loginInfoAction(email)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
