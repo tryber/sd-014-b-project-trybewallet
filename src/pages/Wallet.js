@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/header';
 import InputComponent from '../components/InputComponent';
 import SelectComponent from '../components/SelectComponent';
-import { currenciesAction, expensesAction, editedExpensesAction } from '../actions';
+import { currenciesAction, expensesAction, editedExpensesAction } from '../actions/user';
 import TableComponent from '../components/TableComponent';
 import ButtonComponent from '../components/ButtonComponent';
 

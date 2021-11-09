@@ -1,36 +1,22 @@
-export const SAVE_LOGIN_INFO = 'SAVE_LOGIN_INFO';
-export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
-export const SAVE_EXPENSE = 'SAVE_EXPENSE';
-export const DELETE_EXPENSE = 'DELETE_EXPENSE';
-export const EDIT_EXPENSE = 'EDIT_EXPENSE';
-export const EDITED_EXPENSE = 'EDITED_EXPENSE';
+const END_POINT = 'https://economia.awesomeapi.com.br/json/all';
 
-export const loginInfoAction = (state) => (
-  { type: SAVE_LOGIN_INFO,
-    state,
-  });
+export const getCurrencies = async () => {
+  try {
+    const response = await fetch(END_POINT);
+    const currencies = await response.json();
+    const arrCurrencies = Object.keys(currencies);
+    return arrCurrencies;
+  } catch (erro) {
+    console.error(erro);
+  }
+};
 
-export const currenciesAction = (currencies) => ({
-  type: SAVE_CURRENCIES,
-  currencies,
-});
-
-export const expensesAction = (expense) => ({
-  type: SAVE_EXPENSE,
-  expense,
-});
-
-export const deleteExpensesAction = (expenses) => ({
-  type: DELETE_EXPENSE,
-  expenses,
-});
-
-export const editExpensesAction = (expense) => ({
-  type: EDIT_EXPENSE,
-  expense,
-});
-
-export const editedExpensesAction = (editedExpenses) => ({
-  type: EDITED_EXPENSE,
-  editedExpenses,
-});
+export const getExpenses = async () => {
+  try {
+    const response = await fetch(END_POINT);
+    const currencies = await response.json();
+    return currencies;
+  } catch (erro) {
+    console.error(erro);
+  }
+};

@@ -1,98 +1,102 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loginInfoAction } from '../actions';
+import { addDataLogin } from '../actions/user';
+import Button from '../components/form/Button';
 
-class Login extends React.Component {
+const MIN_LENGTH_PASSWORDS = 6;
+
+class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
-      disabled: true,
-      redirect: false,
+      logged: false,
     };
-    this.emailAndPasswordVerify = this.emailAndPasswordVerify.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  emailAndPasswordVerify({ target }) {
-    const { name, value } = target;
-    const { email, password } = this.state;
+  handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
-    // Expressao Regular para Validacao de Email retirado do site Stackoverflow//
-    // Source: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail//
-    const mailformat = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    const passwordLength = 5;
-    if (email.match(mailformat) && password.length >= passwordLength) {
-      this.setState({
-        disabled: false,
-      });
-    } else {
-      this.setState({
-        disabled: true,
-      });
-    }
   }
 
-  handleLogin() {
-    const { dispatchEmailToState } = this.props;
-    dispatchEmailToState(this.state);
-    this.setState({
-      redirect: true,
-    });
+  handleClick() {
+    const { setDataLoginStore } = this.props;
+    const { email } = this.state;
+    setDataLoginStore({ email });
+    this.setState((state) => ({
+      ...state,
+      logged: true,
+    }));
+  }
+
+  checkEmail() {
+    // Lógica da validação de email https://ui.dev/validate-email-address-javascript/
+    const { email } = this.state;
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  checkPassword() {
+    const { password } = this.state;
+    return password.length >= MIN_LENGTH_PASSWORDS;
+  }
+
+  checkDataLogin() {
+    return this.checkEmail() && this.checkPassword();
   }
 
   render() {
-    const { disabled, email, password, redirect } = this.state;
-    if (redirect) {
-      return (
-        <Redirect to="/carteira" />
-      );
-    }
+    const { email, password, logged } = this.state;
     return (
-      <div>
-        <label htmlFor="inputEmail">
-          Email:
-          <input
-            value={ email }
-            onChange={ this.emailAndPasswordVerify }
-            data-testid="email-input"
-            name="email"
-            type="text"
-          />
-        </label>
-        <label htmlFor="inputPassword">
-          Password:
-          <input
-            value={ password }
-            onChange={ this.emailAndPasswordVerify }
-            data-testid="password-input"
-            name="password"
-            type="password"
-          />
-        </label>
-        <button
-          disabled={ disabled }
-          onClick={ this.handleLogin }
-          type="button"
-        >
-          Entrar
-        </button>
-      </div>
+      logged ? <Redirect to="/carteira" />
+        : (
+          <form>
+            <label htmlFor="email-input">
+              <input
+                id="email-input"
+                data-testid="email-input"
+                type="email"
+                placeholder="email@email.com"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="password-input">
+              <input
+                id="password-input"
+                data-testid="password-input"
+                type="password"
+                placeholder="Senha"
+                name="password"
+                value={ password }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <Button
+              type="submit"
+              nameLabel="Entrar"
+              onClick={ this.handleClick }
+              disabled={ !this.checkDataLogin() }
+            />
+          </form>
+        )
     );
   }
 }
 
-Login.propTypes = {
-  dispatchEmailToState: PropTypes.func.isRequired,
-};
-
 const mapDispatchToProps = (dispatch) => ({
-  dispatchEmailToState: ({ email }) => dispatch(loginInfoAction(email)),
+  setDataLoginStore: (dataLogin) => dispatch(addDataLogin(dataLogin)),
 });
+
+Login.propTypes = {
+  setDataLoginStore: PropTypes.func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
