@@ -1,62 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { clearAction } from '../actions';
+import HeaderTable from './HeaderTable';
 
 class ExpenseTable extends React.Component {
+  deleteExpenses(id) {
+    const { clearExpense } = this.props;
+    clearExpense(id);
+  }
+
   render() {
-    const { expenses } = this.props;
+    const { allExpenses } = this.props;
     return (
       <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        <tr>
-          { expenses.map((eachExpense) => (
-            <>
-              <td key={ eachExpense.id }>{eachExpense.description}</td>
-              <td key={ eachExpense.id }>{eachExpense.tag}</td>
-              <td key={ eachExpense.id }>{eachExpense.method}</td>
-              <td key={ eachExpense.id }>{eachExpense.value}</td>
-              <td key={ eachExpense.id }>
-                {eachExpense
-                  .exchangeRates[eachExpense.currency].name.split('/')[0]}
+        <HeaderTable />
+        <tbody>
+          { allExpenses.map(({ id, value, description,
+            currency, method, tag, exchangeRates,
+          }) => (
+            <tr key={ id }>
+              <td>{description}</td>
+              <td>{tag}</td>
+              <td>{method}</td>
+              <td>{value}</td>
+              <td>{exchangeRates[currency].name.split('/')[0]}</td>
+              <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+              <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
+              <td>Real</td>
+              <td>
+                <input
+                  type="button"
+                  value="Editar"
+                  data-testid="edit-btn"
+
+                />
+                <input
+                  type="button"
+                  value="Excluir"
+                  data-testid="delete-btn"
+                  onClick={ () => this.deleteExpenses(id) }
+                />
               </td>
-              <td key={ eachExpense.id }>
-                {Number(eachExpense
-                  .exchangeRates[eachExpense.currency].ask).toFixed(2) }
-              </td>
-              <td key={ eachExpense.id }>
-                { Number(eachExpense
-                  .exchangeRates[eachExpense.currency]
-                  .ask * eachExpense.value).toFixed(2) }
-              </td>
-              <td key={ eachExpense.id }>Real</td>
-              <td key={ eachExpense.id }>
-                <button type="button">Editar</button>
-                <button type="button">Excluir</button>
-              </td>
-            </>
-          ))}
-        </tr>
+            </tr>
+          )) }
+        </tbody>
       </table>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
+  allExpenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearExpense: (id) => dispatch(clearAction(id)),
 });
 
 ExpenseTable.propTypes = {
-  expenses: PropTypes.string.isRequired,
+  allExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  clearExpense: PropTypes.func.isRequired,
 };
-
-export default connect(mapStateToProps, null)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

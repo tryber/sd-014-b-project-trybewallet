@@ -1,4 +1,7 @@
-import { IS_FETCHING, GET_CURRENCIES, GET_EXPENSES_INFO } from '../actions';
+import {
+  IS_FETCHING, GET_CURRENCIES,
+  GET_EXPENSES_INFO, CLEAR_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -21,6 +24,13 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+  case CLEAR_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.filter((expense) => expense.id !== action.payload),
+      ],
     };
   default:
     return state;
