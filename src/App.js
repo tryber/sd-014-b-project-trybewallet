@@ -1,7 +1,9 @@
 import React from 'react';
+import Routes from './pages/Routes';
 
 function App() {
-  return <div>Hello, TrybeWallet!</div>;
+  return (
+    <Routes />);
 }
 
 export default App;
