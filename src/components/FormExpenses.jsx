@@ -94,24 +94,29 @@ class FormExpenses extends Component {
     const { isEditing } = this.props;
     return (
       <form action="">
-        <input
-          inputValue={ value }
-          label="Valor"
-          type="number"
-          id="value"
-        />
-        <input
-          inputValue={ description }
-          label="Descrição"
-          type="text"
-          id="description"
-          onChange={ this.handleChange }
-        />
+        <label htmlFor="value">
+          Valor
+          <input
+            inputValue={ value }
+            type="textbox"
+            id="value"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição
+          <input
+            inputValue={ description }
+            type="text"
+            id="description"
+            onChange={ this.handleChange }
+          />
+        </label>
         { this.renderSelect() }
         {
           isEditing
-            ? <Button onClick={ this.handleEdit }>Editar despesas</Button>
-            : <Button onClick={ this.handleClick }>Adicionar despesas</Button>
+            ? <Button onClick={ this.handleEdit }>Editar despesa</Button>
+            : <Button onClick={ this.handleClick }>Adicionar despesa</Button>
         }
       </form>
     );
