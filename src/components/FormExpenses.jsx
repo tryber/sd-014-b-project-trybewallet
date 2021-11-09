@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendCurrencies } from '../actions';
 import Select from './Select';
+import Button from './Button';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const expensesOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -24,10 +25,25 @@ class FormExpenses extends Component {
     this.fetchCurrency = this.fetchCurrency.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderSelect = this.renderSelect.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
     this.fetchCurrency();
+  }
+
+  async handleClick() {
+    const { setExpenses } = this.props;
+    const fetchAPI = await fetch(URL);
+    const exchangeRates = await fetchAPI.json();
+    setExpenses({ ...this.state, exchangeRates });
+    this.setState((prev) => ({ id: prev.id + 1 }));
+  }
+
+  handleEdit() {
+    const { addExpenses } = this.props;
+    addExpenses(this.state);
   }
 
   async fetchCurrency() {
@@ -75,6 +91,7 @@ class FormExpenses extends Component {
 
   render() {
     const { value, description } = this.state;
+    const { isEditing } = this.props;
     return (
       <form action="">
         <input
@@ -91,6 +108,11 @@ class FormExpenses extends Component {
           onChange={ this.handleChange }
         />
         { this.renderSelect() }
+        {
+          isEditing
+            ? <Button onClick={ this.handleEdit }>Editar despesas</Button>
+            : <Button onClick={ this.handleClick }>Adicionar despesas</Button>
+        }
       </form>
     );
   }
@@ -99,15 +121,20 @@ class FormExpenses extends Component {
 FormExpenses.propTypes = {
   setCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-
+  addExpenses: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: (currencies) => dispatch(sendCurrencies(currencies)),
+  addExpenses: (expenseID) => dispatch(addExpenses(expenseID)),
+  setExpenses: (rates) => dispatch(exchangeRating(rates)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  isEditing: state.wallet.isEditing,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpenses);

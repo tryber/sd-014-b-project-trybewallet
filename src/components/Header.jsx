@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function Header({ user }) {
-  // const totalField =
+  // const totalField = expenses.reduce((acc))
   return (
     <header>
       <span data-testid="email-field">{ `E-mail: ${user}` }</span>
