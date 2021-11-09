@@ -8,7 +8,12 @@ class SelectCoins extends Component {
       <section>
         <label htmlFor={ labelhtmlfor }>
           { description }
-          <select id={ labelhtmlfor } name="currency" value={ value } onChange={ onChange }>
+          <select
+            id={ labelhtmlfor }
+            name="currency"
+            value={ value }
+            onChange={ onChange }
+          >
             {
               currencies.map((category) => (
                 <option key={ category }>{ category }</option>
