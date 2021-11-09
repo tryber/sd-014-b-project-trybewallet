@@ -1,81 +1,104 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { savingEmail } from '../actions';
+import { submitUser } from '../actions';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor() {
     super();
 
     this.state = {
-      statusButton: true,
       email: '',
       password: '',
+      disabled: true,
     };
-    this.statusButton = this.statusButton.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.isEmailValid = this.isEmailValid.bind(this);
+    this.validation = this.validation.bind(this);
+    this.handleSubmit = this.handleSubmit(this);
   }
 
-  handleClick() {
-    const { login, history } = this.props;
-    const { email } = this.state;
-    login(email);
-    history.push('/carteira');
-  }
+  handleChange({ target }) {
+    const { name, value } = target;
 
-  statusButton(event) {
-    const minNumber = 5;
     this.setState({
-      [event.target.name]: event.target.value,
-    });
+      [name]: value,
+    }, () => this.validation());
+  }
+
+  isEmailValid(email) {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(email);
+  }
+
+  validation() {
     const { email, password } = this.state;
-    // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
-    const regexEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
-    const passwordValid = password.length >= minNumber;
-    if (regexEmail && passwordValid) {
-      this.setState({ statusButton: false });
+    const minPasswordLength = 6;
+    const validEmail = this.isEmailValid(email);
+
+    if (validEmail && password.length >= minPasswordLength) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
     }
   }
 
+  handleSubmit() {
+    const { email } = this.state;
+    const { history, dispatchValue } = this.props;
+
+    dispatchValue(email);
+    history.push('/carteira');
+  }
+
   render() {
-    const { statusButton, email, password } = this.state;
+    const { email, password, disabled } = this.state;
     return (
-      <section>
+      <div>
+
         <input
-          type="email"
           name="email"
-          placeholder="Digite seu e-mail"
+          type="email"
           data-testid="email-input"
           value={ email }
-          onChange={ this.statusButton }
+          onChange={ this.handleChange }
+
         />
+
         <input
-          type="password"
           name="password"
-          placeholder="Digite sua senha"
+          type="password"
           data-testid="password-input"
           value={ password }
-          onChange={ this.statusButton }
+          onChange={ this.handleChange }
         />
+
         <button
-          type="button"
-          disabled={ statusButton }
-          onClick={ this.handleClick }
+          type="submit"
+          disabled={ disabled }
+          onClick={ () => this.handleSubmit() }
         >
           Entrar
         </button>
-      </section>
+      </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (value) => dispatch(savingEmail(value)),
-});
-
 Login.propTypes = {
-  login: PropTypes.func,
-  history: PropTypes.func,
-}.isRequired;
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  dispatchValue: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchValue: (email) => dispatch(submitUser(email)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
