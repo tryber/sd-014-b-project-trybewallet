@@ -6,6 +6,7 @@ import Input from '../components/InputForm';
 import Select from '../components/SelectForm';
 import { salvaWallet, salvaGasto } from '../actions/index';
 import TableHead from '../components/TableHeader';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -97,6 +98,7 @@ class Wallet extends React.Component {
           Adicionar despesa
         </button>
         <TableHead />
+        <Table />
       </section>
     );
   }
