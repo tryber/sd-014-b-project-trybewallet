@@ -3,32 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     total: 0,
-  //   };
-  // }
-
-  // totalExpenses = () => {
-  //   const { expenses } = this.props;
-  //   let totalExpenses = 0;
-  //   if (expenses.length > 0) {
-  //     expenses.forEach((element) => {
-  //       const currencyOne = element.currency;
-  //       console.log(element.value);
-  //       totalExpenses = element.value * [element.exchangeRates[currencyOne].ask];
-  //     });
-  //   }
-  //   this.saveState(totalExpenses);
-  // }
-
-  // saveState = (gastos) => {
-  //   this.setState({
-  //     total: gastos,
-  //   });
-  // }
-
   render() {
     const { email, total } = this.props;
     return (

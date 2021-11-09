@@ -7,10 +7,10 @@ const INITIAL_STATE = {
   total: 0,
 };
 
- const calculaTotal = (expense) => {
+const calculaTotal = (expense) => {
   let valorTotal = 0;
   const currencyOne = expense.currency;
-  valorTotal = expense.value * [expense.exchangeRates[currencyOne].ask];
+  valorTotal = Number((expense.value) * [expense.exchangeRates[currencyOne].ask]);
   return valorTotal;
 };
 
