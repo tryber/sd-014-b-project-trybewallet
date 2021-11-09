@@ -31,9 +31,9 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history, storeEmail } = this.props;
+    const { history, dispatchSetValue } = this.props;
     const { email } = this.state;
-    storeEmail(email);
+    dispatchSetValue(email);
     history.push('/carteira');
   }
 
@@ -72,11 +72,11 @@ class Login extends React.Component {
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-  storeEmail: (value) => dispatch(storeEmail(value)),
+  dispatchSetValue: (value) => dispatch(storeEmail(value)),
 });
 
 Login.propTypes = {
-  storeEmail: PropTypes.func.isRequired,
+  dispatchSetValue: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
