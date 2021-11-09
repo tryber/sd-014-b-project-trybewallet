@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 class Select extends Component {
   render() {
-    const { labelhtmlfor, description, optionone, optiontwo,
-      optionthree, optionfour, optionfive } = this.props;
+    const { description, optionone, optiontwo,
+      optionthree, optionfour, optionfive, value, onChange } = this.props;
     return (
       <section>
-        <label htmlFor={ labelhtmlfor }>
+        <label htmlFor={ description }>
           { description }
-          <select id={ labelhtmlfor }>
+          <select id={ description } name="description" value={ value } onChange={ onChange }>
             <option>{ optionone }</option>
             <option>{ optiontwo }</option>
             <option>{ optionthree }</option>

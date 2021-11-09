@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 class SelectCoins extends Component {
   render() {
-    const { labelhtmlfor, description, currencies } = this.props;
+    const { labelhtmlfor, description, currencies, value, onChange } = this.props;
     return (
       <section>
         <label htmlFor={ labelhtmlfor }>
           { description }
-          <select id={ labelhtmlfor }>
+          <select id={ labelhtmlfor } name="currency" value={ value } onChange={ onChange }>
             {
-              currencies.map((category, index) => (
-                <option key={ index }>{ category }</option>
+              currencies.map((category) => (
+                <option key={ category }>{ category }</option>
               ))
             }
           </select>
