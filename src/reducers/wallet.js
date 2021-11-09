@@ -25,6 +25,18 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...state.expenses, { ...action.payload, id: state.id }],
       total: state.total + calculaTotal(action.payload),
     };
+  case 'DELETE_EXPENSES': {
+    const { expenses } = state;
+    const filterExpenses = expenses.filter((expense) => expense.id !== action.id);
+    const valueExpenseDelet = expenses.filter((expense) => expense.id === action.id);
+    const currencyDelet = valueExpenseDelet[0].currency;
+    const valorConvertDelet = valueExpenseDelet[0].exchangeRates[currencyDelet].ask;
+    return {
+      ...state,
+      expenses: filterExpenses,
+      total: (state.total - (valueExpenseDelet[0].value * valorConvertDelet)),
+    };
+  }
   default:
     return state;
   }

@@ -25,6 +25,10 @@ class Wallet extends React.Component {
     });
   }
 
+  componentDidMount = () => {
+    this.requestMoedas();
+  }
+
   render() {
     const { coins } = this.state;
     return (

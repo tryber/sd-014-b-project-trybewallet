@@ -9,6 +9,13 @@ export const saveEmail = (email) => ({
   },
 });
 
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
+
+export const delExpenses = (id) => ({
+  type: DELETE_EXPENSES,
+  id,
+});
+
 export const SUBMIT_EXPENSES = 'SUBMIT_EXPENSES';
 
 export const submitExpenses = (expenses) => ({

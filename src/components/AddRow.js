@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { delExpenses } from '../actions';
 
 class AddRow extends React.Component {
   valorTotal = (ask, value) => (Number(ask * value)).toFixed(2);
 
+  deleteExpense = (id) => {
+    const { deleteId } = this.props;
+    deleteId(id);
+  }
+
   render() {
     const { expensesWallet } = this.props;
-
     return (
       expensesWallet.map((expense) => (
         <tr key={ expense.id }>
@@ -25,7 +30,13 @@ class AddRow extends React.Component {
           <td>Real</td>
           <td>
             <button type="button">Editar</button>
-            <button type="button">Excluir</button>
+            <button
+              data-testid="delete-btn"
+              onClick={ () => this.deleteExpense(expense.id) }
+              type="button"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       ))
@@ -41,10 +52,15 @@ AddRow.propTypes = {
   expensesWallet: PropTypes.arrayOf([
     PropTypes.any,
   ]),
+  deleteId: PropTypes.func.isRequired,
 };
 
 AddRow.defaultProps = {
   expensesWallet: [],
 };
 
-export default connect(mapStateToProps)(AddRow);
+const mapDispatchToProps = (dispatch) => ({
+  deleteId: (id) => dispatch(delExpenses(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRow);
