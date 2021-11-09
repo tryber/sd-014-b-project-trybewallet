@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { saveEmail } from '../actions';
+import { submitUser } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -16,6 +16,7 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.isEmailValid = this.isEmailValid.bind(this);
     this.validation = this.validation.bind(this);
+    this.handleSubmit = this.handleSubmit(this);
   }
 
   handleChange({ target }) {
@@ -48,15 +49,11 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    const { submitUserInfo, history } = this.props;
-    const { email, password } = this.state;
+    const { email } = this.state;
+    const { history, dispatchValue } = this.props;
 
-    submitUserInfo({ email, password });
+    dispatchValue(email);
     history.push('/carteira');
-
-    this.setState({
-      disabled: true,
-    });
   }
 
   render() {
@@ -97,11 +94,11 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  submitUserInfo: PropTypes.func.isRequired,
+  dispatchValue: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  submitUserInfo: (payload) => (dispatch(saveEmail(payload))),
+  dispatchValue: (email) => dispatch(submitUser(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
