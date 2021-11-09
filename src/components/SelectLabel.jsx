@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 
 class SelectLabel extends Component {
   render() {
-    const { html, text, option } = this.props;
+    const { html, text, options, onChange, name, value } = this.props;
     return (
       <label htmlFor={ html }>
         {text}
-        <select id={ html }>
+        <select
+          id={ html }
+          onChange={ onChange }
+          name={ name }
+          value={ value }
+        >
           {
-            option.map(({ value, content }) => (
+            options.map((option) => (
               <option
-                value={ value }
                 key={ value }
               >
-                {content}
+                {option}
               </option>
             ))
           }
@@ -27,10 +31,10 @@ class SelectLabel extends Component {
 SelectLabel.propTypes = {
   html: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  option: PropTypes.arrayOf(PropTypes.shape({
-    content: PropTypes.string,
-    text: PropTypes.string,
-  })).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default SelectLabel;
