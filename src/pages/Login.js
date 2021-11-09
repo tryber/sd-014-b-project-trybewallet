@@ -50,7 +50,7 @@ function Login({ history, dispatchSetValue }) {
 }
 
 Login.propTypes = {
-  hitory: PropTypes.shape({
+  history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
   dispatchSetValue: PropTypes.func.isRequired,
