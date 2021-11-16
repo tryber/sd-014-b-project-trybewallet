@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   constructor() {
     super();
-
     this.totalValeu = this.totalValeu.bind(this);
   }
 
+  // Matheus Silveira me ajudou nessa função https://github.com/tryber/sd-014-b-project-trybewallet/tree/matheus-silveira-project-trybewallet
   totalValeu() {
     const { expenses } = this.props;
     const totalValue = expenses.reduce((acc, expense) => {
