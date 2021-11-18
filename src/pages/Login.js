@@ -43,7 +43,7 @@ class Login extends React.Component {
     const MIN_CARACTER = 6;
     const validation = (this.validation(email) && password.length >= MIN_CARACTER);
     return (
-      <section className="shadow m-2 p-4 col-md-6 border rounded">
+      <section className="login shadow p-4 col-md-6 border rounded">
         <h1 className="bg-secondary text-center mb-4 rounded-pill p-1 text-white">
           <i className="bi bi-wallet2"> Wallet</i>
         </h1>

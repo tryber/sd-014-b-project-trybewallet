@@ -100,7 +100,7 @@ class Form extends Component {
 
 Form.propTypes = {
   dataCurrencies: PropTypes.func.isRequired,
-  getCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
+  getCurrencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   setExpenses: PropTypes.func.isRequired,
 };
 

@@ -14,6 +14,7 @@ class SelectDefault extends Component {
           onChange={ handleChange }
           className="form-control"
         >
+          <option>Selecione</option>
           { dataArray.map((data, index) => (
             <option key={ index } value={ data }>{data}</option>
           )) }
