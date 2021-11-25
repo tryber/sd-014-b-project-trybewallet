@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Select_Component extends React.Component {
+class Select_component extends React.Component {
   render() {
     const { id, label, value, onChange, options, name } = this.props;
     return(
@@ -15,21 +15,20 @@ class Select_Component extends React.Component {
           onChange={ onChange } 
         >
           {options.map((option) => 
-            <option key={ option } value={ option }>{ option }</option>)
-          }
+            <option key={ option } value={ option }>{ option }</option>)}
         </select>
       </label>
-    )
+    );
   }
 }
 
-Select_Component.propTypes = {
+Select_component.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-}
+};
 
-export default Select_Component;
+export default Select_component;

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
 
-class Input_Text extends React.Component {
+class Input_text extends React.Component {
   render() {
     const { id, label, value, onChange, name } = this.props;
     return(
@@ -17,16 +17,16 @@ class Input_Text extends React.Component {
           type="text" 
         />
       </label>
-    )
+    );
   }
 }
 
-Input_Text.propTypes = {
+Input_text.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-}
+};
 
-export default Input_Text;
+export default Input_text;
