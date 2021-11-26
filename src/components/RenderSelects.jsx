@@ -1,15 +1,15 @@
 import React from 'react';
-import Select_component from './Select_component';
+import Select from './Select';
 import PropTypes from 'prop-types';
 import paymentsOptions, { tagsOptions } from '../helper/helper';
 import { connect } from 'react-redux';
 
-class Render_selects extends React.Component {
+class RenderSelects extends React.Component {
   render() {
     const { currency, handleChange, currenciesOptions, method, tag } = this.props;
     return (
       <> 
-        <Select_component
+        <Select
           label="Moeda"
           value={ currency } 
           id="currency"
@@ -17,7 +17,7 @@ class Render_selects extends React.Component {
           onChange={ handleChange }
           options={ currenciesOptions }
         />
-        <Select_component
+        <Select
           label="Método de pagamento"
           value={ method } 
           id="method"
@@ -25,7 +25,7 @@ class Render_selects extends React.Component {
           onChange={ handleChange }
           options={ paymentsOptions }
         />
-        <Select_component
+        <Select
           label="Tag"
           value={ tag } 
           id="tag"
@@ -38,7 +38,7 @@ class Render_selects extends React.Component {
   }
 }
 
-Render_selects.propTypes = {
+RenderSelects.propTypes = {
   currenciesOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   currency: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -51,5 +51,5 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect (mapStateToProps)(Render_selects) ;
+export default connect (mapStateToProps)(RenderSelects) ;
 

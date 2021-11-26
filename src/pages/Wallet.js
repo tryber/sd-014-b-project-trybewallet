@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestCurrencies, delExpensive, 
-  initUpdate} from '../actions';
+import { requestCurrencies, updateExpense, 
+  fetchApiExchange} from '../actions';
+import Header from '../components/Header';
+import Table from '../components/Table';
+import ButtonComponent from '../components/Button';
+import InputText from '../components/Input_text';
+import RenderSelects from '../components/RenderSelects';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor (props) {
+    super(props);
 
     this.state = {
       id: 0,
@@ -17,8 +22,12 @@ class Wallet extends React.Component {
       tag: '',
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.resetState = this.resetState.bind(this);
+    this.insertState = this.insertState.bind(this);
+    
   }
 
   async componentDidMount() {
@@ -31,29 +40,40 @@ class Wallet extends React.Component {
     getCurrencies(filterCurrencies);
   }
 
-  getTotalExpensives() {
-    const { expensives } = this.props;
-    if (expensives.length !== 0) {
-      const total = expensives.reduce((acc, currentValue) => (
-        acc + currentValue.value * currentValue.exchangeRates[currentValue.currency].ask
-      ), 0);
-      return total.toFixed(2);
-    }
-    return 0;
+  handleChange( {target} ) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value
+    });
   }
 
-  getExchangeValue(obj) {
-    return obj.exchangeRates[obj.currency].ask;
+  resetState() {
+    this.setState({ 
+      value: '', 
+      description: '', 
+      currency: '', 
+      method: '', 
+      tag: '' });
   }
 
-  getConversion(obj) {
-    return parseFloat(obj.value) * 
-      parseFloat(obj.exchangeRates[obj.currency].ask);
+  handleSubmit(event) {
+    const { getExpensives } = this.props;
+    event.preventDefault();
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
+    getExpensives(this.state);
+    this.resetState();
   }
 
-  getEditExpense(expensive) {
-    const { initUpdate } = this.props;
-    initUpdate(expensive);
+  handleEdit() {
+    const { value, description,currency, method, tag } = this.state;
+    const { editExpense, updateExpense } = this.props;
+    const valueExpense = {...editExpense, value, description, currency, method, tag };
+    updateExpense(valueExpense);
+  }
+
+  insertState(expensive) {
     this.setState({ 
       value: expensive.value, 
       description: expensive.description, 
@@ -62,106 +82,71 @@ class Wallet extends React.Component {
       tag: expensive.tag });
   }
 
-  renderHeader() {
-    const { getEmail } = this.props;
-    return (
-      <header>
-        <p data-testid="email-field">{ getEmail }</p>
-        <p data-testid="total-field">{ this.getTotalExpensives() }</p>
-        <p data-testid="header-currency-field">BRL</p>
-      </header>
-    );
-  }
-
-  renderBodyTable() {
-    const { expensives, delSpent } = this.props;
-    return (
-      <tbody>
-        {expensives.map((expensive, index) => {
-          const exchangeValue = this.getExchangeValue(expensive);
-          const convertedValue = this.getConversion(expensive);
-          return(
-            <tr key={ index }>
-              <td>{ expensive.description }</td>
-              <td>{ expensive.tag }</td>
-              <td>{ expensive.method }</td>
-              <td>{ expensive.value }</td>
-              <td>{ expensive.exchangeRates[expensive.currency].
-                name.split('/')[0] }
-              </td>
-              <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
-              <td>{ convertedValue.toFixed(2) }</td>
-              <td>Real</td>
-              <td>
-                <button
-                  type="button"
-                  data-testid="delete-btn"
-                  onClick={ () => delSpent(expensive.id) }
-                >
-                  Excluir
-                </button>
-                <button
-                  type="button"
-                  data-testid="delete-btn"
-                  onClick={ () => this.getEditExpense(expensive) }
-                >
-                  Editar
-                </button>
-              </td>
-            </tr>
-          );
-        }  
-        )}
-      </tbody>  
-    );
-  }
 
   render() {
-    return (
+    const { value, description, currency, method, tag } = this.state;
+    return(
       <>
-        { this.renderHeader() }
-        { this.renderForm() }
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-          </thead>
-          {this.renderBodyTable() }
-        </table>
+        <Header />
+        <form>
+          <InputText
+            label="Valor" 
+            value={ value }
+            id="value"
+            name="value"
+            onChange={ this.handleChange }
+          />
+          <InputText
+            label="Descrição" 
+            value={ description }
+            id="description"
+            name="description"
+            onChange={ this.handleChange }
+          />
+          <RenderSelects
+            currency={ currency }
+            method={ method }
+            tag={ tag }
+            handleChange={ this.handleChange }
+          />
+          <ButtonComponent
+            title="Adicionar despesa"
+            handleClick={ this.handleSubmit }
+          />
+          <ButtonComponent
+            title="Editar despesa"
+            handleClick={ this.handleEdit }
+          />
+        </form>
+        <Table updateState={ this.insertState } />
       </>
-      
     );
   }
 }
 
+Wallet.propTypes = {
+  getExpensives: PropTypes.func.isRequired,
+  updateExpense: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  editExpense: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.object),
+  }),
+};
 
 const mapStateToProps = (state) => ({
-  getEmail: state.user.email,
-  expensives: state.wallet.expenses,
   editExpense: state.wallet.editExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  getExpensives: (state) => dispatch(fetchApiExchange(state)),
+  updateExpense: (payload) => dispatch(updateExpense(payload)),
   getCurrencies: (payload) => dispatch(requestCurrencies(payload)),
-  delSpent: (value) => dispatch(delExpensive(value)),
-  initUpdate: (payload) => dispatch(initUpdate(payload)),
 });
 
-Wallet.propTypes = {
-  getEmail: PropTypes.string.isRequired,
-  getCurrencies: PropTypes.func.isRequired,
-  expensives: PropTypes.arrayOf(PropTypes.any).isRequired,
-  delSpent: PropTypes.func.isRequired,
-  initUpdate: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps,mapDispatchToProps)(Wallet) ;
