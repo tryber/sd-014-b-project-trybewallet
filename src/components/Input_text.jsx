@@ -6,10 +6,10 @@ class InputText extends React.Component {
   render() {
     const { id, label, value, onChange, name } = this.props;
     return(
-      <label htmlFor={ id }>
+      <label htmlFor={ id } className="m-0">
         { label }
-        :
-        <input 
+        <input
+          className="input-form"
           value={ value }
           id={ id }
           onChange={ onChange }
@@ -17,6 +17,7 @@ class InputText extends React.Component {
           type="text" 
         />
       </label>
+
     );
   }
 }

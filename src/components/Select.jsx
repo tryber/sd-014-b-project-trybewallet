@@ -9,6 +9,7 @@ class Select extends React.Component {
         { label }
         :
         <select
+          className="select-form"
           value={ value }
           id={ id }
           name={ name }

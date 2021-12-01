@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { titlesTable } from '../helper/helper';
 import PropTypes from 'prop-types';
 import { delExpensive, initUpdate } from '../actions';
-import ButtonComponent from './Button';
 
 
 class Table extends React.Component{
@@ -28,15 +27,15 @@ class Table extends React.Component{
     const { delSpent } = this.props;
     return(
       <td>
-        <ButtonComponent
-          title="Excluir"
-          testId="delete-btn"
-          handleClick={ () => delSpent(expenseId) }
-        />
-        <ButtonComponent
+        <i 
+          className="bi bi-pencil-square"
+          onClick={ () => this.getEditExpense(expense) }
           title="Editar"
-          testId="edit-btn"
-          handleClick={ () => this.getEditExpense(expense) }
+        />
+        <i 
+          className="bi bi-dash-circle"
+          onClick={ () => delSpent(expenseId) }
+          title="Excluir"
         />
       </td> 
     );

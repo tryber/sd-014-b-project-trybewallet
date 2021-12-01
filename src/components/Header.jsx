@@ -10,18 +10,32 @@ class Header extends React.Component {
       const total = expensives.reduce((acc, currentValue) => (
         acc + currentValue.value * currentValue.exchangeRates[currentValue.currency].ask
       ), 0);
-      return total.toFixed(2);
+      return total.toLocaleString('pt-br',{style:'currency', currency: 'BRL'});
     }
-    return 0;
+    return 'R$ 0,00';
   }
 
   render() {
     const { getEmail } = this.props;
     return (
       <header>
-        <p data-testid="email-field">{ getEmail }</p>
-        <p data-testid="total-field">{ this.getTotalExpensives() }</p>
-        <p data-testid="header-currency-field">BRL</p>
+        <section className="section-header-info">
+          <p 
+            data-testid="header-currency-field"
+            className="m-0"
+          >Moeda: BRL
+          </p>
+          <p 
+            data-testid="total-field"
+            className="m-0"
+          >{ `Total: ${this.getTotalExpensives()}` }
+          </p>
+          <p 
+            data-testid="email-field"
+            className="m-0"
+          > <i className="bi bi-person-circle" /> { getEmail }
+          </p>
+        </section>
       </header>
     );
   }

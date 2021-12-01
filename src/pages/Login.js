@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEmail } from '../actions';
+import logo from '../images/wallet.jpg';
 
 class Login extends React.Component {
   constructor() {
@@ -40,28 +41,32 @@ class Login extends React.Component {
     const minLenght = 6;
     const isValidEmail = this.isEmailValid( email );
     return (
-      <section>
-        <label htmlFor="email">
-          E-mail:
-          <input 
-            type="email"
-            name="email"
-            data-testid="email-input"
-            onChange={ this.handleChange }
-            value={ email }
-          />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password" 
-            data-testid="password-input"
-            onChange={ this.handleChange }
-            value={ password }
-          />
-        </label>
-        <button 
+      <section className="section-login">
+        <img 
+          className="logo"
+          src={ logo }
+          alt="imgage-wallet"
+        />
+        <input 
+          className="input-login"
+          type="email"
+          name="email"
+          data-testid="email-input"
+          onChange={ this.handleChange }
+          value={ email }
+          placeholder="E-mail"
+        />
+        <input
+          className="input-login"
+          type="password"
+          name="password" 
+          data-testid="password-input"
+          onChange={ this.handleChange }
+          value={ password }
+          placeholder="Password"
+        />
+        <button
+          className="btn btn-primary btn-lg"
           type="button"
           disabled={ !(((password.length >= minLenght)) && (isValidEmail )) }
           onClick={ this.handleClick }

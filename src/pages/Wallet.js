@@ -82,6 +82,25 @@ class Wallet extends React.Component {
       tag: expensive.tag });
   }
 
+  verifyIsEditing() {
+    const { isEditing } = this.props;
+    if (!isEditing) {
+      return (
+        <ButtonComponent
+          title="Adicionar despesa"
+          handleClick={ this.handleSubmit }
+        />
+      );
+    } else {
+      return (
+        <ButtonComponent
+          title="Editar despesa"
+          handleClick={ this.handleEdit }
+        />
+      );
+    }
+  }
+
 
   render() {
     const { value, description, currency, method, tag } = this.state;
@@ -89,34 +108,29 @@ class Wallet extends React.Component {
       <>
         <Header />
         <form>
-          <InputText
-            label="Valor" 
-            value={ value }
-            id="value"
-            name="value"
-            onChange={ this.handleChange }
-          />
-          <InputText
-            label="Descrição" 
-            value={ description }
-            id="description"
-            name="description"
-            onChange={ this.handleChange }
-          />
-          <RenderSelects
-            currency={ currency }
-            method={ method }
-            tag={ tag }
-            handleChange={ this.handleChange }
-          />
-          <ButtonComponent
-            title="Adicionar despesa"
-            handleClick={ this.handleSubmit }
-          />
-          <ButtonComponent
-            title="Editar despesa"
-            handleClick={ this.handleEdit }
-          />
+          <section className="section-form">
+            <InputText
+              label="Valor" 
+              value={ value }
+              id="value"
+              name="value"
+              onChange={ this.handleChange }
+            />
+            <InputText
+              label="Descrição" 
+              value={ description }
+              id="description"
+              name="description"
+              onChange={ this.handleChange }
+            />
+            <RenderSelects
+              currency={ currency }
+              method={ method }
+              tag={ tag }
+              handleChange={ this.handleChange }
+            />
+            { this.verifyIsEditing() }
+          </section>
         </form>
         <Table updateState={ this.insertState } />
       </>
@@ -128,6 +142,7 @@ Wallet.propTypes = {
   getExpensives: PropTypes.func.isRequired,
   updateExpense: PropTypes.func.isRequired,
   getCurrencies: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
   editExpense: PropTypes.shape({
     id: PropTypes.number,
     value: PropTypes.string,
@@ -141,6 +156,7 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   editExpense: state.wallet.editExpense,
+  isEditing: state.wallet.isEditing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
