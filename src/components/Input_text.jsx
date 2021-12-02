@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class InputText extends React.Component {
   render() {
-    const { id, label, value, onChange, name } = this.props;
+    const { id, label, value, onChange, name, onBlur } = this.props;
     return(
       <label htmlFor={ id } className="m-0">
         { label }
@@ -13,6 +13,7 @@ class InputText extends React.Component {
           value={ value }
           id={ id }
           onChange={ onChange }
+          onBlur={ onBlur }
           name={ name }
           type="text" 
         />
@@ -28,6 +29,7 @@ InputText.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
 };
 
 export default InputText;

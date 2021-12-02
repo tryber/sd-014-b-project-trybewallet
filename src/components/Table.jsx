@@ -12,8 +12,11 @@ class Table extends React.Component{
   }
 
   getConversion(obj) {
-    return parseFloat(obj.value) * 
-      parseFloat(obj.exchangeRates[obj.currency].ask);
+    const value = obj.value.replace('R$', '');
+    const valueConverted = parseFloat(value) * 
+    parseFloat(obj.exchangeRates[obj.currency].ask);
+    return valueConverted
+      .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
   getEditExpense(expensive) {
@@ -41,6 +44,13 @@ class Table extends React.Component{
     );
   }
 
+  getFormatValue(value) {
+    const valueReplaced = value.replace('R$','');
+    const floatValue = parseFloat(valueReplaced);
+    return floatValue
+      .toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  }
+
   render() {
     const { expensives } = this.props;
     return(
@@ -56,17 +66,18 @@ class Table extends React.Component{
           {expensives.map((expensive, index) => {
             const exchangeValue = this.getExchangeValue(expensive);
             const convertedValue = this.getConversion(expensive);
+            const valueFormated = this.getFormatValue(expensive.value);
             return(
               <tr key={ index }>
                 <td>{ expensive.description }</td>
                 <td>{ expensive.tag }</td>
                 <td>{ expensive.method }</td>
-                <td>{ expensive.value }</td>
+                <td>{ valueFormated }</td>
                 <td>{ expensive.exchangeRates[expensive.currency]
                   .name.split('/')[0] }
                 </td>
                 <td>{ parseFloat(exchangeValue).toFixed(2) }</td>
-                <td>{ convertedValue.toFixed(2) }</td>
+                <td>{ convertedValue }</td>
                 <td>Real</td>
                 {this.renderEditAndDel(expensive.id, expensive)}
               </tr>

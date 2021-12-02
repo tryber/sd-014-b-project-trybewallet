@@ -15,7 +15,7 @@ class Wallet extends React.Component {
 
     this.state = {
       id: 0,
-      value: '',
+      value: 0,
       description: '',
       currency: '',
       method: '',
@@ -27,7 +27,6 @@ class Wallet extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.resetState = this.resetState.bind(this);
     this.insertState = this.insertState.bind(this);
-    
   }
 
   async componentDidMount() {
@@ -49,7 +48,7 @@ class Wallet extends React.Component {
 
   resetState() {
     this.setState({ 
-      value: '', 
+      value: 0, 
       description: '', 
       currency: '', 
       method: '', 
@@ -101,7 +100,6 @@ class Wallet extends React.Component {
     }
   }
 
-
   render() {
     const { value, description, currency, method, tag } = this.state;
     return(
@@ -111,7 +109,8 @@ class Wallet extends React.Component {
           <section className="section-form">
             <InputText
               label="Valor" 
-              value={ value }
+              value={ value.toLocaleString('pt-br',{style: 'currency',
+                currency: 'BRL'}).replace('.', ',') }
               id="value"
               name="value"
               onChange={ this.handleChange }
