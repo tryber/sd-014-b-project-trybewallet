@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEmail } from '../actions';
 import logo from '../images/wallet.jpg';
+import ButtonComponent from '../components/Button';
 
 class Login extends React.Component {
   constructor() {
@@ -65,14 +66,12 @@ class Login extends React.Component {
           value={ password }
           placeholder="Password"
         />
-        <button
-          className="btn btn-primary btn-lg"
-          type="button"
-          disabled={ !(((password.length >= minLenght)) && (isValidEmail )) }
-          onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
+        <ButtonComponent 
+          title="Entrar" 
+          handleClick={ this.handleClick }
+          buttonClass="btn btn-primary btn-lg"
+          isDisable={ !(((password.length >= minLenght)) && (isValidEmail )) }
+        />
       </section>
     ); 
   }
