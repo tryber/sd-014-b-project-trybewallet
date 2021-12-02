@@ -88,6 +88,7 @@ class Wallet extends React.Component {
         <ButtonComponent
           title="Adicionar despesa"
           handleClick={ this.handleSubmit }
+          buttonClass="btn btn-primary"
         />
       );
     } else {
@@ -95,6 +96,7 @@ class Wallet extends React.Component {
         <ButtonComponent
           title="Editar despesa"
           handleClick={ this.handleEdit }
+          buttonClass="btn btn-primary"
         />
       );
     }
