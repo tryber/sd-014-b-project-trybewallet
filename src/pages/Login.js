@@ -66,6 +66,7 @@ class Login extends React.Component {
           value={ password }
           placeholder="Password"
         />
+        <span>* Your password must have min. 6 characters</span>
         <ButtonComponent 
           title="Entrar" 
           handleClick={ this.handleClick }

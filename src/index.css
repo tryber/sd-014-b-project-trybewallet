@@ -21,7 +21,7 @@ table td, table th {
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 450px;
   justify-content: center;
   left: 50%;
   top: 50%;
@@ -79,4 +79,9 @@ p {
 
 .body {
   background-color: #d1e0e0;
+}
+
+span {
+  margin-bottom: 10px;
+  color: #94b8b8;
 }
