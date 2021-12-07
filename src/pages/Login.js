@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../actions';
+import trybeWalletLogo from '../images/logo_icon.png';
+import '../styles/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -45,51 +47,57 @@ class Login extends React.Component {
     saveUserInfo({ name, email, password });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   render() {
     const { name, email, password, buttonDisabled } = this.state;
     return (
-      <form>
-        <label htmlFor="nome-input">
-          Nome:
-          <input
-            type="text"
-            name="name"
-            id="nome-input"
-            data-testid="nome-input"
-            value={ name }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            type="text"
-            name="email"
-            id="email-input"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha:
-          <input
-            type="password"
-            name="password"
-            id="password-input"
-            data-testid="password-input"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="submit"
-          disabled={ buttonDisabled }
-          onClick={ this.handleSubmit }
-        >
-          Entrar
-        </button>
-      </form>
+      <>
+        <div className="logo-login-container">
+          <img src={ trybeWalletLogo } alt="logo icon" />
+          <span className="trybe">Trybe</span>
+          <span className="wallet">Wallet</span>
+        </div>
+        <div className="login-container">
+          <h1 className="login-title">Login</h1>
+          <form className="login-form">
+            <input
+              type="text"
+              name="name"
+              id="nome-input"
+              data-testid="nome-input"
+              placeholder="Nome"
+              value={ name }
+              onChange={ this.handleChange }
+            />
+            <input
+              type="text"
+              name="email"
+              id="email-input"
+              data-testid="email-input"
+              placeholder="Email"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+            <input
+              type="password"
+              name="password"
+              id="password-input"
+              data-testid="password-input"
+              placeholder="Senha"
+              value={ password }
+              onChange={ this.handleChange }
+            />
+            <button
+              type="submit"
+              disabled={ buttonDisabled }
+              onClick={ this.handleSubmit }
+              className="login-btn"
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </>
     );
   }
 }
