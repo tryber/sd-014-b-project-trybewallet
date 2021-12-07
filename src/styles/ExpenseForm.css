@@ -1,0 +1,15 @@
+.expense-form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.expense-form input, select {
+  margin-top: 3px;
+}
+
+.expense-form label {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}

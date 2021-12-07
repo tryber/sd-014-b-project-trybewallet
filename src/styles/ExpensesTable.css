@@ -1,0 +1,10 @@
+table {
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  background: #071d466c;
+  box-shadow: -1px 3px 20px 0 #00000096;
+  font-weight: 500;
+  padding: 30px;
+  width: 100%;
+  margin-top: -10px;
+}

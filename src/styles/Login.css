@@ -4,6 +4,7 @@
   justify-content: center;
   font-weight: 800;
   margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .login-container {
@@ -24,19 +25,12 @@
 }
 
 .login-form input {
-  background: #152965;
   width: 254px;
-  border: none;
-  border-radius: 5px;
-  border-style: none;
   height: 40px;
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-left: 14px;
-  color: rgba(255, 255, 255, 0.829);
-  font-size: 14px;
-  font-weight: 800;
   transition: all 1s;
 }
 
@@ -47,14 +41,6 @@
   font-weight: 800;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: white;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 .login-form input:focus {
   outline: solid 2.1px white;
 }
@@ -62,13 +48,34 @@ input:-webkit-autofill:active {
 .login-btn {
   width: 196px;
   height: 41px;
-  background: #10A68F;
-  border-radius: 8px;
-  color: white;
-  font-weight: 900;
   font-size: 16px;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
-  cursor: pointer;
+}
+
+.logo-login-container {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.logo-login-container .trybe {
+  color: rgb(236, 236, 236);
+  font-weight: 900;
+  font-size: 35px;
+  line-height: 41px;
+  margin-right: 3px;
+}
+
+.logo-login-container .wallet {
+  font-weight: 400;
+  font-size: 35px;
+  font-family: 'Abril Fatface', cursive;
+  line-height: 43px;
+  color: #1BDEC1;
 }

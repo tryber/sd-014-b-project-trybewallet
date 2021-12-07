@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import InputDefault from './InputDefault';
 import SelectDefault from './SelectDefault';
+import '../styles/ExpenseForm.css';
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ExpenseForm extends Component {
     const { currencies, onSubmit, isEditing } = this.props;
     const { value, description, method, tag, currency } = this.state;
     return (
-      <form>
+      <form className="expense-form">
         <InputDefault
           name="value"
           onChange={ this.handleChange }

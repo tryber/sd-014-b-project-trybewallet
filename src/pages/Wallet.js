@@ -45,10 +45,12 @@ class Wallet extends React.Component {
     const { isEditing, id, currentlyEditing } = this.state;
     return (
       <>
-        <Header />
-        { isEditing
-          ? <EditExpense id={ id } expense={ currentlyEditing } />
-          : <AddExpense /> }
+        <div className="header-container">
+          <Header />
+          { isEditing
+            ? <EditExpense id={ id } expense={ currentlyEditing } />
+            : <AddExpense /> }
+        </div>
         <ExpensesTable handleEditing={ this.handleEditing } />
       </>
     );

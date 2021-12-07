@@ -45,6 +45,8 @@ class Login extends React.Component {
     const { handleLogin, saveUserInfo } = this.props;
     handleLogin();
     saveUserInfo({ name, email, password });
+    localStorage.setItem('trybe-wallet-email', email);
+    localStorage.setItem('trybe-wallet-name', name);
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -54,7 +56,7 @@ class Login extends React.Component {
       <>
         <div className="logo-login-container">
           <img src={ trybeWalletLogo } alt="logo icon" />
-          <span className="trybe">Trybe</span>
+          <span className="trybe">TRYBE</span>
           <span className="wallet">Wallet</span>
         </div>
         <div className="login-container">

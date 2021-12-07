@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TableRow from './TableRow';
-
+import '../styles/ExpensesTable.css';
 class ExpensesTable extends Component {
   render() {
     const { expenses, handleEditing } = this.props;

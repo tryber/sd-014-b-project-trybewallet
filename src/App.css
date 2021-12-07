@@ -6,3 +6,32 @@ body {
   color: white;
   font-family: Raleway, sans-serif;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: white;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input, select {
+  border-style: none;
+  border: none;
+  font-weight: 800;
+  min-height: 30px;
+  color: rgba(255, 255, 255, 0.829);
+  font-size: 14px;
+  background: #152965;
+  border-radius: 5px;
+}
+
+button {
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 900;
+  color: white;
+  background: #10A68F;
+  height: 35px;
+  border: none;
+}

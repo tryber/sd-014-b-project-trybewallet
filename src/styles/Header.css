@@ -1,0 +1,35 @@
+header {
+  display: flex;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.logo-header-container {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.logo-header-container .trybe {
+  color: rgb(236, 236, 236);
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 30px;
+  margin-right: 3px;
+}
+
+.logo-header-container .wallet {
+  font-weight: 400;
+  font-size: 30px;
+  font-family: 'Abril Fatface', cursive;
+  line-height: 30px;
+  color: #1BDEC1;
+}
+
+.header-container {
+  background-color: #081739;
+  padding: 30px;
+}
