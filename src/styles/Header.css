@@ -35,9 +35,15 @@ header {
   color: #1BDEC1;
 }
 
+.logo-header-container img {
+  height: 55px;
+}
+
 .user-info-container {
   display: flex;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #071d466c;
 }
 
 .total-expenses-container {

@@ -24,6 +24,12 @@ input, select {
   font-size: 14px;
   background: #152965;
   border-radius: 5px;
+  outline-style: none;
+}
+
+input:focus {
+  border: solid 2px white;
+  outline-style: none;
 }
 
 button {

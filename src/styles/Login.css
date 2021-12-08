@@ -41,10 +41,6 @@
   font-weight: 800;
 }
 
-.login-form input:focus {
-  outline: solid 2.1px white;
-}
-
 .login-btn {
   width: 196px;
   height: 41px;

@@ -66,6 +66,7 @@ class ExpenseForm extends Component {
         />
         <button
           type="submit"
+          className="submit-btn"
           onClick={ (event) => {
             event.preventDefault();
             onSubmit({ value, description, currency, method, tag });
