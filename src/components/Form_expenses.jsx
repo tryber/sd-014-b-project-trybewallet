@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Input_text from './Input_text';
+import Input_Text from './Input_text';
+import { Button } from 'bootstrap';
+import RenderSelects from './RenderSelects';
 import { connect } from 'react-redux';
+import Table from './Table';
+import Header from './Header';
 import { requestCurrencies, updateExpense, 
   fetchApiExchange} from '../actions';
-import Header from '../components/Header';
-import Table from '../components/Table';
-import ButtonComponent from '../components/Button';
-import InputText from '../components/Input_text';
-import RenderSelects from '../components/RenderSelects';
 
-class Wallet extends React.Component {
+class Form_expenses extends React.Component {
   constructor (props) {
     super(props);
 
     this.state = {
       id: 0,
-      value: 0,
+      value: '',
       description: '',
       currency: '',
       method: '',
@@ -24,9 +25,8 @@ class Wallet extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.insertState = this.insertState.bind(this);
+    
   }
 
   async componentDidMount() {
@@ -48,7 +48,7 @@ class Wallet extends React.Component {
 
   resetState() {
     this.setState({ 
-      value: 0, 
+      value: '', 
       description: '', 
       currency: '', 
       method: '', 
@@ -81,26 +81,6 @@ class Wallet extends React.Component {
       tag: expensive.tag });
   }
 
-  verifyIsEditing() {
-    const { isEditing } = this.props;
-    if (!isEditing) {
-      return (
-        <ButtonComponent
-          title="Adicionar despesa"
-          handleClick={ this.handleSubmit }
-          buttonClass="btn btn-primary"
-        />
-      );
-    } else {
-      return (
-        <ButtonComponent
-          title="Editar despesa"
-          handleClick={ this.handleEdit }
-          buttonClass="btn btn-primary"
-        />
-      );
-    }
-  }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
@@ -108,30 +88,34 @@ class Wallet extends React.Component {
       <>
         <Header />
         <form>
-          <section className="section-form">
-            <InputText
-              label="Valor" 
-              value={ value.toLocaleString('pt-br',{style: 'currency',
-                currency: 'BRL'}).replace('.', ',') }
-              id="value"
-              name="value"
-              onChange={ this.handleChange }
-            />
-            <InputText
-              label="Descrição" 
-              value={ description }
-              id="description"
-              name="description"
-              onChange={ this.handleChange }
-            />
-            <RenderSelects
-              currency={ currency }
-              method={ method }
-              tag={ tag }
-              handleChange={ this.handleChange }
-            />
-            { this.verifyIsEditing() }
-          </section>
+          <Input_text
+            label="Valor" 
+            value={ value }
+            id="value"
+            name="value"
+            onChange={ this.handleChange }
+          />
+          <Input_Text
+            label="Descrição" 
+            value={ description }
+            id="description"
+            name="description"
+            onChange={ this.handleChange }
+          />
+          <RenderSelects
+            currency={ currency }
+            method={ method }
+            tag={ tag }
+            handleChange={ this.handleChange }
+          />
+          <Button 
+            title="Adicionar despesa"
+            handleClick={ this.handleSubmit }
+          />
+          <Button 
+            title="Editar Gasto"
+            handleClick={ this.handleEdit }
+          />
         </form>
         <Table updateState={ this.insertState } />
       </>
@@ -139,11 +123,10 @@ class Wallet extends React.Component {
   }
 }
 
-Wallet.propTypes = {
+Form_expenses.propTypes = {
   getExpensives: PropTypes.func.isRequired,
   updateExpense: PropTypes.func.isRequired,
   getCurrencies: PropTypes.func.isRequired,
-  isEditing: PropTypes.bool,
   editExpense: PropTypes.shape({
     id: PropTypes.number,
     value: PropTypes.string,
@@ -157,7 +140,6 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   editExpense: state.wallet.editExpense,
-  isEditing: state.wallet.isEditing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -166,4 +148,4 @@ const mapDispatchToProps = (dispatch) => ({
   getCurrencies: (payload) => dispatch(requestCurrencies(payload)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Wallet) ;
+export default connect(mapStateToProps,mapDispatchToProps)(Form_expenses) ;
