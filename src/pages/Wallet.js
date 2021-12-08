@@ -6,7 +6,7 @@ import AddExpense from '../components/AddExpense';
 import ExpensesTable from '../components/ExpensesTable';
 import EditExpense from '../components/EditExpense';
 import { updateCurrencies } from '../actions';
-import { fetchCurrenciesList } from '../services/currencyQuotesApi';
+import fetchCurrenciesList from '../services/currencyQuotesApi';
 
 class Wallet extends React.Component {
   constructor() {
@@ -22,13 +22,8 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    this.getCurrenciesList();
-  }
-
-  async getCurrenciesList() {
     const { setCurrencies } = this.props;
-    const currencies = await fetchCurrenciesList();
-    setCurrencies(currencies);
+    fetchCurrenciesList().then(setCurrencies);
   }
 
   handleEditing(id) {

@@ -35,3 +35,7 @@ button {
   height: 35px;
   border: none;
 }
+
+select {
+  cursor: pointer;
+}
