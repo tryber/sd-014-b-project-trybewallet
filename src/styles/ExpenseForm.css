@@ -1,0 +1,27 @@
+.expense-form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 15px;
+  min-height: 40px;
+}
+
+.expense-form input, select {
+  margin-top: 4px;
+  border: transparent 2px;
+}
+
+.expense-form label {
+  display: contents;
+  margin: 0 10px;
+  padding: 5px;
+}
+
+#value-input {
+  width: 90px;
+}
+
+.submit-btn {
+  border-radius: 5px;
+  height: 30px;
+}

@@ -1,0 +1,63 @@
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container {
+  background-color: #081739;
+  padding: 10px 27px 40px 27px;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.logo-header-container {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.logo-header-container .trybe {
+  color: rgb(236, 236, 236);
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 30px;
+  margin-right: 3px;
+}
+
+.logo-header-container .wallet {
+  font-weight: 400;
+  font-size: 30px;
+  font-family: 'Abril Fatface', cursive;
+  line-height: 30px;
+  color: #1BDEC1;
+}
+
+.logo-header-container img {
+  height: 55px;
+}
+
+.user-info-container {
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #071d466c;
+}
+
+.total-expenses-container {
+  display: flex;
+  align-items: center;
+}
+
+.total-expenses-container > * {
+  margin: 0 3px;
+  font-weight: 800;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.user-info-container > * {
+  margin: 0 3px;
+}

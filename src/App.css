@@ -1,41 +1,64 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
+body {
+  background-attachment: fixed;
+  background-image: url('./images/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  font-family: Raleway, sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: white;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-@keyframes App-logo-spin {
+input, select {
+  border-style: none;
+  border: none;
+  font-weight: 800;
+  min-height: 30px;
+  color: rgba(255, 255, 255, 0.829);
+  font-size: 14px;
+  background: #152965;
+  border-radius: 5px;
+  outline-style: none;
+  padding: 0 7px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+input:focus {
+  border: solid 2px white;
+  outline-style: none;
+}
+/* esconder setas do input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+button {
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 900;
+  color: white;
+  background: #10A68F;
+  height: 35px;
+  border: none;
+}
+
+button:disabled {
+  background: #567c77;
+  cursor: not-allowed;
+}
+
+select {
+  cursor: pointer;
 }

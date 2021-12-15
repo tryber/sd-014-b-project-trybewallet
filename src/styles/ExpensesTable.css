@@ -1,0 +1,43 @@
+table {
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  background: #071d466c;
+  box-shadow: -1px 3px 20px 0 #00000096;
+  font-weight: 500;
+  padding: 20px;
+  width: 100%;
+  margin-top: -10px;
+}
+
+th {
+  text-align: start;
+}
+
+td {
+  animation: slideDown 500ms;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#delete-btn, #edit-btn {
+  height: 30px;
+  margin: 4px;
+}
+
+#delete-btn {
+  background-color: rgb(218, 49, 77);
+  transition: all 300ms;
+}
+
+#delete-btn:hover {
+  background-color: rgb(170, 36, 58);
+}

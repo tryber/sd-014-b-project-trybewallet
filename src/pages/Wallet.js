@@ -1,9 +1,72 @@
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React from 'react';
+import Header from '../components/Header';
+import AddExpense from '../components/AddExpense';
+import ExpensesTable from '../components/ExpensesTable';
+import EditExpense from '../components/EditExpense';
+import { updateCurrencies } from '../actions';
+import fetchCurrenciesList from '../services/currencyQuotesApi';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isEditing: false,
+      currentlyEditing: undefined,
+      id: undefined,
+    };
+
+    this.handleEditing = this.handleEditing.bind(this);
+  }
+
+  componentDidMount() {
+    const { setCurrencies } = this.props;
+    fetchCurrenciesList().then(setCurrencies);
+  }
+
+  handleEditing(id) {
+    const { expenses } = this.props;
+    const currentlyEditing = expenses.find((exp) => exp.id === id);
+    this.setState((prevState) => ({
+      isEditing: !prevState.isEditing,
+      id,
+      currentlyEditing,
+    }));
+  }
+
   render() {
-    return <div>TrybeWallet</div>;
+    const { isEditing, id, currentlyEditing } = this.state;
+    return (
+      <>
+        <div className="header-container">
+          <Header />
+          { isEditing
+            ? <EditExpense id={ id } expense={ currentlyEditing } />
+            : <AddExpense /> }
+        </div>
+        <ExpensesTable handleEditing={ this.handleEditing } />
+      </>
+    );
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: (currencies) => dispatch(updateCurrencies(currencies)),
+});
+
+Wallet.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  setCurrencies: PropTypes.func.isRequired,
+};
+
+Wallet.defaultProps = {
+  expenses: [],
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
