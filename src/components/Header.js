@@ -6,10 +6,6 @@ import md5 from 'crypto-js/md5';
 import trybeWalletLogo from '../images/logo_icon.png';
 
 class Header extends Component {
-  // Source: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-  numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
 
   render() {
     let { email, name, totalExpenses } = this.props;

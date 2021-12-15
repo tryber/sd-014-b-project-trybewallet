@@ -25,11 +25,23 @@ input, select {
   background: #152965;
   border-radius: 5px;
   outline-style: none;
+  padding: 0 7px;
 }
 
 input:focus {
   border: solid 2px white;
   outline-style: none;
+}
+/* esconder setas do input type number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 button {
@@ -40,6 +52,11 @@ button {
   background: #10A68F;
   height: 35px;
   border: none;
+}
+
+button:disabled {
+  background: #567c77;
+  cursor: not-allowed;
 }
 
 select {

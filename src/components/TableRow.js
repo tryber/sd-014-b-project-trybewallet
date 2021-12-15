@@ -28,6 +28,14 @@ class TableRow extends Component {
         <td>Real</td>
         <td>
           <button
+            id="edit-btn"
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => { handleEditing(id); } }
+          >
+            Edit
+          </button>
+          <button
             id="delete-btn"
             data-testid="delete-btn"
             type="button"
@@ -37,14 +45,6 @@ class TableRow extends Component {
             } }
           >
             Delete
-          </button>
-          <button
-            id="edit-btn"
-            type="button"
-            data-testid="edit-btn"
-            onClick={ () => { handleEditing(id); } }
-          >
-            Edit
           </button>
         </td>
       </tr>
