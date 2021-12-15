@@ -68,10 +68,11 @@ class ExpenseForm extends Component {
         <button
           type="submit"
           className="submit-btn"
-          disabled={description === '' || value === ''}
+          disabled={ description === '' || value === '' }
           onClick={ (event) => {
             event.preventDefault();
             onSubmit({ value, description, currency, method, tag });
+            this.setState({ value: '', description: '' });
           } }
         >
           { isEditing ? 'Editar Despesa' : 'Adicionar Despesa' }

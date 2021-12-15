@@ -9,6 +9,15 @@ class TableRow extends Component {
     updateTotal();
   }
 
+  getFormmatedValue(currency, number) {
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency,
+    });
+
+    return formatter.format(number);
+  }
+
   render() {
     const {
       expenseObj: { id, description, tag, method, value, currency, exchangeRates },
@@ -16,15 +25,16 @@ class TableRow extends Component {
       updateTotal,
       handleEditing,
     } = this.props;
+
     return (
       <tr>
         <td>{description}</td>
         <td>{tag}</td>
         <td>{method}</td>
-        <td>{Number.isInteger(+value) ? value : (+value).toFixed(2)}</td>
+        <td>{this.getFormmatedValue(currency, +value)}</td>
         <td>{exchangeRates[currency].name.split('/')[0]}</td>
-        <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-        <td>{ Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
+        <td>{this.getFormmatedValue(currency, exchangeRates[currency].ask)}</td>
+        <td>{this.getFormmatedValue('BRL', value * exchangeRates[currency].ask)}</td>
         <td>Real</td>
         <td>
           <button

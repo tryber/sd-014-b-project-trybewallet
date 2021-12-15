@@ -11,7 +11,10 @@ class Header extends Component {
     let { email, name, totalExpenses } = this.props;
     email = email || localStorage.getItem('trybe-wallet-email');
     name = name || localStorage.getItem('trybe-wallet-name');
-    console.log(email);
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
     return (
       <header>
         <div className="logo-header-container">
@@ -21,7 +24,7 @@ class Header extends Component {
         </div>
         <div className="total-expenses-container">
           <span>Despesa Total: </span>
-          <span data-testid="total-field">{ totalExpenses.toLocaleString() }</span>
+          <span data-testid="total-field">{ formatter.format(totalExpenses) }</span>
           <span data-testid="header-currency-field">BRL</span>
         </div>
         <div className="user-info-container">
