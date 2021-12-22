@@ -1,0 +1,172 @@
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: arial;
+  border-bottom: #999999 solid 1px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table-expense thead {
+  background-color: rgb(61, 57, 57);
+  font-weight: bold;
+  color: rgb(223, 226, 223);
+}
+
+.table-expense tbody tr:nth-child(2n) {
+  background-color: #ccc;
+}
+
+.table-expense th, .table-expense td {
+  padding: 7px 0;
+  text-align: center;
+}
+
+.btn-table {
+  background-color: rgb(88, 11, 11);
+  border-radius: 8px;
+  color: rgb(223, 215, 215);
+  margin: 5px 10px;
+  padding: 7px 0;
+  width: 40px;
+}
+
+tbody > tr:nth-child(even) > td > .btn-table {
+  background-color: rgb(151, 21, 21);
+}
+
+tbody > tr:nth-child(even) > td > .btn-edit-table {
+  background-color: rgb(189, 189, 14);
+}
+
+.btn-table:hover, .btn-edit-table:hover {
+  cursor: pointer;
+}
+
+.btn-edit-table {
+  background-color: rgb(133, 133, 14);
+  color: rgb(223, 215, 215);
+  border-radius: 8px;
+  margin: 5px 10px;
+  padding: 7px 0;
+  width: 40px;
+}
+
+@media screen and (min-width: 1200px) {
+  .table-component {
+    width: 100%;
+  }
+
+  .table-expense tbody tr td:nth-child(1) {
+    width: 10%;
+  }
+
+  .table-expense tbody tr td:nth-child(2) {
+    width: 10%;
+  }
+
+  .table-expense tbody tr td:nth-child(3) {
+    width: 14%;
+  }
+
+  .table-expense tbody tr td:nth-child(4) {
+    width: 10%;
+  }
+
+  .table-expense tbody tr td:nth-child(5) {
+    width: 14%;
+  }
+
+  .table-expense tbody tr td:nth-child(6) {
+    width: 11%;
+  }
+
+  .table-expense tbody tr td:nth-child(7) {
+    width: 11%;
+  }
+
+  .table-expense tbody tr td:nth-child(8) {
+    width: 10%;
+  }
+
+  .table-expense tbody tr td:nth-child(9) {
+    width: 10%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  table {
+    display: block;
+    position: relative;
+    font-weight: 400;
+    width: 100%;
+  }
+
+  .table-expense thead,
+  .table-expense tbody,
+  .table-expense th,
+  .table-expense td,
+  .table-expense tr {
+    display: block;
+  }
+
+  .table-expense td,
+  .table-expense th {
+    height: 35px;
+  }
+
+  .table-expense thead {
+    float: left;
+  }
+
+  .table-expense tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .table-expense tbody tr {
+    display: inline-block;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .table-expense tbody tr .btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .table-expense td:last-child {
+    border-right: #999999 solid 1px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .table-component {
+    width: 94%;
+  }
+
+  table {
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .table-expense thead {
+    display: none;
+  }
+
+  .table-expense tbody {
+    position: static;
+    overflow-x: visible;
+  }
+
+  .table-expense tbody tr {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+  }
+}

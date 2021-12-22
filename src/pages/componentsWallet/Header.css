@@ -1,0 +1,56 @@
+* {
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.trybe-logo {
+  margin-left: 20px;
+  width: 80px;
+}
+
+.header-component {
+  background-color: rgb(223, 226, 223);
+  display: flex;
+  justify-content: space-between;
+  border: 1px rgb(150, 153, 150);
+  border-style: none none solid;
+}
+
+.article-component {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  padding: 20px;
+}
+
+.email-header {
+  margin-right: 20px;
+}
+
+.total-expense {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 500px) {
+  .header-component {
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .article-component {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .trybe-logo {
+    margin: 0;
+  }
+
+  .email-header {
+    margin: 10px 0;
+  }
+}

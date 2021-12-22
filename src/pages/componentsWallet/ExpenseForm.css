@@ -1,0 +1,55 @@
+* {
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.expenseForm {
+  background-color: rgb(99, 180, 99);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+input , select {
+  margin-left: 10px;
+}
+
+label {
+  margin-top: 10px;
+}
+
+.input-value {
+  text-align: center;
+  width: 100px;
+}
+
+.btn {
+  color: white;
+  margin-top: 15px;
+  padding: 3px 20px;
+}
+
+.add-button {
+  background-color: rgb(34, 33, 33);
+
+}
+
+.edit-button {
+  background-color: cornflowerblue;
+}
+
+@media screen and (max-width: 760px) {
+  .expenseForm {
+    background-color: rgb(80, 153, 80);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input, select, .input-value {
+    width: 100%;
+  }
+}
