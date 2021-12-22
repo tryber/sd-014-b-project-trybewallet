@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.walletImg {
+  background-color: aquamarine;
+  border-radius: 50%;
+  width: 300px;
+}

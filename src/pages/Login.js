@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userLogin } from '../actions/loginAction';
+import walletImg from '../images/wallet.jpeg';
 
 class Login extends React.Component {
   constructor() {
@@ -34,31 +35,34 @@ class Login extends React.Component {
     const sizePassword = 6;
     const validatLogin = (regexEmail && password.length >= sizePassword);
     return (
-      <form>
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ email }
-          onChange={ this.handleChange }
-          placeholder="Email"
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ password }
-          onChange={ this.handleChange }
-          placeholder="Senha"
-        />
-        <button
-          type="button"
-          disabled={ !validatLogin }
-          onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
-      </form>
+      <div className="container text-center">
+        <img src={ walletImg } alt="wallet" className="rounded walletImg" />
+        <form>
+          <input
+            data-testid="email-input"
+            type="email"
+            name="email"
+            value={ email }
+            onChange={ this.handleChange }
+            placeholder="Email"
+          />
+          <input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            value={ password }
+            onChange={ this.handleChange }
+            placeholder="Senha"
+          />
+          <button
+            type="button"
+            disabled={ !validatLogin }
+            onClick={ this.handleClick }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }
