@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userLogin } from '../actions/loginAction';
-import walletImg from '../images/wallet.jpeg';
+import bitcoin from '../images/bitcoin.png';
 
 class Login extends React.Component {
   constructor() {
@@ -35,10 +35,13 @@ class Login extends React.Component {
     const sizePassword = 6;
     const validatLogin = (regexEmail && password.length >= sizePassword);
     return (
-      <div className="container text-center">
-        <img src={ walletImg } alt="wallet" className="rounded walletImg" />
-        <form>
+      <div className="container-login text-center">
+        <h2>Trybe Wallet</h2>
+        <img src={ bitcoin } alt="wallet" className="walletImg" />
+        <form className="form">
           <input
+            className="form-control inputLogin"
+            id="inputEmail3"
             data-testid="email-input"
             type="email"
             name="email"
@@ -47,6 +50,8 @@ class Login extends React.Component {
             placeholder="Email"
           />
           <input
+            className="form-control inputLogin"
+            id="inputPassword3"
             data-testid="password-input"
             type="password"
             name="password"
@@ -55,6 +60,7 @@ class Login extends React.Component {
             placeholder="Senha"
           />
           <button
+            className="btn btn-primary inputLogin"
             type="button"
             disabled={ !validatLogin }
             onClick={ this.handleClick }
