@@ -38,16 +38,22 @@ code {
 }
 
 .container-header {
+  align-content: center;
   background-color: yellowgreen;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.emailHeader {
+  background-color: white;
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 5px;
 }
 
 .totalField {
   display: flex;
   justify-content: space-around;
-}
-
-.coin {
-  margin-left: 5px;
 }

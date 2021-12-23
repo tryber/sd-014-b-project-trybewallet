@@ -18,10 +18,12 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
-        <table>
-          <TableHeader />
-          <TableBody />
-        </table>
+        <div className="table-responsive">
+          <table className="table table-striped table-dark table-hover">
+            <TableHeader />
+            <TableBody />
+          </table>
+        </div>
       </div>
     );
   }

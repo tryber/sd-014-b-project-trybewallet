@@ -12,17 +12,23 @@ class Header extends Component {
         * exchangeRates[currency].ask, 0) : 0;
     return (
       <header className="container-header">
-        <div className="">
-          <p data-testid="email-field">
+        <div>
+          <p
+            data-testid="email-field"
+            className="emailHeader"
+          >
             {`Email: ${email}`}
           </p>
         </div>
-        <div className="totalField">
-          <p data-testid="total-field">
-            {`Despesa total: R$${sumExpenses.toFixed(2)}`}
-          </p>
-          <p data-testid="header-currency-field" className="coin">
-            BRL
+        <div
+          data-testid="header-currency-field"
+          className="totalField"
+        >
+          <p
+            data-testid="total-field"
+            className="emailHeader"
+          >
+            {`Despesa total: R$${sumExpenses.toFixed(2)} BRL`}
           </p>
         </div>
       </header>
