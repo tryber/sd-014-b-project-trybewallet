@@ -11,17 +11,17 @@ class Header extends Component {
         .reduce((acc, { value, currency, exchangeRates }) => acc + value
         * exchangeRates[currency].ask, 0) : 0;
     return (
-      <header>
-        <div>
+      <header className="container-header">
+        <div className="">
           <p data-testid="email-field">
             {`Email: ${email}`}
           </p>
         </div>
-        <div>
+        <div className="totalField">
           <p data-testid="total-field">
             {`Despesa total: R$${sumExpenses.toFixed(2)}`}
           </p>
-          <p data-testid="header-currency-field">
+          <p data-testid="header-currency-field" className="coin">
             BRL
           </p>
         </div>

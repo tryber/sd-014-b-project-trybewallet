@@ -36,3 +36,18 @@ code {
 .inputLogin {
   margin-top: 10px;
 }
+
+.container-header {
+  background-color: yellowgreen;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalField {
+  display: flex;
+  justify-content: space-around;
+}
+
+.coin {
+  margin-left: 5px;
+}
