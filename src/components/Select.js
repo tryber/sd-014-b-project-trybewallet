@@ -5,9 +5,15 @@ class Select extends Component {
   render() {
     const { id, labelText, name, value, handleChange, options } = this.props;
     return (
-      <label htmlFor={ id }>
-        { labelText }
+      <div className="col">
+        <label
+          className="form-label"
+          htmlFor={ id }
+        >
+          { labelText }
+        </label>
         <select
+          className="formSelect"
           id={ id }
           name={ name }
           required
@@ -20,7 +26,7 @@ class Select extends Component {
             ))
           }
         </select>
-      </label>
+      </div>
     );
   }
 }

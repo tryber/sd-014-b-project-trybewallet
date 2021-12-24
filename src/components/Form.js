@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchExchangeRateFromApi } from '../actions/currentExchangeRateAction';
 import { addExpense } from '../actions/addExpensesAction';
-import Input from './Input';
 import Select from './Select';
+import Input from './Input';
 import Button from './Button';
 
 const ALIMENTACAO = 'Alimentação';
@@ -51,7 +51,7 @@ class Form extends Component {
     const { value, currency, method, tag, description } = this.state;
     const { coinsArray } = this.props;
     return (
-      <form>
+      <form className="row row-cols-lg-auto g-3 align-items-center">
         <Input
           labelText="Valor:"
           id="valueId"

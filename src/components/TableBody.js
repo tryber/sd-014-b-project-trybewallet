@@ -34,6 +34,7 @@ class TableBody extends Component {
               <td>
                 <button
                   type="button"
+                  className="btn btn-light"
                   data-testid="delete-btn"
                   onClick={ () => this.handleClick(id) }
                 >

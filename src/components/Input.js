@@ -5,16 +5,19 @@ class Input extends Component {
   render() {
     const { id, labelText, name, value, handleChange } = this.props;
     return (
-      <label htmlFor={ id }>
-        { labelText }
+      <div className="col">
+        <label htmlFor={ id } className="form-label">
+          { labelText }
+        </label>
         <input
+          className="form-control"
           id={ id }
           type="text"
           name={ name }
           value={ value }
           onChange={ handleChange }
         />
-      </label>
+      </div>
     );
   }
 }

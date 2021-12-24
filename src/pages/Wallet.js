@@ -17,7 +17,9 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-        <Form />
+        <div className="formContainer">
+          <Form />
+        </div>
         <div className="table-responsive">
           <table className="table table-striped table-dark table-hover">
             <TableHeader />

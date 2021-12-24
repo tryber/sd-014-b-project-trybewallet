@@ -5,7 +5,11 @@ class Button extends Component {
   render() {
     const { label, onClick } = this.props;
     return (
-      <button type="button" onClick={ onClick }>
+      <button
+        className="btn btn-primary"
+        type="button"
+        onClick={ onClick }
+      >
         { label }
       </button>
     );
