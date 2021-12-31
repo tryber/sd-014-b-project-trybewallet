@@ -1,103 +1,75 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrenciesAPI, sendWalletExpenses } from '../actions';
 import fetchCoins from '../api/coins';
 import Select from './Select';
 
-class Forms extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      id: 0,
-      exchangeRates: {},
+// eslint-disable-next-line max-lines-per-function
+function Forms() {
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [method, setMethod] = useState('Dinheiro');
+  const [tag, setTag] = useState('Alimentação');
+  const [id, setId] = useState(0);
+  const [exchangeRates, setExchangeRates] = useState(null);
+  const dispatch = useDispatch();
+
+  const currencies = useSelector((state) => state.wallet.currencies);
+
+  const content = { value, description, currency, method, tag, id, exchangeRates };
+
+  useEffect(() => {
+    dispatch(fetchCurrenciesAPI());
+    const exchange = async () => {
+      const moedas = await fetchCoins();
+      setExchangeRates(moedas);
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
+    exchange();
+  }, []);
+
+  async function onSubmitForm() {
+    dispatch(sendWalletExpenses(content));
+    setId(id + 1);
   }
 
-  componentDidMount() {
-    const { getCoins } = this.props;
-    getCoins();
-  }
-
-  async onSubmitForm() {
-    const { dispatchSetValue } = this.props;
-    const coins = await fetchCoins();
-    this.setState({
-      exchangeRates: coins,
-    });
-    dispatchSetValue(this.state);
-    this.setState((prevState) => ({
-      id: prevState.id + 1,
-    }));
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  render() {
-    const { coins } = this.props;
-    const { tag, method, description, currency, value } = this.state;
-    return (
-      <div>
-        <form>
-          <label htmlFor="input-expense">
-            Valor
-            <input
-              value={ value }
-              onChange={ this.handleChange }
-              type="number"
-              id="input-expense"
-              name="value"
-            />
-          </label>
-          <Select
-            tag={ tag }
-            method={ method }
-            currency={ currency }
-            coins={ coins }
-            onChange={ this.handleChange }
+  return (
+    <div>
+      <form>
+        <label htmlFor="input-expense">
+          Valor
+          <input
+            value={ value }
+            onChange={ ({ target }) => setValue(target.value) }
+            type="number"
+            id="input-expense"
+            name="value"
           />
+        </label>
+        <Select
+          tag={ tag }
+          method={ method }
+          currency={ currency }
+          coins={ currencies }
+          setTag={ ({ target }) => setTag(target.value) }
+          setMethod={ ({ target }) => setMethod(target.value) }
+          setCurrency={ ({ target }) => setCurrency(target.value) }
+        />
 
-          <label htmlFor="input-description">
-            Descrição
-            <input
-              value={ description }
-              id="input-description"
-              name="description"
-              type="text"
-              onChange={ this.handleChange }
-            />
-          </label>
-        </form>
-        <button onClick={ this.onSubmitForm } type="button">Adicionar despesas</button>
-      </div>
-    );
-  }
+        <label htmlFor="input-description">
+          Descrição
+          <input
+            value={ description }
+            id="input-description"
+            name="description"
+            type="text"
+            onChange={ ({ target }) => setDescription(target.value) }
+          />
+        </label>
+      </form>
+      <button onClick={ onSubmitForm } type="button">Adicionar despesas</button>
+    </div>
+  );
 }
 
-Forms.propTypes = {
-  getCoins: PropTypes.func.isRequired,
-  coins: PropTypes.arrayOf(PropTypes.any).isRequired,
-  dispatchSetValue: PropTypes.func.isRequired,
-};
-const mapStateToProps = (state) => ({
-  coins: state.wallet.currencies,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getCoins: () => dispatch(fetchCurrenciesAPI()),
-  dispatchSetValue: (payload) => dispatch(sendWalletExpenses(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Forms);
+export default Forms;

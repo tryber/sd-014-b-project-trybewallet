@@ -1,94 +1,62 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { sendUserInfo } from '../actions';
 import '../App.css';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      senha: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
-  }
+// eslint-disable-next-line max-lines-per-function
+function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  onSubmitForm() {
-    const { email } = this.state;
-    const { history, dispatchSetValue } = this.props;
-    dispatchSetValue(email);
+  function onSubmitForm() {
+    dispatch(sendUserInfo(email));
     history.push('/carteira');
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  // função auxiliar pega do slack, sugestão do colega Michael Caxias
-  isEmailValid(email) {
+  function isEmailValid(userEmail) {
     const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return regexEmail.test(email) === true;
+    return regexEmail.test(userEmail) === true;
   }
-
-  render() {
-    const { email, senha } = this.state;
-    const MININUM_NUMBER = 6;
-    return (
+  const MININUM_NUMBER = 6;
+  return (
+    <div>
       <div>
-        <div>
-          <h2>Login</h2>
-          <form>
-            <label htmlFor="input-email">
-              Email:
-              <input
-                data-testid="email-input"
-                id="input-email"
-                name="email"
-                type="text"
-                value={ email }
-                onChange={ this.handleChange }
-              />
-            </label>
-            <label htmlFor="input-password">
-              senha:
-              <input
-                data-testid="password-input"
-                type="password"
-                name="senha"
-                id="input-password"
-                value={ senha }
-                onChange={ this.handleChange }
-              />
-            </label>
-            <button
-              disabled={ !this.isEmailValid(email) || senha.length < MININUM_NUMBER }
-              type="button"
-              onClick={ this.onSubmitForm }
-            >
-              Entrar
-
-            </button>
-          </form>
-        </div>
+        <h2>Login</h2>
+        <form>
+          <label htmlFor="input-email">
+            Email:
+            <input
+              data-testid="email-input"
+              id="input-email"
+              name="email"
+              type="text"
+              onChange={ ({ target }) => setEmail(target.value) }
+            />
+          </label>
+          <label htmlFor="input-password">
+            senha:
+            <input
+              data-testid="password-input"
+              type="password"
+              name="senha"
+              id="input-password"
+              onChange={ ({ target }) => setSenha(target.value) }
+            />
+          </label>
+          <button
+            disabled={ !isEmailValid(email) || senha.length < MININUM_NUMBER }
+            type="button"
+            onClick={ onSubmitForm }
+          >
+            Entrar
+          </button>
+        </form>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-Login.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSetValue: (payload) => dispatch(sendUserInfo(payload)),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
