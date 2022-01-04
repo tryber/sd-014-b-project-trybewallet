@@ -20,6 +20,11 @@ export const sendWalletExpenses = (payload) => ({
   payload,
 });
 
+export const deleteExpenses = (id) => ({
+  type: 'DELETE_EXPENSE',
+  id,
+});
+
 export const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
 });

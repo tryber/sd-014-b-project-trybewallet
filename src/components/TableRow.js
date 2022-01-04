@@ -1,8 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteExpenses } from '../actions';
 
 function TableRow() {
   const expensesWallet = useSelector((state) => state.wallet.expenses);
+  const dispatch = useDispatch();
   return (
     <table>
       <thead>
@@ -34,7 +36,12 @@ function TableRow() {
             <td>Real</td>
             <td>
               <button type="button">Editar</button>
-              <button type="button">Excluir</button>
+              <button
+                onClick={ () => dispatch(deleteExpenses(expense.id)) }
+                type="button"
+              >
+                Excluir
+              </button>
             </td>
           </tr>
         ))}
