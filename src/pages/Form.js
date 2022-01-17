@@ -15,7 +15,7 @@ class Form extends React.Component {
 
     this.state = {
       value: 2,
-      description: 'bundinha',
+      description: 'Example',
       currency: 'USD',
       method: 'money',
       tag: 'meals',
@@ -83,12 +83,9 @@ class Form extends React.Component {
     const idsArray = Object.keys(state);
     const valuesArray = Object.values(state);
 
-    const filteredCurrencies = Object
+    const currencyOptions = Object
       .keys(currencies)
       .filter((currency) => currency !== 'USDT');
-
-    const currencyOptions = filteredCurrencies
-      .map((filteredCurrency) => (filteredCurrency));
 
     return (
       <form>

@@ -11,7 +11,6 @@ function user(state = INITIAL_STATE, action) {
   switch (action.type) {
   case EMAIL_AND_PASSWORD:
     return {
-      ...state,
       email: action.email,
       password: action.password,
     };
