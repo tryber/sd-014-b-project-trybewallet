@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Button } from '@material-ui/core';
 import { fetchCurrenciesAPI, sendWalletExpenses } from '../actions';
 import fetchCoins from '../api/coins';
 import Select from './Select';
@@ -36,16 +37,14 @@ function Forms() {
   return (
     <div>
       <form>
-        <label htmlFor="input-expense">
-          Valor
-          <input
-            value={ value }
-            onChange={ ({ target }) => setValue(target.value) }
-            type="number"
-            id="input-expense"
-            name="value"
-          />
-        </label>
+        <TextField
+          label="Valor"
+          value={ value }
+          onChange={ ({ target }) => setValue(target.value) }
+          type="number"
+          id="input-expense"
+          name="value"
+        />
         <Select
           tag={ tag }
           method={ method }
@@ -55,19 +54,24 @@ function Forms() {
           setMethod={ ({ target }) => setMethod(target.value) }
           setCurrency={ ({ target }) => setCurrency(target.value) }
         />
-
-        <label htmlFor="input-description">
-          Descrição
-          <input
-            value={ description }
-            id="input-description"
-            name="description"
-            type="text"
-            onChange={ ({ target }) => setDescription(target.value) }
-          />
-        </label>
+        <TextField
+          label="Descrição"
+          value={ description }
+          id="input-description"
+          name="description"
+          type="text"
+          onChange={ ({ target }) => setDescription(target.value) }
+        />
       </form>
-      <button onClick={ onSubmitForm } type="button">Adicionar despesas</button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={ onSubmitForm }
+        type="button"
+      >
+        Adicionar despesas
+
+      </Button>
     </div>
   );
 }

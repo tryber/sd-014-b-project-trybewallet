@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { TextField, Button } from '@material-ui/core';
 import { sendUserInfo } from '../actions';
 import '../App.css';
 
@@ -22,37 +23,46 @@ function Login() {
   }
   const MININUM_NUMBER = 6;
   return (
-    <div>
-      <div>
-        <h2>Login</h2>
+    <div className="container">
+      <div className="login">
+        <div>
+          <h1>VIRTUAL WALLET</h1>
+          <img src="/pngegg.png" alt="coin sprite" />
+        </div>
         <form>
-          <label htmlFor="input-email">
-            Email:
-            <input
+          <div>
+            <TextField
+              variant="outlined"
+              label="E-mail"
               data-testid="email-input"
               id="input-email"
               name="email"
               type="text"
               onChange={ ({ target }) => setEmail(target.value) }
             />
-          </label>
-          <label htmlFor="input-password">
-            senha:
-            <input
+          </div>
+          <div>
+            <TextField
+              variant="outlined"
+              label="Senha"
               data-testid="password-input"
               type="password"
               name="senha"
               id="input-password"
               onChange={ ({ target }) => setSenha(target.value) }
             />
-          </label>
-          <button
-            disabled={ !isEmailValid(email) || senha.length < MININUM_NUMBER }
-            type="button"
-            onClick={ onSubmitForm }
-          >
-            Entrar
-          </button>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={ !isEmailValid(email) || senha.length < MININUM_NUMBER }
+              type="button"
+              onClick={ onSubmitForm }
+            >
+              Entrar
+            </Button>
+          </div>
         </form>
       </div>
     </div>
