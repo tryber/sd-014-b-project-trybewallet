@@ -36,8 +36,9 @@ function Forms() {
 
   return (
     <div>
-      <form>
+      <form className="expense-form">
         <TextField
+          variant="outlined"
           label="Valor"
           value={ value }
           onChange={ ({ target }) => setValue(target.value) }
@@ -55,6 +56,7 @@ function Forms() {
           setCurrency={ ({ target }) => setCurrency(target.value) }
         />
         <TextField
+          variant="outlined"
           label="Descrição"
           value={ description }
           id="input-description"
@@ -62,16 +64,18 @@ function Forms() {
           type="text"
           onChange={ ({ target }) => setDescription(target.value) }
         />
+        <div>
+          <Button
+            style={ { margin: '20px', width: '300px', height: '60px' } }
+            variant="contained"
+            color="secondary"
+            onClick={ onSubmitForm }
+            type="button"
+          >
+            Adicionar despesa
+          </Button>
+        </div>
       </form>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={ onSubmitForm }
-        type="button"
-      >
-        Adicionar despesas
-
-      </Button>
     </div>
   );
 }

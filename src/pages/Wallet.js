@@ -1,9 +1,11 @@
-import React from 'react';
+import { Button } from '@material-ui/core';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Forms from '../components/Forms';
 import TableRow from '../components/TableRow';
 
 function Wallet() {
+  const [formVisible, setFormVisible] = useState(false);
   const expenses = useSelector((state) => state.wallet.expenses);
   function handleExpenses() {
     const expense = expenses.reduce((acc, cur) => {
@@ -12,8 +14,6 @@ function Wallet() {
     }, 0);
     return expense;
   }
-
-  console.log(expenses);
 
   const email = useSelector((state) => state.user.email);
   return (
@@ -28,8 +28,17 @@ function Wallet() {
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
-      <Forms />
-      <TableRow />
+      <main className="main">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={ () => setFormVisible(true) }
+        >
+          Adicionar uma despesa
+        </Button>
+        {formVisible && <Forms />}
+        <TableRow />
+      </main>
     </div>
   );
 }

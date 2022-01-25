@@ -17,7 +17,7 @@ function TableRow() {
           <th>Cambio</th>
           <th>Valor convertido</th>
           <th>Moeda de conversão</th>
-          <th>Editar/excluir</th>
+          <th>Excluir</th>
         </tr>
       </thead>
       <tbody>
@@ -35,7 +35,6 @@ function TableRow() {
             </td>
             <td>Real</td>
             <td>
-              <button type="button">Editar</button>
               <button
                 onClick={ () => dispatch(deleteExpenses(expense.id)) }
                 type="button"

@@ -1,42 +1,35 @@
 import React from 'react';
+import { Select as Selector, MenuItem } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 function Select({ setTag, setMethod, setCurrency, tag, method, currency, coins }) {
   return (
-    <div>
-      <label htmlFor="input-coin">
-        Moeda
-        <select
-          name="currency"
-          value={ currency }
-          onChange={ setCurrency }
-          id="input-coin"
-        >
-          {coins.map((coin) => (
-            <option value={ coin } key={ coin }>
-              {coin}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor="input-method">
-        Método de pagamento
-        <select value={ method } onChange={ setMethod } name="method" id="input-method">
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-        </select>
-      </label>
-      <label htmlFor="input-tag">
-        Tag
-        <select value={ tag } onChange={ setTag } name="tag" id="input-tag">
-          <option value="Lazer">Lazer</option>
-          <option value="Alimentação">Alimentação</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
-      </label>
+    <div className="select">
+      <Selector
+        label="Moeda"
+        name="currency"
+        value={ currency }
+        onChange={ setCurrency }
+        id="input-coin"
+      >
+        {coins.map((coin) => (
+          <MenuItem value={ coin } key={ coin }>
+            {coin}
+          </MenuItem>
+        ))}
+      </Selector>
+      <Selector value={ method } onChange={ setMethod } name="method" id="input-method">
+        <MenuItem value="Dinheiro">Dinheiro</MenuItem>
+        <MenuItem value="Cartão de débito">Cartão de débito</MenuItem>
+        <MenuItem value="Cartão de crédito">Cartão de crédito</MenuItem>
+      </Selector>
+      <Selector value={ tag } onChange={ setTag } name="tag" id="input-tag">
+        <MenuItem value="Lazer">Lazer</MenuItem>
+        <MenuItem value="Alimentação">Alimentação</MenuItem>
+        <MenuItem value="Trabalho">Trabalho</MenuItem>
+        <MenuItem value="Transporte">Transporte</MenuItem>
+        <MenuItem value="Saúde">Saúde</MenuItem>
+      </Selector>
     </div>
   );
 }

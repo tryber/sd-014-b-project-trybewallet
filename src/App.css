@@ -21,7 +21,7 @@ th {
   align-items: center;
   background-color: white;
   border-radius: 2%;
-  box-shadow: 0 0 6px rgb(223, 222, 222);
+  box-shadow: 0 0 3px rgb(223, 222, 222);
   display: flex;
   flex-direction: column;
   height: 32rem;
@@ -50,11 +50,6 @@ th {
   width: 4rem;
 }
 
-span {
-  display: flex;
-  justify-content: center;
-}
-
 
 @keyframes coins {
 
@@ -66,3 +61,29 @@ span {
     transform: rotateY(90deg);
   }
 }
+
+.expense-form {
+  display: flex;
+  justify-content: center;
+  transition: 0.5s;
+  position: absolute;
+  z-index: 2;
+}
+
+.select , form {
+  align-items: center;
+  background-color: beige;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 3rem 0;
+  text-align: center;
+  width: 400px;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
