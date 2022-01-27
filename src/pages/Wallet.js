@@ -28,7 +28,8 @@ function Wallet() {
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
-      <main className="main">
+      <main style={ { filter: formVisible && 'blur(2px)' } } className="main">
+        {formVisible && <Forms setIsVisible={ () => setFormVisible(false) } />}
         <Button
           variant="contained"
           color="primary"
@@ -36,7 +37,6 @@ function Wallet() {
         >
           Adicionar uma despesa
         </Button>
-        {formVisible && <Forms />}
         <TableRow />
       </main>
     </div>

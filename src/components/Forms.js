@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
 import { fetchCurrenciesAPI, sendWalletExpenses } from '../actions';
@@ -6,7 +7,7 @@ import fetchCoins from '../api/coins';
 import Select from './Select';
 
 // eslint-disable-next-line max-lines-per-function
-function Forms() {
+function Forms({ setIsVisible }) {
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
   const [currency, setCurrency] = useState('USD');
@@ -37,6 +38,7 @@ function Forms() {
   return (
     <div>
       <form className="expense-form">
+        <h1>Informe sua despesa</h1>
         <TextField
           variant="outlined"
           label="Valor"
@@ -64,20 +66,33 @@ function Forms() {
           type="text"
           onChange={ ({ target }) => setDescription(target.value) }
         />
-        <div>
+        <span>
           <Button
-            style={ { margin: '20px', width: '300px', height: '60px' } }
+            style={ { margin: '20px', height: '60px' } }
             variant="contained"
-            color="secondary"
+            color="primary"
             onClick={ onSubmitForm }
             type="button"
           >
             Adicionar despesa
           </Button>
-        </div>
+          <Button
+            style={ { margin: '20px', height: '60px' } }
+            variant="contained"
+            color="secondary"
+            onClick={ setIsVisible }
+            type="button"
+          >
+            Fechar
+          </Button>
+        </span>
       </form>
     </div>
   );
 }
+
+Forms.propTypes = {
+  setIsVisible: propTypes.func.isRequired,
+};
 
 export default Forms;

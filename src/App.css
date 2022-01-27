@@ -2,6 +2,11 @@ body {
   background-color: #222;
 }
 
+table {
+  align-self: stretch;
+  color: white;
+}
+
 td {
   border: 1px solid black;
   text-align: center;
@@ -65,12 +70,13 @@ th {
 .expense-form {
   display: flex;
   justify-content: center;
-  transition: 0.5s;
   position: absolute;
+  transform: translate(100%, -10%);
+  transition: 0.5s;
   z-index: 2;
 }
 
-.select , form {
+.select , .expense-form {
   align-items: center;
   background-color: beige;
   display: flex;
@@ -82,8 +88,8 @@ th {
 }
 
 .main {
+  align-items: flex-start;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  flex-direction: column;
 }
 
