@@ -1,41 +1,106 @@
-.App {
+body {
+  background-color: #222;
+}
+
+table {
+  align-self: stretch;
+  color: white;
+}
+
+td {
+  border: 1px solid black;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+th {
+  border: 1px solid black;
+  height: 50px;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.container {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.login {
+  align-items: center;
+  background-color: white;
+  border-radius: 2%;
+  box-shadow: 0 0 3px rgb(223, 222, 222);
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  height: 32rem;
+  justify-content: space-evenly;
+  margin-top: 5rem;
+  text-align: center;
+  width: 29rem;
+}
+
+.login button {
+  height: 3rem;
+  width: 20rem;
+}
+
+.login input {
+  width: 20rem;
+}
+
+.login div {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login img {
+  animation: coins 1s ease-out 200ms infinite alternate;
+  width: 4rem;
+}
+
+
+@keyframes coins {
+
+  0% {
+    transform: rotateY(0);
+  }
+
+  100% {
+    transform: rotateY(90deg);
+  }
+}
+
+.expense-form {
+  border-radius: 2%;
+  display: flex;
   justify-content: center;
-  min-height: 100vh;
+  position: absolute;
+  transform: translate(110%, -10%);
+  transition: 0.5s;
+  z-index: 2;
 }
 
-.App-link {
-  color: #61dafb;
+.select , .expense-form {
+  align-items: center;
+  background-color: beige;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 3rem 0;
+  text-align: center;
+  width: 400px;
 }
 
-@keyframes App-logo-spin {
-
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.main {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
 }
+
+header {
+  align-items: center;
+  background-color: rgb(33, 132, 212);
+  box-shadow: 0 0 6px rgb(158, 196, 245);
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
