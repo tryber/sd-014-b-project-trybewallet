@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button } from '@material-ui/core';
 import { deleteExpenses } from '../actions';
 
 function TableRow() {
@@ -35,12 +36,14 @@ function TableRow() {
             </td>
             <td>Real</td>
             <td>
-              <button
+              <Button
+                color="secondary"
+                variant="outlined"
                 onClick={ () => dispatch(deleteExpenses(expense.id)) }
                 type="button"
               >
                 Excluir
-              </button>
+              </Button>
             </td>
           </tr>
         ))}

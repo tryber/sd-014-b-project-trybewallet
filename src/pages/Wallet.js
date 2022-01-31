@@ -18,8 +18,8 @@ function Wallet() {
   const email = useSelector((state) => state.user.email);
   return (
     <div>
-      <header>
-        <h1>TrybeWallet</h1>
+      <header style={ { filter: formVisible && 'blur(2px)' } }>
+        <h1>Virtual Wallet</h1>
         <span data-testid="email-field">{`Bem vindo(a) ${email}`}</span>
         <div
           data-testid="total-field"
@@ -28,9 +28,10 @@ function Wallet() {
           <span data-testid="header-currency-field">BRL</span>
         </div>
       </header>
-      <main style={ { filter: formVisible && 'blur(2px)' } } className="main">
+      <main className="main">
         {formVisible && <Forms setIsVisible={ () => setFormVisible(false) } />}
         <Button
+          style={ { marginBottom: '2rem' } }
           variant="contained"
           color="primary"
           onClick={ () => setFormVisible(true) }

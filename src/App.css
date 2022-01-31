@@ -14,6 +14,7 @@ td {
 
 th {
   border: 1px solid black;
+  height: 50px;
 }
 
 .container {
@@ -68,10 +69,11 @@ th {
 }
 
 .expense-form {
+  border-radius: 2%;
   display: flex;
   justify-content: center;
   position: absolute;
-  transform: translate(100%, -10%);
+  transform: translate(110%, -10%);
   transition: 0.5s;
   z-index: 2;
 }
@@ -91,5 +93,14 @@ th {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  align-items: center;
+  background-color: rgb(33, 132, 212);
+  box-shadow: 0 0 6px rgb(158, 196, 245);
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
 }
 
