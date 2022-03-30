@@ -1,0 +1,105 @@
+.header-wallet {
+  align-items: center;
+  background-color: rgb(223, 223, 223);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.info-header-wallet {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.expense-header-wallet {
+  display: flex;
+  margin-left: 20px;
+}
+
+h1 {
+  font-family: Futura, Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 60px;
+}
+
+p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 100;
+}
+
+.input-info {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+.input-info-wallet {
+  align-items: center;
+  background-color: rgb(61, 61, 61);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  padding: 15px;
+}
+
+input {
+  height: 25px;
+}
+
+label {
+  width: 100%;
+}
+
+button {
+  background-color: #09a369;
+  border: 1px solid #09a369;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 8px;
+}
+
+.section-table-wallet {
+  display: grid;
+  grid-auto-rows: minmax(50px, auto);
+}
+
+.table-head-wallet {
+  border: 1px solid gray;
+  grid-auto-rows: minmax(50px, auto);
+}
+
+.table-info-wallet {
+  grid-auto-rows: minmax(50px, auto);
+  text-align: center;
+}
+
+.table-btn-wallet {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.edit-btn {
+  margin-right: 8px;
+}
+
+.table-info-wallet , tr {
+  margin-left: 10px;
+}
+
