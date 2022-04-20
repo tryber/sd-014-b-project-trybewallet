@@ -1,0 +1,215 @@
+header {
+  background-color: rgb(111, 14, 202);
+  height: 250px;
+}
+
+header h1 {
+  color: whitesmoke;
+  margin: 0;
+}
+
+.container-header {
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 80%;
+}
+
+.container-header div:nth-child( 1 ) {
+  align-items: center;
+  display: flex;
+  color: whitesmoke;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.container-header div:nth-child( 2 ) {
+  color: whitesmoke;
+  text-align: center;
+}
+
+.container-header div:nth-child( 2 ) h2 {
+  color: rgb(166, 118, 255);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.total {
+  font-size: 50px;
+}
+
+.total span:nth-child( 2 ) {
+  margin-left: 10px;
+}
+
+.form-expense {
+  background-color: rgb(241, 241, 241);
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(119, 119, 119, 0.411);
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-top: -40px;
+  margin-bottom: 20px;
+  padding: 15px;
+  width: 60%;
+}
+
+.form-expense label {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-expense input {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.form-expense input:focus {
+  outline: none;
+}
+
+.form-expense select {
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.form-expense button {
+  border: none;
+  border-radius: 5px;
+  color: whitesmoke;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px;
+  width: 150px;
+}
+
+.add-expense {
+  background-color: rgb(143, 210, 112);
+}
+
+.edit-expense {
+  background-color: rgb(69, 142, 226);
+}
+
+.data-table {
+  background-color: rgb(241, 241, 241);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(119, 119, 119, 0.411);
+  margin: 0 auto;
+  margin-bottom: 20px;
+  overflow: hidden;
+  width: 60%;
+}
+
+.data-table h2 {
+  color: rgb(187, 187, 187);
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+thead {
+  background-color: rgb(111, 14, 202);
+  color: whitesmoke;
+}
+
+th {
+  border-left: 1px solid rgb(153, 61, 240);
+  padding: 10px 5px;
+}
+
+th:nth-child( 1 ) {
+  border-left: none;
+  width: 180px;
+}
+
+td {
+  border-left: 1px solid rgb(212, 212, 212);
+  border-top: 1px solid rgb(212, 212, 212);
+  padding: 10px 5px;
+}
+
+td:nth-child( 1 ) {
+  border-left: none;
+}
+
+td button {
+  border: none;
+  border-radius: 5px;
+  color: whitesmoke;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 8px;
+}
+
+.edit-btn {
+  background-color: rgb(69, 142, 226);
+  margin-right: 5px;
+}
+
+.delete-btn {
+  background-color: rgb(238, 67, 90);
+}
+
+@media (max-width: 1700px) { 
+  .form-expense {
+    width: 65%;
+  }
+
+  .data-table {
+    width: 65%;
+  }
+}
+
+@media (max-width: 1600px) { 
+  .form-expense {
+    width: 70%;
+  }
+
+  .data-table {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1500px) { 
+  .form-expense {
+    width: 75%;
+  }
+
+  .data-table {
+    width: 75%;
+  }
+}
+
+@media (max-width: 1400px) { 
+  .form-expense {
+    width: 80%;
+  }
+
+  .data-table {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1300px) { 
+  .form-expense {
+    width: 90%;
+  }
+
+  .data-table {
+    width: 90%;
+  }
+}
